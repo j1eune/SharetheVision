@@ -8,5 +8,7 @@
 </head>
 <body>
 	<!-- test -->
+	<h1>테스트입니다.</h1>
+	<!-- target폴더 테스트 -->
 </body>
 </html>
