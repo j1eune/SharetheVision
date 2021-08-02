@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
@@ -11,22 +11,20 @@
 
 
 
-	<!-- À¯½ÂÇö -->
+	<!-- ìœ ìŠ¹í˜„ -->
 	
 	
 	
 	
 	
-	
-	
-	 <!-- ÁöÀºtest3 -->
-	
-	
-	
-	<!-- °­Á¤È¯ test22 -->
+	 <!-- ì§€ì€test5 -->
 	
 	
 	
-	<!-- Àå¿øÇü222 -->
+	<!-- ê°•ì •í™˜ test22 -->
+	
+	
+	
+	<!-- ì¥ì›í˜•222 -->
 </body>
 </html>
