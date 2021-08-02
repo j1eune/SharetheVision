@@ -1,5 +1,9 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: ￬ﾜﾠ￬ﾊﾹ￭ﾘﾄ
+=======
+Built-By: rajet
+>>>>>>> 46e5d99d5d65c91eb46caed1288a2ba9ec593019
 Build-Jdk: 1.8.0_282
 Created-By: Maven Integration for Eclipse
 
