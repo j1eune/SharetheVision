@@ -8,6 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 	<c:import url="WEB-INF/views/member/login.jsp"/>
+	
 </body>
 </html>
