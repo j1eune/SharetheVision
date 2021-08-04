@@ -7,27 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-
-
-
-	<!-- 유승현 -->
-	
-	
-	
-	
-	 <!-- 지은test7 -->
-	
-	
-	
-	<!-- 강정환 test2 -->
-	
-	
-	
-	<!-- 장원형333 -->
-
-
-	<!-- 노은비 333 -->
-	
+	<div style="text-align: center;">
+		<h1>Error</h1>
+		
 </body>
 </html>
