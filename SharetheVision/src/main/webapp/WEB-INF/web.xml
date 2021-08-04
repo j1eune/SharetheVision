@@ -30,7 +30,7 @@
 		
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
-		<url-pattern>/</url-pattern>
+		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 
 	<!-- 인코딩 필터 -->
@@ -53,6 +53,20 @@
        <location>/WEB-INF/views/common/errorPage.jsp</location>
     </error-page>
     
+    <!-- The front controller of this Spring Web application, responsible for handling all application requests -->
+	<servlet>
+		<servlet-name>memberServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/member-context.xml</param-value>
+		</init-param>
+	</servlet>
+	<!-- Map all requests to the DispatcherServlet for handling -->
+	<servlet-mapping>
+		<servlet-name>memberServlet</servlet-name>
+		<url-pattern>*.me</url-pattern>
+	</servlet-mapping>
     
     
 	
