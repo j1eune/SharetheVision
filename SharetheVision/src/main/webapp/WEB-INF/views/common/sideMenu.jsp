@@ -33,14 +33,14 @@
         <ul class="pcoded-item pcoded-left-item">
             <li class="active">
                 <a href="home.jsp">
-                    <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                    <span class="pcoded-micon" style="background-color: #660099;"><i class="ti-home"></i><b>D</b></span>
                     <span class="pcoded-mtext" data-i18n="nav.dash.main">메인화면</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
             <li class="pcoded-hasmenu">
                 <a href="javascript:void(0)">
-                    <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+                    <span class="pcoded-micon" style="background-color:#FFB64D;"><i class="ti-layout-grid2-alt"></i></span>
                     <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Components</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
@@ -157,7 +157,7 @@
             <li class="pcoded-hasmenu">
                 <a href="javascript:void(0)">
                     <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                    <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Pages</span>
+                    <span class="pcoded-mtext" data-i18n="nav.basic-components.main">Pages</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
                 <ul class="pcoded-submenu">

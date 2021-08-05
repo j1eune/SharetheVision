@@ -22,13 +22,13 @@ pageEncoding="UTF-8"%>
             <ul class="nav-left">
                 <li class="header-notification">
                     <a href="#!">
-                        <i class="ti-bell"></i>
+                        <i class="ti-bell" style="color: #660099;"></i>
                         <span class="badge bg-c-purple"></span>
                     </a>
                     <ul class="show-notification">
                         <li>
-                            <h6>Notifications</h6>
-                            <label class="label label-danger">New</label>
+                            <h6 style="color: #660099;">Notifications</h6>
+                            <label class="label label-purple">New</label>
                         </li>
                         <li>
                             <div class="media">
@@ -61,13 +61,13 @@ pageEncoding="UTF-8"%>
                 </li>
                 <li class="header-notification">
                     <a href="#!">
-                        <i class="ti-comment"></i>
+                        <i class="ti-comment" style="color: #660099;"></i>
                         <span class="badge bg-c-purple"></span>
                     </a>
                     <ul class="show-notification Messenger">
                         <li>
-                            <h6>Messenger</h6>
-                            <label class="label label-danger">New</label>
+                            <h6 style="color: #660099;">Messenger</h6>
+                            <label class="label label-purple">New</label>
                         </li>
                         <li>
                             <div class="media">
@@ -96,7 +96,7 @@ pageEncoding="UTF-8"%>
                 <li class="user-profile header-notification">
                     <a href="#!">
                         <img src="resources/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                        <span> 홍길동 님</span>
+                        <span style="color: #660099;"> 홍길동 님</span>
                         <i class="ti-angle-down" style="color:#660099;"></i>
                     </a>
                     <ul class="show-notification profile-notification">
