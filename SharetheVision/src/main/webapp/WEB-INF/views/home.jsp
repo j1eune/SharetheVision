@@ -88,6 +88,22 @@
                                         <div class="col-md-6 col-xl-3">
                                             <div class="card widget-card-1">
                                                 <div class="card-block-small">
+                                                    <i class="icofont icofont-warning-alt bg-c-purple card1-icon"></i>
+                                                    <span class="text-c-purple f-w-600">연차사용</span>
+                                                    <h4>3 / 15</h4>
+                                                    <div>
+                                                        <span class="f-left m-t-10 text-muted">
+                                                            <i class="text-c-purple f-16 icofont icofont-tag m-r-10"></i>여름휴가 포함
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- card1 end -->
+                                        <!-- card1 start -->
+                                        <div class="col-md-6 col-xl-3">
+                                            <div class="card widget-card-1">
+                                                <div class="card-block-small">
                                                     <i class="icofont icofont-pie-chart bg-c-blue card1-icon"></i>
                                                     <span class="text-c-blue f-w-600">Attendance</span>
                                                     <h4>80/100</h4>
@@ -110,22 +126,6 @@
                                                     <div>
                                                         <span class="f-left m-t-10 text-muted">
                                                             <i class="text-c-pink f-16 icofont icofont-calendar m-r-10"></i>추석
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- card1 end -->
-                                        <!-- card1 start -->
-                                        <div class="col-md-6 col-xl-3">
-                                            <div class="card widget-card-1">
-                                                <div class="card-block-small">
-                                                    <i class="icofont icofont-warning-alt bg-c-purple card1-icon"></i>
-                                                    <span class="text-c-purple f-w-600">연차사용</span>
-                                                    <h4>3 / 15</h4>
-                                                    <div>
-                                                        <span class="f-left m-t-10 text-muted">
-                                                            <i class="text-c-purple f-16 icofont icofont-tag m-r-10"></i>여름휴가 포함
                                                         </span>
                                                     </div>
                                                 </div>
