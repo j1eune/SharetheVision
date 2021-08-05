@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
-<nav class="navbar header-navbar pcoded-header">
-    <div class="navbar-wrapper">
+<nav class="navbar header-navbar pcoded-header" style="background-color: #660099;">
+    <div class="navbar-wrapper" >
         <div class="navbar-logo" style="background-color: #660099">
 <!-- <a class="mobile-menu" id="mobile-collapse" href="#!"> -->
 <!-- <i class="ti-menu"></i> -->
@@ -22,13 +22,13 @@ pageEncoding="UTF-8"%>
             <ul class="nav-left">
                 <li class="header-notification">
                     <a href="#!">
-                        <i class="ti-bell" style="color: #660099;"></i>
-                        <span class="badge bg-c-purple"></span>
+                        <i class="ti-bell" style="color: #FFB64D; font-weight: bolder;"></i>
+                        <span class="badge bg-c-yellow"></span>
                     </a>
                     <ul class="show-notification">
                         <li>
-                            <h6 style="color: #660099;">Notifications</h6>
-                            <label class="label label-purple">New</label>
+                            <h6 style="color: #660099;" >Notifications</h6>
+                            <label class="label label-warning">New</label>
                         </li>
                         <li>
                             <div class="media">
@@ -61,13 +61,13 @@ pageEncoding="UTF-8"%>
                 </li>
                 <li class="header-notification">
                     <a href="#!">
-                        <i class="ti-comment" style="color: #660099;"></i>
-                        <span class="badge bg-c-purple"></span>
+                        <i class="ti-comment" style="color: #FFB64D; font-weight: bolder;"></i>
+                        <span class="badge bg-c-yellow"></span>
                     </a>
                     <ul class="show-notification Messenger">
                         <li>
                             <h6 style="color: #660099;">Messenger</h6>
-                            <label class="label label-purple">New</label>
+                            <label class="label label-warning">New</label>
                         </li>
                         <li>
                             <div class="media">
@@ -82,7 +82,7 @@ pageEncoding="UTF-8"%>
                     </ul>
                 </li>
                 <li class="header-notification">
-                    <span style="color: #660099;">알림 메세지 ( ) 건 </span>
+                    <span style="color: #e0e0e0;">알림 메세지 ( ) 건 </span>
                 </li>
             </ul>
 
@@ -90,8 +90,8 @@ pageEncoding="UTF-8"%>
                 <li class="user-profile header-notification">
                     <a href="#!">
                         <img src="resources/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                        <span style="color: #660099;"> 홍길동 님</span>
-                        <i class="ti-angle-down" style="color:#660099;"></i>
+                        <span style="color: #e0e0e0; font-weight: bolder;"> 홍길동 님</span>
+                        <i class="ti-angle-down" style="color: #e0e0e0; font-weight: bolder;"></i>
                     </a>
                     <ul class="show-notification profile-notification">
                         <li>
