@@ -63,7 +63,7 @@
                                             <h4>3 / 15</h4>
                                             <div>
                                                 <span class="f-left m-t-10 text-muted">
-                                                    <i class="text-c-purple f-16 icofont icofont-tag m-r-10"></i>여름휴가 포함
+                                                    <i class="text-c-purple f-16 icofont icofont-tag m-r-10"></i>2021년도
                                                 </span>
                                             </div>
                                         </div>
@@ -75,8 +75,8 @@
                                     <div class="card widget-card-1">
                                         <div class="card-block-small">
                                             <i class="icofont icofont-pie-chart bg-c-blue card1-icon"></i>
-                                            <span class="text-c-blue f-w-600">Attendance</span>
-                                            <h4>80/100</h4>
+                                            <span class="text-c-blue f-w-600">근태현황</span>
+                                            <h4>97/100%</h4>
                                             <div>
                                                 <span class="f-left m-t-10 text-muted">
                                                     <i class="text-c-blue f-16 icofont icofont-warning m-r-10"></i>지각: 3회
@@ -91,11 +91,11 @@
                                     <div class="card widget-card-1">
                                         <div class="card-block-small">
                                             <i class="icofont icofont-ui-home bg-c-pink card1-icon"></i>
-                                            <span class="text-c-pink f-w-600">Bonus</span>
+                                            <span class="text-c-pink f-w-600">보너스</span>
                                             <h4>$50,000</h4>
                                             <div>
                                                 <span class="f-left m-t-10 text-muted">
-                                                    <i class="text-c-pink f-16 icofont icofont-calendar m-r-10"></i>추석
+                                                    <i class="text-c-pink f-16 icofont icofont-calendar m-r-10"></i>초과근무 포상
                                                 </span>
                                             </div>
                                         </div>
@@ -107,11 +107,11 @@
                                     <div class="card widget-card-1">
                                         <div class="card-block-small">
                                             <i class="icofont icofont-social-twitter bg-c-yellow card1-icon"></i>
-                                            <span class="text-c-yellow f-w-600">연차사용</span>
-                                            <h4>3/15</h4>
+                                            <span class="text-c-yellow f-w-600">결재서류</span>
+                                            <h4>UI 기획안</h4>
                                             <div>
                                                 <span class="f-left m-t-10 text-muted">
-                                                    <i class="text-c-yellow f-16 icofont icofont-refresh m-r-10"></i>여름휴가 포함
+                                                    <i class="text-c-yellow f-16 icofont icofont-refresh m-r-10"></i> 제출 /완료
                                                 </span>
                                             </div>
                                         </div>
@@ -214,7 +214,7 @@
                                                         <span class="cr">
                                                             <i class="cr-icon icofont icofont-ui-check txt-default"></i>
                                                         </span>
-                                                        <span><h6>DB에 있는 To do list 테이블 가져와서 개인업무 뿌리기, 체크박스 cr <span class="label bg-c-blu m-l-10 f-10">**</span></h6></span>
+                                                        <span><h6>DB에 있는 To do list 테이블 가져와서 개인업무 뿌리기 <span class="label bg-c-blue m-l-10 f-10">**</span></h6></span>
                                                     </label>
                                                 </div>
                                             </div>

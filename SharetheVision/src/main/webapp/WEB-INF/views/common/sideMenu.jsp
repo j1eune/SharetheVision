@@ -1,27 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	    pageEncoding="UTF-8"%> 
 <nav class="pcoded-navbar">
-    <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+    <div style="height: 100px;"></div>
+    <div class="sidebar_toggle">
+        <i class="ti-angle-left" style="color:#660099;"></i>
+        <a class="mobile-menu" id="mobile-collapse" href="#!">
+        </a>
+    </div>
     <div class="pcoded-inner-navbar main-menu">
-        <div class="">
-            <div class="main-menu-header">
-                <img class="img-40 img-radius" src="resources/assets/images/avatar-4.jpg" alt="User-Profile-Image">
-                <div class="user-details">
-                    <span>John Doe</span>
-                    <span id="more-details">UX Designer<i class="ti-angle-down"></i></span>
-                </div>
-            </div>
-
-            <div class="main-menu-content">
-                <ul>
-                    <li class="more-details">
-                        <a href="#"><i class="ti-user"></i>View Profile</a>
-                        <a href="#!"><i class="ti-settings"></i>Settings</a>
-                        <a href="auth-normal-sign-in.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
         <div class="pcoded-search">
             <span class="searchbar-toggle">  </span>
             <div class="pcoded-search-box ">
