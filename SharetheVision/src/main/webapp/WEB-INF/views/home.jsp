@@ -121,11 +121,11 @@
                                             <div class="card widget-card-1">
                                                 <div class="card-block-small">
                                                     <i class="icofont icofont-warning-alt bg-c-purple card1-icon"></i>
-                                                    <span class="text-c-green f-w-600">연차사용</span>
+                                                    <span class="text-c-purple f-w-600">연차사용</span>
                                                     <h4>3 / 15</h4>
                                                     <div>
                                                         <span class="f-left m-t-10 text-muted">
-                                                            <i class="text-c-green f-16 icofont icofont-tag m-r-10"></i>여름휴가 포함
+                                                            <i class="text-c-purple f-16 icofont icofont-tag m-r-10"></i>여름휴가 포함
                                                         </span>
                                                     </div>
                                                 </div>

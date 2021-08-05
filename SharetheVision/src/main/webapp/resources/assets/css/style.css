@@ -8948,12 +8948,15 @@ table.footable-paging-center > tfoot > tr.footable-paging > td {
 
 .bg-c-yellow {
   background-color: #FFB64D; }
+
+.text-c-yellow {
+  color: #FFB64D; }
   
 .bg-c-purple {
   background-color: #660099; }
 
-.text-c-yellow {
-  color: #FFB64D; }
+.text-c-purple {
+  color: #660099; }
 
 .bg-c-orenge {
   background-color: #FE8A7D; }
