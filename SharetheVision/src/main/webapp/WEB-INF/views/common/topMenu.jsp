@@ -9,7 +9,7 @@ pageEncoding="UTF-8"%>
             <a class="mobile-search morphsearch-search" href="#">
                 <i class="ti-search"></i>
             </a>
-            <a href="index.html">
+            <a href="index.jsp">
 <!-- <img class="img-fluid" src="resources/assets/images/logo.png" alt="Theme-Logo" /> -->
                 <img class="img-fluid" src="resources/assets/images/SVlogo.png" alt="Theme-Logo" />
             </a>
@@ -20,17 +20,6 @@ pageEncoding="UTF-8"%>
 
         <div class="navbar-container container-fluid">
             <ul class="nav-left">
-                <li>
-                    <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a></div>
-                </li>
-
-                <li>
-                    <a href="#!" onclick="javascript:toggleFullScreen()">
-                        <i class="ti-fullscreen"></i>
-                    </a>
-                </li>
-            </ul>
-            <ul class="nav-right">
                 <li class="header-notification">
                     <a href="#!">
                         <i class="ti-bell"></i>
@@ -43,17 +32,6 @@ pageEncoding="UTF-8"%>
                         </li>
                         <li>
                             <div class="media">
-                                <img class="d-flex align-self-center img-radius" src="resources/assets/images/avatar-4.jpg" alt="Generic placeholder image">
-                                <div class="media-body">
-                                    <h5 class="notification-user">New Message</h5>
-                                    <p class="notification-msg"> (발신인)님으로부터 새로운 메시지 </p>
-                                    <span class="notification-time">time hh:mm:ss</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="media">
-                                <img class="d-flex align-self-center img-radius" src="resources/assets/images/avatar-3.jpg" alt="Generic placeholder image">
                                 <div class="media-body">
                                     <h5 class="notification-user">결재 승인 </h5>
                                     <p class="notification-msg"> Complete / Reject </p>
@@ -63,7 +41,6 @@ pageEncoding="UTF-8"%>
                         </li>
                         <li>
                             <div class="media">
-                                <img class="d-flex align-self-center img-radius" src="resources/assets/images/avatar-4.jpg" alt="Generic placeholder image">
                                 <div class="media-body">
                                     <h5 class="notification-user">New Project </h5>
                                     <p class="notification-msg"> (소속팀) UI 설계 프로젝트 </p>
@@ -73,7 +50,6 @@ pageEncoding="UTF-8"%>
                         </li>
                         <li>
                             <div class="media">
-                                <img class="d-flex align-self-center img-radius" src="resources/assets/images/avatar-4.jpg" alt="Generic placeholder image">
                                 <div class="media-body">
                                     <h5 class="notification-user">내 게시글 댓글 알림</h5>
                                     <p class="notification-msg"> 게시글 : (게시글 제목) </p>
@@ -83,11 +59,45 @@ pageEncoding="UTF-8"%>
                         </li>
                     </ul>
                 </li>
+                <li class="header-notification">
+                    <a href="#!">
+                        <i class="ti-comment"></i>
+                        <span class="badge bg-c-purple"></span>
+                    </a>
+                    <ul class="show-notification Messenger">
+                        <li>
+                            <h6>Messenger</h6>
+                            <label class="label label-danger">New</label>
+                        </li>
+                        <li>
+                            <div class="media">
+                                <img class="d-flex align-self-center img-radius" src="resources/assets/images/avatar-4.jpg" alt="Generic placeholder image">
+                                <div class="media-body">
+                                    <h5 class="notification-user">New Message</h5>
+                                    <p class="notification-msg"> (발신인)님으로부터 새로운 메시지 </p>
+                                    <span class="notification-time">time hh:mm:ss</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="header-notification">
+                    <span style="color: #660099;">알림 메세지 ( ) 건 </span>
+                </li>
+            </ul>
+
+            <ul class="nav-right">
+                <li>
+                    <div class="sidebar_toggle"><a href="javascript:void(0)"></a></div>
+                </li>
+                <li>
+                   <input type="text" style="width:100px; border:0px;">
+                </li>
                 <li class="user-profile header-notification">
                     <a href="#!">
                         <img src="resources/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                        <span>User Name</span>
-                        <i class="ti-angle-down"></i>
+                        <span> 홍길동 님</span>
+                        <i class="ti-angle-down" style="color:#660099;"></i>
                     </a>
                     <ul class="show-notification profile-notification">
                         <li>
