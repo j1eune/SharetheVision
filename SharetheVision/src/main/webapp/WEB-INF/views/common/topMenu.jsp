@@ -87,12 +87,6 @@ pageEncoding="UTF-8"%>
             </ul>
 
             <ul class="nav-right">
-                <li>
-                    <div class="sidebar_toggle"><a href="javascript:void(0)"></a></div>
-                </li>
-                <li>
-                   <input type="text" style="width:100px; border:0px;">
-                </li>
                 <li class="user-profile header-notification">
                     <a href="#!">
                         <img src="resources/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
