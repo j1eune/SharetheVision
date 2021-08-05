@@ -120,12 +120,12 @@
                                         <div class="col-md-6 col-xl-3">
                                             <div class="card widget-card-1">
                                                 <div class="card-block-small">
-                                                    <i class="icofont icofont-warning-alt bg-c-green card1-icon"></i>
+                                                    <i class="icofont icofont-warning-alt bg-c-purple card1-icon"></i>
                                                     <span class="text-c-green f-w-600">연차사용</span>
                                                     <h4>3 / 15</h4>
                                                     <div>
                                                         <span class="f-left m-t-10 text-muted">
-                                                            <i class="text-c-green f-16 icofont icofont-tag m-r-10"></i>여름휴가 +3
+                                                            <i class="text-c-green f-16 icofont icofont-tag m-r-10"></i>여름휴가 포함
                                                         </span>
                                                     </div>
                                                 </div>
@@ -137,11 +137,11 @@
                                             <div class="card widget-card-1">
                                                 <div class="card-block-small">
                                                     <i class="icofont icofont-social-twitter bg-c-yellow card1-icon"></i>
-                                                    <span class="text-c-yellow f-w-600">Followers</span>
-                                                    <h4>+562</h4>
+                                                    <span class="text-c-yellow f-w-600">연차사용</span>
+                                                    <h4>3/15</h4>
                                                     <div>
                                                         <span class="f-left m-t-10 text-muted">
-                                                            <i class="text-c-yellow f-16 icofont icofont-refresh m-r-10"></i>Just update
+                                                            <i class="text-c-yellow f-16 icofont icofont-refresh m-r-10"></i>여름휴가 포함
                                                         </span>
                                                     </div>
                                                 </div>
