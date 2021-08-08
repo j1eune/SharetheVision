@@ -10,4 +10,26 @@ public class MemberController {
 	public String login() {
 		return "../home";
 	}
+	
+	@RequestMapping("findPwdForm.me")
+	public String findPwdForm() {
+		return "findPwd";
+	}
+	
+	@RequestMapping("emailCheck.me")
+	public String emailCheck() {
+		return "emailCheck";
+	}
+	
+	@RequestMapping("updatePwdForm.me")
+	public String updatePwdForm() {
+		return "changePwd";
+	}
+	
+	@RequestMapping("updatePwd.me")
+	public String updatePwd() {
+		// request로 return 수정
+		return "../../../index";
+	}
+		
 }
