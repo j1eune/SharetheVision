@@ -22,6 +22,9 @@
 <script type="text/javascript" src="resources/assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
 <!-- modernizr js -->
 <script type="text/javascript" src="resources/assets/js/modernizr/modernizr.js"></script>
+<!-- Morris Chart js -->
+<script src="assets/js/raphael/raphael.min.js"></script>
+<script src="assets/js/morris.js/morris.js"></script>
 <!-- am chart -->
 <script src="resources/assets/pages/widget/amchart/amcharts.min.js"></script>
 <script src="resources/assets/pages/widget/amchart/serial.min.js"></script>
