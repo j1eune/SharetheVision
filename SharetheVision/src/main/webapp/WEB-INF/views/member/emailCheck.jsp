@@ -55,51 +55,32 @@
                 <div class="col-sm-12">
                     <!-- Authentication card start -->
                     <div class="login-card card-block auth-body mr-auto ml-auto">
-                        <form action="login.me" method="post" class="md-float-material">
+                        <form action="updatePwdForm.me" method="post" class="md-float-material">
 <!--                             <div class="text-center"> -->
 <!--                                 <img src="resources/assets/images/loginLogo.png" alt="logo.png" style="width:80%;"> -->
 <!--                             </div> -->
                             <div class="auth-box">
                                 <div class="row m-b-20">
-                                    <div class="col-md-12">
-<!--                                         <h3 class="text-left txt-primary">Sign In</h3> -->
-										<img src="resources/assets/images/loginLogo.png" style="width: 70%">
+                                    <div class="col-md-12" style="text-align: left">
+                                        <h3 class="text-left txt-primary">비밀번호 찾기</h3>
+                                        <span class="text-left" style="color: black;">인증번호가 발송 되었습니다.</span><span id="displayTimer" style="color: red; padding-left: 10px;"></span>
                                     </div>
                                 </div>
                                 <hr/>
+                                <br>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Id">
+                                    <input type="text" class="form-control" name="certification" placeholder="인증문자를 입력해주세요">
                                     <span class="md-line"></span>
                                 </div>
                                 <div class="input-group">
-                                    <input type="password" class="form-control" placeholder="Password">
-                                    <span class="md-line"></span>
-                                </div>
-                                <div class="row m-t-25 text-left">
-                                    <div class="col-sm-7 col-xs-12">
-                                        <div class="checkbox-fade fade-in-primary">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-5 col-xs-12 forgot-phone text-right">
-                                    	<c:url var="findPwdForm" value="findPwdForm.me">
-                                    	</c:url>
-                                        <a href="${findPwdForm }" class="text-right f-w-600 text-inverse"> 비밀번호 찾기</a>
-                                    </div>
+                                    <input type="hidden" name="id" placeholder="아이디">
                                 </div>
                                 <div class="row m-t-30">
                                     <div class="col-md-12">
-                                        <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">home.jsp가기</button>
+                                        <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">인증번호 입력</button>
                                     </div>
                                 </div>
                                 <hr/>
-                                <div class="row">
-                                    <div class="col-md-10">
-                                        <p class="text-inverse text-left m-b-0">Share the Vison을 이용해주셔서 감사합니다.</p>
-                                        <p class="text-inverse text-left"><b>SV Company</b></p>
-                                    </div>
-                                    <div class="col-md-2">
-                                    </div>
-                                </div>
 
                             </div>
                         </form>
@@ -113,50 +94,43 @@
         </div>
         <!-- end of container-fluid -->
     </section>
-    <!-- Warning Section Starts -->
-    <!-- Older IE warning message -->
-    <!--[if lt IE 9]>
-<div class="ie-warning">
-    <h1>Warning!!</h1>
-    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
-    <div class="iew-container">
-        <ul class="iew-download">
-            <li>
-                <a href="http://www.google.com/chrome/">
-                    <img src="resources/assets/images/browser/chrome.png" alt="Chrome">
-                    <div>Chrome</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.mozilla.org/en-US/firefox/new/">
-                    <img src="resources/assets/images/browser/firefox.png" alt="Firefox">
-                    <div>Firefox</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://www.opera.com">
-                    <img src="resources/assets/images/browser/opera.png" alt="Opera">
-                    <div>Opera</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.apple.com/safari/">
-                    <img src="resources/assets/images/browser/safari.png" alt="Safari">
-                    <div>Safari</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-                    <img src="resources/assets/images/browser/ie.png" alt="">
-                    <div>IE (9 & above)</div>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <p>Sorry for the inconvenience!</p>
-</div>
-<![endif]-->
-    <!-- Warning Section Ends -->
 </body>
+<script>
 
+	function $ComTimer(){
+	    //prototype extend
+	}
+	
+	$ComTimer.prototype = {
+	    comSecond : ""
+	    , fnCallback : function(){}
+	    , timer : ""
+	    , domId : ""
+	    , fnTimer : function(){
+	        var m = Math.floor(this.comSecond / 60) + "분 " + (this.comSecond % 60) + "초";	// 남은 시간 계산
+	        this.comSecond--;					// 1초씩 감소
+
+	        this.domId.innerText = m;
+	        if (this.comSecond < 0) {			// 시간이 종료 되었으면..
+	            clearInterval(this.timer);		// 타이머 해제
+	            alert("인증시간이 초과하였습니다. 다시 인증해주시기 바랍니다.");
+	            location.href="findPwdForm.me";
+	        }
+	    }
+	    ,fnStop : function(){
+	        clearInterval(this.timer);
+	    }
+	};
+	var AuthTimer = new $ComTimer();
+	
+	AuthTimer.comSecond = 180;
+	AuthTimer.fnCallback = function(){
+			alert("다시인증을 시도해주세요.");
+			location.href="findPwdForm.me";
+	};
+	AuthTimer.timer =  setInterval(function(){AuthTimer.fnTimer()},1000);
+	AuthTimer.domId = document.getElementById("displayTimer");
+
+
+</script>
 </html>

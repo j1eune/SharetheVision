@@ -55,51 +55,37 @@
                 <div class="col-sm-12">
                     <!-- Authentication card start -->
                     <div class="login-card card-block auth-body mr-auto ml-auto">
-                        <form action="login.me" method="post" class="md-float-material">
+                        <form onsubmit="return submitPwd();" action="updatePwd.me" method="post" class="md-float-material">
 <!--                             <div class="text-center"> -->
 <!--                                 <img src="resources/assets/images/loginLogo.png" alt="logo.png" style="width:80%;"> -->
 <!--                             </div> -->
                             <div class="auth-box">
                                 <div class="row m-b-20">
                                     <div class="col-md-12">
-<!--                                         <h3 class="text-left txt-primary">Sign In</h3> -->
-										<img src="resources/assets/images/loginLogo.png" style="width: 70%">
+                                        <h3 class="text-left txt-primary">비밀번호 변경</h3>
+                                        <br>
+                                        <span><i class="ti-lock" style="color: black;"></i></span>
+	                                    <span class="text-left" style="color:black;">비밀번호는 <span style="color: red;">숫자</span>와 <span style="color: red;">특수문자</span>를 반드시 포함해야합니다.</span>
                                     </div>
                                 </div>
                                 <hr/>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Id">
+                                <div>
+                                    <input type="password" class="form-control" id="newPwd" name="newPwd" required placeholder="새로운 비밀번호(8~12자리)" onkeyup="newPwdCheck();"/>
                                     <span class="md-line"></span>
                                 </div>
-                                <div class="input-group">
-                                    <input type="password" class="form-control" placeholder="Password">
+                                <div style="color: black; text-align: left; padding-top: 2px;" id="newPwdMessage"></div>
+                                <br>
+                                <div>
+                                    <input type="password" class="form-control" id="checkPwd" name="checkPwd" required placeholder="비밀번호 확인" onkeyup="checkPwdForm();">
                                     <span class="md-line"></span>
                                 </div>
-                                <div class="row m-t-25 text-left">
-                                    <div class="col-sm-7 col-xs-12">
-                                        <div class="checkbox-fade fade-in-primary">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-5 col-xs-12 forgot-phone text-right">
-                                    	<c:url var="findPwdForm" value="findPwdForm.me">
-                                    	</c:url>
-                                        <a href="${findPwdForm }" class="text-right f-w-600 text-inverse"> 비밀번호 찾기</a>
-                                    </div>
-                                </div>
+                                <div style="color: black; text-align: left; padding-top: 2px;" id="checkPwdMessage"></div>
                                 <div class="row m-t-30">
                                     <div class="col-md-12">
-                                        <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">home.jsp가기</button>
+                                        <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" onclick="submitPwd();">인증번호 받기</button>
                                     </div>
                                 </div>
                                 <hr/>
-                                <div class="row">
-                                    <div class="col-md-10">
-                                        <p class="text-inverse text-left m-b-0">Share the Vison을 이용해주셔서 감사합니다.</p>
-                                        <p class="text-inverse text-left"><b>SV Company</b></p>
-                                    </div>
-                                    <div class="col-md-2">
-                                    </div>
-                                </div>
 
                             </div>
                         </form>
@@ -113,50 +99,71 @@
         </div>
         <!-- end of container-fluid -->
     </section>
-    <!-- Warning Section Starts -->
-    <!-- Older IE warning message -->
-    <!--[if lt IE 9]>
-<div class="ie-warning">
-    <h1>Warning!!</h1>
-    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
-    <div class="iew-container">
-        <ul class="iew-download">
-            <li>
-                <a href="http://www.google.com/chrome/">
-                    <img src="resources/assets/images/browser/chrome.png" alt="Chrome">
-                    <div>Chrome</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.mozilla.org/en-US/firefox/new/">
-                    <img src="resources/assets/images/browser/firefox.png" alt="Firefox">
-                    <div>Firefox</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://www.opera.com">
-                    <img src="resources/assets/images/browser/opera.png" alt="Opera">
-                    <div>Opera</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.apple.com/safari/">
-                    <img src="resources/assets/images/browser/safari.png" alt="Safari">
-                    <div>Safari</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-                    <img src="resources/assets/images/browser/ie.png" alt="">
-                    <div>IE (9 & above)</div>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <p>Sorry for the inconvenience!</p>
-</div>
-<![endif]-->
-    <!-- Warning Section Ends -->
 </body>
-
+<script>
+	userPwd = false;
+	checkPwd = false;
+	
+	function newPwdCheck(){
+		var regExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,12}$/;
+		var newPwd = document.getElementById("newPwd");
+		var pwd2 = document.getElementById("checkPwd");
+		var message = document.getElementById("newPwdMessage");
+		
+		var check = regExp.test(newPwd.value);
+		
+		if(check){
+			message.style.color = "blue";
+			message.innerHTML = "<sub>사용가능한 비밀번호 입니다.</sub>";
+			userPwd = true;
+			checkPwd = false;
+			
+			if(newPwd.value != pwd2.value){
+				checkPwdForm();
+			}
+		} else {
+			message.style.color = "red";
+			message.innerHTML = "<sub>사용 불가능한 비밀번호 입니다.</sub>";
+			userPwd = false;
+			checkPwd = false;
+			
+			if(newPwd.value != pwd2.value){
+				checkPwdForm();
+			}
+		}
+	}
+	
+	// 비밀번호 확인
+	function checkPwdForm(){
+		var pwd1 = document.getElementById("newPwd");
+		var pwd2 = document.getElementById("checkPwd");
+		var result = document.getElementById("checkPwdMessage");
+		
+		if(pwd1.value == pwd2.value){
+			result.style.color = "blue";
+			result.innerHTML = "<sub>비밀번호가 일치합니다.</sub><br>";
+			checkPwd = true;
+		} else {
+			result.style.color = "red";
+			result.innerHTML = "<sub>비밀번호가 일치하지 않습니다.</sub><br>";
+			checkPwd = false;
+		}
+		
+	}
+	
+	function submitPwd(){
+		if(userPwd && checkPwd){
+			console.log(userPwd);
+			console.log(checkPwd);
+			return true;
+		} else {
+			console.log(userPwd);
+			console.log(checkPwd);
+			alert("비밀번호를 확인해주세요");
+			return false;
+		}
+	}
+	
+	
+</script>
 </html>
