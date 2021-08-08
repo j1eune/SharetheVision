@@ -32,7 +32,7 @@
                 </a>
                 <ul class="pcoded-submenu">
                     <li class=" ">
-                        <a href="accordion.html">
+                        <a href="taView.jsp">
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                             <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">근태현황</span>
                             <span class="pcoded-mcaret"></span>
