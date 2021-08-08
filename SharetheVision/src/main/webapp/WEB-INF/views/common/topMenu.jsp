@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
-<nav class="navbar header-navbar pcoded-header" style="background-color: #660099;">
+<nav class="navbar header-navbar pcoded-header" style="background-color: #660099; box-shadow: 3px 3px 3px 3px gray;">
     <div class="navbar-wrapper" >
-        <div class="navbar-logo" style="background-color: #660099">
+        <div class="navbar-logo" style="background-color: #660099;">
 <!-- <a class="mobile-menu" id="mobile-collapse" href="#!"> -->
 <!-- <i class="ti-menu"></i> -->
-<!-- </a> -->
             <a class="mobile-search morphsearch-search" href="#">
                 <i class="ti-search"></i>
             </a>
@@ -17,9 +16,11 @@ pageEncoding="UTF-8"%>
                 <i class="ti-more"></i>
             </a>
         </div>
-
+<!-- top middle -->
         <div class="navbar-container container-fluid">
             <ul class="nav-left">
+            </ul>
+            <ul class="nav-right">                
                 <li class="header-notification">
                     <a href="#!">
                         <i class="ti-bell" style="color: #FFB64D; font-weight: bolder;"></i>
@@ -59,6 +60,7 @@ pageEncoding="UTF-8"%>
                         </li>
                     </ul>
                 </li>
+
                 <li class="header-notification">
                     <a href="#!">
                         <i class="ti-comment" style="color: #FFB64D; font-weight: bolder;"></i>
@@ -84,9 +86,8 @@ pageEncoding="UTF-8"%>
                 <li class="header-notification">
                     <span style="color: #e0e0e0;">알림 메세지 ( ) 건 </span>
                 </li>
-            </ul>
 
-            <ul class="nav-right">
+                <!-- top right 프로필-->
                 <li class="user-profile header-notification">
                     <a href="#!">
                         <img src="resources/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
