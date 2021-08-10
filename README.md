@@ -1,5 +1,8 @@
 # SharetheVision
 
+<DB.sql> : + 테이블, 시퀀스 create 
+
+
 <views/common> : + 파일추가 
 + common.jsp : CSS link, .js srcipt 분리 (script/Favicon icon) 부터 (concat.min.js/script)까지
 + sideMenu.jsp : 사이드바 분리 (nav class="pcoded-navbar") 부터 (/nav) 까지
