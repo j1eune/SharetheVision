@@ -27,7 +27,8 @@
 + sideMenu.jsp : 사이드바 분리
 + topMenu.jsp : 상단바 분리
 #
-+ <views/home.jsp>  
++ <views/home.jsp>
++ full Calendar 추가 (디자인수정중) 
 + < include > 
 + <jsp:include page="/WEB-INF/views/common/common.jsp" />
 + <jsp:include page="/WEB-INF/views/common/topMenu.jsp" />     
