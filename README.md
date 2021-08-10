@@ -1,5 +1,10 @@
 # SharetheVision
 
+<style.CSS>
+++ bg-c-white
+++ text-c-white 추가
+
+
 <DB.sql> : + 테이블, 시퀀스 create 
 
 
