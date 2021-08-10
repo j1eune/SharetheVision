@@ -26,7 +26,7 @@
             </li>
             <li class="pcoded-hasmenu">
                 <a href="javascript:void(0)">
-                    <span class="pcoded-micon" style="background-color:#FFB64D;"><i class="ti-bag"></i></span>
+                    <span class="pcoded-micon" style="background-color:#FFB64D;"><i class="icofont icofont-bag-alt"></i></span>
                     <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">근태관리</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
