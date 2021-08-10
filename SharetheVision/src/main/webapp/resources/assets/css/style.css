@@ -14353,3 +14353,9 @@ table.footable-paging-center > tfoot > tr.footable-paging > td {
     background-color: #444c67; }
 
 /*# sourceMappingURL=style.css.map */
+
+/* FULL CALENDAR API  */
+#calendar {
+  max-width: 1100px;
+  margin: 0 auto;
+}

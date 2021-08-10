@@ -252,16 +252,7 @@
 
                                 <!-- 캘린더 넣을 예정입니다 Statestics Start  -> Calendar Schedule ADD **-->
                                 <div class="col-md-12 col-xl-12">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5>Schedule</h5>
-                                            <div class="card-header-left"> 달력 넣을 자리</div>
-                                        </div>
-                                        <div class="card-block">
-                                            <div id="statestics-chart" style="height:517px;"></div>
-
-                                        </div>
-                                    </div>
+                                    <div id="calendar"> </div>
                                 </div>
                                 </div>
                             </div>
@@ -280,17 +271,84 @@
     </div>
 </div>
 
+
+<script src='../webapp/resources/assets/js/cd/calendar.js'></script>
 <script>
-var $window = $(window);
-var nav = $('.fixed-button');
-    $window.scroll(function(){
-        if ($window.scrollTop() >= 200) {
-         nav.addClass('active');
-     }
-     else {
-         nav.removeClass('active');
-     }
- });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialDate: '2021-08-15',
+      editable: true,
+      selectable: true,
+      select: function(arg) { 
+        console.log(arg); 
+        // 일정 등록
+        var title = prompt('입력할 일정:'); // title 값이 있을때, 화면에 calendar.addEvent() json형식으로 일정을 추가 
+        if (title) { 
+            calendar.addEvent({ 
+                title: title, 
+                start: arg.start, 
+                end: arg.end, 
+                allDay: arg.allDay, 
+                backgroundColor:"yellow", 
+                textColor:"blue" 
+            }) 
+        } 
+            calendar.unselect();
+
+      }, eventClick: function(arg) { 
+            // 기존 일정 클릭
+            console.log("#등록된 일정 클릭#"); 
+            console.log(arg.event); 
+          
+          if (confirm('해당 일정을 삭제하시겠습니까?')) { 
+                arg.event.remove();
+            } 
+        }, 
+      events: [
+        {
+          title: 'Final Project',
+          start: '2021-07-12',
+          end: '2021-09-15'
+        },
+        {
+          groupId: 999,
+          title: 'BR sale',
+          start: '2021-08-19'
+          end: '2021-08-11'
+        },
+        {
+          title: 'Happy Hour',
+          start: '2021-09-12T17:30:00'
+        },
+        {
+          title: 'Dinner',
+          start: '2021-09-12T20:00:00'
+        },
+        {
+          title: 'Birthday Party',
+          start: '2020-09-13T07:00:00'
+        },
+      ]
+    });
+
+    calendar.render();
+  });
+
+</script>
+
+    var $window = $(window);
+    var nav = $('.fixed-button');
+        $window.scroll(function(){
+            if ($window.scrollTop() >= 200) {
+            nav.addClass('active');
+        }
+        else {
+            nav.removeClass('active');
+        }
+    });
 </script>
 </body>
 
