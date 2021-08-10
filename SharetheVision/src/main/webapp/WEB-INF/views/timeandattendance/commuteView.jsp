@@ -194,7 +194,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="accordion-panel">
-                                                        <div class=" accordion-heading clickWeek" role="tab" id="headingThree">
+                                                        <div class="accordion-heading clickWeek" role="tab" id="headingThree">
                                                             <h3 class="card-title accordion-title">
                                                                 <a class="accordion-msg" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                                     <i class="icofont icofont-rounded-down"></i>
@@ -240,7 +240,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="accordion-panel">
-                                                        <div class=" accordion-heading" role="tab" id="headingFour">
+                                                        <div class="accordion-heading clickWeek" role="tab" id="headingFour">
                                                             <h3 class="card-title accordion-title">
                                                                 <a class="accordion-msg" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                                                                     <i class="icofont icofont-rounded-down"></i>
@@ -286,7 +286,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="accordion-panel">
-                                                        <div class=" accordion-heading clickWeek" role="tab" id="headingFive">
+                                                        <div class="accordion-heading clickWeek" role="tab" id="headingFive">
                                                             <h3 class="card-title accordion-title">
                                                                 <a class="accordion-msg" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
                                                                     <i class="icofont icofont-rounded-down"></i>
@@ -294,7 +294,7 @@
                                                                 </a>
                                                             </h3>
                                                         </div>
-                                                        <div id="collapseFive" class="panel-collapse collapse show" role="tabpanel" aria-labelledby="headingFive">
+                                                        <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
                                                             <div class="accordion-content accordion-desc">
                                                                 <div class="table-responsive">
                                                                     <table class="table table-hover">
@@ -415,6 +415,38 @@
                 nav.removeClass('active');
             }
         });
+            
+		$(function(){
+		    var dailyTr = $('.clickDaily').next('tr');
+		    dailyTr.css('display', 'none');
+		});
+		
+		$('.clickDaily').on('click', function(){
+		
+		    var currentRow = $(this);
+		    var detail = currentRow.next('tr');
+		    if(detail.is(":visible")){
+		        detail.hide();
+		    } else {
+		        detail.show();
+		        detail.css({'border':'2px solid #f2f2f2', 'cursor':'default', 'background-color':'white'});
+		    }
+		});
+		
+		var check = true;
+		$('.clickWeek').on('click', function(){
+		    var icon = $(this).find('i');
+		
+		    if(check){
+		        icon.removeClass('icofont-rounded-down').addClass('icofont-rounded-up');
+		        
+		        check = false;
+		    } else {
+		        icon.removeClass('icofont-rounded-up').addClass('icofont-rounded-down');
+		
+		        check = true;
+		    }
+		});
 	</script>
 	
 	<!-- test Chart -->

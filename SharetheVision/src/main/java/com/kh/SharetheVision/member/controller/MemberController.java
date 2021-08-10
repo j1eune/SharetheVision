@@ -8,7 +8,8 @@ public class MemberController {
 	
 	@RequestMapping("login.me")
 	public String login() {
-		return "../home";
+//		return "../home";
+		return "../timeandattendance/commuteView";
 	}
 	
 	@RequestMapping("findPwdForm.me")
