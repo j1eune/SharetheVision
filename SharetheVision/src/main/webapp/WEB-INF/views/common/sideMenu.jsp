@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	    pageEncoding="UTF-8"%> 
+	    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <nav class="pcoded-navbar">
     <div style="height: 100px;"></div>
     <div class="sidebar_toggle">
@@ -8,7 +9,29 @@
         </a>
     </div>
     <div class="pcoded-inner-navbar main-menu">
-        <div class="pcoded-search">
+		<div class="">
+			<div class="main-menu-header">
+				<img class="img-40 img-radius" src="resources/assets/images/avatar-4.jpg"
+					alt="User-Profile-Image">
+				<div class="user-details">
+					<span>홍길동</span> <span id="more-details">디자인 팀장<i
+						class="ti-angle-down"></i></span>
+				</div>
+			</div>
+
+			<div class="main-menu-content">
+				<ul>
+					<li class="more-details">
+						<c:url var="updateProfileForm" value="updateProfileForm.me">
+						</c:url>
+						<a href="${updateProfileForm }"><i class="ti-user"></i>View Profile</a>
+						<a href="#!"><i class="ti-settings"></i>Settings</a> 
+						<a href="auth-normal-sign-in.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="pcoded-search">
             <span class="searchbar-toggle">  </span>
             <div class="pcoded-search-box ">
                 <input type="text" placeholder="Search">

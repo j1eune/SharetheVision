@@ -31,5 +31,10 @@ public class MemberController {
 		// request로 return 수정
 		return "../../../index";
 	}
+	
+	@RequestMapping("updateProfileForm.me")
+	public String updateProfile() {
+		return "memberUpdateForm";
+	}
 		
 }
