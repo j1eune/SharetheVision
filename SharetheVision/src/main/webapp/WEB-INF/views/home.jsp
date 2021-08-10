@@ -5,12 +5,7 @@
 <html>
 <head>
     <title> Welcome SV Company! </title>
-    <!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <![endif]-->
+
       <!-- Meta -->
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -192,7 +187,7 @@
                                                 <h5>To do list</h5>
                                             </div>
                                             <div class="card-header-right">
-                                                <button class="btn btn-card" id="addTodo" style="background-color: #660099;">ADD + </button>
+                                                <button class="btn btn-card bg-c-purple text-c-white" id="addTodo">ADD + </button>
                                             </div>
                                         </div>
                                         <div class="card-block">
@@ -276,8 +271,8 @@
             </div>
         </div>
         <div class="fixed-button" >
-            <a href="#!" style="background-color: #eeebeb;;" target="_blank" class="btn-sm btn-outline-primary">
-                <i class="ti-angle-up" style="color:#660099;"></i>
+            <a href="#!" target="_blank" class="btn-sm bg-c-purple">
+                <i class="ti-angle-up text-c-white" ></i>
             </a>
         </div>
     </div>
