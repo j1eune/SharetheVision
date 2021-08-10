@@ -4,21 +4,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title> Welcome SV Company! </title>
+<title> Welcome SV Company! </title>
+ <!-- Meta -->
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+ <meta name="description" content="CodedThemes">
+ <meta name="keywords" content=" Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+ <meta name="author" content="CodedThemes">
 
-      <!-- Meta -->
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="description" content="CodedThemes">
-      <meta name="keywords" content=" Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
-      <meta name="author" content="CodedThemes">
-	 
-	  <jsp:include page="/WEB-INF/views/common/common.jsp" />
+<!-- calendar -->
+<link rel="stylesheet" href="resources/vendor/css/fullcalendar.min.css" />
+<link rel="stylesheet" href='resources/vendor/css/select2.min.css' />
+<link rel="stylesheet" href="resources/vendor/css/main.css">
+  	 
+<jsp:include page="/WEB-INF/views/common/common.jsp" />
 
 </head>
-
 <body>
+
 <!-- Pre-loader start -->
 <div class="theme-loader">
     <div class="ball-scale">
@@ -119,7 +123,7 @@
                                     <div class="card project-task" style="height: 350px;">
                                         <div class="card-header">
                                             <div class="card-header-left ">
-                                                <h5>Project & task</h5>
+                                                <h4>Project & task</h4>
                                             </div>
                                             <!-- 팀장급만 프로젝트 추가 권한 조건 {-->
                                             <!-- <div class="card-header-right">
@@ -184,9 +188,10 @@
                                     <div class="card add-task-card" style="height: 350px; overflow-y:scroll;">
                                         <div class="card-header">
                                             <div class="card-header-left">
-                                                <h5>To do list</h5>
+                                                <h4>To do list</h4>
                                             </div>
                                             <div class="card-header-right">
+                                                <button class="btn btn-card bg-c-purple text-c-white" id="addTodo">Del ㅡ </button>
                                                 <button class="btn btn-card bg-c-purple text-c-white" id="addTodo">ADD + </button>
                                             </div>
                                         </div>
@@ -198,7 +203,7 @@
                                                         <span class="cr">
                                                             <i class="cr-icon icofont icofont-ui-check txt-default"></i>
                                                         </span>
-                                                        <span><h6>Schedule Meeting with Compnes <span class="label bg-c-yellow m-l-10 f-10">***</span></h6></span>
+                                                        <span><h6>Schedule Meeting with Compnes </h6></span>
                                                     </label>
                                                 </div>
                                             </div>
@@ -209,7 +214,7 @@
                                                         <span class="cr">
                                                             <i class="cr-icon icofont icofont-ui-check txt-default"></i>
                                                         </span>
-                                                        <span><h6>DB에 있는 To do list 테이블 가져와서 개인업무 뿌리기 <span class="label bg-c-blue m-l-10 f-10">**</span></h6></span>
+                                                        <span><h6>DB에 있는 To do list 테이블 가져와서 개인업무 뿌리기</h6></span>
                                                     </label>
                                                 </div>
                                             </div>
@@ -220,7 +225,7 @@
                                                         <span class="cr">
                                                             <i class="cr-icon icofont icofont-ui-check txt-default"></i>
                                                         </span>
-                                                        <span><h6>기능구현할때 로그 써논 장소 적어뒀다가 지우는거 까먹지 말기<span class="label bg-c-pink m-l-10 f-10">*</span></h6></span>
+                                                        <span><h6>기능구현할때 로그 써논 장소 적어뒀다가 지우는거 까먹지 말기</h6></span>
                                                     </label>                                                            
                                                 </div>
                                             </div>
@@ -231,7 +236,7 @@
                                                         <span class="cr">
                                                             <i class="cr-icon icofont icofont-ui-check txt-default"></i>
                                                         </span>
-                                                        <span><h6>팀장급만 프로젝트 ADD 버튼 보이게 하는 조건식 쓰기, 버튼 디자인 정돈하기 <span class="label bg-c-blue m-l-10 f-10">**</span></h6></span>
+                                                        <span><h6>팀장급만 프로젝트 ADD 버튼 보이게 하는 조건식 쓰기, 버튼 디자인 정돈하기 </h6></span>
                                                     </label>
                                                 </div>
                                             </div>
@@ -242,7 +247,7 @@
                                                         <span class="cr">
                                                             <i class="cr-icon icofont icofont-ui-check txt-default"></i>
                                                         </span>
-                                                        <span><h6>작업시작시 README 일기, Fetch/pull 하고 시작하기, 마지막에 push  <span class="label bg-c-blue m-l-10 f-10">**</span></h6></span>
+                                                        <span><h6>작업시작시 README 일기, Fetch/pull 하고 시작하기, 마지막에 push </h6></span>
                                                     </label>
                                                 </div>
                                             </div>
@@ -250,10 +255,90 @@
                                     </div>
                                 </div>   
 
-                                <!-- 캘린더 넣을 예정입니다 Statestics Start  -> Calendar Schedule ADD **-->
+           <!--   ***************캘린더 Calendar Schedule *************************  -->
                                 <div class="col-md-12 col-xl-12">
-                                    <div id="calendar"> </div>
+                                <div class="card">                                   
+                                    <div class="container">
+                                    
+							        <!-- 일자 클릭시 메뉴오픈 -->
+							        <div id="contextMenu" class="dropdown clearfix">
+							            <ul class="dropdown-menu dropNewEvent" role="menu" aria-labelledby="dropdownMenu"
+							                style="display:block;position:static;margin-bottom:5px;">
+							                <li><a tabindex="-1" href="#">부서일정</a></li>
+							                <li><a tabindex="-1" href="#">개인일정</a></li>
+							                <li class="divider"></li>
+							                <li><a tabindex="-1" href="#" data-role="close">Close</a></li>
+							            </ul>
+							        </div>
+							
+							        <div id="wrapper">
+							            <div id="loading"></div>
+							            <div id="calendar"></div>
+							        </div>
+							
+							        <!-- 일정 추가 MODAL -->
+							        <div class="modal fade" tabindex="-1" role="dialog" id="eventModal">
+							            <div class="modal-dialog" role="document">
+							                <div class="modal-content">
+							                    <div class="modal-header">
+							                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							                        <span aria-hidden="true">&times;</span></button>
+							                        <h4 class="modal-title"></h4>
+							                    </div>
+							                    <div class="modal-body">
+							                        <div class="row">
+							                            <div class="col-xs-12">
+							                                <label class="col-xs-4" for="edit-title">일정 제목:</label>
+							                                <input class="inputModal" type="text" name="edit-title" id="edit-title" required="required" />
+							                            </div>
+							                        </div>
+							                        <div class="row">
+							                            <div class="col-xs-12">
+							                                <label class="col-xs-4" for="edit-start">시작일:</label>
+							                                <input class="inputModal" type="text" name="edit-start" id="edit-start" />
+							                            </div>
+							                        </div>
+							                        <div class="row">
+							                            <div class="col-xs-12">
+							                                <label class="col-xs-4" for="edit-end">종료일:</label>
+							                                <input class="inputModal" type="text" name="edit-end" id="edit-end" />
+							                            </div>
+							                        </div>
+							                        <div class="row">
+							                            <div class="col-xs-12">
+							                                <label class="col-xs-4" for="edit-type">구분</label>
+							                                <select class="inputModal" type="text" name="edit-type" id="edit-type">
+							                                    <option value="카테고리1">카테고리1</option>
+							                                    <option value="카테고리2">카테고리2</option>
+							                                </select>
+							                            </div>
+							                        </div>
+							                        <div class="row">
+							                            <div class="col-xs-12">
+							                                <label class="col-xs-4" for="edit-color">색상</label>
+							                                <select class="inputModal" name="color" id="edit-color">
+							                                    <option value="#9775fa" style="color:#9775fa;">보라색</option>
+							                                    <option value="#ffa94d" style="color:#ffa94d;">주황색</option>
+							                                </select>
+							                            </div>
+							                        </div>
+							                    </div>
+							                    <div class="modal-footer modalBtnContainer-addEvent">
+							                        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+							                        <button type="button" class="btn btn-primary" id="save-event">저장</button>
+							                    </div>
+							                    <div class="modal-footer modalBtnContainer-modifyEvent">
+							                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+							                        <button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
+							                        <button type="button" class="btn btn-primary" id="updateEvent">저장</button>
+							                    </div>
+							                </div><!-- /.modal-content -->
+							            </div><!-- /.modal-dialog -->
+							        </div><!-- /.modal -->
+							    </div><!--    /.container     -->
                                 </div>
+                                </div>
+                               
                                 </div>
                             </div>
                         </div>
@@ -271,74 +356,17 @@
     </div>
 </div>
 
+<script src="resources/vendor/js/moment.min.js"></script>
+<script src="resources/vendor/js/fullcalendar.min.js"></script>
+<script src="resources/vendor/js/ko.js"></script>
+<script src="resources/vendor/js/select2.min.js"></script>
+<script src="resources/vendor/js/main.js"></script>
+<script src="resources/vendor/js/addEvent.js"></script>
+<script src="resources/vendor/js/editEvent.js"></script>
+<script src="resources/vendor/js/etcSetting.js"></script>
 
-<script src='../webapp/resources/assets/js/cd/calendar.js'></script>
 <script>
-
-  document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialDate: '2021-08-15',
-      editable: true,
-      selectable: true,
-      select: function(arg) { 
-        console.log(arg); 
-        // 일정 등록
-        var title = prompt('입력할 일정:'); // title 값이 있을때, 화면에 calendar.addEvent() json형식으로 일정을 추가 
-        if (title) { 
-            calendar.addEvent({ 
-                title: title, 
-                start: arg.start, 
-                end: arg.end, 
-                allDay: arg.allDay, 
-                backgroundColor:"yellow", 
-                textColor:"blue" 
-            }) 
-        } 
-            calendar.unselect();
-
-      }, eventClick: function(arg) { 
-            // 기존 일정 클릭
-            console.log("#등록된 일정 클릭#"); 
-            console.log(arg.event); 
-          
-          if (confirm('해당 일정을 삭제하시겠습니까?')) { 
-                arg.event.remove();
-            } 
-        }, 
-      events: [
-        {
-          title: 'Final Project',
-          start: '2021-07-12',
-          end: '2021-09-15'
-        },
-        {
-          groupId: 999,
-          title: 'BR sale',
-          start: '2021-08-19'
-          end: '2021-08-11'
-        },
-        {
-          title: 'Happy Hour',
-          start: '2021-09-12T17:30:00'
-        },
-        {
-          title: 'Dinner',
-          start: '2021-09-12T20:00:00'
-        },
-        {
-          title: 'Birthday Party',
-          start: '2020-09-13T07:00:00'
-        },
-      ]
-    });
-
-    calendar.render();
-  });
-
-</script>
-
+        
     var $window = $(window);
     var nav = $('.fixed-button');
         $window.scroll(function(){
@@ -349,7 +377,9 @@
             nav.removeClass('active');
         }
     });
+        
 </script>
-</body>
 
+
+</body>
 </html>

@@ -5,5 +5,19 @@
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
+	
+	
+	
+	<typeAliases>
+		<typeAlias alias="calendar" type="com.kh.SharetheVision.firstmain.model.vo.Calendar"/>
+	</typeAliases>
+	
+	
+	
+	<mappers>
+		<mapper resource="mapper/calendar-mapper.xml"/>
+	</mappers>
+
+
 
 </configuration>
