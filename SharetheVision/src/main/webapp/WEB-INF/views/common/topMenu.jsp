@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
-<nav class="navbar header-navbar pcoded-header" style="background-color: #660099; box-shadow: 3px 3px 3px 3px gray;">
+<nav class="navbar header-navbar pcoded-header" style="background-color: #660099; box-shadow: 3px 3px 3px 1px #C0C0C0;">
     <div class="navbar-wrapper" >
         <div class="navbar-logo" style="background-color: #660099;">
 <!-- <a class="mobile-menu" id="mobile-collapse" href="#!"> -->

@@ -14,6 +14,7 @@
 <link rel="stylesheet" type="text/css" href="resources/assets/css/jquery.mCustomScrollbar.css">
 
 <!-- Required Jquery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="resources/assets/js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="resources/assets/js/jquery-ui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="resources/assets/js/popper.js/popper.min.js"></script>
@@ -22,12 +23,17 @@
 <script type="text/javascript" src="resources/assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
 <!-- modernizr js -->
 <script type="text/javascript" src="resources/assets/js/modernizr/modernizr.js"></script>
+<script type="text/javascript" src="resources/assets/js/modernizr/css-scrollbars.js"></script>
+<!-- Morris Chart js -->
+<script src="resources/assets/js/raphael/raphael.min.js"></script>
+<script src="resources/assets/js/morris.js/morris.js"></script>
 <!-- am chart -->
 <script src="resources/assets/pages/widget/amchart/amcharts.min.js"></script>
 <script src="resources/assets/pages/widget/amchart/serial.min.js"></script>
 <!-- Todo js -->
 <script type="text/javascript " src="resources/assets/pages/todo/todo.js "></script>
 <!-- Custom js -->
+<script src="resources/assets/pages/chart/morris/morris-custom-chart.js"></script>
 <script type="text/javascript" src="resources/assets/pages/dashboard/custom-dashboard.js"></script>
 <script type="text/javascript" src="resources/assets/js/script.js"></script>
 <script type="text/javascript " src="resources/assets/js/SmoothScroll.js"></script>
