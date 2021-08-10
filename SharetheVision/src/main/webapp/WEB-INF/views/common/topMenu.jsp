@@ -20,15 +20,18 @@ pageEncoding="UTF-8"%>
         <div class="navbar-container container-fluid">
             <ul class="nav-left">
             </ul>
-            <ul class="nav-right">                
+            <ul class="nav-right">    
+                <li class="header-notification">
+                    <span class="text-c-white">알림 메세지 ( ) 건 </span>
+                </li>            
                 <li class="header-notification">
                     <a href="#!">
-                        <i class="ti-bell" style="color: #FFB64D; font-weight: bolder;"></i>
+                        <i class="ti-bell text-c-yellow" ></i>
                         <span class="badge bg-c-yellow"></span>
                     </a>
                     <ul class="show-notification">
                         <li>
-                            <h6 style="color: #660099;" >Notifications</h6>
+                            <h6 class="text-c-purple" >Notifications</h6>
                             <label class="label label-warning">New</label>
                         </li>
                         <li>
@@ -63,12 +66,12 @@ pageEncoding="UTF-8"%>
 
                 <li class="header-notification">
                     <a href="#!">
-                        <i class="ti-comment" style="color: #FFB64D; font-weight: bolder;"></i>
+                        <i class="ti-comment text-c-yellow"></i>
                         <span class="badge bg-c-yellow"></span>
                     </a>
                     <ul class="show-notification Messenger">
                         <li>
-                            <h6 style="color: #660099;">Messenger</h6>
+                            <h6 class="text-c-purple">Messenger</h6>
                             <label class="label label-warning">New</label>
                         </li>
                         <li>
@@ -83,16 +86,14 @@ pageEncoding="UTF-8"%>
                         </li>
                     </ul>
                 </li>
-                <li class="header-notification">
-                    <span style="color: #e0e0e0;">알림 메세지 ( ) 건 </span>
-                </li>
+
 
                 <!-- top right 프로필-->
                 <li class="user-profile header-notification">
                     <a href="#!">
                         <img src="resources/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                        <span style="color: #e0e0e0; font-weight: bolder;"> 홍길동 님</span>
-                        <i class="ti-angle-down" style="color: #e0e0e0; font-weight: bolder;"></i>
+                        <span class="text-c-white"> 홍길동 님</span>
+                        <i class="ti-angle-down text-c-white"></i>
                     </a>
                     <ul class="show-notification profile-notification">
                         <li>
