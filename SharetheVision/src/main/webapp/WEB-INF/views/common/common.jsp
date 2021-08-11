@@ -1,3 +1,8 @@
+<!-- font -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
+<style>
+* { font-family: 'NanumSquare', sans-serif;}
+</style>
 
 <!-- Favicon icon -->
 <link rel="icon" href="resources/assets/images/favicon.ico" type="image/x-icon">
