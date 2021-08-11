@@ -3,11 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <nav class="pcoded-navbar">
     <div style="height: 100px;"></div>
-    <div class="sidebar_toggle">
-        <i class="ti-angle-left" style="color:#660099;"></i>
-        <a class="mobile-menu" id="mobile-collapse" href="#!">
-        </a>
-    </div>
     <div class="pcoded-inner-navbar main-menu">
 		<div class="">
 			<div class="main-menu-header">
@@ -24,9 +19,15 @@
 					<li class="more-details">
 						<c:url var="updateProfileForm" value="updateProfileForm.me">
 						</c:url>
-						<a href="${updateProfileForm }"><i class="ti-user"></i>View Profile</a>
-						<a href="#!"><i class="ti-settings"></i>Settings</a> 
-						<a href="auth-normal-sign-in.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
+						<a href="${ updateProfileForm }"><i class="ti-user"></i>View Profile</a>
+						
+						<c:url var="memberList" value="memberList.me">
+						</c:url>
+						<a href="${ memberList }"><i class="ti-list"></i>Group Member</a> 
+						
+						<c:url var="projectForm" value="createProject.me">
+						</c:url>
+						<a href="${ projectForm }"><i class="ti-layout-sidebar-left"></i>Logout</a>
 					</li>
 				</ul>
 			</div>
