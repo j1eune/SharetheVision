@@ -20,6 +20,7 @@
     <meta name="author" content="CodedThemes">
     <jsp:include page="/WEB-INF/views/common/common.jsp"/>
     
+	    
 </head>
 <style>
 	#updateFormTable{
@@ -99,7 +100,7 @@
 	                                        </div>
 	                                    </div>
 	                                    <!-- Page-header end -->
-										<form onsubmit="return updateM();" action="updateProfile.me">
+										<form onsubmit="return updateM();" action="updateProfile.me" method="post">
 		                                    <div class="page-body">
 		                                        <div class="row">
 		                                            <!-- SITE VISIT CHART start -->
@@ -129,7 +130,7 @@
 																	<tr>
 																		<td>
 																			<label><b>주소</b></label>
-																			<input type="text" id="sample6_postcode" name="address1" readonly class="form-control mt-1 adressInput" placeholder="우편번호 찾기" onclick="sample6_execDaumPostcode()" required>
+																			<input type="text" id="sample6_postcode" name="address1" readonly class="form-control mt-1 adressInput" placeholder="우편번호" onclick="sample6_execDaumPostcode()" required>
 																			<input type="text" id="sample6_address" name="address2" class="form-control mt-1" placeholder="주소" required>
 																			<input type="text" id="sample6_detailAddress" name="address3" class="form-control mt-1" placeholder="상세주소" required>
 																			<input type="hidden" id="sample6_extraAddress" class="form-control"placeholder="참고항목">
@@ -162,7 +163,7 @@
 		                                                    <br>
 		                                                    <div class="card-block" style="text-align:center;">
 		                                                        <div id="morris-site-visit">
-		                                                        	<button type="submit" class="btn btn-warning">수정하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
+		                                                        	<button type="submit" class="btn btn-warning" onclick="updateM();">수정하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
 		                                                        	<button type="button" class="btn btn-inverse btn-outline-inverse">취소</button>
 		                                                        </div>
 		                                                    </div>
@@ -174,20 +175,12 @@
 		                                </form>
 	                                </div>
 	                            </div>
-	                            <div id="styleSelector">
-	
-	                            </div>
 	                        </div>
 	                    </div>
 	                </div>
 	            </div>
 	        </div>
 	    </div>
-<div class="fixed-button">
-	<a href="https://codedthemes.com/item/guru-able-admin-template/" target="_blank" class="btn btn-md btn-primary">
-	  <i class="fa fa-shopping-cart" aria-hidden="true"></i> Upgrade To Pro
-	</a>
-</div>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	// 우편주소 넣기
@@ -312,8 +305,24 @@
 	function updateM(){
 		var pwd1 = document.getElementById("newPwd");
 		
-		if(pwd1.value.trim() = "" || pwd1.value == null){
-			console.log("들어옴");
+		if(pwd1.value.trim() == ""){
+			if(userPwd){
+				console.log("비밀번호 변경 x 기존 비밀번호 o");
+				return true;
+			} else {
+				console.log("비밀번호 변경 x 기존 비밀번호 x");
+				alert("비밀번호를 확인해주세요.");
+				return false;
+			}
+		} else {
+			if(userPwd && userNewPwd && checkPwd){
+				console.log("비밀번호 변경 o 기존 비밀번호 o");
+				return true;
+			} else {
+				console.log("비밀번호 변경 o 기존 비밀번호 x");
+				alert("비밀번호를 확인해주세요.");
+				return false;
+			}
 		}
 		
 	}

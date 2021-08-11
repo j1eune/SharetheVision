@@ -33,8 +33,28 @@ public class MemberController {
 	}
 	
 	@RequestMapping("updateProfileForm.me")
-	public String updateProfile() {
+	public String updateProfileForm() {
 		return "memberUpdateForm";
+	}
+	
+	@RequestMapping("updateProfile.me")
+	public String updateProfile() {
+		return "../home";
+	}
+	
+	@RequestMapping("memberList.me")
+	public String memberList() {
+		return "memberList";
+	}
+	
+	@RequestMapping("insertMember.me")
+	public String insertMember() {
+		return "memberList";
+	}
+	
+	@RequestMapping("createProject.me")
+	public String createProject() {
+		return "createProjectForm";
 	}
 		
 }

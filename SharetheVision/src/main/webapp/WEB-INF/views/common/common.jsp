@@ -18,6 +18,7 @@
 <link rel="stylesheet" type="text/css" href="resources/assets/css/style.css">
 <link rel="stylesheet" type="text/css" href="resources/assets/css/jquery.mCustomScrollbar.css">
 
+
 <!-- Required Jquery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="resources/assets/js/jquery/jquery.min.js"></script>
