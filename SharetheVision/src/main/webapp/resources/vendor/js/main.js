@@ -192,19 +192,22 @@ var calendar = $('#calendar').fullCalendar({
   },
 
   select: function (startDate, endDate, jsEvent, view) {
-
+	  
+	//선택된 날짜의 좌표를 가져오기 위함
+	var $item = $(".fc-highlight").offset();
+	
     $(".fc-body").unbind('click');
     $(".fc-body").on('click', 'td', function (e) {
-
-      $("#contextMenu")
-        .addClass("contextOpened")
-        .css({
-          display: "block",
-          left: e.pageX,
-          top: e.pageY
-        });
-      return false;
-    });
+    	
+	$("#contextMenu")
+		.addClass("contextOpened")
+		.css({
+		  display: "block",
+		      left: $item.left-200, 
+		      top: $item.top-650
+		    });
+		  return false;
+	});
 
     var today = moment();
 
@@ -230,7 +233,7 @@ var calendar = $('#calendar').fullCalendar({
     var $contextMenu = $("#contextMenu");
     $contextMenu.on("click", "a", function (e) {
       e.preventDefault();
-
+      
       //닫기 버튼이 아닐때
       if ($(this).data().role !== 'close') {
         newEvent(startDate, endDate, $(this).html());
