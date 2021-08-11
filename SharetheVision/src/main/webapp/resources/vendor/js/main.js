@@ -1,4 +1,4 @@
-var draggedEventIsAllDay;
+// var draggedEventIsAllDay;
 var activeInactiveWeekends = true;
 
 var calendar = $('#calendar').fullCalendar({
@@ -22,7 +22,7 @@ var calendar = $('#calendar').fullCalendar({
                               },
   eventLimitClick           : 'week', //popover
   navLinks                  : true,
-  defaultDate               : moment('2019-05'), //실제 사용시 현재 날짜로 수정
+  defaultDate               : moment('2021-08-11'), //실제 사용시 현재 날짜로 수정
   timeFormat                : 'HH:mm',
   defaultTimedEventDuration : '01:00:00',
   editable                  : true,
@@ -36,9 +36,9 @@ var calendar = $('#calendar').fullCalendar({
   eventLongPressDelay       : 0,
   selectLongPressDelay      : 0,  
   header                    : {
-                                left   : 'today, prevYear, nextYear, viewWeekends',
-                                center : 'prev, title, next',
-                                right  : 'month, agendaWeek, agendaDay, listWeek'
+                                left   : 'today',
+                                center : 'title',
+                                right  : 'prev, next',
                               },
   views                     : {
                                 month : {
@@ -66,8 +66,11 @@ var calendar = $('#calendar').fullCalendar({
                                       weekends: activeInactiveWeekends
                                     });
                                   }
+                                },
+                                today : {
+                                  text  : 'TODAY',
                                 }
-                               },
+                              },
 
 
   eventRender: function (event, element, view) {
@@ -97,8 +100,10 @@ var calendar = $('#calendar').fullCalendar({
       container: 'body'
     });
 
-    return filtering(event);
+    return true;
+    // return filtering(event);
 
+ 
   },
 
   /* ****************
@@ -262,28 +267,6 @@ function getDisplayEventDate(event) {
   }
 
   return displayEventDate;
-}
-
-function filtering(event) {
-  var show_username = true;
-  var show_type = true;
-
-  var username = $('input:checkbox.filter:checked').map(function () {
-    return $(this).val();
-  }).get();
-  var types = $('#type_filter').val();
-
-  show_username = username.indexOf(event.username) >= 0;
-
-  if (types && types.length > 0) {
-    if (types[0] == "all") {
-      show_type = true;
-    } else {
-      show_type = types.indexOf(event.type) >= 0;
-    }
-  }
-
-  return show_username && show_type;
 }
 
 function calDateWhenResize(event) {

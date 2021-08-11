@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="resources/vendor/css/fullcalendar.min.css" />
 <link rel="stylesheet" href='resources/vendor/css/select2.min.css' />
 <link rel="stylesheet" href="resources/vendor/css/main.css">
+<link rel="stylesheet" href='resources/vendor/css/bootstrap-datetimepicker.min.css' />
   	 
 <jsp:include page="/WEB-INF/views/common/common.jsp" />
 
@@ -364,6 +365,7 @@
 <script src="resources/vendor/js/addEvent.js"></script>
 <script src="resources/vendor/js/editEvent.js"></script>
 <script src="resources/vendor/js/etcSetting.js"></script>
+<script src="resources/vendor/js/bootstrap-datetimepicker.min.js"></script>
 
 <script>
         
