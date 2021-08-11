@@ -172,7 +172,9 @@ p {
   border-radius: 5px;
   box-shadow: 0 1px 11px 0 rgba(0, 0, 0, 0.12);
   border: none;
-  margin-bottom: 30px; }
+  margin-bottom: 30px; 
+  padding-bottom: 30px;}
+  
   .card .card-footer {
     background-color: #fff;
     border-top: none; }
@@ -4138,7 +4140,7 @@ table tbody .border-bottom-info td {
       box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.03), 0 -2px 1px -2px rgba(0, 0, 0, 0.02), 0 0 0 -1px rgba(0, 0, 0, 0.03);
       opacity: 0;
       position: absolute;
-      right: 100;
+      right: 0;
       transform: translateY(30px);
       transition: all linear 0.3s;
       visibility: hidden;
@@ -4148,7 +4150,7 @@ table tbody .border-bottom-info td {
       .header-navbar .navbar-wrapper .navbar-container .header-notification .show-notification li, .header-navbar .navbar-wrapper .navbar-container .mega-menu-top .show-notification li, .header-navbar .navbar-wrapper .navbar-container .header-notification .profile-notification li, .header-navbar .navbar-wrapper .navbar-container .mega-menu-top .profile-notification li {
         border-top: 1px solid #4680ff, #FFB64D, #e0e0e0, #FC6180, #93BE52, #303548, #62d1f3;
         line-height: initial;
-        padding: 1em 0 0 20px;
+        padding: 1em 20px;
         width: 100%;
         transition: all 0.3s ease-in-out; }
         .header-navbar .navbar-wrapper .navbar-container .header-notification .show-notification li:first-child, .header-navbar .navbar-wrapper .navbar-container .mega-menu-top .show-notification li:first-child, .header-navbar .navbar-wrapper .navbar-container .header-notification .profile-notification li:first-child, .header-navbar .navbar-wrapper .navbar-container .mega-menu-top .profile-notification li:first-child {
@@ -8972,6 +8974,13 @@ table.footable-paging-center > tfoot > tr.footable-paging > td {
 
 .text-c-lite-green {
   color: #69CEC6; }
+
+.bg-c-white {
+  background-color: #e0e0e0; }
+
+.text-c-white {
+  font-weight: bold;
+  color: #e0e0e0; }
 
 .card .card-bg-inverce {
   background-color: #353C4E; }
@@ -14344,5 +14353,9 @@ table.footable-paging-center > tfoot > tr.footable-paging > td {
     background-color: #303548; }
   .pcoded[layout-type="dark"] .pcoded-main-container {
     background-color: #444c67; }
+.container{
+	margin-bottom: 20px;
+}
 
 /*# sourceMappingURL=style.css.map */
+
