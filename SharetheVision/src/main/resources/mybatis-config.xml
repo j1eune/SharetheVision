@@ -10,12 +10,14 @@
 	
 	<typeAliases>
 		<typeAlias alias="calendar" type="com.kh.SharetheVision.firstmain.model.vo.Calendar"/>
+		<typeAlias alias="board" type="com.kh.SharetheVision.board.model.vo.Board"/>
 	</typeAliases>
 	
 	
 	
 	<mappers>
 		<mapper resource="mapper/calendar-mapper.xml"/>
+		<mapper resource="mapper/board-mapper.xml"/>
 	</mappers>
 
 

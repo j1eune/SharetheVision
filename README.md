@@ -4,8 +4,10 @@
 
 #
 + <mapper> 
++ board-mapper 추가
 + calender-mapper추가
 + <mybatis.config> 
++ alias 추가 (게시판 type)
 + alias 추가 (캘린더 type)
 #
 + <resources> 
