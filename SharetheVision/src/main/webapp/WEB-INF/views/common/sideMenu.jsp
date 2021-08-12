@@ -170,9 +170,11 @@
                 </a>
             </li>
             <li>
-                <a href="bs-basic-table.html">
+            	<c:url var="board" value="board.bo">
+				</c:url>
+                <a href="${ board }">
                     <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Basic Table</span>
+                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">게시판</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
