@@ -1,10 +1,22 @@
 package com.kh.SharetheVision.member.controller;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MemberController {
+	
+	@Autowired
+	private JavaMailSender mailSender;
+	
 	
 	@RequestMapping("login.me")
 	public String login() {
@@ -17,8 +29,38 @@ public class MemberController {
 	}
 	
 	@RequestMapping("emailCheck.me")
-	public String emailCheck() {
-		return "emailCheck";
+	public ModelAndView emailCheck(@RequestParam("id") String id, 
+							 @RequestParam("email") String email,
+							 @RequestParam("name") String name,
+							 ModelAndView mv) {
+		
+		int random = (int)(Math.random() * 1000000) + 1;
+		
+		String subject = "[SV Company] 비밀번호 변경 인증번호 입니다.";
+		String content = "<h2>" + name + "님 반갑습니다. </h2> <br>" 
+						 + "<h3> 이메일 변경을 위한 인증 번호는 " + random + " 입니다. </h3>";
+		String from = "SVCompany0812@gmail.com";
+		String to = email;
+		
+		try {
+			MimeMessage mail = mailSender.createMimeMessage();
+			MimeMessageHelper mailHelper = new MimeMessageHelper(mail,true,"UTF-8");
+			
+			mailHelper.setFrom(from);
+			mailHelper.setTo(to);
+			mailHelper.setSubject(subject);
+			mailHelper.setText(content, true);
+			
+			mailSender.send(mail);
+			
+			mv.addObject("random", random);
+			mv.setViewName("emailCheck");
+			
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		
+		return mv;
 	}
 	
 	@RequestMapping("updatePwdForm.me")
