@@ -1,12 +1,12 @@
-var draggedEventIsAllDay;
-var activeInactiveWeekends = true;
+var draggedEventIsAllDay=true;
+var activeInactiveWeekends = false;
 
 var calendar = $('#calendar').fullCalendar({
 
  /** ******************
    *  OPTIONS
    * *******************/
-  locale                    : 'ko',    
+  locale                    : 'en',    
   timezone                  : "local", 
   nextDayThreshold          : "09:00:00",
   allDaySlot                : true,
@@ -22,7 +22,7 @@ var calendar = $('#calendar').fullCalendar({
                               },
   eventLimitClick           : 'week', //popover
   navLinks                  : true,
-  defaultDate               : moment('2019-05'), //실제 사용시 현재 날짜로 수정
+  defaultDate               : moment('2021-08-11'), //실제 사용시 현재 날짜로 수정
   timeFormat                : 'HH:mm',
   defaultTimedEventDuration : '01:00:00',
   editable                  : true,
@@ -36,9 +36,9 @@ var calendar = $('#calendar').fullCalendar({
   eventLongPressDelay       : 0,
   selectLongPressDelay      : 0,  
   header                    : {
-                                left   : 'today, prevYear, nextYear, viewWeekends',
-                                center : 'prev, title, next',
-                                right  : 'month, agendaWeek, agendaDay, listWeek'
+                                left   : 'today',
+                                center : 'title',
+                                right  : 'prev, next',
                               },
   views                     : {
                                 month : {
@@ -59,15 +59,16 @@ var calendar = $('#calendar').fullCalendar({
                               },
   customButtons             : { //주말 숨기기 & 보이기 버튼
                                 viewWeekends : {
-                                  text  : '주말',
+                                  text  : '',
                                   click : function () {
                                     activeInactiveWeekends ? activeInactiveWeekends = false : activeInactiveWeekends = true;
                                     $('#calendar').fullCalendar('option', { 
                                       weekends: activeInactiveWeekends
                                     });
                                   }
-                                }
-                               },
+                                },
+
+                              },
 
 
   eventRender: function (event, element, view) {
@@ -97,8 +98,10 @@ var calendar = $('#calendar').fullCalendar({
       container: 'body'
     });
 
-    return filtering(event);
+    return true;
+    // return filtering(event);
 
+ 
   },
 
   /* ****************
@@ -187,19 +190,22 @@ var calendar = $('#calendar').fullCalendar({
   },
 
   select: function (startDate, endDate, jsEvent, view) {
-
+	  
     $(".fc-body").unbind('click');
     $(".fc-body").on('click', 'td', function (e) {
-
-      $("#contextMenu")
-        .addClass("contextOpened")
-        .css({
-          display: "block",
-          left: e.pageX,
-          top: e.pageY
-        });
-      return false;
-    });
+    	
+	//클릭한 날짜의 td위치(좌표) 가져오기 
+	var $item = $(".fc-highlight").offset();
+	
+	$("#contextMenu")
+		.addClass("contextOpened")
+		.css({
+		  display: "block",
+		      left: $item.left-230, 
+		      top: $item.top-610
+		    });
+		  return false;
+	});
 
     var today = moment();
 
@@ -208,18 +214,19 @@ var calendar = $('#calendar').fullCalendar({
         hours: today.hours(),
         minute: today.minutes()
       });
-      startDate = moment(startDate).format('YYYY-MM-DD HH:mm');
+      startDate = moment(startDate).format('YYYY-MM-DD');
       endDate = moment(endDate).subtract(1, 'days');
 
       endDate.set({
         hours: today.hours() + 1,
         minute: today.minutes()
       });
-      endDate = moment(endDate).format('YYYY-MM-DD HH:mm');
+      endDate = moment(endDate).format('YYYY-MM-DD');
     } else {
-      startDate = moment(startDate).format('YYYY-MM-DD HH:mm');
-      endDate = moment(endDate).format('YYYY-MM-DD HH:mm');
+      startDate = moment(startDate).format('YYYY-MM-DD');
+      endDate = moment(endDate).format('YYYY-MM-DD');
     }
+
 
     //날짜 클릭시 카테고리 선택메뉴
     var $contextMenu = $("#contextMenu");
@@ -230,6 +237,7 @@ var calendar = $('#calendar').fullCalendar({
       if ($(this).data().role !== 'close') {
         newEvent(startDate, endDate, $(this).html());
       }
+      
 
       $contextMenu.removeClass("contextOpened");
       $contextMenu.hide();
@@ -264,28 +272,6 @@ function getDisplayEventDate(event) {
   return displayEventDate;
 }
 
-function filtering(event) {
-  var show_username = true;
-  var show_type = true;
-
-  var username = $('input:checkbox.filter:checked').map(function () {
-    return $(this).val();
-  }).get();
-  var types = $('#type_filter').val();
-
-  show_username = username.indexOf(event.username) >= 0;
-
-  if (types && types.length > 0) {
-    if (types[0] == "all") {
-      show_type = true;
-    } else {
-      show_type = types.indexOf(event.type) >= 0;
-    }
-  }
-
-  return show_username && show_type;
-}
-
 function calDateWhenResize(event) {
 
   var newDates = {
@@ -297,8 +283,8 @@ function calDateWhenResize(event) {
     newDates.startDate = moment(event.start._d).format('YYYY-MM-DD');
     newDates.endDate = moment(event.end._d).subtract(1, 'days').format('YYYY-MM-DD');
   } else {
-    newDates.startDate = moment(event.start._d).format('YYYY-MM-DD HH:mm');
-    newDates.endDate = moment(event.end._d).format('YYYY-MM-DD HH:mm');
+    newDates.startDate = moment(event.start._d).format('YYYY-MM-DD');
+    newDates.endDate = moment(event.end._d).format('YYYY-MM-DD');
   }
 
   return newDates;
@@ -331,8 +317,8 @@ function calDateWhenDragnDrop(event) {
 
   //all day가 아님
   else if (!event.allDay) {
-    newDates.startDate = moment(event.start._d).format('YYYY-MM-DD HH:mm');
-    newDates.endDate = moment(event.end._d).format('YYYY-MM-DD HH:mm');
+    newDates.startDate = moment(event.start._d).format('YYYY-MM-DD');
+    newDates.endDate = moment(event.end._d).format('YYYY-MM-DD');
   }
 
   return newDates;

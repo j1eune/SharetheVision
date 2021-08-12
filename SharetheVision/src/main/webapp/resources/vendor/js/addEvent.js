@@ -17,7 +17,11 @@ var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
  *  새로운 일정 생성
  * ************** */
 var newEvent = function (start, end, eventType) {
-
+    if(eventType=='부서일정'){
+        eventType = 'sccode1';
+    }else if(eventType=='개인일정'){
+        eventType = 'sccode2';
+    }
     $("#contextMenu").hide(); //메뉴 숨김
 
     modalTitle.html('새로운 일정');
@@ -32,13 +36,15 @@ var newEvent = function (start, end, eventType) {
     eventModal.modal('show');
 
     /******** 임시 RAMDON ID - 실제 DB 연동시 삭제 **********/
-    var eventId = 1 + Math.floor(Math.random() * 1000);
+    // var eventId = 1 + Math.floor(Math.random() * 1000);
     /******** 임시 RAMDON ID - 실제 DB 연동시 삭제 **********/
+    var eventId = '002';
 
     //새로운 일정 저장버튼 클릭
     $('#save-event').unbind();
     $('#save-event').on('click', function () {
-
+        
+	        
         var eventData = {
             _id: eventId,
             title: editTitle.val(),
@@ -46,10 +52,10 @@ var newEvent = function (start, end, eventType) {
             end: editEnd.val(),
             description: editDesc.val(),
             type: editType.val(),
-            username: '사나',
+            username: '테스트1',
             backgroundColor: editColor.val(),
             textColor: '#ffffff',
-            allDay: false
+            allDay: true
         };
 
         if (eventData.start > eventData.end) {
@@ -76,17 +82,16 @@ var newEvent = function (start, end, eventType) {
 
         $("#calendar").fullCalendar('renderEvent', eventData, true);
         eventModal.find('input, textarea').val('');
-        editAllDay.prop('checked', false);
+        editAllDay.prop('checked', true);
         eventModal.modal('hide');
 
         //새로운 일정 저장
         $.ajax({
-            type: "get",
-            url: "",
-            data: {
-                //.....
-            },
+            url: 'addCal.do',
+            data: {eventData :eventData },
             success: function (response) {
+                console.log(response);
+                
                 //DB연동시 중복이벤트 방지를 위한
                 //$('#calendar').fullCalendar('removeEvents');
                 //$('#calendar').fullCalendar('refetchEvents');
