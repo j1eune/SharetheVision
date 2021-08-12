@@ -263,10 +263,10 @@
 	                                    
 								        <!-- 일자 클릭시 메뉴오픈 -->
 								        <div id="contextMenu" class="dropdown clearfix">
-								            <ul class="dropdown-menu dropNewEvent" role="menu" aria-labelledby="dropdownMenu"
+								            <ul class="dropdown-menu dropNewEvent" role="menu" aria-labelledby="dropdownMenu" id="sccode"
 								                style="display:block;position:static;margin-bottom:5px;">
-								                <li><a tabindex="-1" href="#">부서일정</a></li>
-								                <li><a tabindex="-1" href="#">개인일정</a></li>
+								                <li value="1"><a tabindex="-1">부서일정</a></li>
+								                <li value="2"><a tabindex="-1" >개인일정</a></li>
 								                <li class="divider"></li>
 								                <li><a tabindex="-1" href="#" data-role="close">Close</a></li>
 								            </ul>
@@ -295,31 +295,31 @@
 								                        </div>
 								                        <div class="row">
 								                            <div class="col-xs-12">
-								                                <label class="col-xs-4" for="edit-start">시작일:</label>
+								                                <label class="col-xs-4" for="edit-start">시작일 : </label>
 								                                <input class="inputModal" type="text" name="edit-start" id="edit-start" />
 								                            </div>
 								                        </div>
 								                        <div class="row">
 								                            <div class="col-xs-12">
-								                                <label class="col-xs-4" for="edit-end">종료일:</label>
+								                                <label class="col-xs-4" for="edit-end">종료일 : </label>
 								                                <input class="inputModal" type="text" name="edit-end" id="edit-end" />
 								                            </div>
 								                        </div>
 								                        <div class="row">
 								                            <div class="col-xs-12">
-								                                <label class="col-xs-4" for="edit-type">구분</label>
-								                                <select class="inputModal" type="text" name="edit-type" id="edit-type">
-								                                    <option value="카테고리1">카테고리1</option>
-								                                    <option value="카테고리2">카테고리2</option>
+								                                <label class="col-xs-4" for="edit-type">구분 : </label>
+								                                <select class="inputModal" name="edit-type" id="edit-type" style="width: 130px;">
+								                                    <option class="text-c-purple" value="sccode1">부서일정</option>
+								                                    <option class="text-c-yellow" value="sccode2">개인일정</option>
 								                                </select>
 								                            </div>
 								                        </div>
-								                        <div class="row">
+								                    	<div class="row" style="display:none">
 								                            <div class="col-xs-12">
 								                                <label class="col-xs-4" for="edit-color">색상</label>
 								                                <select class="inputModal" name="color" id="edit-color">
-								                                    <option value="#9775fa" style="color:#9775fa;">보라색</option>
-								                                    <option value="#ffa94d" style="color:#ffa94d;">주황색</option>
+									                                    <option value="#669900">보라색</option>
+									                                    <option value="#FFB64D">주황색</option>
 								                                </select>
 								                            </div>
 								                        </div>
@@ -327,11 +327,6 @@
 								                    <div class="modal-footer modalBtnContainer-addEvent">
 								                        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 								                        <button type="button" class="btn btn-primary" id="save-event">저장</button>
-								                    </div>
-								                    <div class="modal-footer modalBtnContainer-modifyEvent">
-								                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-								                        <button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
-								                        <button type="button" class="btn btn-primary" id="updateEvent">저장</button>
 								                    </div>
 								                </div><!-- /.modal-content -->
 								            </div><!-- /.modal-dialog -->
@@ -368,7 +363,10 @@
 <script src="resources/vendor/js/bootstrap-datetimepicker.min.js"></script>
 
 <script>
-        
+$( document ).ready(function() {
+    console.log( "script ready." );
+    
+    //화면 위로 올리는 버튼 액션
     var $window = $(window);
     var nav = $('.fixed-button');
         $window.scroll(function(){
@@ -380,10 +378,32 @@
         }
     });
    
-$( document ).ready(function() {
-    console.log( "ready!" );
-});
         
+    $('#sccode li').on('click',function(){
+    	var sccode = $(this).val();
+   		console.log("sccode:"+sccode);
+   		
+    	//if(sccode=='1'){
+    		//$('#edit-type option:eq(0)').prop('selected',true);
+    		//$("#edit-type option:eq(" + eval(sccode-1) + ")").prop("selected",true);
+    		$('#edit-type option').eq(sccode-1).prop('selected', true);
+    		//$("#edit-type").find("[value=sccode"+eval(sccode-1)+"]").prop("selected", true).text($(this).text());
+    	//}else if(sccode=='2'){
+    	//	$('#edit-type option:eq(1)').prop('selected',true);
+    	//}
+   		//$("#edit-type").trigger("change");
+   		
+    	var sccolor = $('#edit-type option:selected').val();
+    	console.log("sccolor:"+sccolor);
+    
+    	if(sccolor=='sccode1'){
+    		$('#edit-color option:eq(0)').attr('selected',true);
+    	}else if(sccolor=='sccode2'){
+    		$('#edit-color option:eq(1)').attr('selected',true);
+    	}
+    });
+        
+});     
 </script>
 
 

@@ -1,5 +1,5 @@
-// var draggedEventIsAllDay;
-var activeInactiveWeekends = true;
+var draggedEventIsAllDay=true;
+var activeInactiveWeekends = false;
 
 var calendar = $('#calendar').fullCalendar({
 
@@ -59,7 +59,7 @@ var calendar = $('#calendar').fullCalendar({
                               },
   customButtons             : { //주말 숨기기 & 보이기 버튼
                                 viewWeekends : {
-                                  text  : '주말',
+                                  text  : '',
                                   click : function () {
                                     activeInactiveWeekends ? activeInactiveWeekends = false : activeInactiveWeekends = true;
                                     $('#calendar').fullCalendar('option', { 
@@ -193,18 +193,18 @@ var calendar = $('#calendar').fullCalendar({
 
   select: function (startDate, endDate, jsEvent, view) {
 	  
-	//선택된 날짜의 좌표를 가져오기 위함
-	var $item = $(".fc-highlight").offset();
-	
     $(".fc-body").unbind('click');
     $(".fc-body").on('click', 'td', function (e) {
     	
+	//클릭한 날짜의 td위치(좌표) 가져오기 
+	var $item = $(".fc-highlight").offset();
+	
 	$("#contextMenu")
 		.addClass("contextOpened")
 		.css({
 		  display: "block",
-		      left: $item.left-200, 
-		      top: $item.top-650
+		      left: $item.left-230, 
+		      top: $item.top-610
 		    });
 		  return false;
 	});
@@ -216,17 +216,17 @@ var calendar = $('#calendar').fullCalendar({
         hours: today.hours(),
         minute: today.minutes()
       });
-      startDate = moment(startDate).format('YYYY-MM-DD HH:mm');
+      startDate = moment(startDate).format('YYYY-MM-DD');
       endDate = moment(endDate).subtract(1, 'days');
 
       endDate.set({
         hours: today.hours() + 1,
         minute: today.minutes()
       });
-      endDate = moment(endDate).format('YYYY-MM-DD HH:mm');
+      endDate = moment(endDate).format('YYYY-MM-DD');
     } else {
-      startDate = moment(startDate).format('YYYY-MM-DD HH:mm');
-      endDate = moment(endDate).format('YYYY-MM-DD HH:mm');
+      startDate = moment(startDate).format('YYYY-MM-DD');
+      endDate = moment(endDate).format('YYYY-MM-DD');
     }
 
     //날짜 클릭시 카테고리 선택메뉴
@@ -283,8 +283,8 @@ function calDateWhenResize(event) {
     newDates.startDate = moment(event.start._d).format('YYYY-MM-DD');
     newDates.endDate = moment(event.end._d).subtract(1, 'days').format('YYYY-MM-DD');
   } else {
-    newDates.startDate = moment(event.start._d).format('YYYY-MM-DD HH:mm');
-    newDates.endDate = moment(event.end._d).format('YYYY-MM-DD HH:mm');
+    newDates.startDate = moment(event.start._d).format('YYYY-MM-DD');
+    newDates.endDate = moment(event.end._d).format('YYYY-MM-DD');
   }
 
   return newDates;
@@ -317,8 +317,8 @@ function calDateWhenDragnDrop(event) {
 
   //all day가 아님
   else if (!event.allDay) {
-    newDates.startDate = moment(event.start._d).format('YYYY-MM-DD HH:mm');
-    newDates.endDate = moment(event.end._d).format('YYYY-MM-DD HH:mm');
+    newDates.startDate = moment(event.start._d).format('YYYY-MM-DD');
+    newDates.endDate = moment(event.end._d).format('YYYY-MM-DD');
   }
 
   return newDates;
