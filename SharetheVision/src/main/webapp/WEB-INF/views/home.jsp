@@ -289,7 +289,7 @@
 								                    <div class="modal-body">
 								                        <div class="row">
 								                            <div class="col-xs-12">
-								                                <label class="col-xs-4" for="edit-title">일정 제목:</label>
+								                                <label class="col-xs-4" for="edit-title">일정명:</label>
 								                                <input class="inputModal" type="text" name="edit-title" id="edit-title" required="required" />
 								                            </div>
 								                        </div>
@@ -307,8 +307,8 @@
 								                        </div>
 								                        <div class="row">
 								                            <div class="col-xs-12">
-								                                <label class="col-xs-4" for="edit-type">구분 : </label>
-								                                <select class="inputModal" name="edit-type" id="edit-type" style="width: 130px;">
+								                                <label class="col-xs-4" for="edit-type">구분명 : </label>
+								                                <select class="inputModal" name="edit-type" id="edit-type" style="width: 140px; height: 20px;">
 								                                    <option class="text-c-purple" value="sccode1">부서일정</option>
 								                                    <option class="text-c-yellow" value="sccode2">개인일정</option>
 								                                </select>
@@ -381,12 +381,12 @@ $( document ).ready(function() {
         
     $('#sccode li').on('click',function(){
     	var sccode = $(this).val();
-   		console.log("sccode:"+sccode);
+   		//console.log("sccode:"+sccode);
    		
     	//if(sccode=='1'){
     		//$('#edit-type option:eq(0)').prop('selected',true);
     		//$("#edit-type option:eq(" + eval(sccode-1) + ")").prop("selected",true);
-    		$('#edit-type option').eq(sccode-1).prop('selected', true);
+    		//$('#edit-type option').eq(sccode-1).prop('selected', true);
     		//$("#edit-type").find("[value=sccode"+eval(sccode-1)+"]").prop("selected", true).text($(this).text());
     	//}else if(sccode=='2'){
     	//	$('#edit-type option:eq(1)').prop('selected',true);

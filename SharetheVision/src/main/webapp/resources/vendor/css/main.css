@@ -305,3 +305,29 @@ select.filter {
 #add-color {
   color: #d25565;
 }
+
+button.close {
+  display:none;
+  margin-left: 350px;
+}
+h4.modal-title{
+  text-align: left;
+}
+.modal-body{
+    padding: 5px 5px; 
+    position: absolute; 
+    margin-left: 80px; 
+    vertical-align: middle;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+}
+
+input.inputModal{
+  width:140px;
+  text-align: center;
+}
+
+select{
+  text-align-last: center;
+}

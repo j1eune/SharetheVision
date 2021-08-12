@@ -17,7 +17,11 @@ var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
  *  새로운 일정 생성
  * ************** */
 var newEvent = function (start, end, eventType) {
-
+    if(eventType=='부서일정'){
+        eventType = 'sccode1';
+    }else if(eventType=='개인일정'){
+        eventType = 'sccode2';
+    }
     $("#contextMenu").hide(); //메뉴 숨김
 
     modalTitle.html('새로운 일정');

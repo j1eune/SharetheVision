@@ -6,7 +6,7 @@ var calendar = $('#calendar').fullCalendar({
  /** ******************
    *  OPTIONS
    * *******************/
-  locale                    : 'ko',    
+  locale                    : 'en',    
   timezone                  : "local", 
   nextDayThreshold          : "09:00:00",
   allDaySlot                : true,
@@ -67,9 +67,7 @@ var calendar = $('#calendar').fullCalendar({
                                     });
                                   }
                                 },
-                                today : {
-                                  text  : 'TODAY',
-                                }
+
                               },
 
 
@@ -229,15 +227,17 @@ var calendar = $('#calendar').fullCalendar({
       endDate = moment(endDate).format('YYYY-MM-DD');
     }
 
+
     //날짜 클릭시 카테고리 선택메뉴
     var $contextMenu = $("#contextMenu");
     $contextMenu.on("click", "a", function (e) {
       e.preventDefault();
-      
+
       //닫기 버튼이 아닐때
       if ($(this).data().role !== 'close') {
         newEvent(startDate, endDate, $(this).html());
       }
+      
 
       $contextMenu.removeClass("contextOpened");
       $contextMenu.hide();
