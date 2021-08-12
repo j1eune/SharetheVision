@@ -25,7 +25,7 @@
 						</c:url>
 						<a href="${ memberList }"><i class="ti-list"></i>Group Member</a> 
 						
-						<c:url var="projectForm" value="createProject.me">
+						<c:url var="projectForm" value="createProjectForm.me">
 						</c:url>
 						<a href="${ projectForm }"><i class="ti-layout-sidebar-left"></i>Logout</a>
 					</li>

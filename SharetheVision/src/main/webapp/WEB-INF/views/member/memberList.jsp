@@ -191,7 +191,7 @@
 												<div class="form-row">
 												    <div class="form-group col-md-3">
 												      <label for="inputCity">주소</label>
-												      <input type="text" id="sample6_postcode" name="address1" readonly class="form-control mt-1 adressInput" placeholder="우편번호 찾기" onclick="sample6_execDaumPostcode()" required>
+												      <input type="text" id="sample6_postcode" name="address1" readonly class="form-control mt-1 adressInput" placeholder="우편번호" onclick="sample6_execDaumPostcode()" required>
 												    </div>
 												    <div class="form-group col-md-9">
 												    	<label for="inputCity">&nbsp;</label>
@@ -206,7 +206,7 @@
 									      </div>
 									      
 									      <div class="modal-footer">
-									        <button type="submit" class="btn btn-warning">사원 추가하기</button>&nbsp;&nbsp;
+									        <button type="submit" class="btn btn-danger">사원 추가하기</button>&nbsp;&nbsp;
 									        <button type="button" class="btn btn-inverse btn-outline-inverse" data-dismiss="modal">취소</button>
 									      </div>
 									    </div>

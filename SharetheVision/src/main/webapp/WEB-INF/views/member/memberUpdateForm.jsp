@@ -86,7 +86,7 @@
 	                                        <div class="row align-items-end">
 	                                            <div class="col-lg-8">
 	                                                <div class="page-header-title">
-	                                                    <i class="icofont icofont-user bg-c-blue"></i>
+	                                                    <i class="icofont icofont-user bg-c-pink"></i>
 	                                                    <div class="d-inline">
 	                                                        <h4>회원정보 수정</h4>
 	                                                        <span>회원정보와 비밀번호 및 프로필 사진을 수정하실 수 있습니다.</span>
@@ -130,7 +130,7 @@
 																	<tr>
 																		<td>
 																			<label><b>주소</b></label>
-																			<input type="text" id="sample6_postcode" name="address1" readonly class="form-control mt-1 adressInput" placeholder="우편번호" onclick="sample6_execDaumPostcode()" required>
+																			<input type="text" id="sample6_postcode" name="address1" readonly class="form-control mt-1 adressInput" placeholder="우편번호 찾기" onclick="sample6_execDaumPostcode()" required>
 																			<input type="text" id="sample6_address" name="address2" class="form-control mt-1" placeholder="주소" required>
 																			<input type="text" id="sample6_detailAddress" name="address3" class="form-control mt-1" placeholder="상세주소" required>
 																			<input type="hidden" id="sample6_extraAddress" class="form-control"placeholder="참고항목">
@@ -163,7 +163,7 @@
 		                                                    <br>
 		                                                    <div class="card-block" style="text-align:center;">
 		                                                        <div id="morris-site-visit">
-		                                                        	<button type="submit" class="btn btn-warning" onclick="updateM();">수정하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
+		                                                        	<button type="submit" class="btn btn-danger" onclick="updateM();">수정하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
 		                                                        	<button type="button" class="btn btn-inverse btn-outline-inverse">취소</button>
 		                                                        </div>
 		                                                    </div>

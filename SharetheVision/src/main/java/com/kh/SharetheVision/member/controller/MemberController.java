@@ -52,8 +52,13 @@ public class MemberController {
 		return "memberList";
 	}
 	
+	@RequestMapping("createProjectForm.me")
+	public String createProjectFrom() {
+		return "createProjectForm";
+	}
+	
 	@RequestMapping("createProject.me")
-	public String createProject() {
+	public String cretaeProject() {
 		return "createProjectForm";
 	}
 		

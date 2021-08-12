@@ -22,10 +22,12 @@
 	<jsp:include page="/WEB-INF/views/common/common.jsp"/>
 	
 	<style>
-		#addProjectDiv{
+		#addProjectMemberDiv{
 			cursor:pointer;
-			opacity: 0.8;
 		}
+		.deleteIcon{
+			cursor:pointer;
+		}		
 	</style>
 	
 </head>
@@ -78,11 +80,6 @@
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="page-header-breadcrumb">
-                                                    <ul class="breadcrumb-title">
-                                                        <li class="breadcrumb-item">
-                                                            <div style="display: inline-block;" id="addProjectDiv"><i class="icofont icofont-plus icofont-lg"></i>&nbsp;프로젝트 추가</div>
-                                                        </li>
-                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
@@ -93,38 +90,125 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="card">
-                                                    <div class="card-header">
-                                                        <h5>Hello card</h5>
-                                                        <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
-                                                        <div class="card-header-right">
-                                                            <ul class="list-unstyled card-option" style="width: 35px;">
-                                                                <li class=""><i class="icofont icofont-simple-left"></i></li>
-                                                                <li><i class="icofont icofont-maximize full-card"></i></li>
-                                                                <li><i class="icofont icofont-minus minimize-card"></i></li>
-                                                                <li><i class="icofont icofont-refresh reload-card"></i></li>
-                                                                <li><i class="icofont icofont-error close-card"></i></li>
-                                                            </ul>
-                                                        </div>
+                                                    <div class="card-header" style="border-bottom: 0.3px solid gray; width: 90%; margin: auto;">
+                                                    	<h5>프로젝트 추가</h5>
+                                                    	<br><br>
+                                                    	<form action="createProject.me" method="post">
+	                                                    	<div class="form-row">
+															   <div class="form-group col-md-3">
+															      <label for="inputEmail4">프로젝트 명</label>
+															      <input type="text" class="form-control" id="inputEmail4" placeholder="프로젝트 명" required>
+															   </div>
+															   <div class="form-group col-md-8">
+															      <label for="inputPassword4">프로젝트 내용</label>
+															      <input type="text" class="form-control" id="inputPassword4" placeholder="프로젝트 내용">
+															   </div>
+															   <div class="form-group col-md-1" id="addProjectMemberDiv">
+															      <label for="inputCity">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;&nbsp;
+															      <div style="display:inline-block;" data-toggle="modal" data-target="#exampleModalCenter"><i class="icofont icofont-user icofont-2x"></i><i class="icofont icofont-ui-add icofont-1x"></i></div>
+															   </div>
+															   <br><br>
+															   <div class="form-group col-md-12" >
+															   <br>
+															   		<table id="projectMemberTable">
+															   			<tbody>
+															   			</tbody>
+															   		</table>
+															   </div>
+															   <div class="form-group col-md-12">
+															   		&nbsp;
+															   </div>
+															   <div class="form-group col-md-12" style="text-align: center;">
+															   		<button type="submit" class="btn btn-danger">생성</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+															   		<button type="button" class="btn btn-inverse btn-outline-inverse" id="cancelButton">취소</button>
+															   </div>
+															 </div>
+														 </form>
+                                                    </div>
+                                                    <br>
+                                                    <div class="card-block">
+                                                    	<label>진행중인 프로젝트</label><br>
+                                                    	<table>
+                                                    		<tr>
+                                                    			<td>진행 중인 프로젝트가 없습니다.</td>
+                                                    		</tr>
+                                                    	</table>                                                    	
                                                     </div>
                                                     <div class="card-block">
-                                                        <p>
-                                                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                                                            enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                                                            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                                            in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                                                            nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                                                            sunt in culpa qui officia deserunt mollit anim id est laborum."
-                                                        </p>
+                                                    	<label>완료된 프로젝트</label><br>
+                                                    	<table>
+                                                    		<tr>
+                                                    			<td>완료된 프로젝트가 없습니다.</td>
+                                                    		</tr>
+                                                    	</table>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div id="styleSelector">
-
+                                <!-- 사원추가 Modal 창 -->
+                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+								  <div class="modal-dialog modal-dialog-centered" role="document">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <h5 class="modal-title" id="exampleModalLongTitle">사원 추가</h5>
+								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								          <span aria-hidden="true">&times;</span>
+								        </button>
+								      </div>
+								      <div class="modal-body">
+								      		<table style="width:100%;">
+								      			<tr style="border-bottom:1px solid black;">
+								      				<td></td>
+								      				<td style="width: 10%">&nbsp;</td>
+								      				<td style="width: 20%">이름</td>
+								      				<td style="width: 20%">부서</td>
+								      				<td style="width: 20%">직책</td>
+								      				<td style="width: 40%">핸드폰 번호</td>
+								      			</tr>
+								      			<tr>
+								      				<td><input type="hidden"></td>
+								      				<td><input type="checkbox" name="addMemberCheckbox"></td>
+								      				<td>홍길동</td>
+								      				<td>마케팅</td>
+								      				<td>팀장</td>
+								      				<td>010-5253-9563</td>
+								      			</tr>
+								      			<tr>
+								      				<td><input type="hidden"></td>
+								      				<td><input type="checkbox" name="addMemberCheckbox"></td>
+								      				<td>강건강</td>
+								      				<td>인사</td>
+								      				<td>사원</td>
+								      				<td>010-5234-7873</td>
+								      			</tr>
+								      			<tr>
+								      				<td><input type="hidden"></td>
+								      				<td><input type="checkbox" name="addMemberCheckbox"></td>
+								      				<td>남나눔</td>
+								      				<td>인사</td>
+								      				<td>대리</td>
+								      				<td>010-1242-2345</td>
+								      			</tr>
+								      			<tr>
+								      				<td><input type="hidden"></td>
+								      				<td><input type="checkbox" name="addMemberCheckbox"></td>
+								      				<td>도대담</td>
+								      				<td>마케팅</td>
+								      				<td>사원</td>
+								      				<td>010-1623-6432</td>
+								      			</tr>
+								      		</table>
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-primary" id="addMemberButton" data-dismiss="modal">추가</button>
+								        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+								      </div>
+								    </div>
+								  </div>
+								</div>
+								<!-- Modal 창 끝 -->
                             </div>
                         </div>
                     </div>
@@ -132,7 +216,72 @@
             </div>
         </div>
     </div>
+<script>
+	$('#myModal').on('shown.bs.modal', function () {
+	  $('#myInput').trigger('focus')
+	});
+	
+	$("#addMemberButton").click(function(){
+		$.ajax({
+			
+		});
+	});
+	
+	$("#addMemberButton").click(function(){
+		var check = $("input[name=addMemberCheckbox]:checked");
 
+		var $tableBody = $("#projectMemberTable tbody");
+		$tableBody.html('');
+		
+		var $tr;
+		var $mNum;
+		var $img;
+		var $name;
+		var $dept;
+		var $job;
+		var $phone;
+		var $button;
+		
+		check.each(function(i){
+			var tr = check.parent().parent().eq(i);
+			var td = tr.children();
+			
+			var col1 = td.eq(0).text();
+			var col2 = td.eq(2).text();
+			var col3 = td.eq(3).text();
+			var col4 = td.eq(4).text();
+			var col5 = td.eq(5).text();
+			
+			$tr = $('<tr>');
+			$mNum = $('<td>').html('<input type="hidden" name="num" value='+ col1 +'>');
+			$img = $('<td style="width:10%">').html('<i class="icofont icofont-user icofont-1x" style="color: gray;"></i>');
+			$name = $('<td style="width:20%">').text(col2);
+			$dept = $('<td style="width:20%">').text(col3);
+			$job = $('<td style="width:20%">').text(col4);
+			$phone = $('<td style="width:30%">').text(col5);
+			$button = $('<td style="width:10%">').html('<i class="icofont icofont-ui-close icofont-xs deleteIcon"></i>');
+			
+			$tr.append($mNum);
+			$tr.append($img);
+			$tr.append($name);
+			$tr.append($dept);
+			$tr.append($job);
+			$tr.append($phone);
+			$tr.append($button);
+			$tableBody.append($tr);
+			
+		})
+		
+	});
+	
+	$(document).on("click",".deleteIcon", function(){
+		var $tr = $(this).parent().parent();
+		$tr.remove();
+	});
+	
+	
+
+</script>
 </body>
 
 </html>
