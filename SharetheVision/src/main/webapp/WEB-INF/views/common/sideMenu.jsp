@@ -25,7 +25,7 @@
 						</c:url>
 						<a href="${ memberList }"><i class="ti-list"></i>Group Member</a> 
 						
-						<c:url var="projectForm" value="createProject.me">
+						<c:url var="projectForm" value="createProjectForm.me">
 						</c:url>
 						<a href="${ projectForm }"><i class="ti-layout-sidebar-left"></i>Logout</a>
 					</li>
@@ -170,9 +170,11 @@
                 </a>
             </li>
             <li>
-                <a href="bs-basic-table.html">
+            	<c:url var="board" value="board.bo">
+				</c:url>
+                <a href="${ board }">
                     <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Basic Table</span>
+                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">게시판</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>

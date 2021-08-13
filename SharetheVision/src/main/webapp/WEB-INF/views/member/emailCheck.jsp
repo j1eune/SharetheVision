@@ -55,7 +55,7 @@
                 <div class="col-sm-12">
                     <!-- Authentication card start -->
                     <div class="login-card card-block auth-body mr-auto ml-auto">
-                        <form action="updatePwdForm.me" method="post" class="md-float-material">
+                        <form onsubmit="return randomCheck();"action="updatePwdForm.me" method="post" class="md-float-material">
 <!--                             <div class="text-center"> -->
 <!--                                 <img src="resources/assets/images/loginLogo.png" alt="logo.png" style="width:80%;"> -->
 <!--                             </div> -->
@@ -69,7 +69,8 @@
                                 <hr/>
                                 <br>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="certification" placeholder="인증문자를 입력해주세요">
+                                	<input type="hidden" id="random" value="${ random }"/>
+                                    <input type="text" class="form-control" id="inputRandom" name="certification" placeholder="인증문자를 입력해주세요">
                                     <span class="md-line"></span>
                                 </div>
                                 <div class="input-group">
@@ -77,7 +78,7 @@
                                 </div>
                                 <div class="row m-t-30">
                                     <div class="col-md-12">
-                                        <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">인증번호 입력</button>
+                                        <button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" onclick="randomCheck();">인증번호 입력</button>
                                     </div>
                                 </div>
                                 <hr/>
@@ -131,6 +132,29 @@
 	AuthTimer.timer =  setInterval(function(){AuthTimer.fnTimer()},1000);
 	AuthTimer.domId = document.getElementById("displayTimer");
 
-
+	count = 1;
+	
+	function randomCheck(){
+		var ran1 = document.getElementById("random").value;
+		var ran2 = document.getElementById("inputRandom").value;
+		
+		
+		console.log(count);
+		
+		if(ran1 == ran2){
+			return true;
+		} else {
+			if(count > 6){
+				alert("인증번호가 일치하지 않습니다. 재시도 가능 횟수를 초과하여 메일인증 페이지로 돌아갑니다.");
+				location.href="findPwdForm.me";
+				return false;
+			}
+			alert("인증번호가 일치하지 않습니다. 재시도 가능 횟수("+count+"/6)");
+			count++;
+			return false;
+		}
+	}
+	
+	
 </script>
 </html>

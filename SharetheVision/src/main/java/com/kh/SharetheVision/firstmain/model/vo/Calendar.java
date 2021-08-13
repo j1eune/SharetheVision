@@ -7,10 +7,11 @@ public class Calendar {
 	private String sDate;
 	private String eDate;
 	private String status;
+	private int mCode;
 	
 	public Calendar() {}
 
-	public Calendar(int code, int no, String title, String sDate, String eDate, String status) {
+	public Calendar(int code, int no, String title, String sDate, String eDate, String status, int mCode) {
 		super();
 		this.code = code;
 		this.no = no;
@@ -18,6 +19,7 @@ public class Calendar {
 		this.sDate = sDate;
 		this.eDate = eDate;
 		this.status = status;
+		this.mCode = mCode;
 	}
 
 	public int getCode() {
@@ -68,10 +70,19 @@ public class Calendar {
 		this.status = status;
 	}
 
+	public int getmCode() {
+		return mCode;
+	}
+
+	public void setmCode(int mCode) {
+		this.mCode = mCode;
+	}
+
 	@Override
 	public String toString() {
 		return "Calendar [code=" + code + ", no=" + no + ", title=" + title + ", sDate=" + sDate + ", eDate=" + eDate
-				+ ", status=" + status + "]";
+				+ ", status=" + status + ", mCode=" + mCode + "]";
 	}
 
+	
 }

@@ -258,86 +258,84 @@
 
            <!--   ***************캘린더 Calendar Schedule *************************  -->
                                 <div class="col-md-12 col-xl-12">
-                                <div class="card">                                   
-                                    <div class="container">
-                                    
-							        <!-- 일자 클릭시 메뉴오픈 -->
-							        <div id="contextMenu" class="dropdown clearfix">
-							            <ul class="dropdown-menu dropNewEvent" role="menu" aria-labelledby="dropdownMenu"
-							                style="display:block;position:static;margin-bottom:5px;">
-							                <li><a tabindex="-1" href="#">부서일정</a></li>
-							                <li><a tabindex="-1" href="#">개인일정</a></li>
-							                <li class="divider"></li>
-							                <li><a tabindex="-1" href="#" data-role="close">Close</a></li>
-							            </ul>
-							        </div>
-							
-							        <div id="wrapper">
-							            <div id="loading"></div>
-							            <div id="calendar"></div>
-							        </div>
-							
-							        <!-- 일정 추가 MODAL -->
-							        <div class="modal fade" tabindex="-1" role="dialog" id="eventModal">
-							            <div class="modal-dialog" role="document">
-							                <div class="modal-content">
-							                    <div class="modal-header">
-							                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							                        <span aria-hidden="true">&times;</span></button>
-							                        <h4 class="modal-title"></h4>
-							                    </div>
-							                    <div class="modal-body">
-							                        <div class="row">
-							                            <div class="col-xs-12">
-							                                <label class="col-xs-4" for="edit-title">일정 제목:</label>
-							                                <input class="inputModal" type="text" name="edit-title" id="edit-title" required="required" />
-							                            </div>
-							                        </div>
-							                        <div class="row">
-							                            <div class="col-xs-12">
-							                                <label class="col-xs-4" for="edit-start">시작일:</label>
-							                                <input class="inputModal" type="text" name="edit-start" id="edit-start" />
-							                            </div>
-							                        </div>
-							                        <div class="row">
-							                            <div class="col-xs-12">
-							                                <label class="col-xs-4" for="edit-end">종료일:</label>
-							                                <input class="inputModal" type="text" name="edit-end" id="edit-end" />
-							                            </div>
-							                        </div>
-							                        <div class="row">
-							                            <div class="col-xs-12">
-							                                <label class="col-xs-4" for="edit-type">구분</label>
-							                                <select class="inputModal" type="text" name="edit-type" id="edit-type">
-							                                    <option value="카테고리1">카테고리1</option>
-							                                    <option value="카테고리2">카테고리2</option>
-							                                </select>
-							                            </div>
-							                        </div>
-							                        <div class="row">
-							                            <div class="col-xs-12">
-							                                <label class="col-xs-4" for="edit-color">색상</label>
-							                                <select class="inputModal" name="color" id="edit-color">
-							                                    <option value="#9775fa" style="color:#9775fa;">보라색</option>
-							                                    <option value="#ffa94d" style="color:#ffa94d;">주황색</option>
-							                                </select>
-							                            </div>
-							                        </div>
-							                    </div>
-							                    <div class="modal-footer modalBtnContainer-addEvent">
-							                        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-							                        <button type="button" class="btn btn-primary" id="save-event">저장</button>
-							                    </div>
-							                    <div class="modal-footer modalBtnContainer-modifyEvent">
-							                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-							                        <button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
-							                        <button type="button" class="btn btn-primary" id="updateEvent">저장</button>
-							                    </div>
-							                </div><!-- /.modal-content -->
-							            </div><!-- /.modal-dialog -->
-							        </div><!-- /.modal -->
-							    </div><!--    /.container     -->
-                                </div>
+	                                <div class="card">                                   
+	                                    <div class="container">
+	                                    
+								        <!-- 일자 클릭시 메뉴오픈 -->
+								        <div id="contextMenu" class="dropdown clearfix">
+								            <ul class="dropdown-menu dropNewEvent" role="menu" aria-labelledby="dropdownMenu" id="sccode"
+								                style="display:block;position:static;margin-bottom:5px;">
+								                <li value="1"><a tabindex="-1">부서일정</a></li>
+								                <li value="2"><a tabindex="-1" >개인일정</a></li>
+								                <li class="divider"></li>
+								                <li><a tabindex="-1" href="#" data-role="close">Close</a></li>
+								            </ul>
+								        </div>
+								
+								        <div id="wrapper">
+								            <div id="loading"></div>
+								            <div id="calendar"></div>
+								        </div>
+								
+								        <!-- 일정 추가 MODAL -->
+								        <div class="modal fade" tabindex="-1" role="dialog" id="eventModal">
+								            <div class="modal-dialog" role="document">
+								                <div class="modal-content">
+								                    <div class="modal-header">
+								                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								                        <span aria-hidden="true">&times;</span></button>
+								                        <h4 class="modal-title"></h4>
+								                    </div>
+								                    <div class="modal-body">
+								                        <div class="row">
+								                            <div class="col-xs-12">
+								                                <label class="col-xs-4" for="edit-title">일정명 : </label>
+								                                <input class="inputModal" type="text" name="edit-title" id="edit-title" required="required" />
+								                            </div>
+								                        </div>
+								                        <div class="row">
+								                            <div class="col-xs-12">
+								                                <label class="col-xs-4" for="edit-start">시작일 : </label>
+								                                <input class="inputModal" type="text" name="edit-start" id="edit-start" />
+								                            </div>
+								                        </div>
+								                        <div class="row">
+								                            <div class="col-xs-12">
+								                                <label class="col-xs-4" for="edit-end">종료일 : </label>
+								                                <input class="inputModal" type="text" name="edit-end" id="edit-end" />
+								                            </div>
+								                        </div>
+								                        <div class="row">
+								                            <div class="col-xs-12">
+								                                <label class="col-xs-4" for="edit-type">구분명 : </label>
+								                                <select class="inputModal" name="edit-type" id="edit-type" style="width: 140px; height: 20px;">
+								                                    <option class="text-c-purple" value="1">부서일정</option>
+								                                    <option class="text-c-yellow" value="2">개인일정</option>
+								                                </select>
+								                            </div>
+								                        </div>
+								                    	<div class="row" style="display:none">
+								                            <div class="col-xs-12">
+								                            <!-- **********loginUser 생성시 session 값으로 가져가기  **********-->
+								                            	<input type="text" for="e-id" id="e-id" value="20">
+								                            <!-- **********loginUser 생성시 session 값으로 가져가기  **********-->
+								                                <label class="col-xs-4" for="edit-color">색상</label>
+								                                <select class="inputModal" name="color" id="edit-color">
+									                                    <option value="#669900">보라색</option>
+									                                    <option value="#FFB64D">주황색</option>
+								                                </select>
+								                            </div>
+								                        </div>
+								                    </div>
+								                    <div class="modal-footer modalBtnContainer-addEvent">
+								                        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+								                        <button type="button" class="btn btn-primary" id="save-event">저장</button>
+								                    </div>
+								                </div><!-- /.modal-content -->
+								            </div><!-- /.modal-dialog -->
+								        </div><!-- /.modal -->
+								    </div><!--    /.container     -->
+	                                </div>
                                 </div>
                                
                                 </div>
@@ -368,7 +366,10 @@
 <script src="resources/vendor/js/bootstrap-datetimepicker.min.js"></script>
 
 <script>
-        
+$( document ).ready(function() {
+    console.log( "script ready." );
+    
+    //화면 위로 올리는 버튼 액션
     var $window = $(window);
     var nav = $('.fixed-button');
         $window.scroll(function(){
@@ -379,7 +380,11 @@
             nav.removeClass('active');
         }
     });
+   
+// 클릭 연계 이벤트 addEvent.js 에 추가함        
+
         
+});     
 </script>
 
 
