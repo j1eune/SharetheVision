@@ -37,8 +37,8 @@ public class MemberController {
 		int random = (int)(Math.random() * 1000000) + 1;
 		
 		String subject = "[SV Company] 비밀번호 변경 인증번호 입니다.";
-		String content = "<h2>" + name + "님 반갑습니다. </h2> <br>" 
-						 + "<h3> 이메일 변경을 위한 인증 번호는 " + random + " 입니다. </h3>";
+		String content = "<h2>" + id + " 님, 반갑습니다. <br> </h2>" + 
+						 "<h4> 문의하신 메일 인증번호는 "+ random + " 입니다 </h4>";
 		String from = "SVCompany0812@gmail.com";
 		String to = email;
 		
