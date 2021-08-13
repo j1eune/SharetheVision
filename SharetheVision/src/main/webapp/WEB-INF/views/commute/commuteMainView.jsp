@@ -240,7 +240,7 @@
 		                        </div>
 		                        <!-- 휴가 신청 모달 -->
 		                        <div class="modal fade" id="leaveModal" tabindex="-1" role="dialog" aria-labelledby="leaveModalLabel" aria-hidden="true">
-		                        	<%@include file="leaveModal.jsp" %>
+		                        	<%@include file="../leave/leaveModal.jsp" %>
 		                    	</div>
 		                    </div>
 		                </div>
