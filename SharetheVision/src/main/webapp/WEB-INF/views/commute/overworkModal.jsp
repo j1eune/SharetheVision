@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,18 +40,22 @@
 	                    <div class="form-row">
 	                        <div class="form-group col-md-3">
 	                            <label for="start">근무 시작 시간</label>
-	                            <select class="form-control">
-	                                <option>오전</option>
-	                                <option>오후</option>
+	                            <select class="form-control" id="start">
+	                                <option value="am">오전</option>
+	                                <option value="pm">오후</option>
 	                            </select>
 	                        </div>
 	                        <div class="form-group col-md-3">
 	                            <label>&nbsp;</label>
-	                            <select class="form-control">
-	                                <option>1</option>
-	                                <option>2</option>
-	                                <option>3</option>
-	                                <option>4</option>
+	                            <select class="form-control" id="startHour">
+	                            <c:forEach var="i" begin="1" end="12">
+	                            	<c:if test="${i == 1}">
+	                            		<option value="${i}" selected>${i}</option>
+	                            	</c:if>
+	                            	<c:if test="${i != 1}">
+		                            	<option value="${i}">${i}</option>
+	                            	</c:if>
+	                            </c:forEach>
 	                            </select>
 	                        </div>
 	                        <div class="form-group col-md-1">
@@ -59,11 +64,15 @@
 	                        </div>
 	                        <div class="form-group col-md-3">
 	                            <label>&nbsp;</label>
-	                            <select class="form-control">
-	                                <option>00</option>
-	                                <option>01</option>
-	                                <option>02</option>
-	                                <option>03</option>
+	                            <select class="form-control" id="startMin">
+	                            <c:forEach var="i" begin="0" end="59">
+	                            	<c:if test="${i == 0}">
+	                            		<option value="${i}" selected>${i}</option>
+	                            	</c:if>
+	                            	<c:if test="${i != 0}">
+		                            	<option value="${i}">${i}</option>
+	                            	</c:if>
+	                            </c:forEach>
 	                            </select>
 	                        </div>
 	                        <div class="form-group col-md-1">
@@ -73,19 +82,23 @@
 	                    </div>
 	                    <div class="form-row">
 	                        <div class="form-group col-md-3">
-	                            <label for="start">근무 종료 시간</label>
-	                            <select class="form-control">
-	                                <option>오전</option>
-	                                <option>오후</option>
+	                            <label for="end">근무 종료 시간</label>
+	                            <select class="form-control" id="end">
+	                                <option value="am">오전</option>
+	                                <option value="pm">오후</option>
 	                            </select>
 	                        </div>
 	                        <div class="form-group col-md-3">
 	                            <label>&nbsp;</label>
-	                            <select class="form-control">
-	                                <option>1</option>
-	                                <option>2</option>
-	                                <option>3</option>
-	                                <option>4</option>
+	                            <select class="form-control" id="endHour">
+	                            <c:forEach var="i" begin="1" end="12">
+	                            	<c:if test="${i == 1}">
+	                            		<option value="${i}" selected>${i}</option>
+	                            	</c:if>
+	                            	<c:if test="${i != 1}">
+		                            	<option value="${i}">${i}</option>
+	                            	</c:if>
+	                            </c:forEach>
 	                            </select>
 	                        </div>
 	                        <div class="form-group col-md-1">
@@ -94,11 +107,15 @@
 	                        </div>
 	                        <div class="form-group col-md-3">
 	                            <label>&nbsp;</label>
-	                            <select class="form-control">
-	                                <option>00</option>
-	                                <option>01</option>
-	                                <option>02</option>
-	                                <option>03</option>
+	                            <select class="form-control" id="endMin">
+	                            <c:forEach var="i" begin="0" end="59">
+	                            	<c:if test="${i == 0}">
+	                            		<option value="${i}" selected>${i}</option>
+	                            	</c:if>
+	                            	<c:if test="${i != 0}">
+		                            	<option value="${i}">${i}</option>
+	                            	</c:if>
+	                            </c:forEach>
 	                            </select>
 	                        </div>
 	                        <div class="form-group col-md-1">
@@ -106,12 +123,15 @@
 	                            <div class="mt-2">분</div>
 	                        </div>
 	                    </div>
-	                    <div class="form-group">
-	                        총 근무 시간 : 2시간
+	                    <div class="form-row">
+	                    	<div class="form-group col-md-5">
+								<label for="overworkHour">총 근무 시간</label>
+		                        <input type="text" class="form-control" id="totalOverwork" readonly>
+	                    	</div>
 	                    </div>
 	                    <div class="form-group">
 	                        <label for="leaveContent">신청사유</label>
-	                        <textarea class="form-control" rows="6" placeholder="사유를 입력해주세요." style="resize: none;"></textarea>
+	                        <textarea class="form-control" id="overworkContent" rows="6" placeholder="사유를 입력해주세요." style="resize: none;"></textarea>
 	                    </div>
 	                    <div class="form-row mb-3">
 	                        <div class="form-group col-md-6">
@@ -124,7 +144,8 @@
 	                        </div>
 	                    </div> 
 	                    <div class="mb-4 text-center">
-	                        <button type="submit" class="btn btn-block" style="background-color: #FFB64D; color:white">신청하기</button>
+<!-- 	                        <button type="button" class="btn btn-block" style="background-color: #FFB64D; color:white">신청하기</button> -->
+	                        <button type="button" class="btn btn-block" id="overworkSubmit" style="background-color: #FFB64D; color:white">신청하기</button>
 	                        <!-- <button type="button" class="btn btn-primary">저장하기</button> -->
 	                    </div>
 	                </form>
@@ -132,5 +153,55 @@
 	        </div>
 	    </div>
 <!-- 	</div> -->
+
+	<script>
+	
+		function overworkHour(){
+			var start = $('#start option:selected').val();
+			var startHour = parseInt($('#startHour option:selected').val());
+			var startMin = parseInt($('#startMin option:selected').val());
+			var end = $('#end option:selected').val();
+			var endHour = parseInt($('#endHour option:selected').val());
+			var endMin = parseInt($('#endMin option:selected').val());
+			
+			var resultHour;
+			var resultMin;
+			
+			if((start=='pm' && end=='am') || (start == 'am' && end == 'pm')){
+				endHour = 12 + endHour;
+			}
+			
+			if(startMin > endMin){
+				resultHour = (endHour-startHour-1);
+				resultMin = (60 - (startMin-endMin));
+			} else {
+				resultHour = (endHour-startHour);
+				resultMin = (endMin-startMin);
+			}
+			
+			$('#totalOverwork').val(resultHour + '시간' + resultMin + '분');
+
+			if(start == end){
+				if(resultHour < 0){
+					alert('시간을 다시 선택해주세요.');
+					$('#totalOverwork').val('');
+				}			
+			}
+			console.log(resultHour + '시간' + resultMin + '분');
+		}
+		
+		$('#endMin').on('blur', function(){
+			overworkHour();
+			
+			$('#start, #startHour, #startMin, #end, #endHour').on('blur', function(){
+				overworkHour();
+			});
+		});
+		
+		$('#overworkContent').on('click', function(){
+			overworkHour();
+		});
+		
+	</script>
 </body>
 </html>
