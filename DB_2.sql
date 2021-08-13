@@ -1,5 +1,22 @@
 ﻿-- --------------------------------------------------------------------------------------------------------------------------------------------------------
 -- =========================================================================================================================================================
+-- 2021.08.13 20:41 UPDATE
+-- DEFAULT값 수정
+ALTER TABLE USED MODIFY U_APPROVAL DEFAULT 'W';
+ALTER TABLE USED MODIFY U_STATUS DEFAULT 'N';
+ALTER TABLE OVERWORK MODIFY O_APPROVAL DEFAULT 'N';
+ALTER TABLE ATTACHMENT MODIFY AT_STATUS DEFAULT 'Y';
+ALTER TABLE PROJECT MODIFY P_STATUS DEFAULT 'Y';
+ALTER TABLE PROJECT MODIFY P_END DEFAULT 'N';
+ALTER TABLE REPLY MODIFY R_STATUS DEFAULT 'Y';
+ALTER TABLE BOARD MODIFY B_STATUS DEFAULT 'Y';
+ALTER TABLE SCHEDULE MODIFY SC_STATUS DEFAULT 'N';
+ALTER TABLE CHECKLIST MODIFY C_STATUS DEFAULT 'N';
+
+-- 2021.08.13 20:23 UPDATE
+-- COMMUTE테이블 C_STATUS 컬럼 삭제
+ALTER TABLE COMMUTE DROP COLUMN C_STATUS;
+
 -- 2021.08.13 19:05  UPDATE
 -- SCHEDULE, CHECKLIST TABLE 수정 (맨밑에 추가하시면 됩니다)
 
