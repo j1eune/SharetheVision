@@ -14,11 +14,13 @@
 <meta name="author" content="CodedThemes">
 <link href="resources/assets/css/datePicker/datePicker.css" rel="stylesheet" type="text/css">
 <style>
-	#goTo, #getOff, #changeState, #selectState{border: 2px solid #660099; background-color: white; color:#660099; font-size: 20px; box-shadow: none;}
+	#goTo, #getOff, #changeState, #seleteState{border: 2px solid #660099; background-color: white; color: #660099; font-size: 2.5vmin; font-weight: bold; box-shadow: none;}
+/* 	#changeState{border: 2px solid #660099; font-size: 2.5vmin; color: #660099; border-radius: 20px;} */
+/* 	#changeState option{font-size: 2.5vmin; text-align:center; border-radius: 20px;} */
+/* 	#changeState option:hover{cursor:pointer; color: #660099; background-color: #F8F9FA; border-radius: 20px;} */
 	#selectState{border-radius: 20px;}
-	#selectState li{font-size: 20px;}
-	#selectState li:hover{cursor:pointer; color: #660099; background-color: #F8F9FA;}
-
+	#selectState li{font-size: 2.5vmin;}
+	#selectState li:hover{cursor: pointer; color:#660099; background-color: #F8F9FA;}	
 	.listTable>thead>tr>th, .listTable>tbody>tr>td, .listTable>tbody>tr>th{text-align: center}
 	
 	#leaveTime input[type="radio"]{
@@ -200,35 +202,29 @@
 		                                            <table class="table table-borderless">
 		                                                <tr>
 		                                                    <td><h5>출근시간</h5></td>
-		                                                    <td class="text-right"><h5>08:58:41</h5></td>
+		                                                    <td class="text-right"><h5 id="goToTime"></h5></td>
 		                                                </tr>
 		                                                <tr>
 		                                                    <td><h5>퇴근시간</h5></td>
-		                                                    <td class="text-right"><h5>18:09:02</h5></td>
+		                                                    <td class="text-right"><h5 id="getOffTime"></h5></td>
 		                                                </tr>
 		                                            </table>
 		                                            <hr style="border-top: 2px dashed #bbb;">
-		                                            <div class="row">
-		                                                <table class="table table-borderless">
-		                                                    <tr>
-		                                                        <td><button type="button" class="btn btn-round btn-block" id="goTo">출근하기</button></td>
-		                                                        <td><button type="button" class="btn btn-round btn-block" id="getOff">퇴근하기</button></td>
-		                                                    </tr>
-		                                                    <tr>
-		                                                        <td colspan="2">
-		                                                            <div class="dropdown">
-		                                                                <button type="button" id="changeState" class="btn btn-round btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">상태변경</button>
-		                                                                <ul id="selectState" class="dropdown-menu" aria-labelledby="changeState" style="width: 100%">
-		                                                                    <li class="dropdown-item"><span>업무</span></li>
-		                                                                    <li class="dropdown-item"><span>업무종료</span></li>
-		                                                                    <li class="dropdown-item"><span>휴가</span></li>
-		                                                                    <li class="dropdown-item"><span>외근</span></li>
-		                                                                </ul>
-		                                                            </div>
-		                                                        </td>
-		                                                    </tr>
-		                                                </table>
-		                                            </div>
+													<div class="mt-3 row">
+													    <div class="col-md-6"><button type="button" class="btn btn-round btn-block" id="goTo">출근하기</button></div>
+													    <div class="col-md-6"><button type="button" class="btn btn-round btn-block" id="getOff">퇴근하기</button></div>
+													</div>
+													<div class="mt-3">
+														<div>
+														    <button type="button" id="changeState" class="btn btn-round btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">상태변경</button>
+														    <ul id="selectState" class="dropdown-menu col-md-12" aria-labelledby="changeState" style="width: 90%;">
+															    <li class="dropdown-item" value="1"><span>업무종료</span></li>
+															    <li class="dropdown-item" value="2"><span>업무 중</span></li>
+															    <li class="dropdown-item" value="3"><span>휴가</span></li>
+															    <li class="dropdown-item" value="4"><span>외근</span></li>
+															</ul>
+														</div>
+													</div>
 		                                        </div>
 		                                    </div>
 		                                </div>
@@ -300,24 +296,37 @@
         $('#totalWorkingHours').html('41h 42m').css('font-size', '5vmin');
         $('#progress').css('width', percent +"%");
         
+        // 출근
         $('#goTo').on('click', function(){
-            $(this).css({'border':'2px solid gray', 'color':'gray'});
-            $('#getOff').css({'border':'2px solid #660099', 'color':'#660099'});
+        	var check = confirm('출근하시겠습니까?');
+        	
+        	if(check){
+        		$('#goToTime').html(hour + ":" + minutes + ":" + seconds);
+	            $(this).css({'border':'2px solid gray', 'color':'gray'});
+	            $('#getOff').css({'border':'2px solid #660099', 'color':'#660099'});
+        	}
         });
         
+        // 퇴근
         $('#getOff').on('click', function(){
-            $(this).css({'border':'2px solid gray', 'color':'gray'});
-            $('#goTo').css({'border':'2px solid #660099', 'color':'#660099'});
-        });
-
-        // 휴가 신청
-        $('.leave-card').on('click', function(){
-            $('#leaveModal').modal('show');
+        	var check = confirm('퇴근하시겠습니까?');
+        	
+        	if(check){
+				$('#getOffTime').html(hour + ":" + minutes + ":" + seconds);        		
+	            $(this).css({'border':'2px solid gray', 'color':'gray'});
+	            $('#goTo').css({'border':'2px solid #660099', 'color':'#660099'});
+        	}
         });
         
         // 연장근무 신청
         $('.overwork-card').on('click', function(){
             $('#overworkModal').modal('show');
+        });
+        
+        // 휴가 신청
+        $('.leave-card').on('click', function(){
+        	console.log('휴가 신청');
+            $('#leaveModal').modal('show');
         });
         
         // 날짜 선택
