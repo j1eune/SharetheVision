@@ -1,6 +1,29 @@
 ﻿-- --------------------------------------------------------------------------------------------------------------------------------------------------------
 -- =========================================================================================================================================================
--- 2021.08.13 20:41 UPDATE
+-- 2021.08.14 11:21 지은UPDATE
+-- COMMUTE 테이블 시퀀스 추가
+CREATE SEQUENCE SEQ_CO
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+-- COMMUTE 테이블 컬럼 타입 변경
+DROP TABLE COMMUTE CASCADE CONSTRAINTS;
+
+CREATE TABLE "COMMUTE" (
+	"CMT_NO"	NUMBER		NOT NULL,
+	"C_DATE"	DATE		NULL,
+	"C_START"	VARCHAR2(20)		NULL,
+	"C_END"	VARCHAR2(20)		NULL,
+	"C_WORKTIME"	NUMBER		NULL,
+	"M_CODE"	VARCHAR2(100)		NOT NULL
+);
+
+ALTER TABLE "COMMUTE" ADD CONSTRAINT "PK_COMMUTE" PRIMARY KEY (
+	"CMT_NO"
+);
+
+-- 2021.08.13 20:41 지은UPDATE
 -- DEFAULT값 수정
 ALTER TABLE USED MODIFY U_APPROVAL DEFAULT 'W';
 ALTER TABLE USED MODIFY U_STATUS DEFAULT 'N';
@@ -13,7 +36,7 @@ ALTER TABLE BOARD MODIFY B_STATUS DEFAULT 'Y';
 ALTER TABLE SCHEDULE MODIFY SC_STATUS DEFAULT 'N';
 ALTER TABLE CHECKLIST MODIFY C_STATUS DEFAULT 'N';
 
--- 2021.08.13 20:23 UPDATE
+-- 2021.08.13 20:23 지은UPDATE
 -- COMMUTE테이블 C_STATUS 컬럼 삭제
 ALTER TABLE COMMUTE DROP COLUMN C_STATUS;
 
