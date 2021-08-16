@@ -22,6 +22,7 @@
 						<a href="${ updateProfileForm }"><i class="ti-user"></i>View Profile</a>
 						
 						<c:url var="memberList" value="memberList.me">
+							<c:param name="condition" value="refresh"/>
 						</c:url>
 						<a href="${ memberList }"><i class="ti-list"></i>Group Member</a> 
 						

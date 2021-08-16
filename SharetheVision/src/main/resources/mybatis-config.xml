@@ -11,6 +11,7 @@
 	<typeAliases>
 		<typeAlias alias="calendar" type="com.kh.SharetheVision.firstmain.model.vo.Calendar"/>
 		<typeAlias alias="board" type="com.kh.SharetheVision.board.model.vo.Board"/>
+		<typeAlias alias="Member" type="com.kh.SharetheVision.member.model.vo.Member"/>
 	</typeAliases>
 	
 	
@@ -18,6 +19,7 @@
 	<mappers>
 		<mapper resource="mapper/calendar-mapper.xml"/>
 		<mapper resource="mapper/board-mapper.xml"/>
+		<mapper resource="mapper/member-mapper.xml"/>
 	</mappers>
 
 
