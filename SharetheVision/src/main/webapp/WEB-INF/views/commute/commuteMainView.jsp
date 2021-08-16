@@ -15,9 +15,6 @@
 <link href="resources/assets/css/datePicker/datePicker.css" rel="stylesheet" type="text/css">
 <style>
 	#goTo, #getOff, #changeState, #seleteState{border: 2px solid #660099; background-color: white; color: #660099; font-size: 2.5vmin; font-weight: bold; box-shadow: none;}
-/* 	#changeState{border: 2px solid #660099; font-size: 2.5vmin; color: #660099; border-radius: 20px;} */
-/* 	#changeState option{font-size: 2.5vmin; text-align:center; border-radius: 20px;} */
-/* 	#changeState option:hover{cursor:pointer; color: #660099; background-color: #F8F9FA; border-radius: 20px;} */
 	#selectState{border-radius: 20px;}
 	#selectState li{font-size: 2.5vmin;}
 	#selectState li:hover{cursor: pointer; color:#660099; background-color: #F8F9FA;}	
@@ -202,7 +199,7 @@
 		                                            <table class="table table-borderless">
 		                                                <tr>
 		                                                    <td><h5>출근시간</h5></td>
-		                                                    <td class="text-right"><h5 id="goToTime"></h5></td>
+		                                                    <td class="text-right"><h5 id="goToTime">${goToTime}</h5></td>
 		                                                </tr>
 		                                                <tr>
 		                                                    <td><h5>퇴근시간</h5></td>
@@ -290,24 +287,56 @@
         document.getElementById('today').innerHTML = formatToday;
         
         // 현재까지 근무시간
-        // percent = 현재까지 근무시간(분) / 3120 * 100  (예를 든 현재 시간은 41시간 42분)
+        // percent = 현재까지 근무시간(분) / 3120 * 100  (예를 든 현재 시간은 41시간 42분. 41*60+42/52*60 * 100)
         var percent = (2502 / 3120 * 100).toFixed(2);
         
         $('#totalWorkingHours').html('41h 42m').css('font-size', '5vmin');
         $('#progress').css('width', percent +"%");
         
-        // 출근
+        // 출근하기
         $('#goTo').on('click', function(){
         	var check = confirm('출근하시겠습니까?');
         	
         	if(check){
-        		$('#goToTime').html(hour + ":" + minutes + ":" + seconds);
-	            $(this).css({'border':'2px solid gray', 'color':'gray'});
-	            $('#getOff').css({'border':'2px solid #660099', 'color':'#660099'});
+        		navigator.geolocation.getCurrentPosition(function(pos){
+        		    var latitude = pos.coords.latitude;
+        		    var longitude = pos.coords.longitude;
+//         		    alert("현재 위치는 : " + latitude + ", "+ longitude);
+
+        		    // 우리 집 위도 : 37.494555 / 우리 집 경도 : 126.958055
+					// 회사 위도 : 37.499146193359344  /  회사 경도 : 127.03289826885084
+//         		    if((latitude > '37.4945' && latitude < '37.4946') && (longitude > '126.9580' && longitude < '126.9581')){
+//         		    if((latitude > '37.49' && latitude < '37.50') && (longitude > '126.94' && longitude < '126.95')){
+        		    if(true){
+        		    	
+        		    	var enterTime = hour + ":" + minutes + ":" + seconds;
+			            
+			            $.ajax({
+			            	url: 'commuteEnter.co',
+			            	data: {enterTime: enterTime},
+			            	success: function(data){
+			            		
+								console.log(data);
+								
+// 				        		$('#goToTime').html(data);
+// 					            $('#goTo').css({'border':'2px solid gray', 'color':'gray'});
+// 					            $('#getOff').css({'border':'2px solid #660099', 'color':'#660099'});
+								
+			            	},
+			            	error: function(data){
+			            		console.log('실패');
+			            	}
+			            });
+			            
+        		    } else {
+        		    	alert('회사에서 출근을 해주세요');
+        		    }
+        		});
+
         	}
         });
         
-        // 퇴근
+        // 퇴근하기
         $('#getOff').on('click', function(){
         	var check = confirm('퇴근하시겠습니까?');
         	
@@ -357,6 +386,8 @@
             }
         });
     });
+	
+
 </script>
 	
 <!-- test Chart -->
