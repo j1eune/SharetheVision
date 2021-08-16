@@ -2,7 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="calendarMapper">
 
-	<select id="cList" resultMap="calendarResultMap">
+
+	<insert id="addCal">
+		INSERT INTO schedule
+		VALUES(#{code}, seq_dsc.nextval, #{title}, to_date(#{sDate}), to_date(#{eDate}), default, #{mCode} )
+	</insert>
+
+
+
+
+
+<!-- 	<select id="cList" resultMap="calendarResultMap">
 		select sc_code, dsc_no, sc_title, TO_char(sc_sdate, 'YYYY-MM-DD') start1, TO_char(sc_edate, 'YYYY-MM-DD') end2, m_code
 		from schedule
 		where sc_status='N'
@@ -10,7 +20,7 @@
 	<resultMap type="calendar" id="calendarResultMap">
 		<result property="sDate" column="start1"/>
 		<result property="eDate" column="end2"/>
-	</resultMap>
+	</resultMap> -->
 
 
 </mapper>

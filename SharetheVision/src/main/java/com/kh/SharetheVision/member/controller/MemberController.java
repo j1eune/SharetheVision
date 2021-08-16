@@ -31,7 +31,6 @@ public class MemberController {
 	@Autowired
 	private BCryptPasswordEncoder bcrypt;
 	
-//	@Autowired
 	private JavaMailSender mailSender;
 	
 	

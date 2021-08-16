@@ -289,7 +289,7 @@
 								                    <div class="modal-body">
 								                        <div class="row">
 								                            <div class="col-xs-12">
-								                                <label class="col-xs-4" for="edit-title">일정명:</label>
+								                                <label class="col-xs-4" for="edit-title">일정명 : </label>
 								                                <input class="inputModal" type="text" name="edit-title" id="edit-title" required="required" />
 								                            </div>
 								                        </div>
@@ -309,13 +309,16 @@
 								                            <div class="col-xs-12">
 								                                <label class="col-xs-4" for="edit-type">구분명 : </label>
 								                                <select class="inputModal" name="edit-type" id="edit-type" style="width: 140px; height: 20px;">
-								                                    <option class="text-c-purple" value="sccode1">부서일정</option>
-								                                    <option class="text-c-yellow" value="sccode2">개인일정</option>
+								                                    <option class="text-c-purple" value="1">부서일정</option>
+								                                    <option class="text-c-yellow" value="2">개인일정</option>
 								                                </select>
 								                            </div>
 								                        </div>
 								                    	<div class="row" style="display:none">
 								                            <div class="col-xs-12">
+								                            <!-- **********loginUser 생성시 session 값으로 가져가기  **********-->
+								                            	<input type="text" for="e-id" id="e-id" value="20">
+								                            <!-- **********loginUser 생성시 session 값으로 가져가기  **********-->
 								                                <label class="col-xs-4" for="edit-color">색상</label>
 								                                <select class="inputModal" name="color" id="edit-color">
 									                                    <option value="#669900">보라색</option>
@@ -378,30 +381,8 @@ $( document ).ready(function() {
         }
     });
    
-        
-    $('#sccode li').on('click',function(){
-    	var sccode = $(this).val();
-   		//console.log("sccode:"+sccode);
-   		
-    	//if(sccode=='1'){
-    		//$('#edit-type option:eq(0)').prop('selected',true);
-    		//$("#edit-type option:eq(" + eval(sccode-1) + ")").prop("selected",true);
-    		//$('#edit-type option').eq(sccode-1).prop('selected', true);
-    		//$("#edit-type").find("[value=sccode"+eval(sccode-1)+"]").prop("selected", true).text($(this).text());
-    	//}else if(sccode=='2'){
-    	//	$('#edit-type option:eq(1)').prop('selected',true);
-    	//}
-   		//$("#edit-type").trigger("change");
-   		
-    	var sccolor = $('#edit-type option:selected').val();
-    	console.log("sccolor:"+sccolor);
-    
-    	if(sccolor=='sccode1'){
-    		$('#edit-color option:eq(0)').attr('selected',true);
-    	}else if(sccolor=='sccode2'){
-    		$('#edit-color option:eq(1)').attr('selected',true);
-    	}
-    });
+// 클릭 연계 이벤트 addEvent.js 에 추가함        
+
         
 });     
 </script>
