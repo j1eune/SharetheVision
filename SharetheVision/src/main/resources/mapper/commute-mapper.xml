@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="commuteMapper">
+
+	<select id="selectCommute" resultMap="commuteResultMap">
+		SELECT CMT_NO, C_DATE, C_START, C_END, C_WORKTIME, M_CODE, O_TIME
+		FROM COMMUTE
+		     JOIN OVERWORK USING(M_CODE)
+		WHERE M_CODE = #{memberNo} AND TO_CHAR(SYSDATE, 'YY/MM/DD') = TO_CHAR(C_DATE) AND TO_CHAR(C_DATE) = TO_CHAR(O_DATE)
+	</select>
+	
+	<resultMap type="commute" id="commuteResultMap">
+		<id column="CMT_NO" property="commuteNo"/>
+		<result column="C_DATE" property="enrollDate"/>
+		<result column="C_START" property="commuteStart"/>
+		<result column="C_END" property="commuteEnd"/>
+		<result column="C_WORKTIME" property="worktime"/>
+		<result column="M_CODE" property="memberNo"/>
+		<result column="O_TIME" property="overworktime"/>
+	</resultMap>
+	
+	<insert id="insertCommute">
+		INSERT INTO COMMUTE VALUES(SEQ_CO.NEXTVAL, SYSDATE, #{enterTime}, NULL, NULL, #{memberNo})
+	</insert>
+	
+</mapper>

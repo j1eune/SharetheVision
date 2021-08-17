@@ -5,7 +5,7 @@
 <html lang="en">
 
 <head>
-    <title>GURU Able - Free Lite Admin Template </title>
+    <title>Group Member</title>
     <!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -82,6 +82,7 @@
                                                     <ul class="breadcrumb-title">
                                                     	<!-- 새로고침 -->
                                                     	<c:url var="memberList" value="memberList.me">
+                                                    		<c:param name="condition" value="refresh"/>
                                                     	</c:url>
                                                         <li class="breadcrumb-item">
                                                             <a href="${ memberList }"><i class="icofont icofont-refresh icofont-lg"></i></a>
@@ -89,7 +90,7 @@
                                                         
                                                         <!-- 근무 중 사원 보기 -->
                                                     	<c:url var="attendanceMember" value="memberList.me">
-                                                    		<param name="attendence" value="attendence">
+                                                    		<c:param name="condition" value="attendence"/>
                                                     	</c:url>
                                                         <li class="breadcrumb-item">
                                                         	<a href="${ attendanceMember }"><i class="icofont icofont-under-construction-alt icofont-lg"></i>&nbsp;근무 중</a>
@@ -97,7 +98,7 @@
                                                         
                                                         <!-- 휴가 중 사원 보기 -->
                                                     	<c:url var="leaveMember" value="memberList.me">
-															<param name="leave" value="leave">                                                    	
+															<c:param name="condition" value="leave"/>                                                    	
                                                     	</c:url>
                                                         <li class="breadcrumb-item">
                                                         	<a href="${ leaveMember }"><i class="icofont icofont-travelling icofont-lg"></i>&nbsp;휴가 중</a>
@@ -121,7 +122,7 @@
                                             <div class="col-sm-12">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <table class="table table-hover">
+                                                        <table class="table table-hover" id="memberTable">
                                                         	<thead>
 	                                                        	<tr>
 	                                                        		<th style="width:10%; text-align:center;">이름</th>
@@ -133,6 +134,38 @@
 	                                                        	</tr>
 	                                                        </thead>
 	                                                        <tbody>
+	                                                        	<c:if test="${ !empty list}">
+		                                                        	<c:forEach var="b" items="${ list }">
+		                                                        		<tr>
+		                                                        			<td>${ b.name }</td>
+		                                                        			<td>${ b.jobName }</td>
+		                                                        			<td>${ b.phone }</td>
+		                                                        			<td>${ b.address }</td>
+		                                                        			<td>${ b.email }</td>
+		                                                        			<td>
+		                                                        				<c:choose>
+			                                                        				<c:when test="${ b.mState == 1}">
+			                                                        					업무종료
+			                                                        				</c:when>
+			                                                        				<c:when test="${ b.mState == 2}">
+			                                                        					업무 중
+			                                                        				</c:when>
+			                                                        				<c:when test="${ b.mState == 3}">
+			                                                        					외근
+			                                                        				</c:when>
+			                                                        				<c:when test="${ b.mState == 4}">
+			                                                        					휴가
+			                                                        				</c:when>
+		                                                        				</c:choose>
+		                                                        			</td>
+		                                                        		</tr>
+		                                                        	</c:forEach>
+                                                      			</c:if>
+                                                      			<c:if test="${ empty list}">
+                                                      				<tr>
+                                                      					<td colspan="6" style="text-align:center;">등록된 사원이 없습니다.</td>
+                                                      				</tr>
+                                                      			</c:if>		
 	                                                        </tbody>
                                                         </table>
 	                                                </div>
@@ -158,35 +191,35 @@
 												<div class="form-row">
 												    <div class="form-group col-md-4">
 												      <label for="inputEmail4">이름</label>
-												      <input type="text" class="form-control" id="inputEmail4" placeholder="이름">
+												      <input type="text" class="form-control" name="name" id="inputEmail4" placeholder="이름">
 												    </div>
 												    <div class="form-group col-md-4">
 												      <label for="inputPassword4">부서</label>
-												      <select class="form-control">
-												      	<option>인사</option>
-												      	<option>마케팅</option>
-												      	<option>생산</option>
-												      	<option>영업</option>
-												      	<option>회계</option>
+												      <select class="form-control" name="deptNo">
+												      	<option value=1>인사</option>
+												      	<option value=2>마케팅</option>
+												      	<option value=3>생산</option>
+												      	<option value=4>영업</option>
+												      	<option value=5>회계</option>
 												      </select>
 												    </div>
 												    <div class="form-group col-md-4">
 												      <label for="inputPassword4">직책</label>
-												      <select class="form-control">
-												      	<option>사원</option>
-												      	<option>대리</option>
-												      	<option>과장</option>
-												      	<option>부장</option>
+												      <select class="form-control" name="jobNo">
+												      	<option value=1>사원</option>
+												      	<option value=2>대리</option>
+												      	<option value=3>과장</option>
+												      	<option value=4>부장</option>
 												      </select>
 												    </div>
 											    </div>
 												<div class="form-group">
 												    <label for="inputAddress2">아이디</label>
-												    <input type="text" class="form-control" id="inputAddress2" placeholder="Id">
+												    <input type="text" class="form-control" name="mCode" id="inputAddress2" placeholder="Id">
 												</div>
 												<div class="form-group">
 												    <label for="inputAddress">전화번호</label>
-												    <input type="text" class="form-control" id="inputAddress" placeholder="'-' 을 포함한 전화번호">
+												    <input type="text" class="form-control" name="phone" id="inputAddress" placeholder="'-' 을 포함한 전화번호">
 												</div>
 												<div class="form-row">
 												    <div class="form-group col-md-3">
@@ -279,6 +312,8 @@
 	            }
 	        }).open();
 	    }
+		
+		
 	</script>
 
 </body>

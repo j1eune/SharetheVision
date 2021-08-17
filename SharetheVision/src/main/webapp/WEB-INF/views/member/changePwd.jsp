@@ -70,7 +70,8 @@
                                 </div>
                                 <hr/>
                                 <div>
-                                    <input type="password" class="form-control" id="newPwd" name="newPwd" required placeholder="새로운 비밀번호(8~12자리)" onkeyup="newPwdCheck();"/>
+                                	<input type="hidden" name="mCode" value="${ id }"/>
+                                    <input type="password" class="form-control" id="newPwd" name="pwd" required placeholder="새로운 비밀번호(8~12자리)" onkeyup="newPwdCheck();"/>
                                     <span class="md-line"></span>
                                 </div>
                                 <div style="color: black; text-align: left; padding-top: 2px;" id="newPwdMessage"></div>

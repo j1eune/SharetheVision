@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="memberMapper">
+	<insert id="insertMember">
+		INSERT INTO MEMBER
+		VALUES(#{mCode}, #{name}, #{pwd}, #{phone}, #{address}, #{email}, SYSDATE, SYSDATE, 1, DEFAULT, 0, #{deptNo}, #{jobNo})
+	</insert>
+
+	<select id="selectMember" resultMap="selectMemberResult">
+		SELECT *
+		FROM (SELECT * 
+			  FROM MEMBER
+			  	LEFT JOIN JOB USING(J_NO)
+				LEFT JOIN ADMIN USING(ADMIN_NO)
+				LEFT JOIN DEPARTMENT USING(DEPT_NO)
+			  WHERE M_STATUS = 'Y'
+			  ORDER BY M_CODE) 
+		<if test="condition == 'refresh'"></if>
+		<if test="condition == 'attendence'">
+		WHERE M_STATE = 2
+		</if>
+		<if test="condition == 'leave'">
+		WHERE M_STATE = 4
+		</if>
+	</select>
+	
+	<resultMap type="Member" id="selectMemberResult">
+		<id column="M_CODE" property="mCode"/>
+		<result column="M_NAME" property="name"/>
+		<result column="M_PHONE" property="phone"/>
+		<result column="M_ADDRESS" property="address"/>
+		<result column="M_EMAIL" property="email"/>
+		<result column="M_STATE" property="mState"/>
+		<result column="ADMIN_NAME" property="adminName"/>
+		<result column="DEPT_NAME" property="jobName"/>
+		<result column="J_NAME" property="deptName"/>
+	</resultMap>
+
+</mapper>
