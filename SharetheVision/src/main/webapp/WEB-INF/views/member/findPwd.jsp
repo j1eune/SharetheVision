@@ -74,10 +74,6 @@
                                     <input type="text" class="form-control" name="id" placeholder="아이디">
                                     <span class="md-line"></span>
                                 </div>
-                                <div class="input-group">
-                                    <input type="email" class="form-control" name="email" placeholder="이메일">
-                                    <span class="md-line"></span>
-                                </div>
                                 <div class="row m-t-30">
                                     <div class="col-md-12">
                                         <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">인증번호 받기</button>

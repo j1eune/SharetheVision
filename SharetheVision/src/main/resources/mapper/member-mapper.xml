@@ -34,6 +34,13 @@
 		<result column="ADMIN_NAME" property="adminName"/>
 		<result column="DEPT_NAME" property="jobName"/>
 		<result column="J_NAME" property="deptName"/>
+		<result column="M_ID" property="mId"/>
 	</resultMap>
+
+	<select id="checkEmail" resultMap="selectMemberResult">
+		SELECT *
+		FROM MEMBER
+		WHERE M_STATUS = 'Y' AND M_NAME = #{ name } AND M_ID = ${ mId }
+	</select>
 
 </mapper>

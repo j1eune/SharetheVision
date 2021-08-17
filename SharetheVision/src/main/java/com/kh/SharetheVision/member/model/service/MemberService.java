@@ -11,4 +11,6 @@ public interface MemberService {
 
 	ArrayList<Member> selectMember(HashMap<String, String> map);
 
+	Member checkEmail(Member m);
+
 }

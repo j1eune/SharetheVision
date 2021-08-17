@@ -63,7 +63,7 @@
                                 <div class="row m-b-20">
                                     <div class="col-md-12" style="text-align: left">
                                         <h3 class="text-left txt-primary">비밀번호 찾기</h3>
-                                        <span class="text-left" style="color: black;">인증번호가 발송 되었습니다.</span><span id="displayTimer" style="color: red; padding-left: 10px;"></span>
+                                        <span class="text-left" style="color: black;">입력된 메일로 인증번호가 발송 되었습니다.</span><span id="displayTimer" style="color: red; padding-left: 10px;"></span>
                                     </div>
                                 </div>
                                 <hr/>
