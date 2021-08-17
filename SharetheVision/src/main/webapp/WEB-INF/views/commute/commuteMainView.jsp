@@ -18,6 +18,7 @@
 	#selectState{border-radius: 20px;}
 	#selectState li{font-size: 2.5vmin;}
 	#selectState li:hover{cursor: pointer; color:#660099; background-color: #F8F9FA;}	
+	
 	.listTable>thead>tr>th, .listTable>tbody>tr>td, .listTable>tbody>tr>th{text-align: center}
 	
 	#leaveTime input[type="radio"]{
@@ -42,6 +43,8 @@
 		background-color: #FFB64D;;
 		color: white;
 	}
+	
+	.commuteClick{border: 2px solid gray; color: gray;}
 	
  	.ui-widget-header .ui-icon { background-image: url('/images/btns.png'); }
  	
@@ -203,7 +206,7 @@
 		                                                </tr>
 		                                                <tr>
 		                                                    <td><h5>퇴근시간</h5></td>
-		                                                    <td class="text-right"><h5 id="getOffTime"></h5></td>
+		                                                    <td class="text-right"><h5 id="getOffTime">${getOffTime}</h5></td>
 		                                                </tr>
 		                                            </table>
 		                                            <hr style="border-top: 2px dashed #bbb;">
@@ -261,6 +264,7 @@
 	$(function(){
         // 근태관리 현재 시간
         var today = new Date();
+        console.log(today);
         
         var year = today.getFullYear().toString();
         
@@ -308,20 +312,16 @@
 //         		    if((latitude > '37.4945' && latitude < '37.4946') && (longitude > '126.9580' && longitude < '126.9581')){
 //         		    if((latitude > '37.49' && latitude < '37.50') && (longitude > '126.94' && longitude < '126.95')){
         		    if(true){
-        		    	
-        		    	var enterTime = hour + ":" + minutes + ":" + seconds;
-			            
 			            $.ajax({
 			            	url: 'commuteEnter.co',
-			            	data: {enterTime: enterTime},
 			            	success: function(data){
-			            		
 								console.log(data);
 								
 // 				        		$('#goToTime').html(data);
 // 					            $('#goTo').css({'border':'2px solid gray', 'color':'gray'});
 // 					            $('#getOff').css({'border':'2px solid #660099', 'color':'#660099'});
 								
+								location.reload();
 			            	},
 			            	error: function(data){
 			            		console.log('실패');
@@ -341,9 +341,17 @@
         	var check = confirm('퇴근하시겠습니까?');
         	
         	if(check){
-				$('#getOffTime').html(hour + ":" + minutes + ":" + seconds);        		
-	            $(this).css({'border':'2px solid gray', 'color':'gray'});
-	            $('#goTo').css({'border':'2px solid #660099', 'color':'#660099'});
+	            $.ajax({
+	            	url: 'commuteOut.co',
+	            	success: function(data){
+						console.log(data);
+						
+						location.reload();
+	            	},
+	            	error: function(data){
+	            		console.log('실패');
+	            	}
+	            });
         	}
         });
         

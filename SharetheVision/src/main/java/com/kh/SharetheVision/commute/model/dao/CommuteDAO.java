@@ -1,22 +1,33 @@
 package com.kh.SharetheVision.commute.model.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.SharetheVision.commute.model.vo.Commute;
+import com.kh.SharetheVision.commute.model.vo.Overwork;
 
-@Repository
+@Repository("coDAO")
 public class CommuteDAO {
 
-	public Commute commuteMain(SqlSessionTemplate sqlSession, String memberNo) {
-		return sqlSession.selectOne("commuteMapper.selectCommute", memberNo);
+	public ArrayList<Commute> commuteList(SqlSessionTemplate sqlSession, String memberNo) {
+		return (ArrayList)sqlSession.selectList("commuteMapper.selectCommute", memberNo);
+	}
+
+	public ArrayList<Overwork> overworkList(SqlSessionTemplate sqlSession, String memberNo) {
+		return (ArrayList)sqlSession.selectList("commuteMapper.selectOverwork", memberNo);
 	}
 
 	public int commuteEnter(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
 		return sqlSession.insert("commuteMapper.insertCommute", map);
 	}
+
+	public int commuteOut(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return sqlSession.update("commuteMapper.updateCommute", map);
+	}
+
 
 
 }

@@ -3,24 +3,55 @@
 <mapper namespace="commuteMapper">
 
 	<select id="selectCommute" resultMap="commuteResultMap">
-		SELECT CMT_NO, C_DATE, C_START, C_END, C_WORKTIME, M_CODE, O_TIME
+		SELECT *
 		FROM COMMUTE
-		     JOIN OVERWORK USING(M_CODE)
-		WHERE M_CODE = #{memberNo} AND TO_CHAR(SYSDATE, 'YY/MM/DD') = TO_CHAR(C_DATE) AND TO_CHAR(C_DATE) = TO_CHAR(O_DATE)
+		WHERE M_CODE=#{memberNo} AND (C_DATE BETWEEN TO_DATE('21/08/09') AND TO_DATE('21/08/18'))
+<!-- 		WHERE M_CODE=#{memberNo} AND (C_DATE BETWEEN TRUNC(SYSDATE, 'w') AND SYSDATE+1) -->
 	</select>
 	
-	<resultMap type="commute" id="commuteResultMap">
+	<resultMap type="Commute" id="commuteResultMap">
 		<id column="CMT_NO" property="commuteNo"/>
 		<result column="C_DATE" property="enrollDate"/>
 		<result column="C_START" property="commuteStart"/>
 		<result column="C_END" property="commuteEnd"/>
 		<result column="C_WORKTIME" property="worktime"/>
 		<result column="M_CODE" property="memberNo"/>
+	</resultMap>
+	
+	<select id="selectOverwork" resultMap="overworkResultMap">
+		SELECT *
+		FROM OVERWORK
+		WHERE M_CODE=#{memberNo} AND (O_DATE BETWEEN TO_DATE('21/08/09') AND TO_DATE('21/08/18'))
+	</select>
+	
+	<resultMap type="Overwork" id="overworkResultMap">
+		<id column="O_NO" property="overworkNo"/>
+		<result column="O_DATE" property="overworkDate"/>
 		<result column="O_TIME" property="overworktime"/>
+		<result column="O_TYPE" property="type"/>
+		<result column="O_APPLYDATE" property="enrollDate"/>
+		<result column="O_APPROVAL" property="approval"/>
+		<result column="O_MEMO" property="overworkContent"/>
+		<result column="M_CODE" property="memberNo"/>
 	</resultMap>
 	
 	<insert id="insertCommute">
-		INSERT INTO COMMUTE VALUES(SEQ_CO.NEXTVAL, SYSDATE, #{enterTime}, NULL, NULL, #{memberNo})
+		INSERT INTO COMMUTE VALUES(SEQ_CO.NEXTVAL, SYSDATE, to_char(to_date(#{enterTime}, 'yyyy-mm-dd hh24:mi:ss'), 'yyyy-mm-dd hh24:mi:ss'), NULL, 0, #{memberNo})
 	</insert>
+	
+	<update id="updateCommute">
+		UPDATE COMMUTE
+		SET C_WORKTIME = TRUNC((TO_DATE(#{outTime}, 'yyyy-mm-dd hh24:mi:ss') - TO_DATE(C_START, 'yyyy-mm-dd hh24:mi:ss'))*24 -1)
+		                    || '.' || TRUNC(MOD((TO_DATE(#{outTime}, 'yyyy-mm-dd hh24:mi:ss') - TO_DATE(C_START, 'yyyy-mm-dd hh24:mi:ss'))*24*60, 60)),
+		    C_END = TO_CHAR(TO_DATE(#{outTime}, 'yyyy-mm-dd hh24:mi:ss'), 'yyyy-mm-dd hh24:mi:ss')
+		WHERE M_CODE = #{memberNo} AND (TO_CHAR(C_DATE, 'yyyy-mm-dd') = TO_CHAR(SYSDATE, 'yyyy-mm-dd'))
+	</update>
+	
+	
+	
+	
+	
+	
+	
 	
 </mapper>
