@@ -35,9 +35,9 @@ var calendar = $('#calendar').fullCalendar({
   eventLongPressDelay       : 0,
   selectLongPressDelay      : 0,  
   header                    : {
-                                left   : 'title',
-                                center : '',
-                                right  : 'prev,today, next',
+                                left   : '',
+                                center : 'title',
+                                right  : 'prev,today,next',
                               },
   views                     : {
                                 month : {
@@ -155,7 +155,6 @@ var calendar = $('#calendar').fullCalendar({
 	      callback(jsonArray);
 	  },
       error: function(response){
-    	  debugger;
     	  console.log("select list error");
       }
     });
