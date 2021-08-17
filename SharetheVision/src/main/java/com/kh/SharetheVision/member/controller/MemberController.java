@@ -1,11 +1,13 @@
 package com.kh.SharetheVision.member.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -31,6 +33,7 @@ public class MemberController {
 	@Autowired
 	private BCryptPasswordEncoder bcrypt;
 	
+	@Autowired
 	private JavaMailSender mailSender;
 	
 	
@@ -131,10 +134,8 @@ public class MemberController {
 		String address = "("+address1+") " + address2 + " " + address3;
 		String phone = m.getPhone();
 		int index = phone.lastIndexOf("-");
-		String email = m.getmCode() + "@sv.com";
 		
 		m.setPwd(bcrypt.encode(phone.substring(index + 1)));
-		m.setEmail(email);
 		m.setAddress(address);
 		
 		int result = mService.insertMember(m);
@@ -148,13 +149,51 @@ public class MemberController {
 	}
 	
 	@RequestMapping("createProjectForm.me")
-	public String createProjectFrom() {
+	public String createProjectFrom(Model model) {
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("condition", "refresh");
+		
+		ArrayList<Member> list = mService.selectMember(map);
+		model.addAttribute("list",list);
+		
 		return "createProjectForm";
 	}
 	
-	@RequestMapping("createProject.me")
-	public String cretaeProject() {
-		return "createProjectForm";
-	}
+	@RequestMapping("checkEmail.me")
+	public void checkEmail(@ModelAttribute Member m, HttpServletResponse response) throws MemberException {
 		
+		Member member = mService.checkEmail(m);
+		if(member == null) {
+			throw new MemberException("일치하는 사원 정보가 없습니다.");
+		}
+		
+		int random = (int)(Math.random() * 1000000) + 1;
+		
+		String subject = "[SV Company] 비밀번호 변경 인증번호 입니다.";
+		String content = "<h4> 문의하신 메일 인증번호는 "+ random + " 입니다 </h4>";
+		String from = "SVCompany0812@gmail.com";
+		String to = member.getEmail();
+		try {
+			MimeMessage mail = mailSender.createMimeMessage();
+			MimeMessageHelper mailHelper = new MimeMessageHelper(mail,true,"UTF-8");
+			mailHelper.setFrom(from);
+			mailHelper.setTo(to);
+			mailHelper.setSubject(subject);
+			mailHelper.setText(content, true);
+			
+			mailSender.send(mail);
+			
+			response.getWriter().println(random);
+			
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+	
 }

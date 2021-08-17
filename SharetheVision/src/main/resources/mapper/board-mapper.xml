@@ -2,6 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="boardMapper">
 
+	<select id="selectNewNotice" resultMap="boardResultSet">
+		<![CDATA[
+			select *
+			from (select *
+				  from v_board
+				  where b_type=1 and dept_no=1 and b_status='Y'
+				  order by b_no desc)
+			where rownum <= 3
+		]]>
+	</select>
 	
-
+	<resultMap type="board" id="boardResultSet">
+		<id column="B_NO" property="boardNo"/>
+		<result column="B_TYPE" property="boardType"/>
+		<result column="B_TITLE" property="boardTitle"/>
+		<result column="B_CONTENT" property="boardContent"/>
+		<result column="B_CREATEDATE" property="boardCreateDate"/>
+		<result column="B_STATE" property="boardState"/>
+		<result column="B_STATUS" property="boardStatus"/>
+		<result column="M_CODE" property="memberCode"/>
+		<result column="DEPT_NO" property="deptNo"/>
+		<result column="M_NAME" property="boardWriter"/>
+		<result column="P_NAME" property="project"/>
+	</resultMap>
+	
 </mapper>

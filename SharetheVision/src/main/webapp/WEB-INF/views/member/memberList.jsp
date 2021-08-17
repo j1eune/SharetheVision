@@ -27,6 +27,9 @@
 			cursor: pointer;
 			opacity: 0.8;
 		}
+		#checkEmailDiv{
+ 			display:none; 
+		}
 	</style>
 </head>
 
@@ -129,7 +132,6 @@
 	                                                        		<th style="width:10%; text-align:center;">직급</th>
 	                                                        		<th style="width:20%; text-align:center;">전화번호</th>
 	                                                        		<th style="width:40%; text-align:center;">주소</th>
-	                                                        		<th style="width:20%; text-align:center;">이메일</th>
 	                                                        		<th style="width:10%; text-align:center;">근무상태</th>
 	                                                        	</tr>
 	                                                        </thead>
@@ -141,7 +143,6 @@
 		                                                        			<td>${ b.jobName }</td>
 		                                                        			<td>${ b.phone }</td>
 		                                                        			<td>${ b.address }</td>
-		                                                        			<td>${ b.email }</td>
 		                                                        			<td>
 		                                                        				<c:choose>
 			                                                        				<c:when test="${ b.mState == 1}">
@@ -163,7 +164,7 @@
                                                       			</c:if>
                                                       			<c:if test="${ empty list}">
                                                       				<tr>
-                                                      					<td colspan="6" style="text-align:center;">등록된 사원이 없습니다.</td>
+                                                      					<td colspan="5" style="text-align:center;">등록된 사원이 없습니다.</td>
                                                       				</tr>
                                                       			</c:if>		
 	                                                        </tbody>
@@ -175,7 +176,7 @@
 	                                </div>
 	                            </div>
                                 <!-- 사원추가 modal 창 -->
-                                <form action="insertMember.me" method="post">
+                                <form onsubmit="return insertMember();"action="insertMember.me" method="post">
 	                                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 									  <div class="modal-dialog" role="document">
 									    <div class="modal-content">
@@ -191,11 +192,12 @@
 												<div class="form-row">
 												    <div class="form-group col-md-4">
 												      <label for="inputEmail4">이름</label>
-												      <input type="text" class="form-control" name="name" id="inputEmail4" placeholder="이름">
+												      <input type="text" class="form-control" name="name" id="inputEmail4" placeholder="이름" required>
 												    </div>
 												    <div class="form-group col-md-4">
 												      <label for="inputPassword4">부서</label>
-												      <select class="form-control" name="deptNo">
+												      <select class="form-control" name="deptNo" required>
+												      	<option>부서</option>
 												      	<option value=1>인사</option>
 												      	<option value=2>마케팅</option>
 												      	<option value=3>생산</option>
@@ -205,17 +207,38 @@
 												    </div>
 												    <div class="form-group col-md-4">
 												      <label for="inputPassword4">직책</label>
-												      <select class="form-control" name="jobNo">
-												      	<option value=1>사원</option>
-												      	<option value=2>대리</option>
+												      <select class="form-control" name="jobNo" required>
+												      	<option>직책</option>
+												      	<option value=5>부장</option>
+												      	<option value=4>차장</option>
 												      	<option value=3>과장</option>
-												      	<option value=4>부장</option>
+												      	<option value=2>대리</option>
+												      	<option value=1>사원</option>
 												      </select>
 												    </div>
 											    </div>
 												<div class="form-group">
 												    <label for="inputAddress2">아이디</label>
-												    <input type="text" class="form-control" name="mCode" id="inputAddress2" placeholder="Id">
+												    <input type="text" class="form-control" name="mCode" required id="inputAddress2" placeholder="Id">
+												</div>
+												<div class="form-row">
+													<div class="form-group col-md-8">
+													    <label for="inputAddress2">Email</label>
+													    <input type="text" class="form-control" name="email" id="inputEmail" placeholder="Email" required>
+												    </div>
+												    <div class="form-group col-md-4">
+												    	<label for="inputCity">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+												    	<button type="button" id="checkEmailButton" class="btn btn-outline-primary">인증번호 전송</button>
+												    </div>
+												</div>
+												<div class="form-row" id="checkEmailDiv">
+													<div class="form-group col-md-8">
+														<input type="hidden" id="randomInput"/>
+													    <input type="text" onblur="checkRandom();" id="checkRandomInput" class="form-control" placeholder="인증번호를 입력하세요">
+												    </div>
+												    <div class="form-group col-md-12">
+												    	<div id="checkCount" style="display:inline-block;"></div>
+												    </div>
 												</div>
 												<div class="form-group">
 												    <label for="inputAddress">전화번호</label>
@@ -228,7 +251,7 @@
 												    </div>
 												    <div class="form-group col-md-9">
 												    	<label for="inputCity">&nbsp;</label>
-												    	<input type="text" id="sample6_address" name="address2" class="form-control mt-1" placeholder="주소" required>
+												    	<input type="text" id="sample6_address" name="address2" readonly class="form-control mt-1" placeholder="주소" required>
 												    </div>
 												 </div>
 												 <div class="form-group">
@@ -237,9 +260,8 @@
 												    <input type="hidden" id="sample6_extraAddress" class="form-control"placeholder="참고항목">
 												</div>
 									      </div>
-									      
 									      <div class="modal-footer">
-									        <button type="submit" class="btn btn-danger">사원 추가하기</button>&nbsp;&nbsp;
+									        <button type="submit" class="btn btn-danger" onclick="insertMember()">사원 추가하기</button>&nbsp;&nbsp;
 									        <button type="button" class="btn btn-inverse btn-outline-inverse" data-dismiss="modal">취소</button>
 									      </div>
 									    </div>
@@ -313,6 +335,68 @@
 	        }).open();
 	    }
 		
+		$("#checkEmailButton").on("click",function(){
+			var email = $("#inputEmail").val();
+			
+			if(email.length == 0){
+				alert("이메일을 입력해주세요");
+				return;
+			}
+			
+			$.ajax({
+				url: 'checkEmail.me',
+				data: {email: email},
+				success: function(data){
+					var random = parseInt(data);
+
+					$("#checkEmailDiv").show();
+					$("#randomInput").val(random);
+				},
+				error: function(data){
+					console.log("실패" + data);
+				}
+			})
+		});
+		
+		emailCheck = false;
+		count = 1;
+		
+		function checkRandom(){
+			var check = $("#checkRandomInput").val();
+			console.log("check : " + check);
+			var random = $("#randomInput").val();
+			console.log("random : " + random);
+			
+			console.log(random == check);
+			if(count < 6){
+				if(check == random){
+					console.log("일치함");
+					$("#checkCount").text("메일 인증에 성공하였습니다.");
+					$("#checkCount").css("color","blue");
+					emailCheck = true;
+				} else {
+					console.log("불일치함");
+					alert("인증번호가 일치하지 않습니다.[재시도 가능 횟수](" + count + "/6)");
+					$("#checkCount").text("메일 인증에 실패하였습니다.");
+					$("#checkCount").css("color","red");
+					count++;
+				}
+			} else {
+				alert("메일인증을 다시 시도해주세요.");
+				$("#checkEmailDiv").hide();
+			}
+			
+		}
+		
+		
+		function insertMember(){
+			if(emailCheck){
+				return true;
+			} else {
+				alert("이메일을 인증해주세요.");
+				return false;
+			}
+		}
 		
 	</script>
 

@@ -28,5 +28,10 @@ public class MemberServiceImpl implements MemberService {
 	public ArrayList<Member> selectMember(HashMap<String, String> map) {
 		return mDao.selectMember(sqlSession, map);
 	}
+
+	@Override
+	public Member checkEmail(Member m) {
+		return mDao.checkEmail(sqlSession, m);
+	}
 	
 }

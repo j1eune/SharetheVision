@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class Member {
 	private String mCode;
+	private String mId;
 	private String name;
 	private String pwd;
 	private String phone;
@@ -22,11 +23,12 @@ public class Member {
 	
 	public Member () {}
 
-	public Member(String mCode, String name, String pwd, String phone, String address, String email, Date entryDate,
-			Date modifyDate, String mStatus, int mState, int adminNo, int deptNo, int jobNo, String adminName,
-			String jobName, String deptName) {
+	public Member(String mCode, String mId, String name, String pwd, String phone, String address, String email,
+			Date entryDate, Date modifyDate, String mStatus, int mState, int adminNo, int deptNo, int jobNo,
+			String adminName, String jobName, String deptName) {
 		super();
 		this.mCode = mCode;
+		this.mId = mId;
 		this.name = name;
 		this.pwd = pwd;
 		this.phone = phone;
@@ -50,6 +52,14 @@ public class Member {
 
 	public void setmCode(String mCode) {
 		this.mCode = mCode;
+	}
+
+	public String getmId() {
+		return mId;
+	}
+
+	public void setmId(String mId) {
+		this.mId = mId;
 	}
 
 	public String getName() {
@@ -174,12 +184,11 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member [mCode=" + mCode + ", name=" + name + ", pwd=" + pwd + ", phone=" + phone + ", address="
-				+ address + ", email=" + email + ", entryDate=" + entryDate + ", modifyDate=" + modifyDate
-				+ ", mStatus=" + mStatus + ", mState=" + mState + ", adminNo=" + adminNo + ", deptNo=" + deptNo
-				+ ", jobNo=" + jobNo + ", adminName=" + adminName + ", jobName=" + jobName + ", deptName=" + deptName
-				+ "]";
+		return "Member [mCode=" + mCode + ", mId=" + mId + ", name=" + name + ", pwd=" + pwd + ", phone=" + phone
+				+ ", address=" + address + ", email=" + email + ", entryDate=" + entryDate + ", modifyDate="
+				+ modifyDate + ", mStatus=" + mStatus + ", mState=" + mState + ", adminNo=" + adminNo + ", deptNo="
+				+ deptNo + ", jobNo=" + jobNo + ", adminName=" + adminName + ", jobName=" + jobName + ", deptName="
+				+ deptName + "]";
 	}
 
-	
 }

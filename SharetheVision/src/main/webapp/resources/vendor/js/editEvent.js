@@ -1,18 +1,15 @@
+
+var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
+
 /* ****************
  *  일정 편집
  * ************** */
 var editEvent = function (event, element, view) {
 
-    $('#deleteEvent').data('id', event._id); //클릭한 이벤트 ID
-
+    $('#updateEvent').data('id', event.description); //클릭한 이벤트의  ID
+    
     $('.popover.fade.top').remove();
     $(element).popover("hide");
-
-    if (event.allDay === true) {
-        editAllDay.prop('checked', true);
-    } else {
-        editAllDay.prop('checked', false);
-    }
 
     if (event.end === null) {
         event.end = event.start;
@@ -24,16 +21,18 @@ var editEvent = function (event, element, view) {
         editEnd.val(event.end.format('YYYY-MM-DD'));
     }
 
+    addBtnContainer.hide();
+    modifyBtnContainer.show();
+    eventModal.modal('show');
+    
     modalTitle.html('일정 수정');
     editTitle.val(event.title);
     editStart.val(event.start.format('YYYY-MM-DD'));
     editType.val(event.type);
-    editDesc.val(event.description);
     editColor.val(event.backgroundColor).css('color', event.backgroundColor);
+//    editDesc.val(event.description);
 
-    addBtnContainer.hide();
-    modifyBtnContainer.show();
-    eventModal.modal('show');
+
 
     //업데이트 버튼 클릭시
     $('#updateEvent').unbind();
@@ -67,49 +66,84 @@ var editEvent = function (event, element, view) {
         }
 
         eventModal.modal('hide');
-
-        event.allDay = statusAllDay;
+        
         event.title = editTitle.val();
         event.start = startDate;
-        event.end = displayDate;
+        event.end = endDate;
         event.type = editType.val();
-        event.backgroundColor = editColor.val();
-        event.description = editDesc.val();
+        event.description;
 
-        $("#calendar").fullCalendar('updateEvent', event);
+//        $("#calendar").fullCalendar('updateEvent', event);
+        
+        console.log("e.desc:",event.description);
+        
+        var eventParam = {
+        		"code"	: event.type,
+        		"no"	: event.description,
+        		"title"	: event.title,
+        		"sDate"	: event.start,
+        		"eDate"	: event.end,
+        		"mCode" : event._id
+        }
+        
+        if (event.start > event.end) {
+            alert('시작일과 종료일을 확인하세요.');
+            return false;
+        }
 
+        if (event.title === '') {
+            alert('일정명을 작성해 주세요.');
+            return false;
+        }
+        
         //일정 업데이트
         $.ajax({
-            type: "get",
-            url: "",
-            data: {
-                //...
-            },
-            success: function (response) {
-                alert('수정되었습니다.')
+        	type : 'POST',
+            url: "updateCal.do",
+            data: JSON.stringify(eventParam),
+            contentType: "application/json",
+            success: function (data) {
+	            	if(data=='success'){
+		            	alert('일정이 수정 되었습니다.');
+		            	location.reload();
+	            	}
+            },error: function(data){
+	            	alert('일정 수정에 실패했습니다.');
+					console.log("modify error");
             }
         });
 
     });
-};
-
-// 삭제버튼
-$('#deleteEvent').on('click', function () {
     
-    $('#deleteEvent').unbind();
-    $("#calendar").fullCalendar('removeEvents', $(this).data('id'));
-    eventModal.modal('hide');
-
-    //삭제시
-    $.ajax({
-        type: "get",
-        url: "",
-        data: {
-            //...
-        },
-        success: function (response) {
-            alert('삭제되었습니다.');
-        }
+    
+// 삭제버튼
+    $('#deleteEvent').data('id', event.description); //클릭한 이벤트의  ID
+    $('#deleteEvent').on('click', function () {
+    	
+    	var id = event.description;
+    	
+    	$('#deleteEvent').unbind();
+    	$("#calendar").fullCalendar('removeEvents', $(this).data('id'));
+    	eventModal.modal('hide');
+    	   	
+    	//삭제
+    	$.ajax({
+    		url: "deleteCal.do",
+    		data: { 'id': event.description },
+    		contentType: "application/json",
+    		success: function (data) {
+    				if(data=='success'){
+	    				alert('일정이 삭제되었습니다.');
+	    				location.reload();
+    				}
+    		}, error: function(data){
+	    			alert('일정이 삭제되지 않았습니다.');
+	    			console.log("delete error");
+	    			location.reload();
+    		}
+    	});
+    	
     });
-
-});
+    
+    
+};

@@ -143,9 +143,9 @@
 
                                     <div class="card boardDetail-card">
                                         <div class="boardDetail-box">
-                                            <div class="boardDetail-title"><span
-                                                    class="boardDetail-project-name">[SharetheVision]</span>SV프로젝트 관련자료
-                                                1</div>
+                                            <div class="boardDetail-title">
+                                            	<span class="boardDetail-project-name">[SharetheVision]</span>SV프로젝트 관련자료1
+                                           	</div>
                                             <!-- Nav tabs -->
                                             <ul class="nav nav-tabs  tabs boardDetail-tabs" role="tablist">
                                                 <li class="nav-item">

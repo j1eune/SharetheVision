@@ -19,4 +19,8 @@ public class MemberDAO {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectMember", map);
 	}
 
+	public Member checkEmail(SqlSession sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.checkEmail",m);
+	}
+
 }

@@ -12,11 +12,13 @@ public class Board {
 	private String boardStatus;
 	private String memberCode;
 	private int deptNo;
+	private String boardWriter; // member 테이블 m_name
+	private String project; // project 테이블 p_name
 	
 	public Board() {}
 
 	public Board(int boardNo, int boardType, String boardTitle, String boardContent, Date boardCreateDate,
-			String boardState, String boardStatus, String memberCode, int deptNo) {
+			String boardState, String boardStatus, String memberCode, int deptNo, String boardWriter, String project) {
 		super();
 		this.boardNo = boardNo;
 		this.boardType = boardType;
@@ -27,7 +29,11 @@ public class Board {
 		this.boardStatus = boardStatus;
 		this.memberCode = memberCode;
 		this.deptNo = deptNo;
+		this.boardWriter = boardWriter;
+		this.project = project;
 	}
+
+
 
 	public int getBoardNo() {
 		return boardNo;
@@ -101,13 +107,30 @@ public class Board {
 		this.deptNo = deptNo;
 	}
 
+	public String getBoardWriter() {
+		return boardWriter;
+	}
+
+	public void setBoardWriter(String boardWriter) {
+		this.boardWriter = boardWriter;
+	}
+
+	public String getProject() {
+		return project;
+	}
+
+	public void setProject(String project) {
+		this.project = project;
+	}
+
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", boardType=" + boardType + ", boardTitle=" + boardTitle
 				+ ", boardContent=" + boardContent + ", boardCreateDate=" + boardCreateDate + ", boardState="
 				+ boardState + ", boardStatus=" + boardStatus + ", memberCode=" + memberCode + ", deptNo=" + deptNo
-				+ "]";
+				+ ", boardWriter=" + boardWriter + ", project=" + project + "]";
 	}
+	
 	
 	
 	

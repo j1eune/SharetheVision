@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -97,11 +98,11 @@
 	                                                    	<div class="form-row">
 															   <div class="form-group col-md-3">
 															      <label for="inputEmail4">프로젝트 명</label>
-															      <input type="text" class="form-control" id="inputEmail4" placeholder="프로젝트 명" required>
+															      <input type="text" class="form-control" name="pName" id="inputEmail4" placeholder="프로젝트 명" required>
 															   </div>
 															   <div class="form-group col-md-8">
 															      <label for="inputPassword4">프로젝트 내용</label>
-															      <input type="text" class="form-control" id="inputPassword4" placeholder="프로젝트 내용">
+															      <input type="text" class="form-control" name="pIntro" id="inputPassword4" placeholder="프로젝트 내용">
 															   </div>
 															   <div class="form-group col-md-1" id="addProjectMemberDiv">
 															      <label for="inputCity">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;&nbsp;
@@ -167,38 +168,23 @@
 								      				<td style="width: 20%">직책</td>
 								      				<td style="width: 40%">핸드폰 번호</td>
 								      			</tr>
-								      			<tr>
-								      				<td><input type="hidden"></td>
-								      				<td><input type="checkbox" name="addMemberCheckbox"></td>
-								      				<td>홍길동</td>
-								      				<td>마케팅</td>
-								      				<td>팀장</td>
-								      				<td>010-5253-9563</td>
-								      			</tr>
-								      			<tr>
-								      				<td><input type="hidden"></td>
-								      				<td><input type="checkbox" name="addMemberCheckbox"></td>
-								      				<td>강건강</td>
-								      				<td>인사</td>
-								      				<td>사원</td>
-								      				<td>010-5234-7873</td>
-								      			</tr>
-								      			<tr>
-								      				<td><input type="hidden"></td>
-								      				<td><input type="checkbox" name="addMemberCheckbox"></td>
-								      				<td>남나눔</td>
-								      				<td>인사</td>
-								      				<td>대리</td>
-								      				<td>010-1242-2345</td>
-								      			</tr>
-								      			<tr>
-								      				<td><input type="hidden"></td>
-								      				<td><input type="checkbox" name="addMemberCheckbox"></td>
-								      				<td>도대담</td>
-								      				<td>마케팅</td>
-								      				<td>사원</td>
-								      				<td>010-1623-6432</td>
-								      			</tr>
+								      			<c:if test="${ !empty list }">
+								      				<c:forEach var="list" items="${ list }">
+									      				<tr>
+									      					<td><input type="hidden" name="mCode" value="${ list.mCode }"></td>
+										      				<td><input type="checkbox" name="addMemberCheckbox"></td>
+										      				<td>${ list.name }</td>
+										      				<td>${ list.deptName }</td>
+										      				<td>${ list.jobName }</td>
+										      				<td>${ list.phone }</td>
+									      				</tr>
+								      				</c:forEach>
+								      			</c:if>
+								      			<c:if test="${ empty list }">
+								      				<tr>
+								      					<th style="text-align:center" colspan="6">등록된 사원이 없습니다.</th>
+								      				</tr>
+								      			</c:if>
 								      		</table>
 								      </div>
 								      <div class="modal-footer">
@@ -253,7 +239,7 @@
 			var col5 = td.eq(5).text();
 			
 			$tr = $('<tr>');
-			$mNum = $('<td>').html('<input type="hidden" name="num" value='+ col1 +'>');
+			$mNum = $('<td>').html('<input type="hidden" name="mCode" value='+ col1 +'>');
 			$img = $('<td style="width:10%">').html('<i class="icofont icofont-user icofont-1x" style="color: gray;"></i>');
 			$name = $('<td style="width:20%">').text(col2);
 			$dept = $('<td style="width:20%">').text(col3);

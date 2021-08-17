@@ -3,24 +3,48 @@
 <mapper namespace="calendarMapper">
 
 
+	<resultMap type="calendar" id="CalResultMap">
+		<id column="SC_CODE" property="code"/>
+		<result column="DSC_NO" property="no"/>
+		<result column="SC_TITLE" property="title"/>
+		<result column="SC_SDATE" property="sDate"/>
+		<result column="SC_EDATE" property="eDate"/>
+		<result column="SC_STATUS" property="status"/>
+		<result column="M_CODE" property="mCode"/>
+	</resultMap>
+	
 	<insert id="addCal">
-		INSERT INTO schedule
-		VALUES(#{code}, seq_dsc.nextval, #{title}, to_date(#{sDate}), to_date(#{eDate}), default, #{mCode} )
+		INSERT INTO SCHEDULE
+		VALUES(#{code}, SEQ_DSC.NEXTVAL, #{title}, TO_DATE(#{sDate}), TO_DATE(#{eDate}), DEFAULT, #{mCode} )
 	</insert>
 
-
-
-
-
-<!-- 	<select id="cList" resultMap="calendarResultMap">
-		select sc_code, dsc_no, sc_title, TO_char(sc_sdate, 'YYYY-MM-DD') start1, TO_char(sc_edate, 'YYYY-MM-DD') end2, m_code
-		from schedule
-		where sc_status='N'
+	<select id="listCal" resultMap="CalResultMap">
+	   SELECT *
+	     FROM SCHEDULE
+		WHERE M_CODE= #{mcode} 
+		  AND <![CDATA[ SC_SDATE >= TO_DATE(#{sDate}) AND SC_EDATE <= TO_DATE(#{eDate}) ]]>
+		  AND SC_STATUS='N'
 	</select>
-	<resultMap type="calendar" id="calendarResultMap">
-		<result property="sDate" column="start1"/>
-		<result property="eDate" column="end2"/>
-	</resultMap> -->
+<!--  로그인 유저 생기면 
+	select sc_code, dsc_no, sc_title, sc_sdate, sc_edate, sc_status, m_code, m_name
+	from schedule
+		 join member on (m_code=m_code)
+	where m_code=#{userId} and sc_status='N'-->
+<!-- 부서번호가 정해지면 where절에  <![CDATA[   ]]>  -->
+<!-- < if test="code == 1" > AND DEPT_NO='#{부서번호}' ( JOIN MEMBER ON (M_CODE=M_CODE)  )</if> -->
+<!-- (아니면 code==2이면) WHERE M_CODE=#{mcode}  (개인일정은 개인만) -->	
+	
+	<update id="updateCal">
+	   UPDATE SCHEDULE
+		  SET SC_CODE=#{code}, SC_TITLE=#{title}, SC_SDATE=TO_DATE(#{sDate}), SC_EDATE=TO_DATE(#{eDate})
+		WHERE DSC_NO=#{no} AND M_CODE= #{mCode} 
+	</update>
+
+	<update id="deleteCal">
+		UPDATE SCHEDULE
+		   SET SC_STATUS='Y'
+		 WHERE DSC_NO=#{no}
+	</update>
 
 
 </mapper>
