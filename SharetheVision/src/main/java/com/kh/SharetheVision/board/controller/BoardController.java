@@ -18,9 +18,8 @@ public class BoardController {
 	@RequestMapping("board.bo")
 	public String board() {
 		
-//		ArrayList<Board> list = service.newNotice();
-		
-		
+		ArrayList<Board> list = service.newNotice();
+		System.out.println(list);
 		return "board";
 	}
 	
