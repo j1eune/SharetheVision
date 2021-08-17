@@ -5,14 +5,16 @@
 .popoverTitleCalendar {
   width: 100%;
   height: 100%;
-  padding: 15px 15px;
-  font-size: 13px;
+  margin: 0 0;
+  padding: 15px 40px;
+  font-size: 15px;
+  font-weight: bold;
   border-radius: 5px 5px 0 0;
 }
 
 .popoverInfoCalendar i {
   font-size: 14px;
-  margin-right: 10px;
+  text-align: center;
   line-height: inherit;
   color: #d3d4da;
 }
