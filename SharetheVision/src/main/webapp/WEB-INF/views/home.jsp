@@ -124,7 +124,7 @@
                                     <div class="card project-task" style="height: 350px;">
                                         <div class="card-header">
                                             <div class="card-header-left ">
-                                                <h4>Project & task</h4>
+                                                <h4>프로젝트</h4>
                                             </div>
                                             <!-- 팀장급만 프로젝트 추가 권한 조건 {-->
                                             <!-- <div class="card-header-right">
@@ -189,10 +189,10 @@
                                     <div class="card add-task-card" style="height: 350px; overflow-y:scroll;">
                                         <div class="card-header">
                                             <div class="card-header-left">
-                                                <h4>To do list</h4>
+                                                <h4>업무 목록</h4>
                                             </div>
                                             <div class="card-header-right">
-                                                <button class="btn btn-card bg-c-purple text-c-white" id="addTodo">Del ㅡ </button>
+                                                <button class="btn btn-card bg-c-purple text-c-white" id="addTodo">Del - </button>
                                                 <button class="btn btn-card bg-c-purple text-c-white" id="addTodo">ADD + </button>
                                             </div>
                                         </div>
@@ -321,7 +321,7 @@
 								                            <!-- **********loginUser 생성시 session 값으로 가져가기  **********-->
 								                                <label class="col-xs-4" for="edit-color">색상</label>
 								                                <select class="inputModal" name="color" id="edit-color">
-									                                    <option value="#669900">보라색</option>
+									                                    <option value="#660099">보라색</option>
 									                                    <option value="#FFB64D">주황색</option>
 								                                </select>
 								                            </div>
@@ -331,6 +331,15 @@
 								                        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 								                        <button type="button" class="btn btn-primary" id="save-event">저장</button>
 								                    </div>
+								                    <!--  일정 추가 MODAL -->
+								                    <!--  일정 수정 MODAL -->
+								                    <div class="modal-footer modalBtnContainer-modifyEvent">
+								                        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+								                    <%-- <c:if test="${ loginUser.id eq c.mCode }"> 부서 일정 등록자만 삭제 수정 가능--%>
+								                        <button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
+								                        <button type="button" class="btn btn-primary" id="updateEvent">저장</button>
+							                    	<%-- </c:if> --%>
+							                    	</div>
 								                </div><!-- /.modal-content -->
 								            </div><!-- /.modal-dialog -->
 								        </div><!-- /.modal -->

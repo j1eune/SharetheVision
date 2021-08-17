@@ -173,16 +173,32 @@
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
-            <li>
-            	<c:url var="board" value="board.bo">
-				</c:url>
-                <a href="${ board }">
-                    <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">게시판</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-            </li>
-            
+            <li class="pcoded-hasmenu">
+				<c:url var="board" value="board.bo"></c:url>
+				<c:url var="projectForm" value="createProjectForm.me"></c:url>
+				
+				<a href="#" onclick="return false;">
+					<span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+					<span class="pcoded-mtext"  data-i18n="nav.basic-components.main">프로젝트</span>
+					<span class="pcoded-mcaret"></span>
+			    </a>
+			    <ul class="pcoded-submenu">
+			        <li>
+			            <a href="${ projectForm }">
+			                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+			                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">프로젝트 관리</span>
+			                <span class="pcoded-mcaret"></span>
+			            </a>
+			        </li>
+			        <li>
+			            <a href="${ board }">
+			                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+			                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">자료실</span>
+			                <span class="pcoded-mcaret"></span>
+			            </a>
+			        </li>
+			    </ul>
+			</li>
         </ul>
 
         <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Chart &amp; Maps</div>

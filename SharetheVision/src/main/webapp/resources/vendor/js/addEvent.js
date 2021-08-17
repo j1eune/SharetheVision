@@ -8,7 +8,6 @@ var editEnd = $('#edit-end');
 var editType = $('#edit-type');
 var editColor = $('#edit-color');
 var editDesc = $('#edit-desc');
-
 var addBtnContainer = $('.modalBtnContainer-addEvent');
 var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
 
@@ -40,8 +39,8 @@ var newEvent = function (start, end, eventType) {
     editTitle.val('');
     editStart.val(start);
     editEnd.val(end);
-    editDesc.val('');
     
+    //카테고리 선택에 따라 selected 자동 선택
     var eType= $('#edit-type option:selected');
     var sccode= editType.val();
     	console.log("etypeval:",eType.val());
@@ -72,6 +71,7 @@ var newEvent = function (start, end, eventType) {
             type: editType.val(),
             // loginUser.getName() 넣을것 임시용 *************
             username: '테스트1',
+            description: editDesc.val(),
             backgroundColor: editColor.val(),
             textColor: '#ffffff',
             allDay: true
@@ -79,6 +79,7 @@ var newEvent = function (start, end, eventType) {
         
         var eventParam = {
         		"code"	: editType.val(),
+//        		"no"    : editDesc.val(),
         		"title"	: editTitle.val(),
         		"sDate"	: editStart.val(),
         		"eDate"	: editEnd.val(),
@@ -87,23 +88,23 @@ var newEvent = function (start, end, eventType) {
         
 
         if (eventData.start > eventData.end) {
-            alert('끝나는 날짜가 앞설 수 없습니다.');
+        	 alert('시작일과 종료일을 확인하세요.');
             return false;
         }
 
         if (eventData.title === '') {
-            alert('일정명은 필수입니다.');
+        	alert('일정명을 작성해 주세요.');
             return false;
         }
 
         var realEndDay;
 
-        if (editAllDay.is(':checked')) {
+        if (event.end !== null) {
             eventData.start = moment(eventData.start).format('YYYY-MM-DD');
             //render시 날짜표기수정
-            eventData.end = moment(eventData.end).add(1, 'days').format('YYYY-MM-DD');
+            eventData.end = moment(eventData.end).format('YYYY-MM-DD');
             //DB에 넣을때(선택)
-            realEndDay = moment(eventData.end).format('YYYY-MM-DD');
+            realEndDay = moment(eventData.end).subtract(1, 'days').format('YYYY-MM-DD');
 
             eventData.allDay = true;
         }
@@ -121,10 +122,13 @@ var newEvent = function (start, end, eventType) {
         	data: JSON.stringify(eventParam),
             contentType: "application/json",
             success: function (data) {
+            	alert('일정이 등록 되었습니다.');
             	console.log(data); 
+            	location.reload();
             },error: function(data){
+            	alert('일정 등록에 실패했습니다.');
 				console.log(data);
-				console.log("error");
+				console.log("add error");
 			}
         });
     });

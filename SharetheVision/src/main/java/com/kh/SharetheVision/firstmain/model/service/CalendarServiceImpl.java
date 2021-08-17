@@ -1,6 +1,6 @@
 package com.kh.SharetheVision.firstmain.model.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +18,30 @@ public class CalendarServiceImpl implements CalendarService{
 		@Autowired
 		private CalendarDAO cdao;
 
+		
 		@Override
 		public int addCal(Calendar c) {
 			return cdao.addCal(sqlSession, c);
 		}
+
+
+		@Override
+		public List<Calendar> listCal(String mcode, String sDate, String eDate) {
+			return cdao.listCal(sqlSession,mcode,sDate,eDate);
+		}
+
+		@Override
+		public int updateCal(Calendar c) {
+			return cdao.updateCal(sqlSession, c);
+		}
+
+
+		@Override
+		public int deleteCal(String no) {
+			return cdao.deleteCal(sqlSession, no);
+		}
 		
 
-//		@Override
-//		public ArrayList<Calendar> addCal() {
-//			return cdao.addCal(sqlSession, cId);
-//		}
 		
 		
 		

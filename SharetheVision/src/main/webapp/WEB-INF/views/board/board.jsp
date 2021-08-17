@@ -49,6 +49,21 @@
 	margin: 0 5px;
 }
 
+.project-name {
+	color: blue;
+	font-weight: 600;
+	width: 240px;
+}
+
+.project-title {
+	width: 550px;
+}
+
+.project-no {
+	text-align: center;
+	width: 100px;
+}
+
 </style>
 
 </head>
@@ -109,11 +124,30 @@
                         <div class="pcoded-inner-content">
                             <div class="main-body">
                                 <div class="page-wrapper">
+                                	<!-- Page-header start -->
+                                    <div class="page-header card">
+                                        <div class="row align-items-end">
+                                            <div class="col-lg-8">
+                                                <div class="page-header-title">
+                                                    <i class="icofont icofont icofont icofont-save bg-c-pink"></i>
+                                                    <div class="d-inline">
+                                                        <h4>자료실</h4>
+                                                        <span>진행중인 프로젝트 정보를 공유하는 곳입니다.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="page-header-breadcrumb">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Page-header end -->
 
                                     <!-- 여기부터 작성 -->
                                     <div class="card">
                                         <div class="card-header">
-                                            <h5>부서 공지</h5>
+                                            <h5>프로젝트 자료실</h5>
                                             <div class="card-header-right more-btn-box">
                                             	<a href="boardList.bo">
 	                                                <span class="more-btn">더보기<i class="ti-angle-double-right"></i></span>
@@ -122,13 +156,13 @@
                                         </div>
                                         <div class="card-block table-border-style">
                                             <div class="table-responsive">
-                                                <table class="table table-hover">
+                                                <table class="table table-hover board-table">
                                                     <thead>
                                                         <tr>
                                                             <th></th>
-                                                            <th>First Name</th>
-                                                            <th>Last Name</th>
-                                                            <th>Username</th>
+                                                            <th>프로젝트 명</th>
+                                                            <th>제목</th>
+                                                            <th>작성자</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -136,22 +170,22 @@
                                                         <c:url var="boardDetail" value="boardDetail.bo">
                                                         	<%-- <c:param name="boardId" value="${ b.boardId }"/> --%>
                                                         </c:url>
-                                                            <th scope="row">1</th>
-                                                            <td><a href="${ boardDetail }">일단 여기</a></td>
-                                                            <td>Otto</td>
-                                                            <td>@mdo</td>
+                                                            <td scope="row" class="project-no">1</td>
+                                                            <td class="project-name">[ SharetheVision ]</td>
+                                                            <td class="project-title">SV 프로젝트 자료1</td>
+                                                            <td>장원형</td>
                                                         </tr>
                                                         <tr>
-                                                            <th scope="row">2</th>
-                                                            <td>Jacob</td>
-                                                            <td>Thornton</td>
-                                                            <td>@fat</td>
+                                                            <td scope="row" class="project-no">2</td>
+                                                            <td class="project-name">[ PROJECT ]</td>
+                                                            <td class="project-title">프로젝트</td>
+                                                            <td>스폰지밥</td>
                                                         </tr>
                                                         <tr>
-                                                            <th scope="row">3</th>
-                                                            <td>Larry</td>
-                                                            <td>the Bird</td>
-                                                            <td>@twitter</td>
+                                                            <td scope="row" class="project-no">3</td>
+                                                            <td class="project-name">[ 어떤가요 ]</td>
+                                                            <td class="project-title">알ㄹ라랄</td>
+                                                            <td>룰룰룰루루</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -159,96 +193,53 @@
                                         </div>
                                     </div>
 
-                                    <div class="card-box">
-                                        <div class="card card-half">
-                                            <div class="card-header">
-                                                <h5>부서별 게시판</h5>
-                                                <div class="card-header-right">
-                                            	<a href="boardList.bo">
-	                                                <span class="more-btn">더보기<i class="ti-angle-double-right"></i></span>
-                                            	</a>
-                                                </div>
-                                            </div>
-                                            <div class="card-block table-border-style">
-                                                <div class="table-responsive">
-                                                    <table class="table table-hover">
-                                                        <thead>
-                                                            <tr>
-                                                                <th></th>
-                                                                <th>First Name</th>
-                                                                <th>Last Name</th>
-                                                                <th>Username</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <th scope="row">1</th>
-                                                                <td>Mark</td>
-                                                                <td>Otto</td>
-                                                                <td>@mdo</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">2</th>
-                                                                <td>Jacob</td>
-                                                                <td>Thornton</td>
-                                                                <td>@fat</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">3</th>
-                                                                <td>Larry</td>
-                                                                <td>the Bird</td>
-                                                                <td>@twitter</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card card-half">
-                                            <div class="card-header">
-                                                <h5>스크랩한 게시판</h5>
-                                                <div class="card-header-right">
-                                            	<a href="boardList.bo">
-	                                                <span class="more-btn">더보기<i class="ti-angle-double-right"></i></span>
-                                            	</a>
-                                                </div>
-                                            </div>
-                                            <div class="card-block table-border-style">
-                                                <div class="table-responsive">
-                                                    <table class="table table-hover">
-                                                        <thead>
-                                                            <tr>
-                                                                <th></th>
-                                                                <th>First Name</th>
-                                                                <th>Last Name</th>
-                                                                <th>Username</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <th scope="row">1</th>
-                                                                <td>Mark</td>
-                                                                <td>Otto</td>
-                                                                <td>@mdo</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">2</th>
-                                                                <td>Jacob</td>
-                                                                <td>Thornton</td>
-                                                                <td>@fat</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">3</th>
-                                                                <td>Larry</td>
-                                                                <td>the Bird</td>
-                                                                <td>@twitter</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                       <div class="card">
+                                           <div class="card-header">
+                                               <h5>스크랩한 게시물</h5>
+                                               <div class="card-header-right">
+                                           	<a href="boardList.bo">
+                                                <span class="more-btn">더보기<i class="ti-angle-double-right"></i></span>
+                                           	</a>
+                                               </div>
+                                           </div>
+                                           <div class="card-block table-border-style">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover board-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>프로젝트 명</th>
+                                                            <th>제목</th>
+                                                            <th>작성자</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                        <c:url var="boardDetail" value="boardDetail.bo">
+                                                        	<%-- <c:param name="boardId" value="${ b.boardId }"/> --%>
+                                                        </c:url>
+                                                            <td scope="row" class="project-no">1</td>
+                                                            <td class="project-name">[ SharetheVision ]</td>
+                                                            <td class="project-title">SV 프로젝트 자료1</td>
+                                                            <td>장원형</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td scope="row" class="project-no">2</td>
+                                                            <td class="project-name">[ PROJECT ]</td>
+                                                            <td class="project-title">프로젝트</td>
+                                                            <td>스폰지밥</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td scope="row" class="project-no">3</td>
+                                                            <td class="project-name">[ 어떤가요 ]</td>
+                                                            <td class="project-title">알ㄹ라랄</td>
+                                                            <td>룰룰룰루루</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
-                                    </div>
+                                       </div>
                                     
                                     <!-- 여기까지 작성 -->
 
@@ -300,6 +291,15 @@ var nav = $('.fixed-button');
          nav.removeClass('active');
      }
  });
+</script>
+<script>
+ 	$(function(){
+ 		$('.board-table').find("td").click(function() {
+ 			var bId = $(this).parents().children("td").eq(0).text();
+ 			
+ 			location.href="boardDetail.bo?bId="+bId;
+ 		});
+ 	});
 </script>
 </body>
 
