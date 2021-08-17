@@ -124,3 +124,14 @@ INSERT INTO DEPARTMENT VALUES(2,'마케팅');
 INSERT INTO DEPARTMENT VALUES(3,'생산');
 INSERT INTO DEPARTMENT VALUES(4,'영업');
 INSERT INTO DEPARTMENT VALUES(5,'회계');
+
+-- 2021.08.17 21:44 원형
+-- 뷰 생성 권한 부여, V_BOARD 뷰 생성
+grant create view to sharethevision;
+
+create or replace view v_board
+as select board.b_no, board.b_type, board.b_title, board.b_content, board.b_createdate, board.b_state,
+          board.b_status, board.m_code, board.dept_no, member.m_name, project.p_name
+    from board
+        left join member on(board.m_code = member.m_code)
+        left join project on(board.dept_no = project.dept_no);
