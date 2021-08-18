@@ -18,11 +18,10 @@
 <link rel="stylesheet" href='resources/vendor/css/select2.min.css' />
 <link rel="stylesheet" href="resources/vendor/css/main.css">
 <link rel="stylesheet" href='resources/vendor/css/bootstrap-datetimepicker.min.css' />
-  	 
-<jsp:include page="/WEB-INF/views/common/common.jsp" />
-
 </head>
 <body>
+<!-- 템플릿  공통 -->
+<jsp:include page="/WEB-INF/views/common/common.jsp" />
 
 <!-- Pre-loader start -->
 <div class="theme-loader">
@@ -35,15 +34,14 @@
     </div>
 </div>    
 <!-- Pre-loader end -->
-
 <div id="pcoded" class="pcoded">
     <div class="pcoded-overlay-box"></div>
     <div class="pcoded-container navbar-wrapper">       
 
-    <!--  topMenu  -->
-    <jsp:include page="/WEB-INF/views/common/topMenu.jsp" />           
-    <!--  sideMenu    -->        
-    <jsp:include page="/WEB-INF/views/common/sideMenu.jsp" />
+	<!--  topMenu  -->
+	<jsp:include page="/WEB-INF/views/common/topMenu.jsp" />           
+	<!--  sideMenu    -->        
+	<jsp:include page="/WEB-INF/views/common/sideMenu.jsp" />
         
     <!-- Main Content Start -->           
     <div class="pcoded-main-container">

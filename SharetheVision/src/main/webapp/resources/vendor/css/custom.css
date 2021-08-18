@@ -1,4 +1,13 @@
- /*  메신저 화면  */              
+ /*  메신저 화면  */     
+ 
+.container bootstrap snippets bootdey{
+	position:absolute !important;
+	bottom:-100px;
+	right:100px;
+
+ }
+ 
+          
  .portlet {
     margin-bottom: 15px;
 }
