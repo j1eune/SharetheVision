@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.SharetheVision.commute.model.dao.CommuteDAO;
 import com.kh.SharetheVision.commute.model.vo.Commute;
 import com.kh.SharetheVision.commute.model.vo.Overwork;
+import com.kh.SharetheVision.member.model.vo.Member;
 
 @Service("coService")
 public class CommuteServiceImpl implements CommuteService{
@@ -40,6 +41,9 @@ public class CommuteServiceImpl implements CommuteService{
 		return coDAO.commuteOut(sqlSession, map);
 	}
 
-
+	@Override
+	public int changeState(Member m) {
+		return coDAO.changeState(sqlSession, m);
+	}
 
 }

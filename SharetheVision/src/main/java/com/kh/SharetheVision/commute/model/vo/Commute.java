@@ -9,7 +9,7 @@ public class Commute {
 	private Date enrollDate;
 	private String commuteStart;
 	private String commuteEnd;
-	private int worktime;
+	private double worktime;
 	
 	public Commute() {}
 
@@ -53,11 +53,11 @@ public class Commute {
 		this.commuteEnd = commuteEnd;
 	}
 
-	public int getWorktime() {
+	public double getWorktime() {
 		return worktime;
 	}
 
-	public void setWorktime(int worktime) {
+	public void setWorktime(double worktime) {
 		this.worktime = worktime;
 	}
 

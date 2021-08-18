@@ -3,11 +3,13 @@ package com.kh.SharetheVision.commute.model.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.SharetheVision.commute.model.vo.Commute;
 import com.kh.SharetheVision.commute.model.vo.Overwork;
+import com.kh.SharetheVision.member.model.vo.Member;
 
 @Repository("coDAO")
 public class CommuteDAO {
@@ -28,6 +30,8 @@ public class CommuteDAO {
 		return sqlSession.update("commuteMapper.updateCommute", map);
 	}
 
-
+	public int changeState(SqlSession sqlSession, Member m) {
+		return sqlSession.update("commuteMapper.changeState", m);
+	}
 
 }

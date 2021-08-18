@@ -21,6 +21,12 @@
 	
 	.listTable>thead>tr>th, .listTable>tbody>tr>td, .listTable>tbody>tr>th{text-align: center}
 	
+	#selectState>li>input[type="radio"]{
+		display: hidden;
+		height: 0;
+		width: 0;
+	}
+	
 	#leaveTime input[type="radio"]{
 		visibility: hidden;
 		height: 0;
@@ -195,7 +201,7 @@
 		                                        </div>
 		                                        <div class="card-body">
 		                                            <h5 id="today" class="mb-3"></h5>
-		                                            <div id="totalWorkingHours"></div>
+		                                            <div id="totalWorkingHours">${total}</div>
 		                                            <div class="progress mb-4">
 		                                                <div id="progress" class="progress-bar" role="progressbar" style="width: 25%" aria-valuemin="0" aria-valuemax="100"></div>
 		                                            </div>
@@ -216,12 +222,33 @@
 													</div>
 													<div class="mt-3">
 														<div>
-														    <button type="button" id="changeState" class="btn btn-round btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">상태변경</button>
+															<c:forEach var="i" begin="1" end="4">
+															    <c:if test="${state == i}">
+															    	<button type="button" id="changeState" class="btn btn-round btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+															    		<c:if test="${state == 1}">근무 종료</c:if>
+															    		<c:if test="${state == 2}">근무 중</c:if>
+															    		<c:if test="${state == 3}">휴가</c:if>
+															    		<c:if test="${state == 4}">외근</c:if>
+															    	</button>
+															    </c:if>
+															</c:forEach>
 														    <ul id="selectState" class="dropdown-menu col-md-12" aria-labelledby="changeState" style="width: 90%;">
-															    <li class="dropdown-item" value="1"><span>업무종료</span></li>
-															    <li class="dropdown-item" value="2"><span>업무 중</span></li>
-															    <li class="dropdown-item" value="3"><span>휴가</span></li>
-															    <li class="dropdown-item" value="4"><span>외근</span></li>
+															    <li class="dropdown-item">
+																	<input type="radio" value="1">
+																	<label>근무종료</label>
+															    </li>
+															    <li class="dropdown-item">
+															    	<input type="radio" value="2">
+																	<label>근무 중</label>
+															    </li>
+															    <li class="dropdown-item">
+															    	<input type="radio" value="3">
+																	<label>휴가</label>
+															    </li>
+															    <li class="dropdown-item">
+															    	<input type="radio" value="4">
+																	<label>외근</label>
+															    </li>
 															</ul>
 														</div>
 													</div>
@@ -264,7 +291,6 @@
 	$(function(){
         // 근태관리 현재 시간
         var today = new Date();
-        console.log(today);
         
         var year = today.getFullYear().toString();
         
@@ -294,7 +320,7 @@
         // percent = 현재까지 근무시간(분) / 3120 * 100  (예를 든 현재 시간은 41시간 42분. 41*60+42/52*60 * 100)
         var percent = (2502 / 3120 * 100).toFixed(2);
         
-        $('#totalWorkingHours').html('41h 42m').css('font-size', '5vmin');
+        $('#totalWorkingHours').css('font-size', '5vmin');
         $('#progress').css('width', percent +"%");
         
         // 출근하기
@@ -312,21 +338,8 @@
 //         		    if((latitude > '37.4945' && latitude < '37.4946') && (longitude > '126.9580' && longitude < '126.9581')){
 //         		    if((latitude > '37.49' && latitude < '37.50') && (longitude > '126.94' && longitude < '126.95')){
         		    if(true){
-			            $.ajax({
-			            	url: 'commuteEnter.co',
-			            	success: function(data){
-								console.log(data);
-								
-// 				        		$('#goToTime').html(data);
-// 					            $('#goTo').css({'border':'2px solid gray', 'color':'gray'});
-// 					            $('#getOff').css({'border':'2px solid #660099', 'color':'#660099'});
-								
-								location.reload();
-			            	},
-			            	error: function(data){
-			            		console.log('실패');
-			            	}
-			            });
+						
+        		    	location.href="commuteEnter.co";
 			            
         		    } else {
         		    	alert('회사에서 출근을 해주세요');
@@ -341,18 +354,16 @@
         	var check = confirm('퇴근하시겠습니까?');
         	
         	if(check){
-	            $.ajax({
-	            	url: 'commuteOut.co',
-	            	success: function(data){
-						console.log(data);
-						
-						location.reload();
-	            	},
-	            	error: function(data){
-	            		console.log('실패');
-	            	}
-	            });
+
+        		location.href="commuteOut.co";
         	}
+        });
+        
+     	// 상태 변경
+        $('#selectState').find('li').on('click', function(){
+        	var state = $(this).children('input').val();
+        	
+        	location.href="changeState.co?state="+state;
         });
         
         // 연장근무 신청
@@ -393,6 +404,9 @@
                 $('#half').hide();
             }
         });
+        
+        
+        
     });
 	
 

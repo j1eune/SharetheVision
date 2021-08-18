@@ -23,4 +23,7 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.checkEmail",m);
 	}
 
+
+
+
 }

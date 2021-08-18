@@ -33,5 +33,7 @@ public class MemberServiceImpl implements MemberService {
 	public Member checkEmail(Member m) {
 		return mDao.checkEmail(sqlSession, m);
 	}
+
+
 	
 }
