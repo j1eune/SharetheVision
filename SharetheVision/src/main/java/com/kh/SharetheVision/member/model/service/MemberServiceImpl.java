@@ -33,5 +33,10 @@ public class MemberServiceImpl implements MemberService {
 	public Member checkEmail(Member m) {
 		return mDao.checkEmail(sqlSession, m);
 	}
+
+	@Override
+	public Member loginMember(Member m) {
+		return mDao.loginMember(sqlSession, m);
+	}
 	
 }

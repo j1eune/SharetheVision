@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="projectMapper">
+	<insert id="insertProject">
+		INSERT INTO PROJECT
+		VALUES(SEQ_PRO.NEXTVAL, #{pName}, #{pIntro}, DEFAULT, DEFAULT, 1)
+	</insert>
+	
+	<insert id="insertProjectMember">
+		INSERT INTO M_PROJECT
+		VALUES(#{mCode}, SEQ_PRO.CURRVAL)
+	</insert>
+	
+	<resultMap type="Project" id="selectProjectMap">
+		<id column="P_NO" property="pNo"/>
+		<result column="M_CODE" property="mCode"/>
+		<result column="P_NAME" property="pName"/>
+		<result column="P_INTRO" property="pIntro"/>
+		<result column="P_STATUS" property="pStatus"/>
+		<result column="P_END" property="pEnd"/>
+		<result column="DEPT_NO" property="deptNo"/>
+	</resultMap>
+	
+	<select id="selectProject" resultMap="selectProjectMap">
+		SELECT *
+		FROM PROJECT
+			JOIN M_PROJECT USING(P_NO)
+		WHERE P_STATUS = 'Y' AND M_CODE=#{mCode}
+	</select>
+</mapper>

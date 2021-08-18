@@ -13,4 +13,6 @@ public interface MemberService {
 
 	Member checkEmail(Member m);
 
+	Member loginMember(Member m);
+
 }

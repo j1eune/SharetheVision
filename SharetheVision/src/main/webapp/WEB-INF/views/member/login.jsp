@@ -68,11 +68,11 @@
                                 </div>
                                 <hr/>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Id">
+                                    <input type="text" name="mId" class="form-control" placeholder="Id">
                                     <span class="md-line"></span>
                                 </div>
                                 <div class="input-group">
-                                    <input type="password" class="form-control" placeholder="Password">
+                                    <input type="password" name="pwd" style="color: black;" class="form-control" placeholder="Password">
                                     <span class="md-line"></span>
                                 </div>
                                 <div class="row m-t-25 text-left">
@@ -87,8 +87,13 @@
                                     </div>
                                 </div>
                                 <div class="row m-t-30">
+                                	<c:url var="home" value="home.me">
+                                    </c:url>
                                     <div class="col-md-12">
-                                        <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">home.jsp가기</button>
+                                        <a href="${home }" class="text-right f-w-600 text-inverse"> home.jsp로 가기</a>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">로그인</button>
                                     </div>
                                 </div>
                                 <hr/>

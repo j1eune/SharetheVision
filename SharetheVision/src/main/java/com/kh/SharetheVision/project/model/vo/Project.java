@@ -2,23 +2,47 @@ package com.kh.SharetheVision.project.model.vo;
 
 import java.util.Arrays;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Project {
+	private int pNo;
+	private String mCode;
 	private String pName;
 	private String pIntro;
 	private String pStatus;
 	private String pEnd;
 	private int deptNo;
-	private int[] mCode;
+	private String[] mCodeArr;
 	
 	public Project() {}
 
-	public Project(String pName, String pIntro, String pStatus, String pEnd, int deptNo, int[] mCode) {
+	public Project(int pNo, String mCode, String pName, String pIntro, String pStatus, String pEnd, int deptNo,
+			String[] mCodeArr) {
 		super();
+		this.pNo = pNo;
+		this.mCode = mCode;
 		this.pName = pName;
 		this.pIntro = pIntro;
 		this.pStatus = pStatus;
 		this.pEnd = pEnd;
 		this.deptNo = deptNo;
+		this.mCodeArr = mCodeArr;
+	}
+
+	public int getpNo() {
+		return pNo;
+	}
+
+	public void setpNo(int pNo) {
+		this.pNo = pNo;
+	}
+
+	public String getmCode() {
+		return mCode;
+	}
+
+	public void setmCode(String mCode) {
 		this.mCode = mCode;
 	}
 
@@ -62,18 +86,20 @@ public class Project {
 		this.deptNo = deptNo;
 	}
 
-	public int[] getmCode() {
-		return mCode;
+	public String[] getmCodeArr() {
+		return mCodeArr;
 	}
 
-	public void setmCode(int[] mCode) {
-		this.mCode = mCode;
+	public void setmCodeArr(String[] mCodeArr) {
+		this.mCodeArr = mCodeArr;
 	}
 
 	@Override
 	public String toString() {
-		return "Project [pName=" + pName + ", pIntro=" + pIntro + ", pStatus=" + pStatus + ", pEnd=" + pEnd
-				+ ", deptNo=" + deptNo + ", mCode=" + Arrays.toString(mCode) + "]";
+		return "Project [pNo=" + pNo + ", mCode=" + mCode + ", pName=" + pName + ", pIntro=" + pIntro + ", pStatus="
+				+ pStatus + ", pEnd=" + pEnd + ", deptNo=" + deptNo + ", mCodeArr=" + Arrays.toString(mCodeArr) + "]";
 	}
+
+	
 	
 }

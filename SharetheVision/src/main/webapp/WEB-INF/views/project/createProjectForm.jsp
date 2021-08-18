@@ -29,6 +29,7 @@
 		.deleteIcon{
 			cursor:pointer;
 		}		
+		
 	</style>
 	
 </head>
@@ -94,7 +95,7 @@
                                                     <div class="card-header" style="border-bottom: 0.3px solid gray; width: 90%; margin: auto;">
                                                     	<h5>프로젝트 추가</h5>
                                                     	<br><br>
-                                                    	<form action="createProject.me" method="post">
+                                                    	<form action="createProject.pr" method="post">
 	                                                    	<div class="form-row">
 															   <div class="form-group col-md-3">
 															      <label for="inputEmail4">프로젝트 명</label>
@@ -121,27 +122,55 @@
 															   </div>
 															   <div class="form-group col-md-12" style="text-align: center;">
 															   		<button type="submit" class="btn btn-danger">생성</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-															   		<button type="button" class="btn btn-inverse btn-outline-inverse" id="cancelButton">취소</button>
+															   		<button type="button" class="btn btn-inverse btn-outline-inverse"  onclick="reloadPage();" id="cancelButton">취소</button>
 															   </div>
 															 </div>
 														 </form>
                                                     </div>
                                                     <br>
                                                     <div class="card-block">
-                                                    	<label>진행중인 프로젝트</label><br>
-                                                    	<table>
-                                                    		<tr>
-                                                    			<td>진행 중인 프로젝트가 없습니다.</td>
-                                                    		</tr>
-                                                    	</table>                                                    	
+	                                                   	<label>진행중인 프로젝트</label><br>
+															<div class="container">
+															    <div class="row">
+			                                                   		<c:if test="${ !empty pList }">
+																		<c:forEach var="pro" items="${pList }">
+																			<c:if test="${pro.pEnd eq 'N'}">
+																		        <div class="col-md-2 m-2" style="height: 150px; border: 1px solid red; border-radius: 20px;">
+																		        	${pro.pName }<br><br><br><br><br>
+																		        	${pro.pIntro }
+																		        </div>
+																			</c:if>
+																		</c:forEach>
+			                                                   		</c:if>
+															    </div>
+															</div>
+                                                    		
+                                                    	<c:if test="${ empty pList }">
+                                                    		진행 중인 프로젝트가 없습니다.
+                                                    	</c:if>
                                                     </div>
                                                     <div class="card-block">
                                                     	<label>완료된 프로젝트</label><br>
-                                                    	<table>
-                                                    		<tr>
-                                                    			<td>완료된 프로젝트가 없습니다.</td>
-                                                    		</tr>
-                                                    	</table>
+															<div class="container">
+															    <div class="row">
+			                                                   		<c:if test="${ !empty pList }">
+																		<c:forEach var="pro" items="${pList }">
+																			<c:if test="${pro.pEnd eq 'Y' }">
+																				        <div class="col-md-6" style="height: 150px;">
+																				        	${pro.pName }<br>
+																				        	${pro.pIntro }
+																				        </div>
+																			</c:if>
+																		</c:forEach>
+			                                                   		</c:if>
+															    </div>
+															</div>
+		
+	                                                    	<c:if test="${ empty pList }">
+	                                                    		<tr>
+	                                                    			<td>완료된 프로젝트가 없습니다.</td>
+	                                                    		</tr>
+	                                                   		</c:if>	
                                                     </div>
                                                 </div>
                                             </div>
@@ -171,11 +200,11 @@
 								      			<c:if test="${ !empty list }">
 								      				<c:forEach var="list" items="${ list }">
 									      				<tr>
-									      					<td><input type="hidden" name="mCode" value="${ list.mCode }"></td>
+									      					<td><input type="hidden" value="${ list.mCode }"></td>
 										      				<td><input type="checkbox" name="addMemberCheckbox"></td>
 										      				<td>${ list.name }</td>
-										      				<td>${ list.deptName }</td>
 										      				<td>${ list.jobName }</td>
+										      				<td>${ list.deptName }</td>
 										      				<td>${ list.phone }</td>
 									      				</tr>
 								      				</c:forEach>
@@ -232,20 +261,23 @@
 			var tr = check.parent().parent().eq(i);
 			var td = tr.children();
 			
-			var col1 = td.eq(0).text();
+			var col1 = td.find('input[type="hidden"]').val();
 			var col2 = td.eq(2).text();
 			var col3 = td.eq(3).text();
 			var col4 = td.eq(4).text();
 			var col5 = td.eq(5).text();
 			
+			console.log(col1);			
+			
 			$tr = $('<tr>');
-			$mNum = $('<td>').html('<input type="hidden" name="mCode" value='+ col1 +'>');
+			$mNum = $('<td>').html('<input type="hidden" name="mCode" value="'+col1+'" />');
 			$img = $('<td style="width:10%">').html('<i class="icofont icofont-user icofont-1x" style="color: gray;"></i>');
 			$name = $('<td style="width:20%">').text(col2);
 			$dept = $('<td style="width:20%">').text(col3);
 			$job = $('<td style="width:20%">').text(col4);
 			$phone = $('<td style="width:30%">').text(col5);
 			$button = $('<td style="width:10%">').html('<i class="icofont icofont-ui-close icofont-xs deleteIcon"></i>');
+			
 			
 			$tr.append($mNum);
 			$tr.append($img);
@@ -263,9 +295,15 @@
 	$(document).on("click",".deleteIcon", function(){
 		var $tr = $(this).parent().parent();
 		$tr.remove();
+		$('input:[type=hidden]').each(function(){ this.defaultValue = this.value; });
 	});
 	
+	function reloadPage(){
+		location.replace("createProjectForm.me");
+	}
 	
+	
+
 
 </script>
 </body>
