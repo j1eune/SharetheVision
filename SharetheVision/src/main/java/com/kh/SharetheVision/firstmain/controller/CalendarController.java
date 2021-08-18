@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.SharetheVision.firstmain.model.exception.MainException;
 import com.kh.SharetheVision.firstmain.model.service.CalendarService;
 import com.kh.SharetheVision.firstmain.model.vo.Calendar;
 
@@ -25,7 +26,7 @@ public class CalendarController {
 	
 	@RequestMapping(value = "addCal.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String addCal(@RequestBody Calendar c, HttpServletResponse response){
+	public String addCal(@RequestBody Calendar c, HttpServletResponse response) throws MainException{
 		//c.setName(id);  (@ModelAttribute Calendar c,HttpSession session ) {
 		//Member loginUser = (Member)session.getAttribute("loginUser");
 		//String id = loginUser.getMcode();
@@ -36,8 +37,7 @@ public class CalendarController {
 		if(result>0) {
 			return "success";
 		}else {
-			System.out.println("dao 등록 실패");
-			return "error";
+			throw new MainException("일정 생성에 실패했습니다.");
 		}
 	}
 	
@@ -56,7 +56,7 @@ public class CalendarController {
 	
 	@RequestMapping(value="updateCal.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String updateCal(@RequestBody Calendar c, Model model) {
+	public String updateCal(@RequestBody Calendar c, Model model) throws MainException {
 		
 		int result = cService.updateCal(c);
 
@@ -65,32 +65,21 @@ public class CalendarController {
 		if(result>0) {
 			return "success";
 		}else {
-			System.out.println("dao 수정 실패");
-			return "error";
+			throw new MainException("일정 변경에 실패했습니다.");
 		}
 	}
 	
 	
-	@RequestMapping(value="deleteCal.do", produces="application/json; charset=UTF-8")
+	@RequestMapping(value="deleteCal.do")
 	@ResponseBody
-	public String deleteCal(@RequestParam("id") String no) {
+	public String deleteCal(@RequestParam("id") String no) throws MainException {
 			
 		int result = cService.deleteCal(no);
 		
 		if(result>0) {
 			return "success";
 		}else {
-			return "error";
+			throw new MainException("일정 삭제에 실패했습니다.");
 		}
-	}
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
+	}		
 }

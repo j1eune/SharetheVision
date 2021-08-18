@@ -11,7 +11,8 @@
 	<typeAliases>
 		<typeAlias alias="calendar" type="com.kh.SharetheVision.firstmain.model.vo.Calendar"/>
 		<typeAlias alias="board" type="com.kh.SharetheVision.board.model.vo.Board"/>
-		<typeAlias alias="commute" type="com.kh.SharetheVision.commute.model.vo.Commute"/>
+		<typeAlias alias="Commute" type="com.kh.SharetheVision.commute.model.vo.Commute"/>
+		<typeAlias alias="Overwork" type="com.kh.SharetheVision.commute.model.vo.Overwork"/>
 		<typeAlias alias="Member" type="com.kh.SharetheVision.member.model.vo.Member"/>
 		<typeAlias alias="Project" type="com.kh.SharetheVision.project.model.vo.Project"/>
 	</typeAliases>

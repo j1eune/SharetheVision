@@ -6,7 +6,7 @@
 		<![CDATA[
 			select *
 			from (select *
-				  from board
+				  from v_board
 				  where b_type=1 and dept_no=1 and b_status='Y'
 				  order by b_no desc)
 			where rownum <= 3
@@ -23,7 +23,8 @@
 		<result column="B_STATUS" property="boardStatus"/>
 		<result column="M_CODE" property="memberCode"/>
 		<result column="DEPT_NO" property="deptNo"/>
-		
+		<result column="M_NAME" property="boardWriter"/>
+		<result column="P_NAME" property="project"/>
 	</resultMap>
 	
 </mapper>

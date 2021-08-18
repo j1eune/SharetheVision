@@ -10,23 +10,8 @@ public class Commute {
 	private String commuteStart;
 	private String commuteEnd;
 	private int worktime;
-	private int overworktime;
-	private double total;
 	
 	public Commute() {}
-
-	public Commute(int commuteNo, String memberNo, Date enrollDate, String commuteStart, String commuteEnd,
-			int worktime, int overworktime, double total) {
-		super();
-		this.commuteNo = commuteNo;
-		this.memberNo = memberNo;
-		this.enrollDate = enrollDate;
-		this.commuteStart = commuteStart;
-		this.commuteEnd = commuteEnd;
-		this.worktime = worktime;
-		this.overworktime = overworktime;
-		this.total = total;
-	}
 
 	public int getCommuteNo() {
 		return commuteNo;
@@ -76,27 +61,11 @@ public class Commute {
 		this.worktime = worktime;
 	}
 
-	public int getOverworktime() {
-		return overworktime;
-	}
-
-	public void setOverworktime(int overworktime) {
-		this.overworktime = overworktime;
-	}
-
-	public double getTotal() {
-		return total;
-	}
-
-	public void setTotal(double total) {
-		this.total = total;
-	}
-
 	@Override
 	public String toString() {
 		return "Commute [commuteNo=" + commuteNo + ", memberNo=" + memberNo + ", enrollDate=" + enrollDate
-				+ ", commuteStart=" + commuteStart + ", commuteEnd=" + commuteEnd + ", worktime=" + worktime
-				+ ", overworktime=" + overworktime + ", total=" + total + "]";
+				+ ", commuteStart=" + commuteStart + ", commuteEnd=" + commuteEnd + ", worktime=" + worktime + "]";
 	}
+
 	
 }

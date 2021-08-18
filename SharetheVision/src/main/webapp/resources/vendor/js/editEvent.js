@@ -130,7 +130,6 @@ var editEvent = function (event, element, view) {
     	$.ajax({
     		url: "deleteCal.do",
     		data: { 'id': event.description },
-    		contentType: "application/json",
     		success: function (data) {
     				if(data=='success'){
 	    				alert('일정이 삭제되었습니다.');

@@ -64,6 +64,10 @@
 	width: 100px;
 }
 
+tbody td {
+	cursor: pointer;
+}
+
 </style>
 
 </head>
@@ -166,27 +170,24 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                        <c:url var="boardDetail" value="boardDetail.bo">
-                                                        	<%-- <c:param name="boardId" value="${ b.boardId }"/> --%>
-                                                        </c:url>
-                                                            <td scope="row" class="project-no">1</td>
-                                                            <td class="project-name">[ SharetheVision ]</td>
-                                                            <td class="project-title">SV 프로젝트 자료1</td>
-                                                            <td>장원형</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td scope="row" class="project-no">2</td>
-                                                            <td class="project-name">[ PROJECT ]</td>
-                                                            <td class="project-title">프로젝트</td>
-                                                            <td>스폰지밥</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td scope="row" class="project-no">3</td>
-                                                            <td class="project-name">[ 어떤가요 ]</td>
-                                                            <td class="project-title">알ㄹ라랄</td>
-                                                            <td>룰룰룰루루</td>
-                                                        </tr>
+                                                    	<c:if test="${ empty list }">
+	                                                    	<c:forEach var="board" items="${ board }">
+		                                                        <tr>
+		                                                        <c:url var="boardDetail" value="boardDetail.bo">
+		                                                        	<%-- <c:param name="boardId" value="${ b.boardId }"/> --%>
+		                                                        </c:url>
+		                                                            <td scope="row" class="project-no">${ board.boardNo }</td>
+		                                                            <td class="project-name">[ SharetheVision ]</td>
+		                                                            <td class="project-title">${ board.boardTitle }</td>
+		                                                            <td>장원형</td>
+		                                                        </tr>
+	                                                        </c:forEach>
+                                                        </c:if>
+                                                        <c:if test="${ !empty list }">
+                                                        	<tr>
+                                                        		<td>비어있음
+                                                        	</tr>
+                                                        </c:if>
                                                     </tbody>
                                                 </table>
                                             </div>
