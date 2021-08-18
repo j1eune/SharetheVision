@@ -38,8 +38,8 @@
  }
  
  .fc-highlight {
-     background: #bce8f1;
-     opacity: .3
+     background: #ffee8de3 ;
+     opacity: .4
  }
  
  .fc-bgevent {
@@ -215,8 +215,8 @@
      width: 100%;
      box-sizing: border-box;
      table-layout: fixed;
-     border-collapse: collapse;
-     border-spacing: 0
+     border-collapse: separate;
+     border-spacing: 0.5px;
  }
  
  .fc td,
@@ -540,7 +540,7 @@
  
  .fc-bootstrap3 .fc-today.alert,
  .fc-bootstrap4 .fc-today.alert {
-     border-radius: 0
+     border-radius: 2 2 2 2px;
  }
  
  .fc-unselectable {
@@ -577,7 +577,10 @@
  }
  
  .fc-unthemed td.fc-today {
-     background: #fcf8e3
+     border: 4px solid #919aa3;
+ }
+ .fc-day fc-widget-content fc-today {
+    border-bottom: 4px solid #919aa3 !important;
  }
  
  .fc-unthemed .fc-disabled-day {
@@ -805,7 +808,7 @@
  }
  
  .fc-ltr .fc-basic-view .fc-day-top .fc-day-number {
-     float: right
+     float: left;
  }
  
  .fc-rtl .fc-basic-view .fc-day-top .fc-day-number {
