@@ -799,7 +799,7 @@
  
  .fc-basic-view .fc-day-number,
  .fc-basic-view .fc-week-number {
-     padding: 2px
+     padding: 5px 0 0 7px;
  }
  
  .fc-basic-view th.fc-day-number,
@@ -812,7 +812,8 @@
  }
  
  .fc-rtl .fc-basic-view .fc-day-top .fc-day-number {
-     float: left
+     float: left;
+     font-size: 12px;
  }
  
  .fc-ltr .fc-basic-view .fc-day-top .fc-week-number {
