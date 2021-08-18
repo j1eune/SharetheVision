@@ -26,9 +26,14 @@
 						</c:url>
 						<a href="${ memberList }"><i class="ti-list"></i>Group Member</a> 
 						
-						<c:url var="projectForm" value="createProjectForm.me">
-						</c:url>
-						<a href="${ projectForm }"><i class="ti-layout-sidebar-left"></i>Logout</a>
+						<a href="#" onclick="logout()"><i class="ti-layout-sidebar-left"></i>Logout</a>
+						<script>
+							function logout(){
+								if(confirm('로그아웃 하시겠습니까?')){
+									location.href="logout.me";
+								}
+							}
+						</script>
 					</li>
 				</ul>
 			</div>
@@ -175,7 +180,7 @@
             </li>
             <li class="pcoded-hasmenu">
 				<c:url var="board" value="board.bo"></c:url>
-				<c:url var="projectForm" value="createProjectForm.me"></c:url>
+				<c:url var="projectForm" value="createProjectForm.pr"></c:url>
 				
 				<a href="#" onclick="return false;">
 					<span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>

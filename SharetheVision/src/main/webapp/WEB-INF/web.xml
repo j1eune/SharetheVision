@@ -109,6 +109,21 @@
 		<url-pattern>*.le</url-pattern>
 	</servlet-mapping>
 	
+	<!-- 프로젝트 관련 -->
+	<servlet>
+		<servlet-name>projectServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>
+				/WEB-INF/spring/appServlet/project-context.xml
+			</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>projectServlet</servlet-name>
+		<url-pattern>*.pr</url-pattern>
+	</servlet-mapping>
 	
 	
  

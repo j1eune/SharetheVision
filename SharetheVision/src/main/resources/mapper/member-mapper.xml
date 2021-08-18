@@ -3,7 +3,7 @@
 <mapper namespace="memberMapper">
 	<insert id="insertMember">
 		INSERT INTO MEMBER
-		VALUES(#{mCode}, #{name}, #{pwd}, #{phone}, #{address}, #{email}, SYSDATE, SYSDATE, 1, DEFAULT, 0, #{deptNo}, #{jobNo})
+		VALUES(#{mCode}||SEQ_MCODE.NEXTVAL, #{name}, #{pwd}, #{phone}, #{address}, #{email}, SYSDATE, SYSDATE, 1, DEFAULT, #{adminNo} , #{deptNo}, #{jobNo}, #{mId})
 	</insert>
 
 	<select id="selectMember" resultMap="selectMemberResult">
@@ -27,6 +27,7 @@
 	<resultMap type="Member" id="selectMemberResult">
 		<id column="M_CODE" property="mCode"/>
 		<result column="M_NAME" property="name"/>
+		<result column="M_PWD" property="pwd"/>
 		<result column="M_PHONE" property="phone"/>
 		<result column="M_ADDRESS" property="address"/>
 		<result column="M_EMAIL" property="email"/>
@@ -44,5 +45,11 @@
 	</select>
 	
 
+
+	<select id="loginMember" resultMap="selectMemberResult">
+		SELECT *
+		FROM MEMBER
+		WHERE M_STATUS='Y' AND M_ID=#{mId}
+	</select>
 
 </mapper>

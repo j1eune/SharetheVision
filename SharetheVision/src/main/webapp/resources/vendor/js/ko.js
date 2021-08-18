@@ -44,7 +44,7 @@
                 closeText: "닫기",
                 prevText: "이전달",
                 nextText: "다음달",
-                currentText: "오늘",
+                currentText: "TODAY",
                 monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
                 monthNamesShort: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
                 dayNames: ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"],
@@ -75,7 +75,7 @@
                 return e.defineLocale("ko", {
                     months: "1월_2월_3월_4월_5월_6월_7월_8월_9월_10월_11월_12월".split("_"),
                     monthsShort: "1월_2월_3월_4월_5월_6월_7월_8월_9월_10월_11월_12월".split("_"),
-                    weekdays: "일요일_월요일_화요일_수요일_목요일_금요일_토요일".split("_"),
+                    weekdays: "SUN_MON_TUE_WED_THU_FRI_SAT".split("_"),
                     weekdaysShort: "일_월_화_수_목_금_토".split("_"),
                     weekdaysMin: "일_월_화_수_목_금_토".split("_"),
                     longDateFormat: {
@@ -91,7 +91,7 @@
                         llll: "YYYY년 MMMM D일 dddd A h:mm"
                     },
                     calendar: {
-                        sameDay: "오늘 LT",
+                        sameDay: "TODAY LT",
                         nextDay: "내일 LT",
                         nextWeek: "dddd LT",
                         lastDay: "어제 LT",

@@ -14,6 +14,7 @@
 		<typeAlias alias="Commute" type="com.kh.SharetheVision.commute.model.vo.Commute"/>
 		<typeAlias alias="Overwork" type="com.kh.SharetheVision.commute.model.vo.Overwork"/>
 		<typeAlias alias="Member" type="com.kh.SharetheVision.member.model.vo.Member"/>
+		<typeAlias alias="Project" type="com.kh.SharetheVision.project.model.vo.Project"/>
 	</typeAliases>
 	
 	
@@ -23,6 +24,7 @@
 		<mapper resource="mapper/board-mapper.xml"/>
 		<mapper resource="mapper/commute-mapper.xml"/>
 		<mapper resource="mapper/member-mapper.xml"/>
+		<mapper resource="mapper/project-mapper.xml"/>
 	</mappers>
 
 

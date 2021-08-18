@@ -107,11 +107,11 @@ MINVALUE 1
 NOCYCLE
 NOCACHE;
 
--- 2021.08.16 18:24
+-- 2021.08.16 18:24 유승현 UPDATE
 -- MEMBER TABLE ID 컬럼 추가
 ALTER TABLE MEMBER ADD (M_ID VARCHAR2(100) NOT NULL);
 
--- 2021.08.17
+-- 2021.08.17 20:34 유승현 UPDATE
 -- JOB, DEPARTMENT 테이블 insert 
 INSERT INTO JOB VALUES(1, '부장');
 INSERT INTO JOB VALUES(2, '차장');
@@ -125,6 +125,21 @@ INSERT INTO DEPARTMENT VALUES(3,'생산');
 INSERT INTO DEPARTMENT VALUES(4,'영업');
 INSERT INTO DEPARTMENT VALUES(5,'회계');
 
+
+CREATE SEQUENCE  SEQ_MCODE
+MINVALUE 1 MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1 
+NOCACHE  NOORDER  NOCYCLE ;
+
+-- 2021.08.18 00:33 유승현 UPDATE
+-- PROJECT 시퀀스
+CREATE SEQUENCE  SEQ_PRO
+MINVALUE 1 MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 START WITH 1 
+NOCACHE  NOORDER  NOCYCLE ;
+
+
 -- 2021.08.17 21:44 원형
 -- 뷰 생성 권한 부여, V_BOARD 뷰 생성
 grant create view to sharethevision;
@@ -135,3 +150,4 @@ as select board.b_no, board.b_type, board.b_title, board.b_content, board.b_crea
     from board
         left join member on(board.m_code = member.m_code)
         left join project on(board.dept_no = project.dept_no);
+

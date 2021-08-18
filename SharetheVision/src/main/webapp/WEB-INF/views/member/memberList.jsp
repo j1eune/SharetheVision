@@ -30,6 +30,10 @@
 		#checkEmailDiv{
  			display:none; 
 		}
+		
+		#memberTable td{
+			text-align: center;
+		}
 	</style>
 </head>
 
@@ -219,7 +223,7 @@
 											    </div>
 												<div class="form-group">
 												    <label for="inputAddress2">아이디</label>
-												    <input type="text" class="form-control" name="mCode" required id="inputAddress2" placeholder="Id">
+												    <input type="text" class="form-control" name="mId" required id="inputAddress2" placeholder="Id">
 												</div>
 												<div class="form-row">
 													<div class="form-group col-md-8">

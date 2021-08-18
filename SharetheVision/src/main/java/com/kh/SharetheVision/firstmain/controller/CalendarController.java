@@ -70,7 +70,7 @@ public class CalendarController {
 	}
 	
 	
-	@RequestMapping(value="deleteCal.do", produces="application/json; charset=UTF-8")
+	@RequestMapping(value="deleteCal.do")
 	@ResponseBody
 	public String deleteCal(@RequestParam("id") String no) throws MainException {
 			
