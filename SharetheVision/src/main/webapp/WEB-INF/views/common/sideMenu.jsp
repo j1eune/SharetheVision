@@ -9,8 +9,9 @@
 				<img class="img-40 img-radius" src="resources/assets/images/avatar-4.jpg"
 					alt="User-Profile-Image">
 				<div class="user-details">
-					<span>홍길동</span> <span id="more-details">디자인 팀장<i
-						class="ti-angle-down"></i></span>
+					<span>${loginUser.name} 님</span>
+                     <span id="more-details"><i class="ti-angle-down"></i> &nbsp; ${loginUser.mId}</span>
+                                                                     <!-- 부서 + 직급 (테스트로 아이디넣어봤습니다)-->
 				</div>
 			</div>
 
@@ -210,11 +211,11 @@
 
         <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Chart &amp; Messenger</div>
         <ul class="pcoded-item pcoded-left-item">
-	    <c:url var="msStart" value="msStart.ms"></c:url>
+            <c:url var="msStart" value="msStart.ms"></c:url>
             <li>
-                <a href="${ msStart }">
+                <a style="cursor:pointer" target="_blank" onclick="window.open('${msStart}','MS','top=80,left=80,width=450,height=550');">
                     <span class="pcoded-micon"><i class="ti-layers"></i><b></b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Messenger</span>
+                    <span class="pcoded-mtext" data-i18n="nav.form-components.main" target="_blank">Messenger</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
@@ -303,3 +304,5 @@
         </ul>
     </div>
 </nav>
+
+
