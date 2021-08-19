@@ -74,11 +74,11 @@
                                     <span class="md-line"></span>
                                 </div>
                                 <div class="input-group">
-                                    <input type="hidden" name="id" placeholder="아이디">
+                                    <input type="hidden" name="mId" value="${ mId }">
                                 </div>
                                 <div class="row m-t-30">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" onclick="randomCheck();">인증번호 입력</button>
+                                        <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" onclick="randomCheck();">인증번호 입력</button>
                                     </div>
                                 </div>
                                 <hr/>

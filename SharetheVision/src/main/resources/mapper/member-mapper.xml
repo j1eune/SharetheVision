@@ -41,7 +41,7 @@
 	<select id="checkEmail" resultMap="selectMemberResult">
 		SELECT *
 		FROM MEMBER
-		WHERE M_STATUS = 'Y' AND M_NAME = #{ name } AND M_ID = ${ mId }
+		WHERE M_STATUS = 'Y' AND M_NAME = #{ name } AND M_ID = #{ mId }
 	</select>
 	
 
@@ -51,5 +51,21 @@
 		FROM MEMBER
 		WHERE M_STATUS='Y' AND M_ID=#{mId}
 	</select>
+	
+	<update id="updateMember">
+		UPDATE MEMBER
+		SET M_PWD = #{pwd},
+			M_PHONE = #{phone},
+			M_ADDRESS = #{address},
+			M_DATE = SYSDATE,
+			M_EMAIL = #{email}
+		WHERE M_CODE = #{mCode}
+	</update>
+
+	<update id="updatePwd">
+		UPDATE MEMBER
+		SET M_PWD = #{pwd}
+		WHERE M_ID = #{mId}
+	</update>
 
 </mapper>

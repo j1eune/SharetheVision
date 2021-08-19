@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,6 +24,12 @@
 	    
 </head>
 <style>
+	@font-face {
+	    font-family: 'ELAND_Choice_L';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Choice_L.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;
+	}
 	#updateFormTable{
 		width:70%;
 		margin-left: 15%;
@@ -46,6 +53,7 @@
 	#hiddenButton{
 		display:none;
 	}
+	input[type=password] { font-family: "ELAND_Choice_L"; }
 </style>
 <body>
     <!-- Pre-loader start -->
@@ -100,7 +108,7 @@
 	                                        </div>
 	                                    </div>
 	                                    <!-- Page-header end -->
-										<form onsubmit="return updateM();" action="updateProfile.me" method="post">
+										<form onsubmit="return updateM();" enctype="Multipart/form-data" action="updateProfile.me" method="post">
 		                                    <div class="page-body">
 		                                        <div class="row">
 		                                            <!-- SITE VISIT CHART start -->
@@ -112,9 +120,16 @@
 																<table id="updateFormTable">
 																	<tr style="text-align:center;">
 																		<td rowspan="8">
-																			<div id="profileBox">
-																				<img src="resources/assets/images/defaultProfile.png" id="profileImg"/>
-																			</div>
+																			<c:if test="${attachment.atChange eq '' || attachment.atChange == null}">
+																				<div id="profileBox">
+																					<img src="resources/assets/images/defaultProfile.png" id="profileImg"/>
+																				</div>
+																			</c:if>
+																			<c:if test="${attachment.atChange != null }">
+																				<div id="profileBox">
+																					<img src="resources/muploadFile/${attachment.atChange }" id="profileImg"/>
+																				</div>
+																			</c:if>
 																			<div>
 																				<input type="file" id="hiddenButton" name="profile" onchange="loadProfile(this);"/>
 																			</div>
@@ -123,16 +138,27 @@
 																	<tr>
 																		<td>
 																			<label><b>전화번호</b></label>
-																			<input type="tel" class="form-control mt-1 adressInput" name="phone" value="010-1234-5678"/>
+																			<input type="tel" class="form-control mt-1 adressInput" name="phone" value="${loginUser.phone }"/>
 																		</td>
 																	</tr>
 																	<tr><td>&nbsp;</td></tr>
 																	<tr>
+																		<c:forTokens var="addr" items="${loginUser.address }" delims="." varStatus="status">
+																			<c:if test="${status.index eq 0}">
+																				<c:set var="post" value="${addr }"></c:set>
+																			</c:if>
+																			<c:if test="${status.index eq 1}">
+																				<c:set var="address1" value="${addr }"></c:set>
+																			</c:if>
+																			<c:if test="${status.index eq 2}">
+																				<c:set var="address2" value="${addr }"></c:set>
+																			</c:if>
+																		</c:forTokens>
 																		<td>
 																			<label><b>주소</b></label>
-																			<input type="text" id="sample6_postcode" name="address1" readonly class="form-control mt-1 adressInput" placeholder="우편번호 찾기" onclick="sample6_execDaumPostcode()" required>
-																			<input type="text" id="sample6_address" name="address2" class="form-control mt-1" placeholder="주소" required>
-																			<input type="text" id="sample6_detailAddress" name="address3" class="form-control mt-1" placeholder="상세주소" required>
+																			<input type="text" id="sample6_postcode" value="${post }" name="address1" readonly class="form-control mt-1 adressInput" placeholder="우편번호 찾기" onclick="sample6_execDaumPostcode()" required>
+																			<input type="text" id="sample6_address" value="${address1 }" name="address2" class="form-control mt-1" placeholder="주소" required>
+																			<input type="text" id="sample6_detailAddress" value="${address2 }" name="address3" class="form-control mt-1" placeholder="상세주소" required>
 																			<input type="hidden" id="sample6_extraAddress" class="form-control"placeholder="참고항목">
 																		</td>
 																	</tr>
@@ -140,17 +166,17 @@
 																	<tr>
 																		<td>
 																			<label><b>이메일</b></label>
-																			<input type="email" class="form-control mt-1 adressInput" name="email"value="stv@sv.com"/>
+																			<input type="email" class="form-control mt-1 adressInput" name="email"value="${loginUser.email }"/>
 																		</td>
 																	</tr>
 																	<tr><td>&nbsp;</td></tr>
 																	<tr>
 																		<td>
 																			<label><b>비밀번호 입력</b></label>
-																			<input type="password" class="form-control mt-1 adressInput" name="userPwd" id="userPwd" placeholder="기존 비밀번호"/>
+																			<input type="password" class="form-control mt-1 adressInput" name="pwd" id="userPwd" onkeyup="userPwdCheck();" placeholder="기존 비밀번호"/>
 																			<div style="color: black; text-align: left; padding-top: 2px;" id="userPwdMessage"></div>
 																			
-																			<input type="password" class="form-control mt-1 adressInput" name="newPwd" onkeyup="newPwdCheck();"id="newPwd" placeholder="새로운 비밀번호"/>
+																			<input type="password" class="form-control mt-1 adressInput" name="newPwd" onkeyup="newPwdCheck();"id="newPwd" placeholder="새로운 비밀번호(문자,숫자,특수문자 포함)"/>
 																			<div style="color: black; text-align: left; padding-top: 2px;" id="newPwdMessage"></div>
 																			
 																			<input type="password" class="form-control mt-1 adressInput" id="checkPwd" onkeyup="checkPwdForm();" placeholder="비밀번호 확인"/>
@@ -251,9 +277,7 @@
 	userPwd = false;
 	userNewPwd = false;
 	checkPwd = false;
-	
-	// 기존 비밀번호 확인
-	
+
 	// 새로운 비밀번호
 	function newPwdCheck(){
 		var regExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,12}$/;
@@ -302,8 +326,27 @@
 		
 	}
 	
+	// 기존 비밀번호 확인
+	function userPwdCheck(){
+		var pwd = document.getElementById("userPwd").value;
+		$.ajax({
+			url: "userPwdCheck.me",
+			data: {pwd:pwd},
+			success:function(data){
+				console.log("기존 비밀번호 성공");
+				userPwd = true;
+			},
+			error:function(data){
+				console.log("기존 비밀번호 실패");
+				userPwd = false;
+			}
+		});
+	}
+	
+	
 	function updateM(){
 		var pwd1 = document.getElementById("newPwd");
+		var pwd = document.getElementById("userPwd");
 		
 		if(pwd1.value.trim() == ""){
 			if(userPwd){

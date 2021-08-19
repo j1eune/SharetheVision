@@ -1,5 +1,6 @@
 .dropNewEvent {
   font-size: 13px;
+  cursor: pointer;
 }
 
 .popoverTitleCalendar {
@@ -98,10 +99,10 @@
 
 .fc-day-header {
   text-transform: uppercase;
-  font-size: 13px;
-  font-weight: 500;
-  color: #505363;
-  background-color: #FAFAFA;
+  font-size: 15px;
+  font-weight: 700;
+  color: whitesmoke;
+  background-color: #4a455c8c;
   padding: 11px 0px !important;
   text-decoration: none;
 }
@@ -136,7 +137,7 @@
 }
 
 .fc-day:hover {
-  background: #EEF7FF;
+  background: #faf4d28a;
   cursor: pointer;
   -webkit-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
@@ -144,8 +145,8 @@
 }
 
 .fc-highlight {
-  background: #EEF7FF;
-  opacity: 0.7;
+  background: #ffee8de3;
+  opacity: 0.5;
 }
 
 .fc-time-grid-event.fc-short .fc-time:before {
@@ -211,6 +212,7 @@
 
 .fc-unthemed .fc-day-grid td:not(.fc-axis).fc-event-container {
   /* padding: 0.2rem 0.5rem; */
+  height: 0.5px;
 }
 
 .fc-unthemed .fc-content,

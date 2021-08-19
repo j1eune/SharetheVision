@@ -23,10 +23,17 @@
     <jsp:include page="/WEB-INF/views/common/common.jsp" />
 </head>
 <style>
+	@font-face {
+	    font-family: 'ELAND_Choice_L';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Choice_L.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;
+	}
 	#loginSection{
 		background-image:url('resources/assets/images/login.png');
 		background-size: cover;
 	}
+	input[type=password] { font-family: "ELAND_Choice_L"; }
 </style>
 <body class="fix-menu">
     <!-- Pre-loader start -->
@@ -70,14 +77,14 @@
                                 </div>
                                 <hr/>
                                 <div>
-                                	<input type="hidden" name="mCode" value="${ id }"/>
-                                    <input type="password" class="form-control" id="newPwd" name="pwd" required placeholder="새로운 비밀번호(8~12자리)" onkeyup="newPwdCheck();"/>
+                                	<input type="hidden" name="mId" value="${ mId }"/>
+                                    <input type="password" class="form-control" id="newPwd" name="pwd" required placeholder="새로운 비밀번호(문자,숫자,특수문자 포함)" onkeyup="newPwdCheck();"/>
                                     <span class="md-line"></span>
                                 </div>
                                 <div style="color: black; text-align: left; padding-top: 2px;" id="newPwdMessage"></div>
                                 <br>
                                 <div>
-                                    <input type="password" class="form-control" id="checkPwd" name="checkPwd" required placeholder="비밀번호 확인" onkeyup="checkPwdForm();">
+                                    <input type="password" class="form-control" id="checkPwd"required placeholder="비밀번호 확인" onkeyup="checkPwdForm();">
                                     <span class="md-line"></span>
                                 </div>
                                 <div style="color: black; text-align: left; padding-top: 2px;" id="checkPwdMessage"></div>

@@ -27,4 +27,12 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.loginMember", m);
 	}
 
+	public int updateMember(SqlSession sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updateMember",m);
+	}
+
+	public int updatePwd(SqlSession sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updatePwd",m);
+	}
+
 }

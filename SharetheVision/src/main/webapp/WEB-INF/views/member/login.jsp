@@ -23,10 +23,19 @@
     <jsp:include page="/WEB-INF/views/common/common.jsp" />
 </head>
 <style>
+	@font-face {
+	    font-family: 'ELAND_Choice_L';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Choice_L.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;
+	}
+
 	#loginSection{
 		background-image:url('resources/assets/images/login.png');
 		background-size: cover;
 	}
+	input[type=password] { font-family: "ELAND_Choice_L"; }
+
 </style>
 <body class="fix-menu">
     <!-- Pre-loader start -->
