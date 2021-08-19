@@ -213,7 +213,7 @@
         <ul class="pcoded-item pcoded-left-item">
             <c:url var="msStart" value="msStart.ms"></c:url>
             <li>
-                <a style="cursor:pointer" target="_blank" onclick="window.open('${msStart}','MS','top=80,left=80,width=450,height=550');">
+                <a style="cursor:pointer" target="_blank" onclick="window.open('${msStart}','MS','top=80,left=80,width=420,height=550');">
                     <span class="pcoded-micon"><i class="ti-layers"></i><b></b></span>
                     <span class="pcoded-mtext" data-i18n="nav.form-components.main" target="_blank">Messenger</span>
                     <span class="pcoded-mcaret"></span>

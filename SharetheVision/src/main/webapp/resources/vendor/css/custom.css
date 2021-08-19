@@ -1,17 +1,15 @@
  /*  메신저 화면  */    
- body{
-     background-color: #333333;
- }
  .container{
     background-color: #cccccc !important;
  }         
- .portlet {
+.portlet {
     margin-bottom: 15px;
 }
 .btn-white {
     border-color: #cccccc;
     color: #333333;
     background-color: #ffffff;
+    padding: 0 10px 0 10px !important;
 }
 .portlet {
     border: 1px solid;
@@ -35,7 +33,10 @@
     color: #333;
 }
 .portlet .portlet-widgets ul.dropdown-menu {
-    min-width: 0;
+    min-width: 6em;
+    top: -2px !important;
+    left: 3px !important;
+    text-align: center;
 }
 .portlet .portlet-heading .portlet-title {
     float: left;
@@ -56,9 +57,10 @@
 .portlet .portlet-body {
     padding: 15px;
     background: #fff;
+    height: 400px !important;
 }
 .portlet .portlet-footer {
-    padding: 15px 15px 30px 15px;
+    padding: 20px 15px 25px 15px;
     background: #29003d;
 }
 .portlet .portlet-footer ul {
@@ -108,12 +110,12 @@
 .portlet-dark-blue,
 .portlet-default>.portlet-heading,
 .portlet-dark-blue>.portlet-heading {
-    border-color: #34495e;
+    border-color: #29003d;
 }
 .portlet-default>.portlet-heading,
 .portlet-dark-blue>.portlet-heading {
     color: #fff;
-    background-color: #34495e;
+    background-color: #29003d;
 }
 .portlet-basic,
 .portlet-basic>.portlet-heading {
@@ -133,17 +135,14 @@
 width:40px;
 height:40px;
 }
-.text-green {
-    color: #16a085;
+.row{
+    flex-wrap: nowrap !important;
 }
-.text-orange {
-    color: #f39c12;
+.btn-sm{
+    margin: 6px 0 6px -10px !important;
 }
-.text-red {
-    color: #e74c3c;
-}  
-.form-control{
-   width: 50em;
-   resize: none;  
+.bg-c-dblue{
+    background-color: #263364;
+    width: 57px !important;
 }
 

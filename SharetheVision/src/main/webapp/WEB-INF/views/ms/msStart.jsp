@@ -21,32 +21,24 @@
 <!--  Messenger START  -->                    
 <div class="container bootstrap snippets bootdey" >
 	<div class="row">
-		<div class="col-md-4 col-md-offset-4">
 			<div class="portlet portlet-default">
 				<div class="portlet-heading">
 					<div class="portlet-title">
-						<h4><i class="fa fa-circle text-green"></i> Jane Smith</h4>
+						<h4><i class="fa fa-circle text-green"></i> ${loginUser.name} 님의 SV Messenger </h4>
 					</div>
 					<div class="portlet-widgets">
-						<div class="btn-group">
-							<button type="button" class="btn btn-white dropdown-toggle btn-xs" data-toggle="dropdown">
-								<i class="fa fa-circle text-green"></i> Status
-								<span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="#"><i class="fa fa-circle text-green"></i> Online</a>
-								</li>
-								<li><a href="#"><i class="fa fa-circle text-orange"></i> Away</a>
-								</li>
-								<li><a href="#"><i class="fa fa-circle text-red"></i> Offline</a>
-								</li>
-							</ul>
-						</div>
-						<span class="divider"></span>
-						<a data-toggle="collapse" data-parent="#accordion" href="#chat"><i class="fa fa-chevron-down"></i></a>
+						<select class="caret" id="who">
+							<option value="" selected disabled>-- 수신인 --</option>
+							<option value="">인사팀</option>
+							<option value="">마케팅팀</option>
+							<option value="">영업팀</option>
+							<option value="">홍보팀</option>
+							<option value="">회계팀</option>
+						</select>
 					</div>
 					<div class="clearfix"></div>
 				</div>
+				<!--    채팅창    -->
 				<div id="chat" class="panel-collapse collapse in">
 					<div>
 					<div class="portlet-body chat-widget" style="overflow-y: auto; width: auto; height: 300px;">
@@ -107,19 +99,23 @@
 					</div>
 					</div>
 					<div class="portlet-footer">
-						<form role="form" class="fgroup">
-							<div class="form-group">
-								<input type="text" class="form-control" placeholder="메세지 입력">
-								<button class="btn btn-sm bg-c-purple text-c-white" id="send">Send</button>
+						<div class="row" style="height: 100px !important;">
+							<div class="col-md-10">
+								<textarea id="chatContent" style="width:25em; resize:none;"rows=4 placeholder="메세지 입력"></textarea>
 							</div>
-						</form>
+							<div class="col-md-2" style="margin-bottom: 3px !important;">
+								<button class="btn btn-sm bg-c-dblue text-c-white" onclick="submit();" id="send">File</button>
+								<button class="btn btn-sm bg-c-purple text-c-white" onclick="submit();" id="send">Send</button>
+								<div class="clearfix"></div>
+							</div>
+						</div>
 					</div>
 				</div>
+				<!-- 채팅 창 끝 -->
 			</div>
-		</div>
 		<!-- /.col-md-4 -->
-	</div>
-</div>    
+	</div><!-- row -->
+</div><!-- container -->    
 <!--  Messenger END  -->            
 </body>
 </html>
