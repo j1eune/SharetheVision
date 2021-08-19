@@ -143,6 +143,8 @@ NOCACHE  NOORDER  NOCYCLE ;
 -- 2021.08.17 21:44 원형
 -- 뷰 생성 권한 부여, V_BOARD 뷰 생성
 grant create view to sharethevision;
+--★SYSTEM계정에서 sharethevision create 권한 주신 후에
+--sharethevision 계정에서 밑에 구문 작성하셔서 V_BOARD 뷰 생성하시면 됩니다.
 
 create or replace view v_board
 as select board.b_no, board.b_type, board.b_title, board.b_content, board.b_createdate, board.b_state,
