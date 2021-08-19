@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.kh.SharetheVision.commute.model.vo.Commute;
 import com.kh.SharetheVision.commute.model.vo.Overwork;
+import com.kh.SharetheVision.member.model.vo.Member;
 
 public interface CommuteService {
 
@@ -16,5 +17,5 @@ public interface CommuteService {
 
 	int commuteOut(HashMap<String, String> map);
 
-
+	int changeState(Member m);
 }

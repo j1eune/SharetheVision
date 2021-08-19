@@ -259,7 +259,6 @@ public class MemberController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
 	@RequestMapping("logout.me")
@@ -283,4 +282,6 @@ public class MemberController {
 			e.printStackTrace();
 		}
 	}
+	
+	
 }

@@ -43,6 +43,8 @@
 		FROM MEMBER
 		WHERE M_STATUS = 'Y' AND M_NAME = #{ name } AND M_ID = #{ mId }
 	</select>
+	
+
 
 	<select id="loginMember" resultMap="selectMemberResult">
 		SELECT *

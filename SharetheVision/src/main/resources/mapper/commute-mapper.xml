@@ -5,8 +5,9 @@
 	<select id="selectCommute" resultMap="commuteResultMap">
 		SELECT *
 		FROM COMMUTE
-		WHERE M_CODE=#{memberNo} AND (C_DATE BETWEEN TO_DATE('21/08/09') AND TO_DATE('21/08/18'))
-<!-- 		WHERE M_CODE=#{memberNo} AND (C_DATE BETWEEN TRUNC(SYSDATE, 'w') AND SYSDATE+1) -->
+		WHERE M_CODE=#{memberNo} AND (C_DATE BETWEEN TRUNC(SYSDATE, 'w') AND SYSDATE+1)
+		ORDER BY CMT_NO
+<!-- 		WHERE M_CODE=#{memberNo} AND (C_DATE BETWEEN TO_DATE('21/08/09') AND TO_DATE('21/08/18')) -->
 	</select>
 	
 	<resultMap type="Commute" id="commuteResultMap">
@@ -21,7 +22,8 @@
 	<select id="selectOverwork" resultMap="overworkResultMap">
 		SELECT *
 		FROM OVERWORK
-		WHERE M_CODE=#{memberNo} AND (O_DATE BETWEEN TO_DATE('21/08/09') AND TO_DATE('21/08/18'))
+		WHERE M_CODE=#{memberNo} AND (O_DATE BETWEEN TRUNC(SYSDATE, 'w') AND SYSDATE+1)
+		ORDER BY O_NO
 	</select>
 	
 	<resultMap type="Overwork" id="overworkResultMap">
@@ -36,7 +38,7 @@
 	</resultMap>
 	
 	<insert id="insertCommute">
-		INSERT INTO COMMUTE VALUES(SEQ_CO.NEXTVAL, SYSDATE, to_char(to_date(#{enterTime}, 'yyyy-mm-dd hh24:mi:ss'), 'yyyy-mm-dd hh24:mi:ss'), NULL, 0, #{memberNo})
+		INSERT INTO COMMUTE VALUES(SEQ_CO.NEXTVAL, SYSDATE, TO_CHAR(TO_DATE(#{enterTime}, 'yyyy-mm-dd hh24:mi:ss'), 'yyyy-mm-dd hh24:mi:ss'), NULL, 0, #{memberNo})
 	</insert>
 	
 	<update id="updateCommute">
@@ -47,9 +49,11 @@
 		WHERE M_CODE = #{memberNo} AND (TO_CHAR(C_DATE, 'yyyy-mm-dd') = TO_CHAR(SYSDATE, 'yyyy-mm-dd'))
 	</update>
 	
-	
-	
-	
+	<update id="changeState">
+		UPDATE MEMBER
+		SET M_STATE = #{mState}
+		WHERE M_CODE = #{mCode}
+	</update>
 	
 	
 	

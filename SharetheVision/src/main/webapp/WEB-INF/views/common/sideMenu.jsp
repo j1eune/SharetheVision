@@ -47,8 +47,10 @@
         </div>
         <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation">Layout</div>
         <ul class="pcoded-item pcoded-left-item">
+        
+        <c:url var="home" value="home.me"></c:url>
             <li class="active">
-                <a href="home.jsp">
+                <a href="${ home }">
                     <span class="pcoded-micon" style="background-color: #660099;"><i class="ti-home"></i></span>
                     <span class="pcoded-mtext" data-i18n="nav.dash.main">메인화면</span>
                     <span class="pcoded-mcaret"></span>
@@ -206,12 +208,13 @@
 			</li>
         </ul>
 
-        <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Chart &amp; Maps</div>
+        <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Chart &amp; Messenger</div>
         <ul class="pcoded-item pcoded-left-item">
+	    <c:url var="msStart" value="msStart.ms"></c:url>
             <li>
-                <a href="chart.html">
-                    <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Chart</span>
+                <a href="${ msStart }">
+                    <span class="pcoded-micon"><i class="ti-layers"></i><b></b></span>
+                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Messenger</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
