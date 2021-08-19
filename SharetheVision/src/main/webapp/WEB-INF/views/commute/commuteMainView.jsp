@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +15,7 @@
 <meta name="keywords" content=" Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
 <meta name="author" content="CodedThemes">
 <link href="resources/assets/css/datePicker/datePicker.css" rel="stylesheet" type="text/css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
 <style>
 	#goTo, #getOff, #changeState, #seleteState{border: 2px solid #660099; background-color: white; color: #660099; font-size: 2.5vmin; font-weight: bold; box-shadow: none;}
 	#selectState{border-radius: 20px;}
@@ -96,6 +99,9 @@
 		                                            </div>
 		                                        </div>
 		                                        <div class="card-block">
+													<div>
+<%-- 												  		<canvas id="myChart" width="100%"></canvas> --%>
+													</div>
 		                                            <div id="morris-bar-chart"></div>
 		                                        </div>
 		                                    </div>
@@ -200,8 +206,19 @@
 		                                            <h3>근태관리</h3>
 		                                        </div>
 		                                        <div class="card-body">
-		                                            <h5 id="today" class="mb-3"></h5>
-		                                            <div id="totalWorkingHours">${total}</div>
+		                                            <c:set var="javatoday" value="<%=new java.util.Date()%>" />
+													<c:set var="todayTime"><fmt:formatDate value="${javatoday}" pattern="yyyy-MM-dd E hh:mm:ss" /></c:set> 
+													<c:set var="today"><fmt:formatDate value="${javatoday}" pattern="yyyy-MM-dd E" /></c:set> 
+													<c:set var="year"><fmt:formatDate value="${javatoday}" pattern="yyyy" /></c:set> 
+													<c:set var="month"><fmt:formatDate value="${javatoday}" pattern="MM" /></c:set> 
+													<c:set var="date"><fmt:formatDate value="${javatoday}" pattern="dd" /></c:set> 
+													<c:set var="time"><fmt:formatDate value="${javatoday}" pattern="hh:mm:ss" /></c:set> 
+													
+													<div class="mb-3">
+														<h5>${today}</h5>
+														<h5>${time}</h5>
+													</div>
+		                                            <div id="totalTime" style="font-size: 35px;">${totalHour}h ${totalMin}m</div>
 		                                            <div class="progress mb-4">
 		                                                <div id="progress" class="progress-bar" role="progressbar" style="width: 25%" aria-valuemin="0" aria-valuemax="100"></div>
 		                                            </div>
@@ -217,18 +234,41 @@
 		                                            </table>
 		                                            <hr style="border-top: 2px dashed #bbb;">
 													<div class="mt-3 row">
-													    <div class="col-md-6"><button type="button" class="btn btn-round btn-block" id="goTo">출근하기</button></div>
-													    <div class="col-md-6"><button type="button" class="btn btn-round btn-block" id="getOff">퇴근하기</button></div>
+													    <div class="col-md-6">
+													    	<button type="button" class="btn btn-round btn-block" id="goTo">
+													    		출근하기
+													    		<i class="icofont icofont-sign-in"></i>
+													    	</button>
+													    </div>
+													    <div class="col-md-6">
+													    	<button type="button" class="btn btn-round btn-block" id="getOff">
+													    		퇴근하기
+													    		<i class="icofont icofont-sign-out"></i>
+													    	</button>
+													    </div>
 													</div>
 													<div class="mt-3">
 														<div>
 															<c:forEach var="i" begin="1" end="4">
 															    <c:if test="${state == i}">
 															    	<button type="button" id="changeState" class="btn btn-round btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-															    		<c:if test="${state == 1}">근무 종료</c:if>
-															    		<c:if test="${state == 2}">근무 중</c:if>
-															    		<c:if test="${state == 3}">휴가</c:if>
-															    		<c:if test="${state == 4}">외근</c:if>
+															    		<c:choose>
+															    			<c:when test="${state == 1}">
+															    				근무 종료
+															    			</c:when>
+															    			<c:when test="${state == 2}">
+															    				근무 중
+															    			</c:when>
+															    			<c:when test="${state == 3}">
+															    				휴가
+															    			</c:when>
+															    			<c:when test="${state == 4}">
+															    				외근
+															    			</c:when>
+															    			<c:otherwise>
+															    				상태변경
+															    			</c:otherwise>
+															    		</c:choose>
 															    	</button>
 															    </c:if>
 															</c:forEach>
@@ -314,13 +354,14 @@
         
         var formatToday = year + "년 " + month + "월 " + date + "일(" + day +") " + hour + ":" + minutes + ":" + seconds;
         
-        document.getElementById('today').innerHTML = formatToday;
+//         document.getElementById('today').innerHTML = formatToday;
         
         // 현재까지 근무시간
         // percent = 현재까지 근무시간(분) / 3120 * 100  (예를 든 현재 시간은 41시간 42분. 41*60+42/52*60 * 100)
-        var percent = (2502 / 3120 * 100).toFixed(2);
+        var totalHour = ${totalHour}
+        var totalMin = ${totalMin}
+        var percent = ((totalHour*60 + totalMin)/ 3120 * 100).toFixed(2);
         
-        $('#totalWorkingHours').css('font-size', '5vmin');
         $('#progress').css('width', percent +"%");
         
         // 출근하기
@@ -342,7 +383,7 @@
         		    	location.href="commuteEnter.co";
 			            
         		    } else {
-        		    	alert('회사에서 출근을 해주세요');
+        		    	alert('출근 지역에서 벗어났습니다.');
         		    }
         		});
 
@@ -404,15 +445,108 @@
                 $('#half').hide();
             }
         });
-        
-        
-        
     });
-	
+</script>
 
+<script>
+	$(function(){
+		$.ajax({
+			url: 'commuteChart.co',
+			success: function(map){
+				console.log('성공');
+				
+				var arrWorkTime = new Array();
+				var arrOverWork = new Array();
+				var total = 0;
+				
+				for(var i = 0; i < map.colist.length; i++){
+					for(var j = 0; j < 7; j++){
+						if(resultGetDay(map.colist[i].enrollDate) == j){
+							arrWorkTime[j] = map.colist[i].worktime;
+						}
+						if(arrWorkTime[j] == undefined){
+							arrWorkTime[j] = 0;	
+						}
+						
+						total += arrWorkTime[j];
+					}
+				}
+				
+				console.log(total + " : 총");
+				
+				for(var i = 0; i < map.owlist.length; i++){
+					for(var j = 0; j < 7; j++){
+						if(resultGetDay(map.owlist[i].overworkDate) == j){
+							arrOverWork[j] = map.owlist[i].overworktime;
+						}
+						if(arrOverWork[j] == undefined){
+							arrOverWork[j] = 0;	
+						}
+					}
+				}
+				
+
+				Morris.Bar({
+					element: 'morris-bar-chart',
+				    data: [{
+				        y: '일',
+				        a: arrWorkTime[0],
+				        b: arrOverWork[0],
+				        c: arrWorkTime[0]+arrOverWork[0]
+				    }, {
+				        y: '월',
+				        a: arrWorkTime[1],
+				        b: arrOverWork[1],
+				        c: arrWorkTime[1]+arrOverWork[1]
+				    }, {
+				        y: '화',
+				        a: arrWorkTime[2],
+				        b: arrOverWork[2],
+				        c: arrWorkTime[2]+arrOverWork[2]
+				    }, {
+				        y: '수',
+				        a: arrWorkTime[3],
+				        b: arrOverWork[3],
+				        c: arrWorkTime[3]+arrOverWork[3]
+				    }, {
+				        y: '목',
+				        a: arrWorkTime[4],
+				        b: arrOverWork[4],
+				        c: arrWorkTime[4]+arrOverWork[4]
+				    }, {
+				        y: '금',
+				        a: arrWorkTime[5],
+				        b: arrOverWork[5],
+				        c: arrWorkTime[5]+arrOverWork[5]
+				    }, {
+				        y: '토',
+				        a: arrWorkTime[6],
+				        b: arrOverWork[6],
+				        c: arrWorkTime[6]+arrOverWork[6]
+				    }],
+				    xkey: 'y',
+				    ykeys: ['a', 'b', 'c'],
+				    labels: ['표준 근무시간', '표준 외 근무시간', '총 근무시간'],
+				    barColors: ['#5FBEAA', '#5D9CEC', '#cCcCcC'],
+				    hideHover: 'auto',
+// 				    gridLineColor: '#eef0f2',
+				    gridLineColor: 'white',
+				    resize: true
+				});
+			},
+			error: function(data){
+				console.log('에러');
+			}
+		});
+	});
+	
+	function resultGetDay(date){
+		var enroll = new Date(date)
+		return enroll.getDay();
+	}
 </script>
 	
 <!-- test Chart -->
-<script src="resources/assets/pages/chart/morris/morris-custom-chart.js"></script>
+<!-- <script src="resources/assets/pages/chart/morris/morris-custom-chart.js"></script> -->
 </body>
 </html>

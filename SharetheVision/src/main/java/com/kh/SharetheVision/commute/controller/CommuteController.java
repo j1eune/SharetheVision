@@ -1,9 +1,9 @@
 package com.kh.SharetheVision.commute.controller;
 
 import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -13,11 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.kh.SharetheVision.commute.model.service.CommuteService;
 import com.kh.SharetheVision.commute.model.vo.Commute;
 import com.kh.SharetheVision.commute.model.vo.Overwork;
-import com.kh.SharetheVision.member.model.vo.Member;
 
 @Controller
 public class CommuteController {
@@ -26,19 +28,19 @@ public class CommuteController {
 	private CommuteService coService;
 	
 	@RequestMapping("commuteMain.co")
-	public String commuteMainView(Model model) {
+	public String commuteMainView(Model model, HttpSession session) {
 
 //		Member loginUser = ((Member)session.getAttribute("loginUser"));
 		
-		String memberNo = "7777";
-		int state = 3;
+//		String memberNo = loginUser.getmCode();
+//		int state = loginUser.getmState();
+		String memberNo = "MaCo2";
+		int state = 2;
 		
 		ArrayList<Commute> colist = coService.commuteList(memberNo);
-		ArrayList<Overwork> owlist = coService.overworkList(memberNo);
+		System.out.println(colist);
 		
 		if(colist != null) {
-			model.addAttribute("colist", colist);
-			
 			double total = 0;
 			for(Commute co : colist) {
 				total += co.getWorktime();
@@ -63,11 +65,8 @@ public class CommuteController {
 			String hour = totalStr.substring(0, point);
 			String min = totalStr.substring(point+1);
 			
-			model.addAttribute("total", hour + "h " + min + "m");
-		}
-		
-		if(owlist != null) {
-			model.addAttribute("owlist", owlist);
+			model.addAttribute("totalHour", hour);
+			model.addAttribute("totalMin", min);
 		}
 		
 		// 상태 변경
@@ -84,10 +83,9 @@ public class CommuteController {
 	@RequestMapping("commuteEnter.co")
 	public String commuteEnter(HttpSession session, Model model) {
 		
-//		Member loginUser = ((Member)session.getAttribute("loginUser"));
+//		String memberNo = ((Member)session.getAttribute("loginUser")).getmCode();
+		String memberNo = "MaCo2";
 		
-		String memberNo = "7777";
-				
 		HashMap<String, String> map = new HashMap<String, String>();
 		
 		Date date = new Date(System.currentTimeMillis());
@@ -109,16 +107,47 @@ public class CommuteController {
 	@RequestMapping("commuteOut.co")
 	public String commuteOut(HttpSession session) {
 		
-//		Member loginUser = ((Member)session.getAttribute("loginUser"));
-		String memberNo = "7777";
+//		String memberNo = ((Member)session.getAttribute("loginUser")).getmCode();
+		String memberNo = "MaCo2";
+
+		Commute co = coService.commuteDay(memberNo);
+		String start = co.getCommuteStart();
+//		String start = "2021-08-19 08:41:47";
 
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
-		String outTime = sdf.format(date);
+		String end = sdf.format(date);
+//		String end = "2021-08-19 17:03:25";
 		
-		HashMap<String, String> map = new HashMap<String, String>();
+		java.util.Date startDate = null;
+		java.util.Date endDate = null;
+		try {
+			startDate = sdf.parse(start);
+			endDate = sdf.parse(end);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		
-		map.put("outTime", outTime);
+		long diffSec = (endDate.getTime() - startDate.getTime()) / 1000;
+		long hour = diffSec/3600;
+		long min = diffSec%3600/60;
+		
+		Double workTime = 0.0;
+		String mins = null;
+		if(min > 540) {
+			workTime = 8.0;
+		} else {
+			mins = (min < 10) ? "0"+min : Long.toString(min);
+			
+			String time = (hour - 1 + "." + mins);
+			workTime = Double.parseDouble(time);
+		}
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("enterTime", start);
+		map.put("outTime", end);
+		map.put("workTime", workTime);
 		map.put("memberNo", memberNo);
 		
 		int result = coService.commuteOut(map);
@@ -133,23 +162,39 @@ public class CommuteController {
 	@RequestMapping("changeState.co")
 	public String changeState(@RequestParam("state") int state, HttpSession session) {
 		
-		System.out.println(state + " : 상태 값");
-		
 //		Member m = ((Member)session.getAttribute("loginUser"));
+//		m.setmState(state);
 		
-		Member m = new Member();
-		m.setmCode("7777");
-		m.setmState(state);
+//		int result = coService.changeState(m);
 		
-		int result = coService.changeState(m);
+//		if(result > 0) {
+//			return "redirect: commuteMain.co";
+//		} else {
+//			return "fail";
+//		}
 		
-		System.out.println(result + " : 업데이트 결과");
+		return null;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="commuteChart.co", produces="application/json; charset=utf-8")
+	public String commuteChart() {
 		
-		if(result > 0) {
-			return "redirect: commuteMain.co";
-		} else {
-			return "fail";
-		}
+//		Member loginUser = ((Member)session.getAttribute("loginUser"));
+//		String memberNo = loginUser.getmCode();
+		String memberNo = "MaCo2";
+		
+		ArrayList<Commute> colist = coService.commuteList(memberNo);
+		ArrayList<Overwork> owlist = coService.overworkList(memberNo);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("colist", colist);
+		map.put("owlist", owlist);
+		
+		return gson.toJson(map);
 	}
 	
 }
