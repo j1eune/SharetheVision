@@ -71,7 +71,7 @@
                                     <span class="md-line"></span>
                                 </div>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="id" placeholder="아이디">
+                                    <input type="text" class="form-control" name="mId" placeholder="아이디">
                                     <span class="md-line"></span>
                                 </div>
                                 <div class="row m-t-30">

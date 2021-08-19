@@ -156,10 +156,10 @@
 			                                                   		<c:if test="${ !empty pList }">
 																		<c:forEach var="pro" items="${pList }">
 																			<c:if test="${pro.pEnd eq 'Y' }">
-																				        <div class="col-md-6" style="height: 150px;">
-																				        	${pro.pName }<br>
-																				        	${pro.pIntro }
-																				        </div>
+																		        <div class="col-md-2 m-2" style="height: 150px; border: 1px solid red; border-radius: 20px;">
+																		        	${pro.pName }<br>
+																		        	${pro.pIntro }
+																		        </div>
 																			</c:if>
 																		</c:forEach>
 			                                                   		</c:if>

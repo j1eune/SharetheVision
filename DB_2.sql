@@ -151,3 +151,13 @@ as select board.b_no, board.b_type, board.b_title, board.b_content, board.b_crea
         left join member on(board.m_code = member.m_code)
         left join project on(board.dept_no = project.dept_no);
 
+-- 2021.08.19 15:23 유승현 UPDATE
+-- ATTACHMENT 시퀀스 추가
+CREATE SEQUENCE  SEQ_AT
+MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1
+START WITH 1 NOCACHE  
+NOORDER  NOCYCLE ;
+
+-- 2021.08.19 15:33 유승현 UPDATE
+-- ATTACHMENT AT_PATH 사이즈 수정
+ALTER TABLE ATTACHMENTS MODIFY AT_PATH VARCHAR2(200);
