@@ -26,12 +26,16 @@ public class CommuteDAO {
 		return sqlSession.insert("commuteMapper.insertCommute", map);
 	}
 
-	public int commuteOut(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+	public int commuteOut(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 		return sqlSession.update("commuteMapper.updateCommute", map);
 	}
 
 	public int changeState(SqlSession sqlSession, Member m) {
 		return sqlSession.update("commuteMapper.changeState", m);
+	}
+
+	public Commute commuteDay(SqlSessionTemplate sqlSession, String memberNo) {
+		return sqlSession.selectOne("commuteMapper.dailyCommute", memberNo);
 	}
 
 }
