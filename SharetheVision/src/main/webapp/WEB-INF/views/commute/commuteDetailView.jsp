@@ -13,10 +13,6 @@
 <meta name="keywords" content=" Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
 <meta name="author" content="CodedThemes">
 <style>
-	#goTo, #getOff, #changeState, #selectState{border: 2px solid #660099; background-color: white; color:#660099; font-size: 20px; box-shadow: none;}
-	#selectState{border-radius: 20px;}
-	#selectState li{font-size: 20px;}
-	#selectState li:hover{cursor:pointer; color: #660099; background-color: #F8F9FA;}
 	#prev, #next{cursor:pointer}
 </style>
 <jsp:include page="../common/common.jsp" />
@@ -122,7 +118,6 @@
 		                                                                   </tr>
 		                                                               </thead>
 		                                                               <tbody>
-		                                                                   
 		                                                               </tbody>
 		                                                           </table>
 		                                                       </div>
@@ -305,16 +300,16 @@
 </div>
 
 <script>
-	var $window = $(window);
-	var nav = $('.fixed-button');
-	    $window.scroll(function(){
-	        if ($window.scrollTop() >= 200) {
-	        nav.addClass('active');
-	    }
-	    else {
-	        nav.removeClass('active');
-	    }
-	});
+// 	var $window = $(window);
+// 	var nav = $('.fixed-button');
+// 	    $window.scroll(function(){
+// 	        if ($window.scrollTop() >= 200) {
+// 	        nav.addClass('active');
+// 	    }
+// 	    else {
+// 	        nav.removeClass('active');
+// 	    }
+// 	});
 	
 	$(function(){
 	    
@@ -326,7 +321,6 @@
 	        var removeIcon = $('.show').prev().find('i');
 	        removeIcon.removeClass('icofont-rounded-up').addClass('icofont-rounded-down');
 	    });
-	
 	
 	    // 일별 출근현황 숨기기
 	    var daily = $('.clickDaily').next('tr');
@@ -496,7 +490,5 @@
 	
 </script>
 	
-	<!-- test Chart -->
-	<script src="resources/assets/pages/chart/morris/morris-custom-chart.js"></script>
 </body>
 </html>

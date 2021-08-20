@@ -32,7 +32,7 @@ public class CommuteServiceImpl implements CommuteService{
 	}
 
 	@Override
-	public int commuteEnter(HashMap<String, String> map) {
+	public int commuteEnter(HashMap<String, Object> map) {
 		return coDAO.commuteEnter(sqlSession, map);
 	}
 

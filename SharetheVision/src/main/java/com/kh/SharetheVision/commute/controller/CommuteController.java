@@ -21,6 +21,8 @@ import com.kh.SharetheVision.commute.model.service.CommuteService;
 import com.kh.SharetheVision.commute.model.vo.Commute;
 import com.kh.SharetheVision.commute.model.vo.Overwork;
 
+import oracle.sql.DATE;
+
 @Controller
 public class CommuteController {
 	
@@ -75,23 +77,33 @@ public class CommuteController {
 		return "commuteMainView";
 	}
 	
-	@RequestMapping("commuteDetail.co")
-	public String commuteDetailView() {
-		return "commuteDetailView";
-	}
-	
 	@RequestMapping("commuteEnter.co")
 	public String commuteEnter(HttpSession session, Model model) {
 		
 //		String memberNo = ((Member)session.getAttribute("loginUser")).getmCode();
 		String memberNo = "MaCo2";
 		
-		HashMap<String, String> map = new HashMap<String, String>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 		String enterTime = sdf.format(date);
 		
+		int status = 0;
+		try {
+			SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
+			String checkStr = sdf2.format(date);
+			java.util.Date check = sdf2.parse(checkStr);
+			java.util.Date nine = sdf2.parse("09:01:00");
+			
+			boolean before = check.before(nine);
+
+			status = (before ? 1 : 2);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		map.put("status", status);
 		map.put("enterTime", enterTime);
 		map.put("memberNo", memberNo);
 		
@@ -197,4 +209,9 @@ public class CommuteController {
 		return gson.toJson(map);
 	}
 	
+	@RequestMapping("commuteDetail.co")
+	public String commuteDetailView() {
+//		return "test";
+		return "commuteDetailView";
+	}
 }

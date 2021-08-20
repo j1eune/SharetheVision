@@ -467,12 +467,8 @@
 						if(arrWorkTime[j] == undefined){
 							arrWorkTime[j] = 0;	
 						}
-						
-						total += arrWorkTime[j];
 					}
 				}
-				
-				console.log(total + " : 총");
 				
 				for(var i = 0; i < map.owlist.length; i++){
 					for(var j = 0; j < 7; j++){
@@ -485,7 +481,6 @@
 					}
 				}
 				
-
 				Morris.Bar({
 					element: 'morris-bar-chart',
 				    data: [{
@@ -527,7 +522,7 @@
 				    xkey: 'y',
 				    ykeys: ['a', 'b', 'c'],
 				    labels: ['표준 근무시간', '표준 외 근무시간', '총 근무시간'],
-				    barColors: ['#5FBEAA', '#5D9CEC', '#cCcCcC'],
+				    barColors: ['#62d1f3', '#FFB64D', '#FC6180'],
 				    hideHover: 'auto',
 // 				    gridLineColor: '#eef0f2',
 				    gridLineColor: 'white',
