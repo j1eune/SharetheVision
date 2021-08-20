@@ -22,13 +22,13 @@ public class CommuteServiceImpl implements CommuteService{
 	private CommuteDAO coDAO;
 
 	@Override
-	public ArrayList<Commute> commuteList(String memberNo) {
-		return coDAO.commuteList(sqlSession, memberNo);
+	public ArrayList<Commute> commuteList(HashMap<String, String> map) {
+		return coDAO.commuteList(sqlSession, map);
 	}
 
 	@Override
-	public ArrayList<Overwork> overworkList(String memberNo) {
-		return coDAO.overworkList(sqlSession, memberNo);
+	public ArrayList<Overwork> overworkList(HashMap<String, String> map) {
+		return coDAO.overworkList(sqlSession, map);
 	}
 
 	@Override

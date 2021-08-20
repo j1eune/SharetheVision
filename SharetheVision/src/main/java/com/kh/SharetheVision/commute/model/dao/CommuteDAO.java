@@ -14,12 +14,12 @@ import com.kh.SharetheVision.member.model.vo.Member;
 @Repository("coDAO")
 public class CommuteDAO {
 
-	public ArrayList<Commute> commuteList(SqlSessionTemplate sqlSession, String memberNo) {
-		return (ArrayList)sqlSession.selectList("commuteMapper.selectCommute", memberNo);
+	public ArrayList<Commute> commuteList(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return (ArrayList)sqlSession.selectList("commuteMapper.selectCommute", map);
 	}
 
-	public ArrayList<Overwork> overworkList(SqlSessionTemplate sqlSession, String memberNo) {
-		return (ArrayList)sqlSession.selectList("commuteMapper.selectOverwork", memberNo);
+	public ArrayList<Overwork> overworkList(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return (ArrayList)sqlSession.selectList("commuteMapper.selectOverwork", map);
 	}
 
 	public int commuteEnter(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {

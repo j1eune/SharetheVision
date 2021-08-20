@@ -225,11 +225,11 @@
 		                                            <table class="table table-borderless">
 		                                                <tr>
 		                                                    <td><h5>출근시간</h5></td>
-		                                                    <td class="text-right"><h5 id="goToTime">${goToTime}</h5></td>
+		                                                    <td class="text-right"><h5 id="goToTime">${startTime}</h5></td>
 		                                                </tr>
 		                                                <tr>
 		                                                    <td><h5>퇴근시간</h5></td>
-		                                                    <td class="text-right"><h5 id="getOffTime">${getOffTime}</h5></td>
+		                                                    <td class="text-right"><h5 id="getOffTime">${endTime}</h5></td>
 		                                                </tr>
 		                                            </table>
 		                                            <hr style="border-top: 2px dashed #bbb;">

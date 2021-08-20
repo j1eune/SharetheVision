@@ -59,23 +59,23 @@
 		                                       <div class="row">
 		                                           <div class="col-lg b-r-default">
 		                                               <h5 class="m-b-20">이번 주 누적</h5>
-		                                               <h3>38h 28m 24s</h3>
+		                                               <h3>${weekWorkTotal}</h3>
 		                                           </div>
 		                                           <div class="col-lg b-r-default">
-		                                               <h5 class="m-b-20">이번 주 초과</h5>
-		                                               <h3>0h 0m 0s</h3>
+		                                               <h5 class="m-b-20">이번 주 연장</h5>
+		                                               <h3>${weekOverTotal}</h3>
 		                                           </div>
 		                                           <div class="col-lg b-r-default">
 		                                               <h5 class="m-b-20">이번 주 잔여</h5>
-		                                               <h3>13h 31m 36s</h3>
+		                                               <h3>${52 - (weekWorkTotal+weekOverTotal)}</h3>
 		                                           </div>
 		                                           <div class="col-lg b-r-default">
 		                                               <h5 class="m-b-20">이번 달 누적</h5>
-		                                               <h3>154h 32m 37s</h3>
+		                                               <h3>${monthWorkTotal}</h3>
 		                                           </div>
 		                                           <div class="col-lg">
 		                                               <h5 class="m-b-20">이번 달 연장</h5>
-		                                               <h3>0h 0m 0s</h3>
+		                                               <h3>${monthOverTotal}</h3>
 		                                           </div>
 		                                       </div>
 		                                   </div>
@@ -242,44 +242,6 @@
 		                                                               </tr>
 		                                                           </thead>
 		                                                           <tbody>
-		                                                               <!-- <tr class="clickDaily">
-		                                                                   <td>01 일</td>
-		                                                                   <td>09:58:39</td>
-		                                                                   <td>16:23:49</td>
-		                                                                   <td>05h25m34s</td>
-		                                                                   <td>기본 05h25m34s / 연장 0h0m0s / 야간 0h0m0s</td>
-		                                                                   <td></td>
-		                                                               </tr>
-		                                                               <tr>
-		                                                                   <th colspan="6">
-		                                                                       <div class="row">
-		                                                                           <div class="col d-inline-block">00</div>
-		                                                                           <div class="col d-inline-block">01</div>
-		                                                                           <div class="col d-inline-block">02</div>
-		                                                                           <div class="col d-inline-block">03</div>
-		                                                                           <div class="col d-inline-block">04</div>
-		                                                                           <div class="col d-inline-block">05</div>
-		                                                                           <div class="col d-inline-block">06</div>
-		                                                                           <div class="col d-inline-block">07</div>
-		                                                                           <div class="col d-inline-block">08</div>
-		                                                                           <div class="col d-inline-block">09<br><span class="b-l-default small">&nbsp;출근</span></div>
-		                                                                           <div class="col d-inline-block">10</div>
-		                                                                           <div class="col d-inline-block">11</div>
-		                                                                           <div class="col d-inline-block">12</div>
-		                                                                           <div class="col d-inline-block">13</div>
-		                                                                           <div class="col d-inline-block">14</div>
-		                                                                           <div class="col d-inline-block">15<br><span class="b-l-default small">&nbsp;외근</span></div>
-		                                                                           <div class="col d-inline-block">16</div>
-		                                                                           <div class="col d-inline-block">17</div>
-		                                                                           <div class="col d-inline-block">18</div>
-		                                                                           <div class="col d-inline-block">19<br><span class="b-l-default small">&nbsp;퇴근</span></div>
-		                                                                           <div class="col d-inline-block">20</div>
-		                                                                           <div class="col d-inline-block">21</div>
-		                                                                           <div class="col d-inline-block">22</div>
-		                                                                           <div class="col d-inline-block">23</div>
-		                                                                       </div>
-		                                                                   </th>
-		                                                               </tr> -->
 		                                                            </tbody>
 		                                                        </table>
 		                                                    </div>
@@ -336,12 +298,7 @@
 	    var leapYear = [31,29,31,30,31,30,31,31,30,31,30,31];
 	    var notLeapYear = [31,28,31,30,31,30,31,31,30,31,30,31];
 	    var pageFirst = first;
-	    var pageYear;
-	    if(first.getFullYear() % 4 === 0){
-	        pageYear = leapYear;
-	    }else{
-	        pageYear = notLeapYear;
-	    }
+	    var pageYear = (first.getFullYear() % 4 === 0) ? leapYear : notLeapYear;
 	
 	    // 이번 주 show
 	    if(first.getDay() == 0){
@@ -359,68 +316,82 @@
 	        
 	        var monthCnt = 100;
 	        var cnt = 1;
-	
-	        // 주 반복
-	        for(var i = 1; i < 7; i++){
-	            var $weekTable = $('#'+i+'WeekTable').find('tbody');
-	            
-	            // 일 반복
-	            for(var j = 0; j < 7; j++){
-	                var $dailyTr = document.createElement('tr');
-	                $dailyTr.setAttribute('class', 'clickDaily');
-	                
-	                if((i == 1 && j >= first.getDay()) || (i != 1 && cnt <= pageYear[first.getMonth()])){
-	                    // 날짜 + 요일
-	                    var $td1 = document.createElement('td');
-	                    var $td2 = document.createElement('td');
-	                    var $td3 = document.createElement('td');
-	                    var $td4 = document.createElement('td');
-	                    var $td5 = document.createElement('td');
-	                    var $td6 = document.createElement('td');
-	
-	                    $td1.textContent = (cnt < 10 ? "0" + cnt : cnt) + " " + dayList[j];
-	                
-	                    $td1.setAttribute('id', cnt);
-	                    $td2.setAttribute('id', cnt + "start");
-	                    $td3.setAttribute('id', cnt + "end");
-	                    $td4.setAttribute('id', cnt + "total");
-	                    $td5.setAttribute('id', cnt + "detail");
-	                    $td6.setAttribute('id', cnt + "request");
-	                    
-	                    $dailyTr.append($td1);
-	                    $dailyTr.append($td2);
-	                    $dailyTr.append($td3);
-	                    $dailyTr.append($td4);
-	                    $dailyTr.append($td5);
-	                    $dailyTr.append($td6);
-	                    
-	                    // 일일 시간
-	                    var $timeTr = $('<tr id="'+cnt+'daily" class="timeTr">').css('display', 'none')
-	                    var $th = $('<th colspan="6">');
-	                    var $rDiv = $('<div class="row">');
-	                    for(var k = 0; k < 24; k++){
-	                        var $div = $('<div class="col d-inline-block">').html(k < 10 ? "0" + k : k);
-	                        $rDiv.append($div);
-	                    }
-	                    $th.append($rDiv);
-	                    $timeTr.append($th);
-	
-	                    $weekTable.append($dailyTr);
-	                    $weekTable.append($timeTr);
-	
-	                    cnt++;
-	                }
-	            }
-	            monthCnt++;
-	        }
+			
+	        $.ajax({
+	        	url: 'commuteTable.co',
+	        	success: function(data){
+	        		console.log('성공');
+	        		console.log(data);
+			        // 주 반복
+			        for(var i = 1; i < 7; i++){
+			            var $weekTable = $('#'+i+'WeekTable').find('tbody');
+			            
+			            // 일 반복
+			            for(var j = 0; j < 7; j++){
+			                var $dailyTr = document.createElement('tr');
+			                $dailyTr.setAttribute('class', 'clickDaily');
+			                
+			                if((i == 1 && j >= first.getDay()) || (i != 1 && cnt <= pageYear[first.getMonth()])){
+			                    // 날짜 + 요일
+			                    var $td1 = document.createElement('td');
+			                    var $td2 = document.createElement('td');
+			                    var $td3 = document.createElement('td');
+			                    var $td4 = document.createElement('td');
+			                    var $td5 = document.createElement('td');
+			                    var $td6 = document.createElement('td');
+			
+			                    $td1.textContent = (cnt < 10 ? "0" + cnt : cnt) + " " + dayList[j];
+			                
+			                    $td1.setAttribute('id', cnt);
+			                    $td2.setAttribute('id', cnt + "start");
+			                    $td3.setAttribute('id', cnt + "end");
+			                    $td4.setAttribute('id', cnt + "total");
+			                    $td5.setAttribute('id', cnt + "detail");
+			                    $td6.setAttribute('id', cnt + "request");
+			                    
+			                    $dailyTr.append($td1);
+			                    $dailyTr.append($td2);
+			                    $dailyTr.append($td3);
+			                    $dailyTr.append($td4);
+			                    $dailyTr.append($td5);
+			                    $dailyTr.append($td6);
+			                    
+			                    // 일일 시간
+			                    var $timeTr = $('<tr id="'+cnt+'daily" class="timeTr">').css('display', 'none')
+			                    var $th = $('<th colspan="6">');
+			                    var $rDiv = $('<div class="row">');
+			                    for(var k = 0; k < 24; k++){
+			                        var $div = $('<div class="col d-inline-block">').html(k < 10 ? "0" + k : k);
+			                        $rDiv.append($div);
+			                    }
+			                    $th.append($rDiv);
+			                    $timeTr.append($th);
+								
+			                    $weekTable.append($dailyTr);
+			                    $weekTable.append($timeTr);
+			
+			                    cnt++;
+			                }
+			            }
+			            monthCnt++;
+			        }
+	        	},
+	        	error: function(data){
+	        		console.log('실패');
+	        	}
+	        
+	        	
+	        	
+	        });
 	    };
 	
 	    showCalendar();
-	
-	    // 일일 출퇴근 상세 현황
-	    $('.clickDaily').on('click', function(){
-	        var currentRow = $(this);
+		
+	 	// 일일 출퇴근 상세 현황
+	    $(document).on("click", ".clickDaily", function (e) {
+	    	var currentRow = $(this);
 	        var detail = currentRow.next('tr');
+	        
 	        if(detail.is(":visible")){
 	            detail.hide();
 	        } else {
@@ -428,7 +399,7 @@
 	            detail.css({'border':'2px solid #f2f2f2', 'cursor':'default', 'background-color':'white'});
 	        }
 	    });
-	    
+
 	    // 이전 버튼
 	    $('#prev').on('click', function(){
 	        var $dailyTrs = document.querySelectorAll('.clickDaily');

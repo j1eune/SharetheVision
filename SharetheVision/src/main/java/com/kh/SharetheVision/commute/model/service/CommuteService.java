@@ -9,9 +9,9 @@ import com.kh.SharetheVision.member.model.vo.Member;
 
 public interface CommuteService {
 
-	ArrayList<Commute> commuteList(String memberNo);
+	ArrayList<Commute> commuteList(HashMap<String, String> map);
 
-	ArrayList<Overwork> overworkList(String memberNo);
+	ArrayList<Overwork> overworkList(HashMap<String, String> map);
 
 	int commuteEnter(HashMap<String, Object> map);
 

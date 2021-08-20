@@ -1,10 +1,13 @@
 package com.kh.SharetheVision.commute.controller;
 
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,8 +23,6 @@ import com.google.gson.GsonBuilder;
 import com.kh.SharetheVision.commute.model.service.CommuteService;
 import com.kh.SharetheVision.commute.model.vo.Commute;
 import com.kh.SharetheVision.commute.model.vo.Overwork;
-
-import oracle.sql.DATE;
 
 @Controller
 public class CommuteController {
@@ -39,37 +40,41 @@ public class CommuteController {
 		String memberNo = "MaCo2";
 		int state = 2;
 		
-		ArrayList<Commute> colist = coService.commuteList(memberNo);
-		System.out.println(colist);
+		Commute co = coService.commuteDay(memberNo);
 		
-		if(colist != null) {
-			double total = 0;
-			for(Commute co : colist) {
-				total += co.getWorktime();
-				
-				// DB데이터가 오늘이면
-				Date date = new Date(System.currentTimeMillis());
-				if(co.getEnrollDate().toString().equals(date.toString())) {
-					
-					if(co.getCommuteStart() != null) {
-						String[] startArr = co.getCommuteStart().split(" ");
-						model.addAttribute("goToTime", startArr[1]);						
-					}
-					
-					if(co.getCommuteEnd() != null) {
-						String[] endArr = co.getCommuteEnd().split(" ");
-						model.addAttribute("getOffTime", endArr[1]);						
-					}
-				}
-			}
-			String totalStr = Double.toString(total);
-			int point = totalStr.indexOf(".");
-			String hour = totalStr.substring(0, point);
-			String min = totalStr.substring(point+1);
-			
-			model.addAttribute("totalHour", hour);
-			model.addAttribute("totalMin", min);
+		if(co != null) {
+			String[] startArr = co.getCommuteStart().split(" ");
+			model.addAttribute("startTime", startArr[1]);
 		}
+		
+//		double total = 0;
+//		if(colist != null) {
+//			for(Commute co : colist) {
+//				total += co.getWorktime();
+//				
+//				// DB데이터가 오늘이면
+//				Date date = new Date(System.currentTimeMillis());
+//				if(co.getEnrollDate().toString().equals(date.toString())) {
+//					
+//					if(co.getCommuteStart() != null) {
+//						String[] startArr = co.getCommuteStart().split(" ");
+//						model.addAttribute("startTime", startArr[1]);						
+//					}
+//					
+//					if(co.getCommuteEnd() != null) {
+//						String[] endArr = co.getCommuteEnd().split(" ");
+//						model.addAttribute("endTime", endArr[1]);						
+//					}
+//				}
+//			}
+//			String totalStr = Double.toString(total);
+//			int point = totalStr.indexOf(".");
+//			String hour = totalStr.substring(0, point);
+//			String min = totalStr.substring(point+1);
+			
+//			model.addAttribute("totalHour", hour);
+//			model.addAttribute("totalMin", min);
+//		}
 		
 		// 상태 변경
 		model.addAttribute("state", state);
@@ -89,6 +94,7 @@ public class CommuteController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 		String enterTime = sdf.format(date);
 		
+		// 지각 여부
 		int status = 0;
 		try {
 			SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
@@ -125,12 +131,14 @@ public class CommuteController {
 		Commute co = coService.commuteDay(memberNo);
 		String start = co.getCommuteStart();
 //		String start = "2021-08-19 08:41:47";
-
+		
+		// 퇴근 시간
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 		String end = sdf.format(date);
 //		String end = "2021-08-19 17:03:25";
 		
+		// worktime 계산
 		java.util.Date startDate = null;
 		java.util.Date endDate = null;
 		try {
@@ -196,22 +204,147 @@ public class CommuteController {
 //		String memberNo = loginUser.getmCode();
 		String memberNo = "MaCo2";
 		
-		ArrayList<Commute> colist = coService.commuteList(memberNo);
-		ArrayList<Overwork> owlist = coService.overworkList(memberNo);
+		HashMap<String, String> map = getDate(1);
+		map.put("memberNo", memberNo);
+		
+		ArrayList<Commute> colist = coService.commuteList(map);
+		ArrayList<Overwork> owlist = coService.overworkList(map);
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		
-		map.put("colist", colist);
-		map.put("owlist", owlist);
+		resultMap.put("colist", colist);
+		resultMap.put("owlist", owlist);
 		
-		return gson.toJson(map);
+		return gson.toJson(resultMap);
 	}
 	
 	@RequestMapping("commuteDetail.co")
-	public String commuteDetailView() {
-//		return "test";
-		return "commuteDetailView";
+	public String commuteDetailView(HttpSession session, Model model) {
+		
+//		Member loginUser = ((Member)session.getAttribute("loginUser"));
+//		String memberNo = loginUser.getmCode();
+		String memberNo = "MaCo2";
+		
+		HashMap<String, String> weekMap = getDate(1);
+		weekMap.put("memberNo", memberNo);
+		
+		ArrayList<Commute> weekCoList = coService.commuteList(weekMap);
+		ArrayList<Overwork> weekOwList = coService.overworkList(weekMap);
+		
+		HashMap<String, String> monMap = getDate(2);
+		monMap.put("memberNo", memberNo);
+
+		ArrayList<Commute> monCoList = coService.commuteList(monMap);
+		ArrayList<Overwork> monOwList = coService.overworkList(monMap);
+		
+		double weekWorkTotal = 0;
+		if(weekCoList != null) {
+			for(Commute co : weekCoList) {
+				weekWorkTotal += co.getWorktime();
+			}
+			model.addAttribute("weekWorkTotal", weekWorkTotal);
+		}
+		
+		double weekOverTotal = 0;
+		if(weekOwList != null) {
+			for(Overwork ow : weekOwList) {
+				weekWorkTotal += ow.getOverworktime();
+			}
+			model.addAttribute("weekOverTotal", weekOverTotal);
+		}
+		
+		double monthWorkTotal = 0;
+		if(monCoList != null) {
+			for(Commute co : weekCoList) {
+				monthWorkTotal += co.getWorktime();
+			}
+			model.addAttribute("monthWorkTotal", monthWorkTotal);
+		}
+
+		double monthOverTotal = 0;
+		if(monOwList != null) {
+			for(Overwork ow : weekOwList) {
+				monthOverTotal += ow.getOverworktime();
+			}
+			model.addAttribute("monthOverTotal", monthOverTotal);
+		}
+		
+		System.out.println(weekCoList);
+		System.out.println(weekOwList);
+		System.out.println(monCoList);
+		System.out.println(monOwList);
+		
+//		return "commuteDetailView";
+		return "commuteTest";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="commuteTable.co", produces="application/json; charset=utf-8")
+	public String commuteTable() {
+
+//		Member loginUser = ((Member)session.getAttribute("loginUser"));
+//		String memberNo = loginUser.getmCode();
+		String memberNo = "MaCo2";
+		
+		HashMap<String, String> map = getDate(2);
+		map.put("memberNo", memberNo);
+		
+		ArrayList<Commute> colist = coService.commuteList(map);
+		ArrayList<Overwork> owlist = coService.overworkList(map);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		resultMap.put("colist", colist);
+		resultMap.put("owlist", owlist);
+		
+		return gson.toJson(resultMap);
+	}
+	
+	
+	
+	public HashMap<String, String> getDate(int check) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
+		Calendar cal = Calendar.getInstance(Locale.KOREA);
+		Date date = new Date(System.currentTimeMillis());
+		
+		cal.setTime(date);
+		
+		String today = sdf.format(cal.getTime());
+		
+		cal.add(Calendar.DATE, 1 - cal.get(Calendar.DAY_OF_WEEK));	// 이번 주 일요일 날짜 
+		String weekStart = sdf.format(cal.getTime());
+		
+		cal.add(Calendar.DATE, 7 - cal.get(Calendar.DAY_OF_WEEK));	// 이번 주 마지막날 날짜
+		String weekEnd = sdf.format(cal.getTime());
+		
+		int year = cal.get(Calendar.YEAR);
+		int mon = cal.get(Calendar.MONTH)+1;
+		int monthStart = cal.getMinimum(Calendar.DAY_OF_MONTH);	// 이번 달 시작 날짜
+		int monthEnd = cal.getActualMaximum(Calendar.DAY_OF_MONTH);	// 이번 달 마지막 날짜
+		
+		String monStart = year+"/"+mon+"/"+monthStart;
+		String monEnd = year+"/"+mon+"/"+monthEnd;
+		
+		String start = null;
+		String end = null;
+		if(check == 1) {
+			// 이번 주
+			start = weekStart;
+			end = weekEnd;
+		} else if(check == 2) {
+			// 이번 달
+			start = monStart;
+			end = monEnd;
+		}
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("start", start);
+		map.put("end", end);
+		
+		return map;
 	}
 }

@@ -5,7 +5,8 @@
 	<select id="selectCommute" resultMap="commuteResultMap">
 		SELECT *
 		FROM COMMUTE
-		WHERE M_CODE=#{memberNo} AND (C_DATE BETWEEN TRUNC(SYSDATE, 'w') AND SYSDATE+1)
+		WHERE M_CODE=#{memberNo} 
+			  AND C_DATE BETWEEN TO_CHAR(TO_DATE(#{start}, 'YY/MM/DD'), 'YY/MM/DD') AND TO_CHAR(TO_DATE(#{end}, 'YY/MM/DD'), 'YY/MM/DD')
 		ORDER BY CMT_NO
 <!-- 		WHERE M_CODE=#{memberNo} AND (C_DATE BETWEEN TO_DATE('21/08/09') AND TO_DATE('21/08/18')) -->
 	</select>
@@ -22,8 +23,10 @@
 	<select id="selectOverwork" resultMap="overworkResultMap">
 		SELECT *
 		FROM OVERWORK
-		WHERE M_CODE=#{memberNo} AND (O_DATE BETWEEN TRUNC(SYSDATE, 'w') AND SYSDATE+1)
+		WHERE M_CODE=#{memberNo}
+			  AND O_DATE BETWEEN TO_CHAR(TO_DATE(#{start}, 'YY/MM/DD'), 'YY/MM/DD') AND TO_CHAR(TO_DATE(#{end}, 'YY/MM/DD'), 'YY/MM/DD')
 		ORDER BY O_NO
+<!-- 		WHERE M_CODE=#{memberNo} AND (O_DATE BETWEEN TRUNC(SYSDATE, 'w') AND SYSDATE+1) -->
 	</select>
 	
 	<resultMap type="Overwork" id="overworkResultMap">
