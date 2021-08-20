@@ -4,14 +4,14 @@ public class Messenger {
 	private int ms_no;
 	private String ms_content;
 	private String ms_time;
-	private String emo;
+	private int emo;
 	private String ms_file;
 	private String m_code;
 	private String m_code2;
 	
 	public Messenger() {}
 	
-	public Messenger(int ms_no, String ms_content, String ms_time, String emo, String ms_file, String m_code,
+	public Messenger(int ms_no, String ms_content, String ms_time, int emo, String ms_file, String m_code,
 			String m_code2) {
 		super();
 		this.ms_no = ms_no;
@@ -40,10 +40,10 @@ public class Messenger {
 	public void setMs_time(String ms_time) {
 		this.ms_time = ms_time;
 	}
-	public String getEmo() {
+	public int getEmo() {
 		return emo;
 	}
-	public void setEmo(String emo) {
+	public void setEmo(int emo) {
 		this.emo = emo;
 	}
 	public String getMs_file() {

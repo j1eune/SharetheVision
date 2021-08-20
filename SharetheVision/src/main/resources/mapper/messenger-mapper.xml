@@ -22,7 +22,7 @@
 	
 	<insert id="send">
 		INSERT INTO MS
-		VALUES(SEQ_MS.NEXTVAL, #{ms_content} ,TO_CHAR(SYSDATE,'YY-FMMM-DD AMHH:MI:SS'), null, null, #{m_code}, #{m_code2})
+		VALUES(SEQ_MS.NEXTVAL, #{ms_content} ,TO_CHAR(SYSDATE,'YY-FMMM-DD AMHH:MI:SS'), DEFAULT, null, #{m_code}, #{m_code2})
 	</insert>
 
 
