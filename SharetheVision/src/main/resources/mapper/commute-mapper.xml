@@ -41,12 +41,18 @@
 		INSERT INTO COMMUTE VALUES(SEQ_CO.NEXTVAL, SYSDATE, TO_CHAR(TO_DATE(#{enterTime}, 'yyyy-mm-dd hh24:mi:ss'), 'yyyy-mm-dd hh24:mi:ss'), NULL, 0, #{memberNo})
 	</insert>
 	
+<!-- 	<update id="updateCommute"> -->
+<!-- 		UPDATE COMMUTE -->
+<!-- 		SET C_WORKTIME = TRUNC((TO_DATE(#{outTime}, 'yyyy-mm-dd hh24:mi:ss') - TO_DATE(C_START, 'yyyy-mm-dd hh24:mi:ss'))*24 -1) -->
+<!-- 		                    || '.' || TRUNC(MOD((TO_DATE(#{outTime}, 'yyyy-mm-dd hh24:mi:ss') - TO_DATE(C_START, 'yyyy-mm-dd hh24:mi:ss'))*24*60, 60)), -->
+<!-- 		    C_END = TO_CHAR(TO_DATE(#{outTime}, 'yyyy-mm-dd hh24:mi:ss'), 'yyyy-mm-dd hh24:mi:ss') -->
+<!-- 		WHERE M_CODE = #{memberNo} AND (TO_CHAR(C_DATE, 'yyyy-mm-dd') = TO_CHAR(SYSDATE, 'yyyy-mm-dd')) -->
+<!-- 	</update> -->
+	
 	<update id="updateCommute">
 		UPDATE COMMUTE
-		SET C_WORKTIME = TRUNC((TO_DATE(#{outTime}, 'yyyy-mm-dd hh24:mi:ss') - TO_DATE(C_START, 'yyyy-mm-dd hh24:mi:ss'))*24 -1)
-		                    || '.' || TRUNC(MOD((TO_DATE(#{outTime}, 'yyyy-mm-dd hh24:mi:ss') - TO_DATE(C_START, 'yyyy-mm-dd hh24:mi:ss'))*24*60, 60)),
-		    C_END = TO_CHAR(TO_DATE(#{outTime}, 'yyyy-mm-dd hh24:mi:ss'), 'yyyy-mm-dd hh24:mi:ss')
-		WHERE M_CODE = #{memberNo} AND (TO_CHAR(C_DATE, 'yyyy-mm-dd') = TO_CHAR(SYSDATE, 'yyyy-mm-dd'))
+		SET C_WORKTIME = #{workTime}, C_END = #{outTime}
+		WHERE M_CODE = #{memberNo} AND C_START = #{enterTime}
 	</update>
 	
 	<update id="changeState">
@@ -54,6 +60,13 @@
 		SET M_STATE = #{mState}
 		WHERE M_CODE = #{mCode}
 	</update>
+	
+	<select id="dailyCommute" resultMap="commuteResultMap">
+		SELECT *
+		FROM COMMUTE
+		WHERE M_CODE = #{memberNo} AND TO_CHAR(SYSDATE, 'YY/MM/DD') = TO_CHAR(C_DATE)
+<!-- 		WHERE M_CODE = #{memberNo} AND TO_CHAR(TO_DATE('2021-08-18', 'YY/MM/DD')) = TO_CHAR(C_DATE) -->
+	</select>
 	
 	
 	

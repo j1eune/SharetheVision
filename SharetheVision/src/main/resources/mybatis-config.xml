@@ -16,6 +16,7 @@
 		<typeAlias alias="Member" type="com.kh.SharetheVision.member.model.vo.Member"/>
 		<typeAlias alias="Project" type="com.kh.SharetheVision.project.model.vo.Project"/>
 		<typeAlias alias="Attachment" type="com.kh.SharetheVision.attachments.model.vo.Attachment"/>
+		<typeAlias alias="Messenger" type="com.kh.SharetheVision.ms.model.vo.Messenger"/>
 	</typeAliases>
 	
 	
@@ -27,6 +28,7 @@
 		<mapper resource="mapper/member-mapper.xml"/>
 		<mapper resource="mapper/project-mapper.xml"/>
 		<mapper resource="mapper/attachment-mapper.xml"/>
+		<mapper resource="mapper/messenger-mapper.xml"/>
 	</mappers>
 
 

@@ -42,7 +42,9 @@
 	<jsp:include page="/WEB-INF/views/common/topMenu.jsp" />           
 	<!--  sideMenu    -->        
 	<jsp:include page="/WEB-INF/views/common/sideMenu.jsp" />
-        
+     
+
+
     <!-- Main Content Start -->           
     <div class="pcoded-main-container">
         <div class="pcoded-wrapper">               
@@ -374,8 +376,6 @@
 
 <script>
 $( document ).ready(function() {
-    console.log( "script ready." );
-    
     //화면 위로 올리는 버튼 액션
     var $window = $(window);
     var nav = $('.fixed-button');
@@ -387,13 +387,8 @@ $( document ).ready(function() {
             nav.removeClass('active');
         }
     });
-   
-// 클릭 연계 이벤트 addEvent.js 에 추가함        
-
-        
 });     
+// 클릭 연계 이벤트 vendor.js 에 추가함        
 </script>
-
-
 </body>
 </html>

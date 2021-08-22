@@ -1,17 +1,64 @@
 package com.kh.SharetheVision.ms.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.kh.SharetheVision.member.model.vo.Member;
+import com.kh.SharetheVision.ms.exception.MsException;
+import com.kh.SharetheVision.ms.model.service.MsService;
+import com.kh.SharetheVision.ms.model.vo.Messenger;
+
+@SessionAttributes("loginUser")
 @Controller
 public class MsController {
 
+	@Autowired
+	private MsService msService;
+	
+
 	@RequestMapping("msStart.ms")
-	public String msStart() {
-		
-//		System.out.println("msController IN");
-		
+	public String msStart(Model model) {
+		ArrayList<Member> tolist = msService.tolist();
+		model.addAttribute("tolist",tolist);
+		 
 		return "msStart";
+	}
+	
+	@RequestMapping(value="msSend.ms" ,method = RequestMethod.POST)
+	@ResponseBody
+	public String msSend(@ModelAttribute Messenger ms,
+						 HttpSession session,
+						 Model model) throws MsException {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String fromId = loginUser.getmId();
+		
+		ms.setM_code(fromId);
+		/*
+		 * ms.setM_code2(toId); ms.setMs_content(content);
+		 */
+
+		int result = msService.sendInsert(ms);
+		
+		System.out.println("ms:"+ms.toString());
+		
+		if(result>0) {
+			model.addAttribute("ms", ms);
+			return "success";
+		}else {
+			throw new MsException("메세지 전송 실패");
+		}
+		
 	}
 
 

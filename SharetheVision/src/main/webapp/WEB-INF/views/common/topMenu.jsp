@@ -92,7 +92,7 @@ pageEncoding="UTF-8"%>
                 <li class="user-profile header-notification">
                     <a href="#!">
                         <img src="resources/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                        <span class="text-c-white"> 홍길동 님</span>
+                        <span class="text-c-white"> ${loginUser.name} 님</span>
                         <i class="ti-angle-down text-c-white"></i>
                     </a>
                     <ul class="show-notification profile-notification">

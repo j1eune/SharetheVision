@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="msMapper">
+
+	<resultMap type="Member" id="MemberResultMap">
+		<id column="M_CODE" property="mCode"/>
+		<result column="M_NAME" property="name"/>
+		<result column="M_ID" property="mId"/>
+		<result column="DEPT_NO" property="deptNo"/>
+		<result column="DEPT_NAME" property="deptName"/>
+		<result column="J_NAME" property="jobName"/>
+	</resultMap>
+	
+	<select id="toList" resultMap="MemberResultMap">
+	   SELECT M_CODE, M_NAME, M_ID, DEPT_NO, DEPT_NAME, J_NAME, J_NO
+	     FROM MEMBER
+	     JOIN DEPARTMENT USING(DEPT_NO)
+	     JOIN JOB USING(J_NO)
+		WHERE M_STATUS='Y'
+	 ORDER BY J_NO ASC
+	</select>
+	
+	<insert id="send">
+		INSERT INTO MS
+		VALUES(SEQ_MS.NEXTVAL, #{ms_content} ,TO_CHAR(SYSDATE,'YY-FMMM-DD AMHH:MI:SS'), DEFAULT, null, #{m_code}, #{m_code2})
+	</insert>
+
+
+</mapper>
