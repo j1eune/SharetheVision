@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="attachmentMapper">
-	<insert id="updateProfile">
+	<update id="updateProfile">
+		UPDATE ATTACHMENTS
+		SET AT_PATH = #{atPath},
+			AT_ORIGIN = #{atOrigin},
+			AT_CHANGE = #{atChange}
+		WHERE AT_CATEGORY = #{atCategory}
+	</update>
+	
+	<insert id="insertProfile">
 		INSERT INTO ATTACHMENTS(AT_NO, AT_LEVEL, AT_CATEGORY, AT_PATH, AT_ORIGIN, AT_CHANGE, AT_STATUS)
 		VALUES(SEQ_AT.NEXTVAL, #{atLevel}, #{atCategory}, #{atPath}, #{atOrigin}, #{atChange}, DEFAULT)
 	</insert>
@@ -22,4 +30,5 @@
 		<result column="AT_EXTENTION" property="atExtention"/>
 		<result column="AT_STATUS" property="atStatus"/>
 	</resultMap>
+	
 </mapper>

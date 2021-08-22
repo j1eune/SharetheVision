@@ -45,12 +45,13 @@ public class MemberController {
 	private JavaMailSender mailSender;
 	
 	@Autowired
-	private AttachmentService ac;
+	private AttachmentService aService;
 	
 	@RequestMapping("home.me")
 	public String home() {
-		return "../home";
+		return "../home"; 
 	}
+	
 	@RequestMapping("login.me")
 	public String login(@ModelAttribute Member m, Model model) throws MemberException {
 		
@@ -64,7 +65,7 @@ public class MemberController {
 			throw new MemberException("로그인에 실패하였습니다.");
 		}
 		
-		return "../home";
+		return "redirect:main.do";
 	}
 	
 	@RequestMapping("findPwdForm.me")
@@ -131,7 +132,7 @@ public class MemberController {
 		int result = mService.updatePwd(m);
 		
 		if(result > 0) {
-			return "../../../index";
+			return "redirect:home.do";
 		} else {
 			throw new MemberException("비밀번호 수정에 실패하였습니다.");
 		}
@@ -143,7 +144,7 @@ public class MemberController {
 		
 		Member loginUser = ((Member)session.getAttribute("loginUser"));
 		String mCode = loginUser.getmCode();
-		Attachment attachment = ac.selectProfile(mCode);
+		Attachment attachment = aService.selectProfile(mCode);
 		model.addAttribute("attachment", attachment);
 		
 		return "memberUpdateForm";
@@ -152,7 +153,8 @@ public class MemberController {
 	@RequestMapping("updateProfile.me")
 	public String updateProfile(@RequestParam("profile") MultipartFile file, HttpServletRequest request, @RequestParam("address1") String address1,
 								@RequestParam("address2") String address2, @RequestParam("address3") String address3, @ModelAttribute Member m,
-								@RequestParam("newPwd") String newPwd, @RequestParam("pwd") String pwd, HttpSession session) throws MemberException {
+								@RequestParam("newPwd") String newPwd, @RequestParam("pwd") String pwd, HttpSession session,
+								@RequestParam("memberProfile") String memberProfile) throws MemberException {
 
 		Member loginUser = ((Member)session.getAttribute("loginUser"));
 		String address = address1+"." + address2 + "." + address3;
@@ -171,7 +173,11 @@ public class MemberController {
 		
 		if(file != null && !file.isEmpty()) {
 			Attachment attachment = AttachmentRename.updateProfile(file, request, loginUser.getmCode());
-			atResult = ac.updateProfile(attachment);
+			if(memberProfile.trim().equals("")) {
+				atResult = aService.insertProfile(attachment);
+			} else {
+				atResult = aService.updateProfile(attachment);
+			}
 			
 			if(atResult > 0 && mResult > 0) {
 				return "../home";
@@ -265,7 +271,7 @@ public class MemberController {
 	public String logout(SessionStatus session) {
 		session.isComplete();
 		
-		return "../../index";
+		return "redirect:home.do";
 	}
 	
 	@RequestMapping("userPwdCheck.me")

@@ -27,4 +27,39 @@
 			JOIN M_PROJECT USING(P_NO)
 		WHERE P_STATUS = 'Y' AND M_CODE=#{mCode}
 	</select>
+	
+	<select id="selectProjectMember" resultMap="selectProjectMemberResult" parameterType="list">
+		SELECT *
+		FROM M_PROJECT
+			LEFT JOIN ATTACHMENTS ON (M_CODE = AT_CATEGORY)
+		WHERE P_NO IN
+		<foreach collection="list" item="item" open="(" separator="," close=")">
+			#{item.pNo}
+		</foreach>
+	</select>
+	
+	<resultMap type="Project" id="selectProjectMemberResult">
+		<id column="P_NO" property="pNo"/>
+		<result column="M_CODE" property="mCode"/>
+		<result column="M_CODE" property="mCode"/>
+		<result column="AT_CHANGE" property="pName"/>
+	</resultMap>
+	
+	<update id="changeProject">
+		UPDATE PROJECT
+		<choose>
+			<when test="condition == 1">
+				SET P_END = 'Y'
+			</when>
+			<when test="condition == 2">
+				SET P_END = 'N'
+			</when>
+			<when test="condition == 3">
+				SET P_STATUS = 'N'
+			</when>
+		</choose>
+		WHERE P_NO = #{pNo}
+	</update>
+	
+	
 </mapper>
