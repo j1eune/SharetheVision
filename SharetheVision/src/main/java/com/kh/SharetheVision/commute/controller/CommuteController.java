@@ -1,11 +1,11 @@
 package com.kh.SharetheVision.commute.controller;
 
 import java.sql.Date;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -45,6 +45,9 @@ public class CommuteController {
 		if(co != null) {
 			String[] startArr = co.getCommuteStart().split(" ");
 			model.addAttribute("startTime", startArr[1]);
+			
+			String[] endArr = co.getCommuteEnd().split(" ");
+			model.addAttribute("endTime", endArr[1]);
 		}
 		
 //		double total = 0;
@@ -93,6 +96,7 @@ public class CommuteController {
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 		String enterTime = sdf.format(date);
+//		String enterTime = "2021-08-22 08:40:47";
 		
 		// 지각 여부
 		int status = 0;
@@ -130,13 +134,13 @@ public class CommuteController {
 
 		Commute co = coService.commuteDay(memberNo);
 		String start = co.getCommuteStart();
-//		String start = "2021-08-19 08:41:47";
+//		String start = "2021-08-22 08:40:47";
 		
 		// 퇴근 시간
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 		String end = sdf.format(date);
-//		String end = "2021-08-19 17:03:25";
+//		String end = "2021-08-22 17:55:30";
 		
 		// worktime 계산
 		java.util.Date startDate = null;
@@ -204,7 +208,7 @@ public class CommuteController {
 //		String memberNo = loginUser.getmCode();
 		String memberNo = "MaCo2";
 		
-		HashMap<String, String> map = getDate(1);
+		HashMap<String, String> map = getDate(1, null, null);
 		map.put("memberNo", memberNo);
 		
 		ArrayList<Commute> colist = coService.commuteList(map);
@@ -227,13 +231,13 @@ public class CommuteController {
 //		String memberNo = loginUser.getmCode();
 		String memberNo = "MaCo2";
 		
-		HashMap<String, String> weekMap = getDate(1);
+		HashMap<String, String> weekMap = getDate(1, null, null);
 		weekMap.put("memberNo", memberNo);
 		
 		ArrayList<Commute> weekCoList = coService.commuteList(weekMap);
 		ArrayList<Overwork> weekOwList = coService.overworkList(weekMap);
 		
-		HashMap<String, String> monMap = getDate(2);
+		HashMap<String, String> monMap = getDate(2, null, null);
 		monMap.put("memberNo", memberNo);
 
 		ArrayList<Commute> monCoList = coService.commuteList(monMap);
@@ -271,8 +275,8 @@ public class CommuteController {
 			model.addAttribute("monthOverTotal", monthOverTotal);
 		}
 		
-		System.out.println(weekCoList);
-		System.out.println(weekOwList);
+//		System.out.println(weekCoList);
+//		System.out.println(weekOwList);
 		System.out.println(monCoList);
 		System.out.println(monOwList);
 		
@@ -282,17 +286,23 @@ public class CommuteController {
 	
 	@ResponseBody
 	@RequestMapping(value="commuteTable.co", produces="application/json; charset=utf-8")
-	public String commuteTable() {
+	public String commuteTable(@RequestParam("year") int year, @RequestParam("month") int month, @RequestParam("last") int last) {
 
 //		Member loginUser = ((Member)session.getAttribute("loginUser"));
 //		String memberNo = loginUser.getmCode();
 		String memberNo = "MaCo2";
 		
-		HashMap<String, String> map = getDate(2);
+		String selectedMonthStart = year+"/"+month+"/"+"01";
+		String selectedMonthEnd = year+"/"+month+"/"+last;
+		
+		HashMap<String, String> map = getDate(3, selectedMonthStart, selectedMonthEnd);
 		map.put("memberNo", memberNo);
 		
 		ArrayList<Commute> colist = coService.commuteList(map);
 		ArrayList<Overwork> owlist = coService.overworkList(map);
+		
+		System.out.println(colist);
+		System.out.println(owlist);
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		
@@ -306,19 +316,19 @@ public class CommuteController {
 	
 	
 	
-	public HashMap<String, String> getDate(int check) {
+	public HashMap<String, String> getDate(int check, String selectedMonthStart, String selectedMonthEnd) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
 		Calendar cal = Calendar.getInstance(Locale.KOREA);
 		Date date = new Date(System.currentTimeMillis());
 		
 		cal.setTime(date);
 		
-		String today = sdf.format(cal.getTime());
-		
-		cal.add(Calendar.DATE, 1 - cal.get(Calendar.DAY_OF_WEEK));	// 이번 주 일요일 날짜 
+		// 이번 주 일요일 날짜 
+		cal.add(Calendar.DATE, 1 - cal.get(Calendar.DAY_OF_WEEK));	
 		String weekStart = sdf.format(cal.getTime());
 		
-		cal.add(Calendar.DATE, 7 - cal.get(Calendar.DAY_OF_WEEK));	// 이번 주 마지막날 날짜
+		// 이번 주 마지막날 날짜
+		cal.add(Calendar.DATE, 7 - cal.get(Calendar.DAY_OF_WEEK));	
 		String weekEnd = sdf.format(cal.getTime());
 		
 		int year = cal.get(Calendar.YEAR);
@@ -339,6 +349,10 @@ public class CommuteController {
 			// 이번 달
 			start = monStart;
 			end = monEnd;
+		} else if(check == 3) {
+			// 선택한 달
+			start = selectedMonthStart;
+			end = selectedMonthEnd;
 		}
 		
 		HashMap<String, String> map = new HashMap<String, String>();

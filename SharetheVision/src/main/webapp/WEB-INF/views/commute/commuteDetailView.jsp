@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <title>Insert title here</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -91,163 +92,68 @@
 		                               <div class="card-header">
 		                                   <h5 class="card-header-text">주차별 출퇴근현황</h5>
 		                               </div>
+		                               
 		                               <div class="card-block accordion-block">
 		                                   <div id="accordion" role="tablist" aria-multiselectable="true">
-		                                       <div class="accordion-panel">
-		                                           <div class="accordion-heading clickWeek" role="tab" id="headingOne">
-		                                               <h3 class="card-title accordion-title">
-		                                                   <a class="accordion-msg" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-		                                                       <i class="icofont icofont-rounded-down"></i>
-		                                                       &nbsp; 1주차
-		                                                   </a>
-		                                               </h3>
-		                                           </div>
-		                                           <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-		                                               <div class="accordion-content accordion-desc">
-		                                                   <div class="table-border-style">
-		                                                       <div class="table-responsive">
-		                                                           <table class="table table-hover" id="1WeekTable">
-		                                                               <thead>
-		                                                                   <tr>
-		                                                                       <th>일자</th>
-		                                                                       <th>업무시작</th>
-		                                                                       <th>업무종료</th>
-		                                                                       <th>총 근무시간</th>
-		                                                                       <th>근무시간 상세</th>
-		                                                                       <th>승인요청내역</th>
-		                                                                   </tr>
-		                                                               </thead>
-		                                                               <tbody>
-		                                                               </tbody>
-		                                                           </table>
-		                                                       </div>
-		                                                   </div>
-		                                               </div>
-		                                           </div>
-		                                       </div>
-		                                       <div class="accordion-panel">
-		                                           <div class="accordion-heading clickWeek" role="tab" id="headingTwo">
-		                                               <h3 class="card-title accordion-title">
-		                                                   <a class="accordion-msg" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-		                                                       <i class="icofont icofont-rounded-down"></i>
-		                                                       &nbsp; 2주차
-		                                                   </a>
-		                                               </h3>
-		                                           </div>
-		                                           <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-		                                               <div class="accordion-content accordion-desc">
-		                                                   <div class="table-border-style">
-		                                                       <div class="table-responsive">
-		                                                           <table class="table table-hover" id="2WeekTable">
-		                                                               <thead>
-		                                                                   <tr>
-		                                                                       <th>일자</th>
-		                                                                       <th>업무시작</th>
-		                                                                       <th>업무종료</th>
-		                                                                       <th>총 근무시간</th>
-		                                                                       <th>근무시간 상세</th>
-		                                                                       <th>승인요청내역</th>
-		                                                                   </tr>
-		                                                               </thead>
-		                                                               <tbody>
-		                                                               </tbody>
-		                                                           </table>
-		                                                       </div>
-		                                                   </div>
-		                                               </div>
-		                                           </div>
-		                                       </div>
-		                                       <div class="accordion-panel">
-		                                           <div class="accordion-heading clickWeek" role="tab" id="headingThree">
-		                                               <h3 class="card-title accordion-title">
-		                                                   <a class="accordion-msg" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-		                                                       <i class="icofont icofont-rounded-down"></i>
-		                                                       &nbsp; 3주차
-		                                                   </a>
-		                                               </h3>
-		                                           </div>
-		                                           <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-		                                               <div class="accordion-content accordion-desc">
-		                                                   <div class="table-responsive">
-		                                                       <table class="table table-hover" id="3WeekTable">
-		                                                           <thead>
-		                                                               <tr>
-		                                                                   <th>일자</th>
-		                                                                   <th>업무시작</th>
-		                                                                   <th>업무종료</th>
-		                                                                   <th>총 근무시간</th>
-		                                                                   <th>근무시간 상세</th>
-		                                                                   <th>승인요청내역</th>
-		                                                               </tr>
-		                                                           </thead>
-		                                                           <tbody>
-		                                                           </tbody>
-		                                                       </table>
-		                                                   </div>
-		                                               </div>
-		                                           </div>
-		                                       </div>
-		                                       <div class="accordion-panel">
-		                                           <div class="accordion-heading clickWeek" role="tab" id="headingFour">
-		                                               <h3 class="card-title accordion-title">
-		                                                   <a class="accordion-msg" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-		                                                       <i class="icofont icofont-rounded-down"></i>
-		                                                       &nbsp; 4주차
-		                                                   </a>
-		                                               </h3>
-		                                           </div>
-		                                           <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-		                                               <div class="accordion-content accordion-desc">
-		                                                   <div class="table-responsive">
-		                                                       <table class="table table-hover" id="4WeekTable">
-		                                                           <thead>
-		                                                               <tr>
-		                                                                   <th>일자</th>
-		                                                                   <th>업무시작</th>
-		                                                                   <th>업무종료</th>
-		                                                                   <th>총 근무시간</th>
-		                                                                   <th>근무시간 상세</th>
-		                                                                   <th>승인요청내역</th>
-		                                                               </tr>
-		                                                           </thead>
-		                                                           <tbody>
-		                                                               
-		                                                           </tbody>
-		                                                       </table>
-		                                                   </div>
-		                                               </div>
-		                                           </div>
-		                                       </div>
-		                                       <div class="accordion-panel">
-		                                           <div class="accordion-heading clickWeek" role="tab" id="headingFive">
-		                                               <h3 class="card-title accordion-title">
-		                                                   <a class="accordion-msg" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-		                                                       <i class="icofont icofont-rounded-down"></i>
-		                                                       &nbsp; 5주차
-		                                                   </a>
-		                                               </h3>
-		                                           </div>
-		                                           <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
-		                                               <div class="accordion-content accordion-desc">
-		                                                   <div class="table-responsive">
-		                                                       <table class="table table-hover" id="5WeekTable">
-		                                                           <thead>
-		                                                               <tr>
-		                                                                   <th>일자</th>
-		                                                                   <th>업무시작</th>
-		                                                                   <th>업무종료</th>
-		                                                                   <th>총 근무시간</th>
-		                                                                   <th>근무시간 상세</th>
-		                                                                   <th>승인요청내역</th>
-		                                                               </tr>
-		                                                           </thead>
-		                                                           <tbody>
-		                                                            </tbody>
-		                                                        </table>
-		                                                    </div>
-		                                                </div>
-		                                            </div>
-		                                        </div>
+		                                   
+<%-- 		                                   		<c:set var="d" value="1"/> --%>
+				                               	<c:forEach var="i" begin="1" end="6">
+			                                       <div class="accordion-panel">
+			                                           <div class="accordion-heading clickWeek" role="tab" id="heading${i}">
+			                                               <h3 class="card-title accordion-title">
+			                                                   <a class="accordion-msg" data-toggle="collapse" data-parent="#accordion" href="#collapse${i}" aria-expanded="true" aria-controls="collapse${i}">
+			                                                       <i class="icofont icofont-rounded-down"></i>
+			                                                       &nbsp; ${i}주차
+			                                                   </a>
+			                                               </h3>
+			                                           </div>
+			                                           <div id="collapse${i}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading${i}">
+			                                               <div class="accordion-content accordion-desc">
+			                                                   <div class="table-border-style">
+			                                                       <div class="table-responsive">
+			                                                           <table class="table table-hover" id="${i}WeekTable">
+			                                                               <thead>
+			                                                                   <tr>
+			                                                                       <th>일자</th>
+			                                                                       <th>업무시작</th>
+			                                                                       <th>업무종료</th>
+			                                                                       <th>총 근무시간</th>
+			                                                                       <th>근무시간 상세</th>
+			                                                                       <th>승인요청내역</th>
+			                                                                   </tr>
+			                                                               </thead>
+			                                                               <tbody>
+			                                                               <!-- 일 반복 -->
+<%-- 				                                                               <c:forEach var="j" begin="0" end="6"> --%>
+<!-- 					                                                               <tr class="clickDaily"> -->
+<%-- 																						<td id="${d}date"></td> --%>
+<%-- 																						<td id="${d}start"></td> --%>
+<%-- 																						<td id="${d}end"></td> --%>
+<%-- 																						<td id="${d}total"></td> --%>
+<%-- 																						<td id="${d}detail"></td> --%>
+<%-- 																						<td id="${d}request"></td> --%>
+<!-- 					                                                               </tr> -->
+<%-- 																						<c:set var="d" value="${d+1}"/> --%>
+<!-- 					                                                               <tr class="tiemTr"> -->
+<!-- 					                                                               		<th colspan="6"> -->
+<!-- 					                                                               			<div class="row"> -->
+<%-- 					                                                               				<c:forEach var="k" begin="1" end="24"> --%>
+<!-- 					                                                               					<div class="col d-inline-block"> -->
+<%-- 					                                                               						${k<0 ? "0" + k : k} --%>
+<!-- 					                                                               					</div> -->
+<%-- 					                                                               				</c:forEach> --%>
+<!-- 					                                                               			</div> -->
+<!-- 					                                                               		</th> -->
+<!-- 					                                                               </tr> -->
+<%-- 				                                                               </c:forEach> --%>
+			                                                               </tbody>
+			                                                           </table>
+			                                                       </div>
+			                                                   </div>
+			                                               </div>
+			                                           </div>
+			                                       </div>
+				                                </c:forEach>
 		                                    </div>
 		                                </div>
 		                            </div>
@@ -262,16 +168,16 @@
 </div>
 
 <script>
-// 	var $window = $(window);
-// 	var nav = $('.fixed-button');
-// 	    $window.scroll(function(){
-// 	        if ($window.scrollTop() >= 200) {
-// 	        nav.addClass('active');
-// 	    }
-// 	    else {
-// 	        nav.removeClass('active');
-// 	    }
-// 	});
+	var $window = $(window);
+	var nav = $('.fixed-button');
+	    $window.scroll(function(){
+	        if ($window.scrollTop() >= 200) {
+	        nav.addClass('active');
+	    }
+	    else {
+	        nav.removeClass('active');
+	    }
+	});
 	
 	$(function(){
 	    
@@ -301,34 +207,42 @@
 	    var pageYear = (first.getFullYear() % 4 === 0) ? leapYear : notLeapYear;
 	
 	    // 이번 주 show
-	    if(first.getDay() == 0){
-	        var todayWeek = Math.floor(today.getDate() / 7) + 1;
-	    } else {
-	        var todayWeek = Math.ceil((today.getDate() + first.getDay()) / 7) + 1;
-	    }
-	
+	    // 오늘 날짜에 이번달 시작하는 요일의 getDay를 더해서 한 주를 7의 배수로 만들기
+	    var selectedDay = today.getDate();
+	    var monthFirst = first.getDay();
+	    var todayWeek = Math.ceil((selectedDay + monthFirst) / 7);
+	    
 	    var thisWeek = $('#'+todayWeek+'WeekTable').parents('.collapse');
 	    thisWeek.addClass('show');
 	    thisWeek.prev().find('i').removeClass('icofont-rounded-down').addClass('icofont-rounded-up');
-	
+		
 	    function showCalendar(){
 	        currentTitle.innerHTML = first.getFullYear() + "." + monthList[first.getMonth()];
-	        
-	        var monthCnt = 100;
-	        var cnt = 1;
-			
+	       
+	        String.prototype.format = function() {
+	            var formatted = this;
+	            for(var arg in arguments) {
+	                formatted = formatted.replace("{" + arg + "}", arguments[arg]);
+	            }
+	            return formatted;
+	        };
+	     	
 	        $.ajax({
+	        	
 	        	url: 'commuteTable.co',
-	        	success: function(data){
+	        	data: {year:first.getFullYear(), month:monthList[first.getMonth()], last:pageYear[first.getMonth()]},
+	        	success: function(map){
 	        		console.log('성공');
-	        		console.log(data);
-			        // 주 반복
-			        for(var i = 1; i < 7; i++){
-			            var $weekTable = $('#'+i+'WeekTable').find('tbody');
-			            
-			            // 일 반복
-			            for(var j = 0; j < 7; j++){
-			                var $dailyTr = document.createElement('tr');
+	        		console.log(map);
+	        		
+	     	        var cnt = 1;
+	        		// 주 반복
+	     	        for(var i = 1; i < 7; i++){
+	     	        	var $weekTable = $('#'+i+'WeekTable').find('tbody');
+	     	        	$weekTable.empty();
+	     	            // 일 반복
+	     	            for(var j = 0; j < 7; j++){
+	     	            	var $dailyTr = document.createElement('tr');
 			                $dailyTr.setAttribute('class', 'clickDaily');
 			                
 			                if((i == 1 && j >= first.getDay()) || (i != 1 && cnt <= pageYear[first.getMonth()])){
@@ -342,7 +256,7 @@
 			
 			                    $td1.textContent = (cnt < 10 ? "0" + cnt : cnt) + " " + dayList[j];
 			                
-			                    $td1.setAttribute('id', cnt);
+			                    $td1.setAttribute('id', cnt + "date");
 			                    $td2.setAttribute('id', cnt + "start");
 			                    $td3.setAttribute('id', cnt + "end");
 			                    $td4.setAttribute('id', cnt + "total");
@@ -358,10 +272,10 @@
 			                    
 			                    // 일일 시간
 			                    var $timeTr = $('<tr id="'+cnt+'daily" class="timeTr">').css('display', 'none')
-			                    var $th = $('<th colspan="6">');
-			                    var $rDiv = $('<div class="row">');
-			                    for(var k = 0; k < 24; k++){
-			                        var $div = $('<div class="col d-inline-block">').html(k < 10 ? "0" + k : k);
+			                    var $th = $('<th class="small font-weight-bold" colspan="6">');
+			                    var $rDiv = $('<div class="row" id="'+cnt+'timeDiv">');
+			                    for(var k = 00; k < 24; k++){
+			                        var $div = $('<div class="col d-inline-block" id="'+k+'time">').html(k < 10 ? "0" + k : k);
 			                        $rDiv.append($div);
 			                    }
 			                    $th.append($rDiv);
@@ -372,15 +286,66 @@
 			
 			                    cnt++;
 			                }
-			            }
-			            monthCnt++;
-			        }
+	     	            }
+	     	        }
+	        		
+	        		// Commute 데이터 붙이기
+	        		for(var i = 0; i < map.colist.length; i++){
+	        			var day = map.colist[i].enrollDate.substring(8);
+	        			var startTime = map.colist[i].commuteStart.substring(11);
+	        			var endTime = map.colist[i].commuteEnd.substring(11);
+	        			var workTime = map.colist[i].worktime;
+	        			
+	        			var detailStartTime = map.colist[i].commuteStart.substring(11, 13);
+	        			var detailEndTime = map.colist[i].commuteEnd.substring(11, 13);
+	        			
+	        			for(var j = 1; j <= 31; j++){
+	        				if(day == j){
+	        					
+	        					$('#'+j+'start').html(startTime);
+	        					$('#'+j+'end').html(endTime);
+	        					$('#'+j+'total').html(workTime);
+	        					
+	        					var workTimeSplit = workTime.toString().split('.');
+	        					var detail = (workTimeSplit.length == 2) ? '기본'+"{0}h{1}m".format(workTimeSplit[0], workTimeSplit[1]) : '기본'+"{0}h".format(workTimeSplit[0])
+	        					$('#'+j+'detail').html(detail);
+	        					
+	        					// detail 시간
+	        					var $detailStartDiv = $('#'+j+'timeDiv').children('div').eq(detailStartTime);
+	        					var $detailTimeDiv = $('#'+j+'timeDiv').children('div').eq(detailEndTime);
+	        					
+	        					var $startSpan = $('<br><span class="b-l-default small">').html('&nbsp;출근');
+	        					var $endSpan = $('<br><span class="b-l-default small">').html('&nbsp;퇴근');
+	        					$detailStartDiv.append($startSpan);
+	        					$detailTimeDiv.append($endSpan);
+	        				}
+	        			}
+					}
+	        		
+	        		// Overwork 데이터 붙이기
+	        		for(var i = 0; i < map.owlist.length; i++){
+	        			var day = map.owlist[i].overworkDate.substring(8);
+	        			var overWork = map.owlist[i].overworktime;
+	        			
+	        			for(var j = 1; j <= 31; j++){
+	        				if(day == j){
+	        					var worktime = parseFloat($('#'+j+'total').html());
+	        					var coDetail = $('#'+j+'detail').html();
+
+	        					$('#'+j+'total').html(worktime + overWork);
+
+	        					var overWorkSplit = overWork.toString().split('.');
+	        					var detail = (overWorkSplit.length == 2) ? ' / 연장'+"{0}h{1}m".format(overWorkSplit[0], overWorkSplit[1]) : ' / 연장'+"{0}h".format(overWorkSplit[0]); 
+	        					
+	        					$('#'+j+'detail').html(coDetail + detail);
+	        				}
+	        			}
+	        		}
+	        		
 	        	},
 	        	error: function(data){
 	        		console.log('실패');
 	        	}
-	        
-	        	
 	        	
 	        });
 	    };
@@ -402,24 +367,10 @@
 
 	    // 이전 버튼
 	    $('#prev').on('click', function(){
-	        var $dailyTrs = document.querySelectorAll('.clickDaily');
-	        var $timeTrs = document.querySelectorAll('.timeTr');
-	
-	        $dailyTrs.forEach(function(e){
-	            e.remove();
-	        });
-	        $timeTrs.forEach(function(e){
-	            e.remove();
-	        });
-	
 	        if(pageFirst.getMonth() === 1){
 	            pageFirst = new Date(first.getFullYear()-1, 12, 1);
 	            first = pageFirst;
-	            if(first.getFullYear() % 4 === 0){
-	                pageYear = leapYear;
-	            }else{
-	                pageYear = notLeapYear;
-	            }
+	            pageYear = (first.getFullYear() % 4 === 0) ? leapYear : notLeapYear;
 	        }else{
 	            pageFirst = new Date(first.getFullYear(), first.getMonth()-1, 1);
 	            first = pageFirst;
@@ -431,35 +382,20 @@
 	
 	    // 다음 버튼
 	    $('#next').on('click', function(){
-	        var $dailyTrs = document.querySelectorAll('.clickDaily');
-	        var $timeTrs = document.querySelectorAll('.timeTr');
-	
-	        $dailyTrs.forEach(function(e){
-	            e.remove();
-	        });
-	        $timeTrs.forEach(function(e){
-	            e.remove();
-	        });
-	
 	        if(pageFirst.getMonth() === 12){
 	            pageFirst = new Date(first.getFullYear()+1, 1, 1);
 	            first = pageFirst;
-	            if(first.getFullYear() % 4 === 0){
-	                pageYear = leapYear;
-	            }else{
-	                pageYear = notLeapYear;
-	            }
+	            pageYear = (first.getFullYear() % 4 === 0) ? leapYear : notLeapYear;
 	        }else{
 	            pageFirst = new Date(first.getFullYear(), first.getMonth()+1, 1);
 	            first = pageFirst;
 	        }
 	        today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
-	
+			
 	        showCalendar();
 	    });
 	});
 	
 </script>
-	
 </body>
 </html>

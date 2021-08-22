@@ -358,11 +358,11 @@
         
         // 현재까지 근무시간
         // percent = 현재까지 근무시간(분) / 3120 * 100  (예를 든 현재 시간은 41시간 42분. 41*60+42/52*60 * 100)
-        var totalHour = ${totalHour}
-        var totalMin = ${totalMin}
-        var percent = ((totalHour*60 + totalMin)/ 3120 * 100).toFixed(2);
+//         var totalHour = ${totalHour}
+//         var totalMin = ${totalMin}
+//         var percent = ((totalHour*60 + totalMin)/ 3120 * 100).toFixed(2);
         
-        $('#progress').css('width', percent +"%");
+//         $('#progress').css('width', percent +"%");
         
         // 출근하기
         $('#goTo').on('click', function(){
@@ -454,10 +454,12 @@
 			url: 'commuteChart.co',
 			success: function(map){
 				console.log('성공');
+				console.log(map);
 				
 				var arrWorkTime = new Array();
 				var arrOverWork = new Array();
 				var total = 0;
+				
 				
 				for(var i = 0; i < map.colist.length; i++){
 					for(var j = 0; j < 7; j++){
