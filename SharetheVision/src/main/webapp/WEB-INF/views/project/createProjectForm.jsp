@@ -28,8 +28,28 @@
 		}
 		.deleteIcon{
 			cursor:pointer;
+		}
+		.completeBtn{
+			border:0; outline:0; background-color:white;
+		}
+		.completeBtn:hover{
+			border-bottom: 1px solid black;
+			cursor:pointer;
+		}
+		.deleteBtn{
+			border:0; outline:0; background-color:white;
 		}		
-		
+		.deleteBtn:hover{
+			border-bottom: 1px solid black;
+			cursor:pointer;
+		}		
+		.progressBtn{
+			border:0; outline:0; background-color:white;
+		}
+		.progressBtn:hover{
+			border-bottom: 1px solid black;
+			cursor:pointer;
+		}
 	</style>
 	
 </head>
@@ -135,9 +155,23 @@
 			                                                   		<c:if test="${ !empty pList }">
 																		<c:forEach var="pro" items="${pList }">
 																			<c:if test="${pro.pEnd eq 'N'}">
-																		        <div class="col-md-2 m-2" style="height: 150px; border: 1px solid red; border-radius: 20px;">
-																		        	${pro.pName }<br><br><br><br><br>
-																		        	${pro.pIntro }
+																		        <div class="col-md-3 m-2" style="box-shadow: 2px 2px 1px 1px lightgray; height: 200px; border-radius: 20px; overflow: auto;">
+																		        	<input type="hidden" name="pNo" value="${pro.pNo }"/>
+																		        	${pro.pName }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																		        	<button class="completeBtn">완료</button>&nbsp;<button class="deleteBtn" >삭제</button>
+																		        	<hr style="border: solid 1px black;">
+																		        	${pro.pIntro }<br><br><br>
+																		        	<c:forEach var="mPro" items="${ pmList }">
+																			        	<c:if test="${pro.pNo eq mPro.pNo}">
+																		        			<c:if test="${ mPro.pName != null }">
+																		        				<img src="resources/muploadFile/${mPro.pName }" style="width:30px; height:30px; border-radius: 65%;"/>
+																		        			</c:if>
+																		        			<c:if test="${ mPro.pName == null }">
+																		        				<img src="resources/assets/images/defaultProfile.png" width="30px" height="30px;" />
+																		        			</c:if>
+																			        	</c:if>
+																		        	</c:forEach>
+																		        	
 																		        </div>
 																			</c:if>
 																		</c:forEach>
@@ -156,9 +190,23 @@
 			                                                   		<c:if test="${ !empty pList }">
 																		<c:forEach var="pro" items="${pList }">
 																			<c:if test="${pro.pEnd eq 'Y' }">
-																		        <div class="col-md-2 m-2" style="height: 150px; border: 1px solid red; border-radius: 20px;">
-																		        	${pro.pName }<br>
-																		        	${pro.pIntro }
+																		        <div class="col-md-3 m-2" style="box-shadow: 2px 2px 1px 1px lightgray; height: 200px; border-radius: 20px; overflow: auto;">
+																		        	<input type="hidden" name="pNo" value="${pro.pNo }"/>
+																		        	${pro.pName }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																		        	<button class="progressBtn">진행</button>&nbsp;<button class="deleteBtn" >삭제</button>
+																		        	<hr style="border: solid 1px black;">
+																		        	${pro.pIntro }<br><br><br>
+																		        	<c:forEach var="mPro" items="${ pmList }">
+																			        	<c:if test="${pro.pNo eq mPro.pNo}">
+																		        			<c:if test="${ mPro.pName != null }">
+																		        				<img src="resources/muploadFile/${mPro.pName }" style="width:30px; height:30px; border-radius: 65%;"/>
+																		        			</c:if>
+																		        			<c:if test="${ mPro.pName == null }">
+																		        				<img src="resources/assets/images/defaultProfile.png" width="30px" height="30px;" />
+																		        			</c:if>
+																			        	</c:if>
+																		        	</c:forEach>
+																		        	
 																		        </div>
 																			</c:if>
 																		</c:forEach>
@@ -302,7 +350,64 @@
 		location.replace("createProjectForm.me");
 	}
 	
-	
+	$(document).ready(function(){
+		$(".completeBtn").bind("click", function(){
+			var pNo = $(this).prev().val();
+			var condition = 1;
+			$.ajax({
+				url:"changeProject.pr",
+				data: {pNo: pNo, condition: condition},
+				success: function(data){
+					console.log(data);
+					if(data == 1){
+						location.href="createProjectForm.pr";
+					} else {
+						alert("프로젝트 완료에 실패하였습니다.");
+					}
+				}
+			});
+		});
+		
+		$(".progressBtn").bind("click", function(){
+			console.log("진행 버튼");
+			var pNo = $(this).prev().val();
+			console.log(pNo);
+			var condition = 2;
+			$.ajax({
+				url:"changeProject.pr",
+				data: {pNo: pNo, condition:condition},
+				success: function(data){
+					console.log(data);
+					if(data == 1){
+						location.href="createProjectForm.pr";
+					} else {
+						alert("프로젝트 진행에 실패하였습니다.");
+					}
+				}
+			});
+		});
+		
+		$(".deleteBtn").bind("click", function(){
+			console.log("삭제 버튼");
+			var pNo = $(this).prev().prev().val();
+			console.log(pNo);
+			var condition = 3;
+			$.ajax({
+				url:"changeProject.pr",
+				data: {pNo: pNo, condition:condition},
+				success: function(data){
+					console.log(data);
+					if(data == 1){
+						location.href="createProjectForm.pr";
+					} else {
+						alert("프로젝트 삭제에 실패하였습니다.");
+					}
+				}
+			});
+		});
+		
+		
+	})
 
 
 </script>

@@ -1,11 +1,12 @@
 package com.kh.SharetheVision.project.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.SharetheVision.project.model.dao.ProjectDAO;
 import com.kh.SharetheVision.project.model.vo.Project;
@@ -48,5 +49,16 @@ public class ProjectServiceImpl implements ProjectService{
 	public ArrayList<Project> selectProject(String mCode) {
 		return pDao.selectProject(sqlSession, mCode);
 	}
+
+	@Override
+	public ArrayList<Project> selectProjectMember(ArrayList<Project> pList) {
+		return pDao.selectProjectMember(sqlSession, pList);
+	}
+
+	@Override
+	public int changeProject(HashMap<String, Object> map) {
+		return pDao.changeProject(sqlSession, map);
+	}
+
 
 }

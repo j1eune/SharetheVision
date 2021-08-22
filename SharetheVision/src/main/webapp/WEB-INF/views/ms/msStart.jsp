@@ -19,7 +19,7 @@
 <!-- 템플릿  공통 -->
 <jsp:include page="/WEB-INF/views/common/common.jsp" />
 <!--  Messenger START  -->                    
-<div class="container bootstrap snippets bootdey" >
+<div class="container bootstrap snippets bootdey" id="toptop">
 	<div class="row">
 			<div class="portlet portlet-default">
 				<div class="portlet-heading">
@@ -27,21 +27,28 @@
 						<h4><i class="fa fa-circle text-green"></i> ${loginUser.name} 님의 SV Messenger </h4>
 					</div>
 					<div class="portlet-widgets">
-						<select class="caret" id="who">
-							<option value="" selected disabled>-- 수신인 --</option>
-							<option value="">인사팀</option>
-							<option value="">마케팅팀</option>
-							<option value="">영업팀</option>
-							<option value="">홍보팀</option>
-							<option value="">회계팀</option>
+						<select class="caret" id="dept" name="toDept">
+							<option selected disabled> 부서 </option>
+							<option value="1">인사팀</option>						
+							<option value="2">마케팅팀</option>						
+							<option value="3">생산팀</option>						
+							<option value="4">영업팀</option>						
+							<option value="5">회계팀</option>						
+						</select>
+						<select class="caret" id="toId" name="toId">
+							<option selected disabled>-- 수신인 --</option>
+							<c:forEach items="${ tolist }" var= "to"> 
+								<c:if test="${ to.name != loginUser.name}">  <!-- 본인은 제외시키기  -->
+									<option value="${ to.mId }"> ${ to.jobName } ${ to.name }</option>	
+								</c:if>
+							</c:forEach>
 						</select>
 					</div>
 					<div class="clearfix"></div>
 				</div>
 				<!--    채팅창    -->
-				<div id="chat" class="panel-collapse collapse in">
-					<div>
-					<div class="portlet-body chat-widget" style="overflow-y: auto; width: auto; height: 300px;">
+				<div id="chat" class="panel-collapse">
+					<div class="portlet-body chat-widget" style="overflow-y: auto; width: auto; height: auto;">
 						<div class="row">
 							<div class="col-lg-12">
 								<p class="text-center text-muted small">January 1, 2014 at 12:23 PM</p>
@@ -84,7 +91,7 @@
 							<div class="col-lg-12">
 								<div class="media">
 									<a class="pull-left" href="#">
-										<img class="media-object img-circle img-chat" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+										<img class="media-object img-circle img-chat" src="resources/assets/images/dp.png" alt="">
 									</a>
 									<div class="media-body">
 										<h4 class="media-heading">Jane Smith
@@ -97,15 +104,14 @@
 						</div>
 						<hr>
 					</div>
-					</div>
 					<div class="portlet-footer">
 						<div class="row" style="height: 100px !important;">
-							<div class="col-md-10">
-								<textarea id="chatContent" style="width:25em; resize:none;"rows=4 placeholder="메세지 입력"></textarea>
+							<div class="col-sm-10">
+								<textarea id="chatContent" style="width:17em; resize:none;"rows=4 placeholder="메세지 입력"></textarea>
 							</div>
-							<div class="col-md-2" style="margin-bottom: 3px !important;">
-								<button class="btn btn-sm bg-c-dblue text-c-white" onclick="submit();" id="send">File</button>
-								<button class="btn btn-sm bg-c-purple text-c-white" onclick="submit();" id="send">Send</button>
+							<div class="col-sm-2" style="margin-bottom: 3px;">
+								<button class="btn btn-sm bg-c-dblue text-c-white" onclick="" id="">File</button>
+								<button type="button" class="btn btn-sm bg-c-purple text-c-white" onclick="submitFunction();">Send</button>
 								<div class="clearfix"></div>
 							</div>
 						</div>
@@ -113,9 +119,102 @@
 				</div>
 				<!-- 채팅 창 끝 -->
 			</div>
-		<!-- /.col-md-4 -->
 	</div><!-- row -->
 </div><!-- container -->    
-<!--  Messenger END  -->            
+<!--  Messenger END  -->          
+
+<script>
+$( document ).ready(function() { 
+		
+/* 	$(function(){
+		ReadList();
+		setInterval(function(){	ReadList();	},3000); 
+	}); */
+	
+/* 	function dept(){
+		$.ajax({
+			url:'dept.ms',
+			contentType:"application/json; charset=UTF-8",
+			dataType:'json',
+			data:{ deptNo:deptNo },
+			success: function(data){
+				console.log('dept.ms success');
+				
+				$tBody = $('#tb tbody'); 
+				
+				var $tr;
+				var $id;
+				var $title;
+				var $writer;
+				var $createDate;
+				var $count;
+				var $file;
+				
+				if(data.length>0){
+					for( var i in data){
+						$tr=$('<tr>');
+							$id=$('<th>').text(data[i].boardId); 
+						$title=$('<th>').text(data[i].boardTitle)
+						$writer = $('<th>').text(data[i].boardWriter);
+						$createDate = $('<th>').text(data[i].boardCreateDate);
+						$count = $('<th>').text(data[i].boardCount);
+						$file = $('<th>').text(data[i].originalFileName);
+						if(data[i].originalFileName != null){
+							$file = $('<th>').text('O')
+						}
+						
+						$tr.append($id);
+						$tr.append($title);
+						$tr.append($writer);
+						$tr.append($createDate);
+						$tr.append($count);
+						$tr.append($file);
+						$tBody.append($tr);
+					}
+				}
+				
+			},
+			error: function(data){
+				console.log(dept.ms error);
+			}
+		});
+	} */
+	
+
+}); 
+	
+function submitFunction(){
+	var m_code2 = $('#toId option:selected').val();
+	var ms_content = $('#chatContent').val();
+
+	if(m_code2==null){
+		alert('수신인을 선택해주세요');
+	}
+	if(ms_content.trim()==''){
+		alert('메세지를 입력해주세요');
+	}
+	
+	$.ajax({
+		type : "POST",
+		url  : "msSend.ms",
+		data : {
+				'm_code2'   : m_code2,
+				'ms_content': ms_content
+		},
+		success: function(data){
+			if(data=='success'){
+				console.log("send success");
+				$('#chatContent').val('');
+			}
+		},
+		error: function(data){
+			console.log("send error");
+		}
+	});
+};
+
+</script>
+
+  
 </body>
 </html>

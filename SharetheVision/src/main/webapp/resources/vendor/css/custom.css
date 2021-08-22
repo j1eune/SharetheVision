@@ -1,6 +1,7 @@
  /*  메신저 화면  */    
- .container{
-    background-color: #cccccc !important;
+
+#chat, .portlet-heading{
+	width: 350px !important;
  }         
 .portlet {
     margin-bottom: 15px;

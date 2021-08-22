@@ -246,7 +246,7 @@
 												</div>
 												<div class="form-group">
 												    <label for="inputAddress">전화번호</label>
-												    <input type="text" class="form-control" name="phone" id="inputAddress" placeholder="'-' 을 포함한 전화번호">
+												    <input type="text" class="form-control" name="phone" id="phone" onblur="checkPhone();" placeholder="'-' 을 포함한 전화번호">
 												</div>
 												<div class="form-row">
 												    <div class="form-group col-md-3">
@@ -392,6 +392,17 @@
 			
 		}
 		
+		//전화번호 정규식
+		function checkPhone(){
+			var regExp = /^\d{3}-\d{3,4}-\d{4}$/;
+			var phone = document.getElementById("phone").value;
+			
+			var check = regExp.test(phone);
+			if(!check){
+				alert("전화번호 양식을 확인해주세요.");
+			}
+			
+		}
 		
 		function insertMember(){
 			if(emailCheck){

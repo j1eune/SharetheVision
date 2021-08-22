@@ -131,6 +131,7 @@
 																				</div>
 																			</c:if>
 																			<div>
+																				<input type="hidden" name="memberProfile" value="${attachment.atChange }" />
 																				<input type="file" id="hiddenButton" name="profile" onchange="loadProfile(this);"/>
 																			</div>
 																		</td>
