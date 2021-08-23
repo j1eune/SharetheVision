@@ -20,10 +20,27 @@
 	 ORDER BY J_NO ASC
 	</select>
 	
-	<insert id="send">
+<!-- 	<insert id="send">
 		INSERT INTO MS
 		VALUES(SEQ_MS.NEXTVAL, #{ms_content} ,TO_CHAR(SYSDATE,'YY-FMMM-DD AMHH:MI:SS'), DEFAULT, null, #{m_code}, #{m_code2})
-	</insert>
+	</insert> -->
 
-
+	<select id="selectList" >
+		SELECT *
+		FROM   MS
+		WHERE  EMO=#{roomId}
+	</select>
+	
+	<select id="RoomList" resultMap="RoomResultMap">
+		SELECT *
+		FROM   ROOM
+		WHERE  FID=#{userId} AND RSTA='Y'
+	</select>
+ 	<resultMap type="Room" id="RoomResultMap">
+		<id column="RNO" property="rno"/>
+		<result column="FID" property="fid"/>
+		<result column="TID" property="tid"/>
+		<result column="RSTA" property="rsta"/>
+	</resultMap> 
+	
 </mapper>

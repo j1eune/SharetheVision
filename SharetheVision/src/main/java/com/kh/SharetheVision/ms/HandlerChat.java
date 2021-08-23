@@ -14,7 +14,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.google.gson.Gson;
 import com.kh.SharetheVision.ms.controller.ConnectChatUserList;
-import com.kh.sharethevision.messenger.model.vo.ChatVo;
+import com.kh.SharetheVision.ms.model.vo.ChatVo;
 
 @Component
 public class HandlerChat extends TextWebSocketHandler {

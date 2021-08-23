@@ -9,8 +9,7 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.socket.WebSocketHandler;
 
-import com.kh.sharethevision.member.model.vo.Member;
-
+import com.kh.SharetheVision.member.model.vo.Member;
 
 public class HandshakeInterceptor implements org.springframework.web.socket.server.HandshakeInterceptor {
 
