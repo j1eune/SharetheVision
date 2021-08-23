@@ -27,19 +27,27 @@
 						<h4><i class="fa fa-circle text-green"></i> ${loginUser.name} 님의 SV Messenger </h4>
 					</div>
 					<div class="portlet-widgets">
-						<select class="caret" id="dept" name="toDept">
-							<option selected disabled> 부서 </option>
-							<option value="1">인사팀</option>						
-							<option value="2">마케팅팀</option>						
-							<option value="3">생산팀</option>						
-							<option value="4">영업팀</option>						
-							<option value="5">회계팀</option>						
-						</select>
 						<select class="caret" id="toId" name="toId">
 							<option selected disabled>-- 수신인 --</option>
 							<c:forEach items="${ tolist }" var= "to"> 
 								<c:if test="${ to.name != loginUser.name}">  <!-- 본인은 제외시키기  -->
-									<option value="${ to.mId }"> ${ to.jobName } ${ to.name }</option>	
+									<optgroup label="${ to.deptName } 팀 ">
+										<c:if test="${ to.deptName eq '인사'}" >
+											<option value="${ to.mId }"> ${ to.jobName } ${ to.name }</option>	
+										</c:if>
+										<c:if test="${ to.deptName eq '마케팅' }" >
+											<option value="${ to.mId }"> ${ to.jobName } ${ to.name }</option>	
+										</c:if>
+										<c:if test="${ to.deptName eq '생산'}" >
+											<option value="${ to.mId }"> ${ to.jobName } ${ to.name }</option>	
+										</c:if>
+										<c:if test="${ to.deptName eq '영업'}" >
+											<option value="${ to.mId }"> ${ to.jobName } ${ to.name }</option>	
+										</c:if>
+										<c:if test="${ to.deptName eq '회계'}" >
+											<option value="${ to.mId }"> ${ to.jobName } ${ to.name }</option>	
+										</c:if>
+									</optgroup>
 								</c:if>
 							</c:forEach>
 						</select>
@@ -213,6 +221,38 @@ function submitFunction(){
 	});
 };
 
+/* 
+var lastId = 0;
+function Readlist(){
+	var m_code2 = $('#toId option:selected').val();
+	var ms_content = $('#chatContent').val();
+
+	if(m_code2==null){
+		alert('수신인을 선택해주세요');
+	}
+	if(ms_content.trim()==''){
+		alert('메세지를 입력해주세요');
+	}
+	
+	$.ajax({
+		type : "POST",
+		url  : "msRead.ms",
+		data : {
+				'm_code2'   : m_code2,
+				'ms_content': ms_content
+		},
+		success: function(data){
+			if(data=='success'){
+				console.log("send success");
+				$('#chatContent').val('');
+			}
+		},
+		error: function(data){
+			console.log("send error");
+		}
+	});
+};
+ */
 </script>
 
   
