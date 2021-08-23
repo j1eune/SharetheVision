@@ -2,17 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="boardMapper">
 
-	<select id="selectNewNotice" resultMap="boardResultSet">
-		<![CDATA[
-			select *
-			from (select *
-				  from v_board
-				  where b_type=1 and dept_no=1 and b_status='Y'
-				  order by b_no desc)
-			where rownum <= 3
-		]]>
-	</select>
-	
 	<resultMap type="board" id="boardResultSet">
 		<id column="B_NO" property="boardNo"/>
 		<result column="B_TYPE" property="boardType"/>
@@ -26,5 +15,35 @@
 		<result column="M_NAME" property="boardWriter"/>
 		<result column="P_NAME" property="project"/>
 	</resultMap>
+
+	<select id="selectListCount" resultType="_int">
+		select count(*)
+		from board
+		where b_status = 'Y'
+	</select>
+	
+	<select id="selectBoardList" resultMap="boardResultSet">
+		select *
+		from v_board
+		where b_status = 'Y'
+		order by b_no desc
+	</select>
+
+	<select id="selectNewBoard" resultMap="boardResultSet">
+		<![CDATA[
+			select *
+			from (select *
+				  from v_board
+				  where b_type=1 and dept_no=1 and b_status='Y'
+				  order by b_no desc)
+			where rownum <= 3
+		]]>
+	</select>
+	
+	<select id="selectBoardDetail" resultMap="boardResultSet">
+		select *
+		from v_board
+		where b_status='Y' and b_no=#{bId}
+	</select>
 	
 </mapper>

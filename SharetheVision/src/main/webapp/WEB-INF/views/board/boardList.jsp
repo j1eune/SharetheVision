@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,6 +29,15 @@
    	  <jsp:include page="/WEB-INF/views/common/common.jsp"/>
   
     <style>
+
+	a {
+		text-decoration: none !important;
+		color: #303548;
+	}
+	
+	a:hover {
+		color: #303548;
+	}
 
     .boardList-wrapper {
         height: 580px;
@@ -88,10 +98,18 @@
 
     .boardList-page-box {
         position: absolute;
-        bottom: 25px;
+        bottom: -35px;
         left: 50%;
         transform: translate(-50%, -50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
     }
+    
+    .paging-btn {
+    	cursor: pointer;
+   	}
     
     .boardList-btn {
        	background-color: #660099;
@@ -106,6 +124,50 @@
        
 	.boardList-page-box i {
 	cursor: pointer;
+	}
+	
+	.project-name {
+	color: blue;
+	font-weight: 600;
+	width: 240px;
+	}
+	
+	.project-title {
+		width: 550px;
+	}
+	
+	.project-no {
+		text-align: center;
+		width: 100px;
+	}
+	
+	tbody td {
+		cursor: pointer;
+	}
+
+	.board-no-align {
+		text-align: center;
+	}
+	
+	.boardList-page-box a {
+		width: 30px;
+		height: 30px;
+		border: 1px solid #ccc;
+		margin-right: 5px;
+ 		text-align: center;
+	}
+	
+	.boardList-page-box a i,
+	.boardList-page-box a span {
+		line-height: 30px;
+	}
+	
+	.selectedPagingBtn {
+		background: #333;
+	}
+	
+	.selectedPagingBtn span {
+	color: #fff;
 	}
 
     </style>
@@ -165,17 +227,35 @@
             
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
-                    
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
                             <div class="main-body">
 
                                 <!-- 여기부터 수정 -->
                                 <div class="page-wrapper boardList-wrapper">
+                                	<!-- Page-header start -->
+                                    <div class="page-header card">
+                                        <div class="row align-items-end">
+                                            <div class="col-lg-8">
+                                                <div class="page-header-title">
+                                                    <i class="icofont icofont icofont icofont-save bg-c-pink"></i>
+                                                    <div class="d-inline">
+                                                        <h4>자료실</h4>
+                                                        <span>진행중인 프로젝트 정보를 공유하는 곳입니다.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="page-header-breadcrumb">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Page-header end -->
 
                                     <div class="card boardList-card">
                                         <div class="card-header card-header-position">
-                                            <h5>부서 공지</h5>
+                                            <h5>부서별 자료실</h5>
                                             <div class="boardList-search-position">
                                                 <div class="pcoded-search-box boardList-search-box">
                                                     <input type="text" placeholder="Search" class="boardList-search">
@@ -185,54 +265,33 @@
                                         </div>
                                         <div class="card-block table-border-style">
                                             <div class="table-responsive">
-                                                <table class="table table-hover">
+                                                <table class="table table-hover board-table">
                                                     <thead>
                                                         <tr>
                                                             <th></th>
-                                                            <th>First Name</th>
-                                                            <th>Last Name</th>
-                                                            <th>Username</th>
+                                                            <th>프로젝트 명</th>
+                                                            <th>제목</th>
+                                                            <th>작성자</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>Mark</td>
-                                                            <td>Otto</td>
-                                                            <td>@mdo</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">2</th>
-                                                            <td>Jacob</td>
-                                                            <td>Thornton</td>
-                                                            <td>@fat</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">3</th>
-                                                            <td>Larry</td>
-                                                            <td>the Bird</td>
-                                                            <td>@twitter</td>
-                                                        </tr><tr>
-                                                            <th scope="row">4</th>
-                                                            <td>Larry</td>
-                                                            <td>the Bird</td>
-                                                            <td>@twitter</td>
-                                                        </tr><tr>
-                                                            <th scope="row">5</th>
-                                                            <td>Larry</td>
-                                                            <td>the Bird</td>
-                                                            <td>@twitter</td>
-                                                        </tr><tr>
-                                                            <th scope="row">6</th>
-                                                            <td>Larry</td>
-                                                            <td>the Bird</td>
-                                                            <td>@twitter</td>
-                                                        </tr><tr>
-                                                            <th scope="row">7</th>
-                                                            <td>Larry</td>
-                                                            <td>the Bird</td>
-                                                            <td>@twitter</td>
-                                                        </tr>
+                                                       <c:if test="${ empty list }">
+	                                                    	<c:forEach var="board" items="${ board }">
+		                                                        <tr>
+		                                                        <c:url var="boardDetail" value="boardDetail.bo">
+		                                                        </c:url>
+		                                                            <td scope="row" class="board-no-align">${ board.boardNo }</td>
+		                                                            <td class="project-name-color">[ SharetheVision ]</td>
+		                                                            <td>${ board.boardTitle }</td>
+		                                                            <td>장원형</td>
+		                                                        </tr>
+	                                                        </c:forEach>
+                                                        </c:if>
+                                                        <c:if test="${ !empty list }">
+                                                        	<tr>
+                                                        		<td colspan="4" class="emptyList">등록된 게시물이 없습니다.</td>
+                                                        	</tr>
+                                                        </c:if>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -244,11 +303,65 @@
                                     </div>
 
                                     <div class="boardList-page-box">
-                                        <i class="ti-angle-double-left"></i>
-                                        <i class="ti-angle-left"></i>
-                                        페이징
-                                        <i class="ti-angle-right"></i>
-                                        <i class="ti-angle-double-right"></i>
+										<!-- 처음으로 가는 버튼 -->
+                                    	<c:if test="${ pi.currentPage <= 1 }">
+                                        	<a><i class="ti-angle-double-left paging-btn"></i></a>
+                                    	</c:if>
+                                    	
+                                    	<c:if test="${ pi.currentPage > 1 }">
+                                    		<c:url value="boardList.bo" var="firstList">
+                                    			<c:param name="page" value="1"/>
+                                    		</c:url>
+                                        	<a href="${ firstList }"><i class="ti-angle-double-left paging-btn"></i></a>
+                                    	</c:if>
+                                    	
+										<!-- 이전페이지 -->
+										<c:if test="${ pi.currentPage <= 1 }">
+	                                        <a><i class="ti-angle-left paging-btn"></i></a>
+										</c:if>      
+										                                  
+										<c:if test="${ pi.currentPage > 1 }">
+											<c:url value="boardList.bo" var="beforeList">
+												<c:param name="page" value="${ pi.currentPage - 1 }"></c:param>
+											</c:url>
+											<a href="${ beforeList }"><i class="ti-angle-left"></i></a>
+    									</c:if>                                    
+                                        
+                                        <!-- 페이징 -->
+                                        <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                                        	<c:if test="${ p eq pi.currentPage }">
+                                        		<a class="selectedPagingBtn"><span>${ p }</span></a>
+                                        	</c:if>
+                                        	
+                                        	<c:if test="${ p ne pi.currentPage }">
+	                                        	<c:url var="pagination" value="boardList.bo">
+	                                        		<c:param name="page" value="${ p }"/>
+	                                        	</c:url>
+		                                      	<a href="${ pagination }"><span>${ p }</span></a>
+	                                      	</c:if>
+                                        </c:forEach>
+                                      	
+                                      	<!-- 다음페이지 -->
+                                      	<c:if test="${ pi.currentPage == pi.maxPage }">
+	                                        <a><i class="ti-angle-right"></i></a>
+                                      	</c:if>
+                                      	<c:if test="${ pi.currentPage != pi.maxPage }">
+                                      		<c:url value="boardList.bo" var="nextList">
+                                      			<c:param name="page" value="${ pi.currentPage + 1 }"></c:param>
+                                      		</c:url>
+                                      		<a href="${ nextList }"><i class="ti-angle-right"></i></a>
+                                      	</c:if>
+                                      	
+										<!-- 끝으로 가는 버튼 -->
+										<c:if test="${ pi.currentPage == pi.maxPage }">
+                                        	<a><i class="ti-angle-double-right"></i></a>
+										</c:if>
+										<c:if test="${ pi.currentPage != pi.maxPage }">
+											<c:url value="boardList.bo" var="lastList">
+												<c:param name="page" value="${ pi.maxPage }"></c:param>
+											</c:url>
+											<a href="${ lastList }"><i class="ti-angle-double-right"></i></a>
+										</c:if>                                        
                                     </div>
 
                                     
@@ -303,6 +416,15 @@ var nav = $('.fixed-button');
          nav.removeClass('active');
      }
  });
+</script>
+<script>
+ 	$(function(){
+ 		$('.board-table').find("td").click(function() {
+ 			var bId = $(this).parents().children("td").eq(0).text();
+ 			
+ 			location.href="boardDetail.bo?bId="+bId;
+ 		});
+ 	});
 </script>
 </body>
 

@@ -28,45 +28,60 @@
 	<jsp:include page="/WEB-INF/views/common/common.jsp"/>
 
 <style>
-
-.card-box {
-    width: 1171.6px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.card-half {
-    width: 570px;
-    margin-bottom: 0;
-}
-
-.more-btn-box {
-	width: 73px;
-}
-
-.card .card-header .card-header-right i {
-	margin: 0 5px;
-}
-
-.project-name {
-	color: blue;
-	font-weight: 600;
-	width: 240px;
-}
-
-.project-title {
-	width: 550px;
-}
-
-.project-no {
-	text-align: center;
-	width: 100px;
-}
-
-tbody td {
-	cursor: pointer;
-}
+	
+	.card-box {
+	    width: 1171.6px;
+	    display: flex;
+	    flex-direction: row;
+	    justify-content: space-between;
+	}
+	
+	.card-half {
+	    width: 570px;
+	    margin-bottom: 0;
+	}
+	
+	.more-btn-box {
+		width: 73px;
+	}
+	
+	.card .card-header .card-header-right i {
+		margin: 0 5px;
+	}
+	
+	.project-name {
+		width: 240px;
+	}
+	
+	.project-name-color {
+		color: blue;
+		font-weight: 600;
+	}
+	
+	.project-title {
+		width: 550px;
+	}
+	
+	.project-no {
+		text-align: center;
+		width: 100px;
+	}
+	
+	tbody td {
+		cursor: pointer;
+	}
+	
+	.emptyList {
+		text-align: center;
+		pointer-events: none;
+		color: #666;
+		height: 60px;
+		line-height: 60px;	
+	}
+	
+	.board-no-align {
+		text-align: center;
+	}
 
 </style>
 
@@ -163,9 +178,9 @@ tbody td {
                                                 <table class="table table-hover board-table">
                                                     <thead>
                                                         <tr>
-                                                            <th></th>
-                                                            <th>프로젝트 명</th>
-                                                            <th>제목</th>
+                                                            <th class="project-no"></th>
+                                                            <th class="project-name">프로젝트 명</th>
+                                                            <th class="project-title">제목</th>
                                                             <th>작성자</th>
                                                         </tr>
                                                     </thead>
@@ -174,18 +189,17 @@ tbody td {
 	                                                    	<c:forEach var="board" items="${ board }">
 		                                                        <tr>
 		                                                        <c:url var="boardDetail" value="boardDetail.bo">
-		                                                        	<%-- <c:param name="boardId" value="${ b.boardId }"/> --%>
 		                                                        </c:url>
-		                                                            <td scope="row" class="project-no">${ board.boardNo }</td>
-		                                                            <td class="project-name">[ SharetheVision ]</td>
-		                                                            <td class="project-title">${ board.boardTitle }</td>
+		                                                            <td scope="row" class="board-no-align">${ board.boardNo }</td>
+		                                                            <td class="project-name-color">[ SharetheVision ]</td>
+		                                                            <td>${ board.boardTitle }</td>
 		                                                            <td>장원형</td>
 		                                                        </tr>
 	                                                        </c:forEach>
                                                         </c:if>
                                                         <c:if test="${ !empty list }">
                                                         	<tr>
-                                                        		<td>비어있음
+                                                        		<td colspan="4" class="emptyList">등록된 게시물이 없습니다.</td>
                                                         	</tr>
                                                         </c:if>
                                                     </tbody>
@@ -208,36 +222,25 @@ tbody td {
                                                 <table class="table table-hover board-table">
                                                     <thead>
                                                         <tr>
-                                                            <th></th>
-                                                            <th>프로젝트 명</th>
-                                                            <th>제목</th>
+                                                            <th class="project-no"></th>
+                                                            <th class="project-name">프로젝트 명</th>
+                                                            <th class="project-title">제목</th>
                                                             <th>작성자</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
                                                         <c:url var="boardDetail" value="boardDetail.bo">
-                                                        	<%-- <c:param name="boardId" value="${ b.boardId }"/> --%>
                                                         </c:url>
-                                                            <td scope="row" class="project-no">1</td>
-                                                            <td class="project-name">[ SharetheVision ]</td>
-                                                            <td class="project-title">SV 프로젝트 자료1</td>
+                                                            <td scope="row" class="board-no-align">1</td>
+                                                            <td class="project-name-color">[ SharetheVision ]</td>
+                                                            <td>SV 프로젝트 자료1</td>
                                                             <td>장원형</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td scope="row" class="project-no">2</td>
-                                                            <td class="project-name">[ PROJECT ]</td>
-                                                            <td class="project-title">프로젝트</td>
-                                                            <td>스폰지밥</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td scope="row" class="project-no">3</td>
-                                                            <td class="project-name">[ 어떤가요 ]</td>
-                                                            <td class="project-title">알ㄹ라랄</td>
-                                                            <td>룰룰룰루루</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
+                                                
+                                                
                                             </div>
                                         </div>
                                        </div>
