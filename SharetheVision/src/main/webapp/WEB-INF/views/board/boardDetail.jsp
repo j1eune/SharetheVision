@@ -35,11 +35,12 @@
             width: 100%;
             height: 550px;
             padding: 20px;
+            position: relative;
         }
 
         .boardDetail-title {
             font-size: 32px;
-            padding: 25px 15px;
+            padding: 35px 15px;
         }
 
         .boardDetail-card {
@@ -78,6 +79,51 @@
         	background-color: #aa00ff;
         	border-color: #aa00ff;
         }
+        
+        .boardDetail-boardInfo {
+        	font-size: 14px;
+        	color: #444;
+        	padding-left: 15px;
+        	display: flex;
+        	flex-direction: row;
+       	    position: absolute;
+		    transform: translate(-50%, -50%);
+		    top: 26.5%;
+		    left: 7%;
+        }
+        
+        .board-flex-column {
+        	display: flex;
+			flex-direction: column;
+        }
+		
+		.board-writer {
+			margin-bottom: 5px;
+		}
+		
+		.board-date {
+			font-size: 12px;
+			margin-bottom: 0;
+		}
+		
+		
+		.boardDetail-writer-img {
+			width: 46.6px;
+			height: 46.6px;
+			border: 1px solid #ccc;
+			border-radius: 50%;
+			margin-right: 10px;
+			text-align: center;
+		}
+		
+		.boardDetail-writer-img i {
+			color: #ccc;
+			font-size: 24px;
+			width: 46.6px;
+			height: 46.6px;
+			line-height: 46.6px;
+		}
+		        
     </style>
 
 </head>
@@ -144,8 +190,15 @@
                                     <div class="card boardDetail-card">
                                         <div class="boardDetail-box">
                                             <div class="boardDetail-title">
-                                            	<span class="boardDetail-project-name">[SharetheVision]</span>SV프로젝트 관련자료1
+                                            	<div><span class="boardDetail-project-name">[ ${ board.project } ]</span>${ board.boardTitle }</div>
                                            	</div>
+                                           	<div class="boardDetail-boardInfo">
+												<div class="boardDetail-writer-img"><i class="ti-user"></i></div>
+                                           		<div class="boardDetail-flex-column">
+	                                           		<p class="board-writer">장원형</p>
+	                                           		<p class="board-date">${ board.boardCreateDate }</p>
+                                           		</div>
+                                      		</div>
                                             <!-- Nav tabs -->
                                             <ul class="nav nav-tabs  tabs boardDetail-tabs" role="tablist">
                                                 <li class="nav-item">
@@ -168,13 +221,19 @@
                                             <div class="tab-content tabs card-block boardDetail-content-box">
                                                 <div class="tab-pane boardDetail-content active" id="home1"
                                                     role="tabpanel">
-                                                    <p class="m-0">1. This is Photoshop's version of Lorem IpThis is
-                                                        Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit
-                                                        auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor,
-                                                        nisi elit consequat ipsum, nec sagittis sem nibh id elit. Lorem
-                                                        ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-                                                        commodo ligula eget dolor. Aenean mas Cum sociis natoque
-                                                        penatibus et magnis dis.....</p>
+                                                    <p class="m-0">${ board.boardContent }</p>
+                                                    <div class="boardDetail-btn-box">
+                                                    	<c:url var="addScrap" value="addScrap.bo">
+                                                    		<c:param name="title" value="${ board.boardTitle }"></c:param>
+                                                    		<!-- 프로젝트 추가하면 주석 삭제 -->
+<%--                                                     		<c:param name="project" value="${ project.projectName }"></c:param> --%>
+                                                    		<c:param name="writer" value="${ board.boardWriter }"></c:param>
+                                                    	</c:url>
+                                                        <a href="${ addScrap }">
+                                                        	<button type="button" id="boardDetailFileUploadBtn"
+                                                            class="btn boardDetail-btn">스크랩하기</button>
+                                                    	</a>
+                                                    </div>
                                                 </div>
                                                 <div class="tab-pane boardDetail-content" id="profile1" role="tabpanel">
                                                     <p class="m-0">등록된 첨부파일이 없습니다.</p>

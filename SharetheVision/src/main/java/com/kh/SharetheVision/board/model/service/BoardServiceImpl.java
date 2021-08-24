@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.kh.SharetheVision.board.model.dao.BoardDAO;
 import com.kh.SharetheVision.board.model.vo.Board;
+import com.kh.SharetheVision.board.model.vo.PageInfo;
+import com.kh.SharetheVision.project.model.vo.Project;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -19,8 +21,28 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDAO DAO;
 
 	@Override
-	public ArrayList<Board> newNotice() {
-		return DAO.newNotice(sqlSession);
+	public ArrayList<Board> newBoard() {
+		return DAO.newBoard(sqlSession);
+	}
+
+	@Override
+	public Board selectBoardDetail(int bId) {
+		return DAO.selectBoardDetail(sqlSession, bId);
+	}
+
+	@Override
+	public int getListCount() {
+		return DAO.selectListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Board> selectBoardList(PageInfo pi) {
+		return DAO.selectBoardLisct(sqlSession, pi);
+	}
+
+	@Override
+	public ArrayList<Project> selectProjectList(int deptNo) {
+		return DAO.selectProjectList(sqlSession, deptNo);
 	}
 	
 }

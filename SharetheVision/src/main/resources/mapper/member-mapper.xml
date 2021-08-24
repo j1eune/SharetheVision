@@ -33,8 +33,9 @@
 		<result column="M_EMAIL" property="email"/>
 		<result column="M_STATE" property="mState"/>
 		<result column="ADMIN_NAME" property="adminName"/>
-		<result column="DEPT_NAME" property="jobName"/>
-		<result column="J_NAME" property="deptName"/>
+		<result column="DEPT_NAME" property="deptName"/>
+		<result column="J_NAME" property="jobName"/>
+		<result column="DEPT_NO" property="deptNo"/>
 		<result column="M_ID" property="mId"/>
 	</resultMap>
 
@@ -49,6 +50,9 @@
 	<select id="loginMember" resultMap="selectMemberResult">
 		SELECT *
 		FROM MEMBER
+			LEFT JOIN JOB USING(J_NO)
+			LEFT JOIN ADMIN USING(ADMIN_NO)
+			LEFT JOIN DEPARTMENT USING(DEPT_NO)
 		WHERE M_STATUS='Y' AND M_ID=#{mId}
 	</select>
 	

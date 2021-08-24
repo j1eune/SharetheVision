@@ -31,7 +31,7 @@ import com.kh.SharetheVision.member.model.exception.MemberException;
 import com.kh.SharetheVision.member.model.service.MemberService;
 import com.kh.SharetheVision.member.model.vo.Member;
 
-@SessionAttributes("loginUser")
+@SessionAttributes({"loginUser","userAttach"})
 @Controller
 public class MemberController {
 	
@@ -56,11 +56,13 @@ public class MemberController {
 	public String login(@ModelAttribute Member m, Model model) throws MemberException {
 
 		Member member = mService.loginMember(m);
+		Attachment attachment = aService.selectProfile(member.getmCode());
 		
 		boolean check = bcrypt.matches(m.getPwd(), member.getPwd());
 		
 		if(check) {
 			model.addAttribute("loginUser",member);
+			model.addAttribute("userAttach",attachment);
 		} else {
 			throw new MemberException("로그인에 실패하였습니다.");
 		}
