@@ -46,7 +46,7 @@ public class MsController {
 		return "msStart";
 	}
 	
-	@RequestMapping(value = "chatting.do", method = RequestMethod.GET)
+	@RequestMapping(value = "chatting.ms", method = RequestMethod.GET)
 	public String home(HttpSession session, Locale locale, Model model) {
 		System.out.println("Welcome home! The client locale is {}."+ locale);
 		//아이디받아오기
@@ -73,7 +73,7 @@ public class MsController {
 	
 	//
 	@ResponseBody
-	@RequestMapping(value="{roomId}.do")
+	@RequestMapping(value="{roomId}.ms")
 	    public void messageList(@PathVariable int roomId, String userId, Model model, HttpServletResponse response) throws JsonIOException, IOException {
 	        
 	        List<Messenger> mList = msService.messageList(roomId);
@@ -94,7 +94,7 @@ public class MsController {
 
 	
 	@ResponseBody
-    @RequestMapping("createChat.do")
+    @RequestMapping("createChat.ms")
     public String createChat(Room r, String userId, String toId){
         System.out.println("create chat.do IN");
 		Room exist  =  (Room)msService.chatRoomList(userId);
@@ -120,15 +120,14 @@ public class MsController {
         }
     }
 	
-	@RequestMapping("chatRoomList.do")
+	@RequestMapping("chatRoomList.ms")
     public void createChat(Room room, ChatVo message, String userId, HttpServletResponse response) throws JsonIOException, IOException{
-       System.out.println("chatRoomList.do IN");
 		List<Room> msList = msService.chatRoomList(userId);
-        System.out.println(" msList.size():"+ msList.size());
         for(int i = 0; i < msList.size(); i++) {
         	message.setRoomId(msList.get(i).getRno());
         	message.setUserId(msList.get(i).getTid());
 	        message.setCount(1);
+	        System.out.println(" message.count:"+ message.count);
         }
         
         response.setContentType("application/json; charset=utf-8");
@@ -138,7 +137,7 @@ public class MsController {
     
 	
 	@ResponseBody
-	@RequestMapping(value = "chatstatus.do", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "chatstatus.ms", method = {RequestMethod.GET, RequestMethod.POST})
 	public void chatStatus(Locale locale, Model model,HttpServletRequest req, int chatstat) {
 		System.out.println("채팅 상태 ing {}."+ chatstat);	
 		req.getSession().setAttribute("chatstatus", chatstat);

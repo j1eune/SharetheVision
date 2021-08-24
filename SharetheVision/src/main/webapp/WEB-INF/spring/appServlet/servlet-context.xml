@@ -32,8 +32,7 @@
 		<!-- <bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/> -->
 		</websocket:handshake-interceptors>
         <websocket:sockjs websocket-enabled="true" />
-    </websocket:handlers>
-    
+    </websocket:handlers>   
     <beans:bean id="handlerChat" class="com.kh.SharetheVision.ms.HandlerChat" />
 	
 	

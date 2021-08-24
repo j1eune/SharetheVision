@@ -2,7 +2,12 @@
 
 #chat, .portlet-heading{
 	width: 350px !important;
- }         
+ }  
+ 
+.chatContainer{
+	display:none;
+}
+        
 .portlet {
     margin-bottom: 15px;
 }
@@ -139,12 +144,14 @@ height:40px;
 .row{
     flex-wrap: nowrap !important;
 }
-.btn-sm{
-    margin: 6px 0 6px -10px !important;
+
+.btn-mat{
+    width: 55px !important;
+    height: 40px !important;
+    margin-bottom: 3px;
 }
 .bg-c-dblue{
     background-color: #263364;
-    width: 57px !important;
 }
 
 .toggler {
@@ -154,10 +161,7 @@ height:40px;
 	width: 240px;
 	height: auto;
 }
-#button {
-	padding: .5em 1em;
-	text-decoration: none;
-}
+
 #effect {
 	position: relative;
 	width: 240px;
@@ -180,12 +184,12 @@ height:40px;
 	overflow: auto;
 }
 .mychat {
-	margin: 0;
+	margin: 5px;
 	color: blue;
 	text-align:right;
 }
 .otherchat {
-	margin: 0;
+	margin: 5px;
 }
 .alertchat {
 	margin: 0;
