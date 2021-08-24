@@ -17,6 +17,7 @@
 		<typeAlias alias="Project" type="com.kh.SharetheVision.project.model.vo.Project"/>
 		<typeAlias alias="Attachment" type="com.kh.SharetheVision.attachments.model.vo.Attachment"/>
 		<typeAlias alias="Messenger" type="com.kh.SharetheVision.ms.model.vo.Messenger"/>
+		<typeAlias alias="Room" type="com.kh.SharetheVision.ms.model.vo.Room"/>
 	</typeAliases>
 	
 	

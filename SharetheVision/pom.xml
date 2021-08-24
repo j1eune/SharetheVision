@@ -234,6 +234,34 @@
 		 <version>${org.springframework-version}</version>
 	  </dependency>
 	  
+<!-- 	  	https://mvnrepository.com/artifact/org.springframework/spring-messaging
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-messaging</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+	
+		jackson
+		https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl
+		<dependency>
+		    <groupId>org.codehaus.jackson</groupId>
+		    <artifactId>jackson-mapper-asl</artifactId>
+		    <version>1.9.13</version>
+		</dependency> -->
+		
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.11.3</version>
+		</dependency>
+		
+		
+		<!--  WebSocket -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-websocket</artifactId>
+		    <version>5.2.4.RELEASE</version>
+		</dependency>
       
       
    </dependencies>
