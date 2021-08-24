@@ -17,4 +17,5 @@ public interface MsService {
 
 	List<Messenger> messageList(int roomId);
 
+	int insertRoom(Room r);
 }

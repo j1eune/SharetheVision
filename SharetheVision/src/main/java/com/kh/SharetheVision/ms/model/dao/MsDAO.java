@@ -28,6 +28,9 @@ public class MsDAO {
 	public List<Messenger> selectMList(SqlSessionTemplate sqlSession, int roomId) {
 		return sqlSession.selectList("msMapper.selectList",roomId);
 	}
+	public int insertRoom(SqlSessionTemplate sqlSession, Room r) {
+		return sqlSession.insert("msMapper.insertRoom",r);
+	}
 	
 	
 }

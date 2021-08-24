@@ -41,6 +41,11 @@ public class MsServiceImple implements MsService{
 		return msdao.selectMList(sqlSession,roomId);
 	}
 
+	@Override
+	public int insertRoom(Room r) {
+		return msdao.insertRoom(sqlSession, r);
+	}
+
 	
 	
 }

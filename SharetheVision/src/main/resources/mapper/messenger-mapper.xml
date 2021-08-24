@@ -25,16 +25,25 @@
 		VALUES(SEQ_MS.NEXTVAL, #{ms_content} ,TO_CHAR(SYSDATE,'YY-FMMM-DD AMHH:MI:SS'), DEFAULT, null, #{m_code}, #{m_code2})
 	</insert> -->
 
-	<select id="selectList" >
+		<select id="selectList" resultMap="MsResultMap">
 		SELECT *
-		FROM   MS
-		WHERE  EMO=#{roomId}
+		  FROM MS
+		 WHERE EMO=#{roomId}
 	</select>
+	<resultMap type="Messenger" id="MsResultMap">
+		<id column="MS_NO" property="ms_no"/>
+		<result column="MS_CONTENT" property="ms_content"/>
+		<result column="MS_TIME" property="ms_time"/>
+		<result column="EMO" property="emo"/>
+		<result column="MS_FILE" property="ms_file"/>
+		<result column="M_CODE" property="m_code"/>
+		<result column="M_CODE2" property="m_code2"/>
+	</resultMap>
 	
 	<select id="RoomList" resultMap="RoomResultMap">
 		SELECT *
-		FROM   ROOM
-		WHERE  FID=#{userId} AND RSTA='Y'
+		  FROM ROOM
+		 WHERE FID=#{userId} AND RSTA='Y'
 	</select>
  	<resultMap type="Room" id="RoomResultMap">
 		<id column="RNO" property="rno"/>
@@ -42,5 +51,10 @@
 		<result column="TID" property="tid"/>
 		<result column="RSTA" property="rsta"/>
 	</resultMap> 
+	
+	<insert id="insertRoom">
+		INSERT INTO ROOM
+		VALUES ( SEQ_RNO.NEXTVAL, #{fid}, #{tid}, DEFAULT)
+	</insert>
 	
 </mapper>
