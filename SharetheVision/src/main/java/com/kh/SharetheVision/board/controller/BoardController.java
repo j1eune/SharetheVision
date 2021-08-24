@@ -13,6 +13,7 @@ import com.kh.SharetheVision.board.model.service.BoardService;
 import com.kh.SharetheVision.board.model.vo.Board;
 import com.kh.SharetheVision.board.model.vo.PageInfo;
 import com.kh.SharetheVision.board.model.vo.Pagination;
+import com.kh.SharetheVision.project.model.vo.Project;
 
 @Controller
 public class BoardController {
@@ -24,8 +25,7 @@ public class BoardController {
 	public String board(Model model) {
 		
 		ArrayList<Board> list = service.newBoard();
-		System.out.println(list);
-		
+//		System.out.println(list);
 		model.addAttribute("board", list);
 		
 		return "board";
@@ -35,9 +35,6 @@ public class BoardController {
 	public String boardDetail(@RequestParam("bId") int bId, Model model) {
 		
 		Board board = service.selectBoardDetail(bId);
-		
-		System.out.println("bId : " + bId);
-		System.out.println("boardDetail : " + board);
 		
 		model.addAttribute("board", board);
 		
@@ -54,12 +51,10 @@ public class BoardController {
 		}
 		
 		int listCount = service.getListCount();
-		System.out.println("listCount : " + listCount);
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Board> list = service.selectBoardList(pi);
-		System.out.println("list : " + list);
 		if (list != null) {
 			mv.addObject("board", list).addObject("pi", pi);
 			mv.setViewName("boardList");
@@ -70,5 +65,20 @@ public class BoardController {
 		return mv;
 	}
 	
+	@RequestMapping("boardInsertForm.bo")
+	public String boardInsertForm(@RequestParam(value="deptNo") int deptNo, Model model) {
+		
+		ArrayList<Project> list = service.selectProjectList(deptNo);
+		
+//		System.out.println(list);
+		
+		model.addAttribute("project", list);
+		
+		return "boardInsert";
+	}
 	
+	@RequestMapping("addScrap.bo")
+	public String addScrap() {
+		return "";
+	}
 }

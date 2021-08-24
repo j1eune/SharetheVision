@@ -123,13 +123,11 @@
 	}
        
 	.boardList-page-box i {
-	cursor: pointer;
+		cursor: pointer;
 	}
 	
 	.project-name {
-	color: blue;
-	font-weight: 600;
-	width: 240px;
+		width: 240px;
 	}
 	
 	.project-title {
@@ -164,10 +162,16 @@
 	
 	.selectedPagingBtn {
 		background: #333;
+		border-color: #333;
 	}
 	
 	.selectedPagingBtn span {
 	color: #fff;
+	}
+	
+	.project-name-color {
+		color: blue;
+		font-weight: 600;
 	}
 
     </style>
@@ -281,7 +285,7 @@
 		                                                        <c:url var="boardDetail" value="boardDetail.bo">
 		                                                        </c:url>
 		                                                            <td scope="row" class="board-no-align">${ board.boardNo }</td>
-		                                                            <td class="project-name-color">[ SharetheVision ]</td>
+		                                                            <td class="project-name-color">[ ${ board.project } ]</td>
 		                                                            <td>${ board.boardTitle }</td>
 		                                                            <td>장원형</td>
 		                                                        </tr>
@@ -299,7 +303,10 @@
                                     </div>
                                     
                                     <div class="boardList-btn-box">
-                                        <button type="button" class="btn btn-primary boardList-btn">작성하기</button>
+                                    	<c:url var="boardInsertForm" value="boardInsertForm.bo">
+                                        	<c:param name="deptNo" value="${ loginUser.deptNo }"/>
+                                        </c:url>
+                                        <a href="${ boardInsertForm }"><button type="button" class="btn btn-primary boardList-btn">작성하기</button></a>
                                     </div>
 
                                     <div class="boardList-page-box">

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.SharetheVision.board.model.vo.Board;
 import com.kh.SharetheVision.board.model.vo.PageInfo;
+import com.kh.SharetheVision.project.model.vo.Project;
 
 public interface BoardService {
 
@@ -14,5 +15,7 @@ public interface BoardService {
 	int getListCount();
 
 	ArrayList<Board> selectBoardList(PageInfo pi);
+
+	ArrayList<Project> selectProjectList(int deptNo);
 
 }
