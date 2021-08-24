@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <nav class="navbar header-navbar pcoded-header" style="background-color: #660099; box-shadow: 3px 3px 3px 1px #C0C0C0;">
     <div class="navbar-wrapper" >
         <div class="navbar-logo" style="background-color: #660099;">
@@ -20,9 +21,9 @@ pageEncoding="UTF-8"%>
         <div class="navbar-container container-fluid">
             <ul class="nav-left">
             </ul>
-            <ul class="nav-right">    
+            <ul class="nav-right">
                 <li class="header-notification">
-                    <span class="text-c-white">알림 메세지 ( ) 건 </span>
+                    <span class="text-c-white" style="cursor:pointer" onclick="meeting();">알림 메세지 ( ) 건 </span>
                 </li>            
                 <li class="header-notification">
                     <a href="#!">
@@ -91,7 +92,12 @@ pageEncoding="UTF-8"%>
                 <!-- top right 프로필-->
                 <li class="user-profile header-notification">
                     <a href="#!">
-                        <img src="resources/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
+						<c:if test="${userAttach != null}">
+							<img style="width: 45px; height: 45px; border-radius:65%;" class="profileImg" src="resources/muploadFile/${userAttach.atChange }"/>
+						</c:if>
+						<c:if test="${userAttach == null }">
+							<img style="width: 45px; height: 45px; border-radius:65%;" src="resources/assets/images/defaultProfile.png">
+						</c:if>
                         <span class="text-c-white"> ${loginUser.name} 님</span>
                         <i class="ti-angle-down text-c-white"></i>
                     </a>

@@ -1,16 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<style>
+	.profileImg{
+		width:100%;
+		height:100%;
+		object-fit: fill;
+	}
+	
+	.profileBox{
+		width: 45px;
+		height: 45px;
+		overflow:hidden;
+		border-radius: 65%;
+	}
+</style>
 <nav class="pcoded-navbar">
     <div style="height: 100px;"></div>
     <div class="pcoded-inner-navbar main-menu">
 		<div class="">
 			<div class="main-menu-header">
-				<img class="img-40 img-radius" src="resources/assets/images/avatar-4.jpg"
-					alt="User-Profile-Image">
+				<div class="profileBox">
+					<c:if test="${userAttach != null}">
+						<img class="profileImg" src="resources/muploadFile/${userAttach.atChange }"/>
+					</c:if>
+					<c:if test="${userAttach == null }">
+						<img class="profileImg" src="resources/assets/images/defaultProfile.png">
+					</c:if>
+				</div>
 				<div class="user-details">
 					<span>${loginUser.name} 님</span>
-                     <span id="more-details"><i class="ti-angle-down"></i> &nbsp; ${loginUser.mId}</span>
+                     <span id="more-details">${loginUser.deptName}팀&nbsp;${loginUser.jobName }&nbsp;<i class="ti-angle-down"></i></span> 
                                                                      <!-- 부서 + 직급 (테스트로 아이디넣어봤습니다)-->
 				</div>
 			</div>

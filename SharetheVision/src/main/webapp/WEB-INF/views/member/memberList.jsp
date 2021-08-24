@@ -129,7 +129,7 @@
                                             <div class="col-sm-12">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <table class="table table-hover" id="memberTable">
+                                                        <table class="table" id="memberTable">
                                                         	<thead>
 	                                                        	<tr>
 	                                                        		<th style="width:10%; text-align:center;">이름</th>
