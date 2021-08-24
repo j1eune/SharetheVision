@@ -51,4 +51,9 @@ public class CommuteServiceImpl implements CommuteService{
 		return coDAO.commuteDay(sqlSession, memberNo);
 	}
 
+	@Override
+	public int insertOverwork(Overwork ow) {
+		return coDAO.insertOverwork(sqlSession, ow);
+	}
+
 }

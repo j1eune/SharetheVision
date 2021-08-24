@@ -55,7 +55,7 @@
 	
 	.commuteClick{border: 2px solid gray; color: gray;}
 	
- 	.ui-widget-header .ui-icon { background-image: url('/images/btns.png'); }
+/*  	.ui-widget-header .ui-icon { background-image: url('/images/btns.png'); } */
  	
 </style>
 <jsp:include page="../common/common.jsp" />
@@ -116,35 +116,25 @@
 		                                                    <div class="card-header-right">
 		                                                        <ul class="list-unstyled card-option">
 		                                                            <li><i class="icofont icofont-simple-left"></i></li>
-		                                                            <li><i class="icofont icofont-maximize full-card"></i></li>
+<!-- 		                                                            <li><i class="icofont icofont-maximize full-card"></i></li> -->
+		                                                            <li id="overworkFull"><i class="icofont icofont-maximize"></i></li>
 		                                                            <li><i class="icofont icofont-minus minimize-card"></i></li>
-		                                                            <li><i class="icofont icofont-refresh reload-card"></i></li>
+		                                                            <li id="overworkReload"><i class="icofont icofont-refresh"></i></li>
 		                                                            <li><i class="icofont icofont-ui-edit overwork-card"></i></li>
 		                                                        </ul>
 		                                                    </div>
 		                                                </div>
 		                                                <div class="card-block p-b-10">
 		                                                    <div class="table-responsive">
-		                                                        <table class="table table-hover">
+		                                                        <table class="table table-hover" id="overworkTable">
 		                                                            <thead>
 		                                                                <tr>
 		                                                                    <th>날짜</th>
+		                                                                    <th>시간</th>
 		                                                                    <th>상태</th>
 		                                                                </tr>
 		                                                            </thead>
 		                                                            <tbody>
-		                                                                <tr>
-		                                                                    <td><div class="task-contain"><p class="d-inline-block">2021.07.24 19:00 ~ 22:00</p></div></td>
-		                                                                    <td><p class="d-inline-block">대기</p></td>
-		                                                                </tr>
-		                                                                <tr>
-		                                                                    <td><div class="task-contain"><p class="d-inline-block">2021.06.19 19:00 ~ 21:00</p></div></td>
-		                                                                    <td><p class="d-inline-block">승인</p></td>
-		                                                                </tr>
-		                                                                <tr>
-		                                                                    <td><div class="task-contain"><p class="d-inline-block">2021.04.24 20:00 ~ 21:00</p></div></td>
-		                                                                    <td><p class="d-inline-block">승인</p></td>
-		                                                                </tr>
 		                                                            </tbody>
 		                                                        </table>
 		                                                    </div>
@@ -330,29 +320,29 @@
 <script>
 	$(function(){
         // 근태관리 현재 시간
-        var today = new Date();
+//         var today = new Date();
         
-        var year = today.getFullYear().toString();
+//         var year = today.getFullYear().toString();
         
-        var month = today.getMonth() + 1;
-        month = month < 10 ? '0' + month.toString() : month.toString();
+//         var month = today.getMonth() + 1;
+//         month = month < 10 ? '0' + month.toString() : month.toString();
         
-        var date = today.getDate();
-        date = date < 10 ? '0' + date.toString() : date.toString();
+//         var date = today.getDate();
+//         date = date < 10 ? '0' + date.toString() : date.toString();
         
-        var hour = today.getHours();
-        hour = hour < 10 ? '0' + hour.toString() : hour.toString();
+//         var hour = today.getHours();
+//         hour = hour < 10 ? '0' + hour.toString() : hour.toString();
         
-        var minutes = today.getMinutes();
-        minutes = minutes < 10 ? '0' + minutes.toString() : minutes.toString();
+//         var minutes = today.getMinutes();
+//         minutes = minutes < 10 ? '0' + minutes.toString() : minutes.toString();
         
-        var seconds = today.getSeconds();
-        seconds = seconds < 10 ? '0' + seconds.toString() : seconds.toString();
+//         var seconds = today.getSeconds();
+//         seconds = seconds < 10 ? '0' + seconds.toString() : seconds.toString();
         
-        var week = new Array('일', '월', '화', '수', '목', '금', '토');
-        var day = week[today.getDay()];
+//         var week = new Array('일', '월', '화', '수', '목', '금', '토');
+//         var day = week[today.getDay()];
         
-        var formatToday = year + "년 " + month + "월 " + date + "일(" + day +") " + hour + ":" + minutes + ":" + seconds;
+//         var formatToday = year + "년 " + month + "월 " + date + "일(" + day +") " + hour + ":" + minutes + ":" + seconds;
         
 //         document.getElementById('today').innerHTML = formatToday;
         
@@ -363,92 +353,97 @@
 //         var percent = ((totalHour*60 + totalMin)/ 3120 * 100).toFixed(2);
         
 //         $('#progress').css('width', percent +"%");
-        
-        // 출근하기
-        $('#goTo').on('click', function(){
-        	var check = confirm('출근하시겠습니까?');
-        	
-        	if(check){
-        		navigator.geolocation.getCurrentPosition(function(pos){
-        		    var latitude = pos.coords.latitude;
-        		    var longitude = pos.coords.longitude;
-//         		    alert("현재 위치는 : " + latitude + ", "+ longitude);
-
-        		    // 우리 집 위도 : 37.494555 / 우리 집 경도 : 126.958055
-					// 회사 위도 : 37.499146193359344  /  회사 경도 : 127.03289826885084
-//         		    if((latitude > '37.4945' && latitude < '37.4946') && (longitude > '126.9580' && longitude < '126.9581')){
-//         		    if((latitude > '37.49' && latitude < '37.50') && (longitude > '126.94' && longitude < '126.95')){
-        		    if(true){
-						
-        		    	location.href="commuteEnter.co";
-			            
-        		    } else {
-        		    	alert('출근 지역에서 벗어났습니다.');
-        		    }
-        		});
-
-        	}
-        });
-        
-        // 퇴근하기
-        $('#getOff').on('click', function(){
-        	var check = confirm('퇴근하시겠습니까?');
-        	
-        	if(check){
-
-        		location.href="commuteOut.co";
-        	}
-        });
-        
-     	// 상태 변경
-        $('#selectState').find('li').on('click', function(){
-        	var state = $(this).children('input').val();
-        	
-        	location.href="changeState.co?state="+state;
-        });
-        
-        // 연장근무 신청
-        $('.overwork-card').on('click', function(){
-            $('#overworkModal').modal('show');
-        });
-        
-        // 휴가 신청
-        $('.leave-card').on('click', function(){
-        	console.log('휴가 신청');
-            $('#leaveModal').modal('show');
-        });
-        
-        // 날짜 선택
-        $('.datepicker').datepicker();
-
-        $.datepicker.setDefaults({
-            dateFormat: 'yy-mm-dd',
-            prevText: '이전 달',
-            nextText: '다음 달',
-            monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-            monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-            dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-            dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-            showMonthAfterYear: true,
-            yearSuffix: '년'
-        });
-
-        // 반차 선택시 오전 오후
-        $('#half').css('display', 'none');
-
-        $('#leaveType').on('click', function(){
-            var half = $("#leaveType option:selected").val();
-            if(half == '2'){
-                $('#half').show();
-            } else {
-                $('#half').hide();
-            }
-        });
     });
-</script>
+	
+	// 출근하기
+	$('#goTo').on('click', function(){
+		var check = confirm('출근하시겠습니까?');
+       	
+       	if(check){
+       		navigator.geolocation.getCurrentPosition(function(pos){
+       		    var latitude = pos.coords.latitude;
+       		    var longitude = pos.coords.longitude;
+// 				alert("현재 위치는 : " + latitude + ", "+ longitude);
+				
+// 				우리 집 위도 : 37.494555 / 우리 집 경도 : 126.958055
+// 				회사 위도 : 37.499146193359344  /  회사 경도 : 127.03289826885084
+// 				if((latitude > '37.4945' && latitude < '37.4946') && (longitude > '126.9580' && longitude < '126.9581')){
+// 				if((latitude > '37.49' && latitude < '37.50') && (longitude > '126.94' && longitude < '126.95')){
+       		    if(true){
+       		    	location.href="commuteEnter.co";
+       		    } else {
+       		    	alert('출근 지역에서 벗어났습니다.');
+       		    }
+       		});
+       	}
+	});
+        
+	// 퇴근하기
+	$('#getOff').on('click', function(){
+		var check = confirm('퇴근하시겠습니까?');
+		
+		if(check){
+			location.href="commuteOut.co";
+		}
+	});
+        
+	// 상태 변경
+	$('#selectState').find('li').on('click', function(){
+		var state = $(this).children('input').val();
+		location.href="changeState.co?state="+state;
+	});
+	  
+	// 날짜 선택
+	$('.datepicker').datepicker();
+	
+	$.datepicker.setDefaults({
+	    dateFormat: 'yy-mm-dd',
+	    prevText: '이전 달',
+	    nextText: '다음 달',
+	    monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	    monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	    dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+	    dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+	    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+	    showMonthAfterYear: true,
+	    yearSuffix: '년'
+	});
 
-<script>
+	// 반차 선택시 오전 오후
+	$('#half').css('display', 'none');
+	
+	$('#leaveType').on('click', function(){
+	    var half = $("#leaveType option:selected").val();
+	    if(half == '2'){
+	        $('#half').show();
+	    } else {
+	        $('#half').hide();
+	    }
+	});
+        
+	// 연장근무 신청
+	$('.overwork-card').on('click', function(){
+	    $('#overworkModal').modal('show');
+	});
+	
+	// 휴가 신청
+	$('.leave-card').on('click', function(){
+	    $('#leaveModal').modal('show');
+	});
+	
+	// overworkFull
+	$('#overworkFull').on('click', function(){
+		location.href="overworkDetailView.co";
+	});
+	
+	// overworkReload
+	$('#overworkReload').on('click', function(){
+		console.log('클릭');		
+		getOverworkList();
+	});
+	
+	
+	// 메인 차트
 	$(function(){
 		$.ajax({
 			url: 'commuteChart.co',
@@ -460,27 +455,38 @@
 				var arrOverWork = new Array();
 				var total = 0;
 				
-				
-				for(var i = 0; i < map.colist.length; i++){
+				if(map.colist.length != 0){
+					for(var i = 0; i < map.colist.length; i++){
+						for(var j = 0; j < 7; j++){
+							if(new Date(map.colist[i].enrollDate).getDay() == j){
+								arrWorkTime[j] = map.colist[i].worktime;
+							}
+							if(arrWorkTime[j] == undefined){
+								arrWorkTime[j] = 0;	
+							}
+						}
+					}
+				} else {
 					for(var j = 0; j < 7; j++){
-						if(resultGetDay(map.colist[i].enrollDate) == j){
-							arrWorkTime[j] = map.colist[i].worktime;
-						}
-						if(arrWorkTime[j] == undefined){
-							arrWorkTime[j] = 0;	
-						}
+						arrWorkTime[j] = 0;
 					}
 				}
 				
-				for(var i = 0; i < map.owlist.length; i++){
-					for(var j = 0; j < 7; j++){
-						if(resultGetDay(map.owlist[i].overworkDate) == j){
-							arrOverWork[j] = map.owlist[i].overworktime;
-						}
-						if(arrOverWork[j] == undefined){
-							arrOverWork[j] = 0;	
+				if(map.owlist.length != 0){
+					for(var i = 0; i < map.owlist.length; i++){
+						for(var j = 0; j < 7; j++){
+							if(new Date(map.owlist[i].overworkDate).getDay() == j){
+								arrOverWork[j] = map.owlist[i].overworktime;
+							}
+							if(arrOverWork[j] == undefined){
+								arrOverWork[j] = 0;	
+							}
 						}
 					}
+				} else {
+					for(var j = 0; j < 7; j++){
+						arrOverWork[j] = 0;
+					}	
 				}
 				
 				Morris.Bar({
@@ -530,6 +536,7 @@
 				    gridLineColor: 'white',
 				    resize: true
 				});
+
 			},
 			error: function(data){
 				console.log('에러');
@@ -537,10 +544,6 @@
 		});
 	});
 	
-	function resultGetDay(date){
-		var enroll = new Date(date)
-		return enroll.getDay();
-	}
 </script>
 	
 <!-- test Chart -->

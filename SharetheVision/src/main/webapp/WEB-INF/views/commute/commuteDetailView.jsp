@@ -68,7 +68,7 @@
 		                                           </div>
 		                                           <div class="col-lg b-r-default">
 		                                               <h5 class="m-b-20">이번 주 잔여</h5>
-		                                               <h3>${52 - (weekWorkTotal+weekOverTotal)}</h3>
+		                                               <h3>${remainTotal}</h3>
 		                                           </div>
 		                                           <div class="col-lg b-r-default">
 		                                               <h5 class="m-b-20">이번 달 누적</h5>
@@ -327,6 +327,9 @@
 	        			var day = map.owlist[i].overworkDate.substring(8);
 	        			var overWork = map.owlist[i].overworktime;
 	        			
+	        			var detailStartTime = map.owlist[i].overworkStart.substring(0,2);
+// 	        			var detailEndTime = map.owlist[i].overworkEnd.substring(0,2);
+	        			
 	        			for(var j = 1; j <= 31; j++){
 	        				if(day == j){
 	        					var worktime = parseFloat($('#'+j+'total').html());
@@ -338,6 +341,15 @@
 	        					var detail = (overWorkSplit.length == 2) ? ' / 연장'+"{0}h{1}m".format(overWorkSplit[0], overWorkSplit[1]) : ' / 연장'+"{0}h".format(overWorkSplit[0]); 
 	        					
 	        					$('#'+j+'detail').html(coDetail + detail);
+	        					
+	        					// detail시간
+	        					var $detailStartDiv = $('#'+j+'timeDiv').children('div').eq(detailStartTime);
+// 	        					var $detailTimeDiv = $('#'+j+'timeDiv').children('div').eq(detailEndTime);
+	        					
+	        					var $startSpan = $('<br><span class="b-l-default small">').html('&nbsp;연장');
+// 	        					var $endSpan = $('<br><span class="b-l-default small">').html('&nbsp;퇴근');
+	        					$detailStartDiv.append($startSpan);
+// 	        					$detailTimeDiv.append($endSpan);
 	        				}
 	        			}
 	        		}

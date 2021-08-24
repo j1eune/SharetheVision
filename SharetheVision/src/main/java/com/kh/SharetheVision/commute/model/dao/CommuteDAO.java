@@ -38,4 +38,8 @@ public class CommuteDAO {
 		return sqlSession.selectOne("commuteMapper.dailyCommute", memberNo);
 	}
 
+	public int insertOverwork(SqlSessionTemplate sqlSession, Overwork ow) {
+		return sqlSession.insert("commuteMapper.insertOverwork", ow);
+	}
+
 }
