@@ -122,7 +122,7 @@ var calendar = $('#calendar').fullCalendar({
 	  
     $.ajax({
       type: "get",
-      url: "listCal.do",
+      url: "listCal",
       dataType: 'json',
       data: {
     	  // 화면이 바뀌면 Date 객체인 start, end 가 들어옴
