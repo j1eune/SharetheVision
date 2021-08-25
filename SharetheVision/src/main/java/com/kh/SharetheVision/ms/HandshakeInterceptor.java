@@ -16,7 +16,6 @@ public class HandshakeInterceptor implements org.springframework.web.socket.serv
 	@Override
 	public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, 
 									WebSocketHandler wsHandler,	Map<String, Object> attributes) throws Exception {
-		// 위의 파라미터 중, attributes 에 값을 저장하면 웹소켓 핸들러 클래스의 WebSocketSession에 전달된다
         ServletServerHttpRequest ssreq = (ServletServerHttpRequest) request;
   
         HttpServletRequest req =  ssreq.getServletRequest();
