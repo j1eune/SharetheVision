@@ -19,19 +19,28 @@
 		WHERE M_STATUS='Y'
 	 ORDER BY J_NO ASC
 	</select>
-	
-<!-- 	<insert id="send">
-		INSERT INTO MS
-		VALUES(SEQ_MS.NEXTVAL, #{ms_content} ,TO_CHAR(SYSDATE,'YY-FMMM-DD AMHH:MI:SS'), DEFAULT, null, #{m_code}, #{m_code2})
-	</insert> -->
 
-		<select id="selectList" resultMap="MsResultMap">
+	<select id="RoomList" resultMap="RoomResultMap">
 		SELECT *
-		  FROM MS
-		 WHERE EMO=#{roomId}
+		  FROM ROOM
+		 WHERE FID = #{fid}
+		   AND RSTA ='Y'
+		 ORDER BY RNO DESC
 	</select>
-	<resultMap type="Messenger" id="MsResultMap">
-		<id column="MS_NO" property="ms_no"/>
+ 	<resultMap  type="Room" id="RoomResultMap">
+		    <id column="RNO" property="rno"/>
+		<result column="FID" property="fid"/>
+		<result column="TID" property="tid"/>
+		<result column="RSTA" property="rsta"/>
+	</resultMap> 
+	
+	<select id="selectList" resultMap="MsResultMap">
+	   SELECT *
+		 FROM MS
+	    WHERE EMO=#{roomId}
+	</select>
+	<resultMap  type="Messenger" id="MsResultMap">
+		    <id column="MS_NO" property="ms_no"/>
 		<result column="MS_CONTENT" property="ms_content"/>
 		<result column="MS_TIME" property="ms_time"/>
 		<result column="EMO" property="emo"/>
@@ -40,21 +49,17 @@
 		<result column="M_CODE2" property="m_code2"/>
 	</resultMap>
 	
-	<select id="RoomList" resultMap="RoomResultMap">
+	<select id="existRoom" resultMap="RoomResultMap">
 		SELECT *
 		  FROM ROOM
-		 WHERE FID=#{userId} AND RSTA='Y'
+		 WHERE FID IN (#{fid},#{tid}) 
+		   AND TID IN (#{tid},#{fid})
+		   AND RSTA='Y'
 	</select>
- 	<resultMap type="Room" id="RoomResultMap">
-		<id column="RNO" property="rno"/>
-		<result column="FID" property="fid"/>
-		<result column="TID" property="tid"/>
-		<result column="RSTA" property="rsta"/>
-	</resultMap> 
 	
 	<insert id="insertRoom">
 		INSERT INTO ROOM
-		VALUES ( SEQ_RNO.NEXTVAL, #{fid}, #{tid}, DEFAULT)
+		VALUES (SEQ_RNO.NEXTVAL, #{fid}, #{tid}, DEFAULT)
 	</insert>
 	
 </mapper>

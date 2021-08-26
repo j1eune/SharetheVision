@@ -46,4 +46,20 @@
 		where b_status='Y' and b_no=#{bId}
 	</select>
 	
+	<select id="selectProjectList" resultMap="projectResultSet">
+		select p_name
+		from project
+		where dept_no = #{deptNo}
+	</select>
+	
+	<resultMap type="Project" id="projectResultSet">
+		<id column="pNo" property="pNo"/>
+		<result column="P_NO" property="mCode"/>
+		<result column="P_NAME" property="pName"/>
+		<result column="P_INTRO" property="pIntro"/>
+		<result column="P_STATUS" property="pStatus"/>
+		<result column="P_END" property="pEnd"/>
+		<result column="DEPT_NO" property="deptNo"/>
+	</resultMap>
+	
 </mapper>

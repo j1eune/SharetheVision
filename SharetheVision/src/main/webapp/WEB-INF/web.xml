@@ -30,7 +30,7 @@
 		
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
-		<url-pattern>*.do</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
 	<!-- 인코딩 필터 -->
@@ -125,24 +125,6 @@
 		<url-pattern>*.pr</url-pattern>
 	</servlet-mapping>
 	
-	
-	<!-- 메신저 관련 -->
-	<servlet>
-		<servlet-name>msServlet</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>
-				/WEB-INF/spring/appServlet/ms-context.xml
-			</param-value>
-		</init-param>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>msServlet</servlet-name>
-		<url-pattern>*.ms</url-pattern>
-	</servlet-mapping>
-	
-	
- 
+
 	
 </web-app>

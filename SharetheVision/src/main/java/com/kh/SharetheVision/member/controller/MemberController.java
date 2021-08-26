@@ -153,7 +153,7 @@ public class MemberController {
 		int result = mService.updatePwd(m);
 		
 		if(result > 0) {
-			return "redirect:home.do";
+			return "redirect:home";
 		} else {
 			throw new MemberException("비밀번호 수정에 실패하였습니다.");
 		}
@@ -310,7 +310,7 @@ public class MemberController {
 	public String logout(SessionStatus session) {
 		session.isComplete();
 		
-		return "redirect:home.do";
+		return "redirect:home";
 	}
 	
 	@RequestMapping("userPwdCheck.me")

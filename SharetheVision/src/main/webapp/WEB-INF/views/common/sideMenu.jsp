@@ -31,7 +31,6 @@
 				<div class="user-details">
 					<span>${loginUser.name} 님</span>
                      <span id="more-details">${loginUser.deptName}팀&nbsp;${loginUser.jobName }&nbsp;<i class="ti-angle-down"></i></span> 
-                                                                     <!-- 부서 + 직급 (테스트로 아이디넣어봤습니다)-->
 				</div>
 			</div>
 
@@ -232,11 +231,10 @@
 
         <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Chart &amp; Messenger</div>
         <ul class="pcoded-item pcoded-left-item">
-            <c:url var="msStart" value="msStart.ms"></c:url>
             <li>
-                <a style="cursor:pointer" target="_blank" onclick="window.open('${msStart}','MS','top=auto,left=auto,width=360,height=600');">
+                <a style="cursor:pointer" target="_blank" class="chatting">
                     <span class="pcoded-micon"><i class="ti-layers"></i><b></b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.form-components.main" target="_blank">Messenger</span>
+                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Messenger</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
@@ -324,4 +322,22 @@
     </div>
 </nav>
 
-
+<script>
+$(".chatting").click(function () {
+			$.ajax({
+			  type:"POST"
+			  ,url:"chatstatus" 
+			  ,data:{"chatstat" : 1}
+			  ,success:function(){
+				  console.log("${chatstatus}");
+					//페이지 가져갈때 세션 생성해서 넘어가게함
+				  location.reload();
+			  },
+			  error: function(xhr, status, error) {
+		            alert(error);
+		      }  
+			 });
+	
+		window.open('msStart','MS','top=auto,left=auto,width=360,height=600');
+});
+</script>

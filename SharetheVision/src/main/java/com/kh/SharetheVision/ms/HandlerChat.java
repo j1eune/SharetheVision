@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -13,13 +11,11 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.google.gson.Gson;
-import com.kh.SharetheVision.ms.controller.ConnectChatUserList;
 import com.kh.SharetheVision.ms.model.vo.ChatVo;
 
 @Component
-public class HandlerChat extends TextWebSocketHandler {
+public class HandlerChat extends TextWebSocketHandler{
 
-	private static Logger logger = LoggerFactory.getLogger(HandlerChat.class);
 	private Map<String,WebSocketSession> sessionList = new HashMap<String, WebSocketSession>();
 
 	
@@ -27,8 +23,7 @@ public class HandlerChat extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 
-		logger.info("{} 세션 연결됨",session.getId());
-		
+		System.out.println("connection handler INNNN");
 		// 채팅방에 접속한 사용자 세션을 리스트에 저장
 		Map<String, Object> map = session.getAttributes();
 		
@@ -46,8 +41,6 @@ public class HandlerChat extends TextWebSocketHandler {
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 
-		logger.info("{}로부터 {} 받음",session.getId(), message.getPayload());
-		
 		String chat = message.getPayload();
 		Gson gson = new Gson();
 		ChatVo chatVo = gson.fromJson(chat, ChatVo.class);
@@ -84,7 +77,7 @@ public class HandlerChat extends TextWebSocketHandler {
 				 sessionList.get(user).sendMessage(new TextMessage("<p >"+userId + "님  Exit." +"</p>")); 
 			}
 		 } 
-		  logger.info("{} 연결 종료", session.getId());
+		 System.out.println("close handler outttt");
 		
-	}	
+	}
 }

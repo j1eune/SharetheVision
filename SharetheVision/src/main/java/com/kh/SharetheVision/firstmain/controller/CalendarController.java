@@ -24,7 +24,7 @@ public class CalendarController {
 	@Autowired
 	private CalendarService cService;
 	
-	@RequestMapping(value = "addCal.do", method = RequestMethod.POST)
+	@RequestMapping(value = "addCal", method = RequestMethod.POST)
 	@ResponseBody
 	public String addCal(@RequestBody Calendar c, HttpServletResponse response) throws MainException{
 		//c.setName(id);  (@ModelAttribute Calendar c,HttpSession session ) {
@@ -41,7 +41,7 @@ public class CalendarController {
 		}
 	}
 	
-	@RequestMapping(value="listCal.do", produces="application/json; charset=UTF-8")
+	@RequestMapping(value="listCal", produces="application/json; charset=UTF-8")
 	@ResponseBody 
 	public List<Calendar> listCal(@RequestParam("eventId") String mcode, 
 						@RequestParam("startDate") String sDate, 
@@ -54,7 +54,7 @@ public class CalendarController {
 		return cList;		
 	}
 	
-	@RequestMapping(value="updateCal.do", method = RequestMethod.POST)
+	@RequestMapping(value="updateCal", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateCal(@RequestBody Calendar c, Model model) throws MainException {
 		
@@ -70,7 +70,7 @@ public class CalendarController {
 	}
 	
 	
-	@RequestMapping(value="deleteCal.do")
+	@RequestMapping(value="deleteCal")
 	@ResponseBody
 	public String deleteCal(@RequestParam("id") String no) throws MainException {
 			

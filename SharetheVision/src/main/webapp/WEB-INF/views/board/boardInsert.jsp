@@ -27,59 +27,80 @@
 	<jsp:include page="/WEB-INF/views/common/common.jsp"/>
 
 <style>
-	
-	.card-box {
-	    width: 1171.6px;
-	    display: flex;
-	    flex-direction: row;
-	    justify-content: space-between;
+
+	.inputBase {
+		font-size: 14px;
+		border-color: #ccc;
+		border-radius: 2px;
+	}
+
+	.boardForm {
+		padding: 30px 30px 0;
+	}
+
+	.titleWrap {
+		margin-bottom: 20px;
+		line-height: 40.4px;
+	}
+
+	.boardTitle {
+		width: 877px;
+		height: 40px;
+		border-style: none;
+		border: 1px solid #ccc;
+		padding-left: 10px;
 	}
 	
-	.card-half {
-	    width: 570px;
-	    margin-bottom: 0;
+	.boardContent {
+		resize: none;
+		padding: 20px;
+		margin-bottom: 20px;
+		width: 1111.6px;
 	}
 	
-	.more-btn-box {
-		width: 73px;
+	.project {
+		width: 220px;
+		height: 40px;
+		margin-right: 10px;
+		padding-left: 5px;
 	}
 	
-	.card .card-header .card-header-right i {
-		margin: 0 5px;
+	.project option {
+		height: 40px;
 	}
 	
-	.project-name {
-		width: 240px;
-	}
-	
-	.project-name-color {
-		color: blue;
-		font-weight: 600;
-	}
-	
-	.project-title {
-		width: 550px;
-	}
-	
-	.project-no {
-		text-align: center;
-		width: 100px;
-	}
-	
-	tbody td {
+	.uploadFile {
+		padding: 6px 25px;
+		background: #609;
+		border-radius: 2px;
+		color: #fff;
 		cursor: pointer;
+		margin-right: 5px;
 	}
 	
-	.emptyList {
-		text-align: center;
-		pointer-events: none;
-		color: #666;
-		height: 60px;
-		line-height: 60px;	
+	.uploadFileName {
+		height: 32.8px;
+		border: none;
+		border-bottom: 1px solid #999;
+		font-size: 14px;
+		color: #999;
+		width: 300px;
 	}
 	
-	.board-no-align {
-		text-align: center;
+	.fileAndSubmit {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+	
+	.submitBtn {
+		border: none;
+		width: 88.23px;
+		height: 32.8px;
+		color: #fff;
+		background: #609;
+		border-radius: 2px;
+		cursor: pointer;
 	}
 
 </style>
@@ -150,7 +171,7 @@
                                                     <i class="icofont icofont icofont icofont-save bg-c-pink"></i>
                                                     <div class="d-inline">
                                                         <h4>자료실</h4>
-                                                        <span>진행중인 프로젝트 정보를 공유하는 곳입니다.</span>
+                                                        <span>진행중인 프로젝트 정보를 공유하기 위해 글을 작성하는 공간입니다.</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -164,84 +185,27 @@
 
                                     <!-- 여기부터 작성 -->
                                     <div class="card">
-                                        <div class="card-header">
-                                            <h5>프로젝트 자료실</h5>
-                                            <div class="card-header-right more-btn-box">
-                                            	<a href="boardList.bo">
-	                                                <span class="more-btn">더보기<i class="ti-angle-double-right"></i></span>
-                                            	</a>
-                                            </div>
-                                        </div>
-                                        <div class="card-block table-border-style">
-                                            <div class="table-responsive">
-                                                <table class="table table-hover board-table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="project-no"></th>
-                                                            <th class="project-name">프로젝트 명</th>
-                                                            <th class="project-title">제목</th>
-                                                            <th>작성자</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    	<c:if test="${ empty list }">
-	                                                    	<c:forEach var="board" items="${ board }">
-		                                                        <tr>
-		                                                        <c:url var="boardDetail" value="boardDetail.bo">
-		                                                        </c:url>
-		                                                            <td scope="row" class="board-no-align">${ board.boardNo }</td>
-		                                                            <td class="project-name-color">[ ${ board.project } ]</td>
-		                                                            <td>${ board.boardTitle }</td>
-		                                                            <td>장원형</td>
-		                                                        </tr>
-	                                                        </c:forEach>
-                                                        </c:if>
-                                                        <c:if test="${ !empty list }">
-                                                        	<tr>
-                                                        		<td colspan="4" class="emptyList">등록된 게시물이 없습니다.</td>
-                                                        	</tr>
-                                                        </c:if>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="card">
-                                           <div class="card-header">
-                                               <h5>스크랩한 게시물</h5>
-                                               <div class="card-header-right">
-                                           	<a href="boardList.bo">
-                                                <span class="more-btn">더보기<i class="ti-angle-double-right"></i></span>
-                                           	</a>
-                                               </div>
-                                           </div>
-                                           <div class="card-block table-border-style">
-                                            <div class="table-responsive">
-                                                <table class="table table-hover board-table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="project-no"></th>
-                                                            <th class="project-name">프로젝트 명</th>
-                                                            <th class="project-title">제목</th>
-                                                            <th>작성자</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                        <c:url var="boardDetail" value="boardDetail.bo">
-                                                        </c:url>
-                                                            <td scope="row" class="board-no-align">1</td>
-                                                            <td class="project-name-color">[ SharetheVision ]</td>
-                                                            <td>SV 프로젝트 자료1</td>
-                                                            <td>장원형</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                
-                                                
-                                            </div>
-                                        </div>
+                                    	<form action="boardInsert.bo" method="post" enctype="Multipart/form-data" class="boardForm">
+                                    		
+                                    		<div class="titleWrap">
+	                                    		<select class="project inputBase" name="project">
+	                                    			<option>프로젝트를 선택하세요</option>
+	                                    			<c:forEach var="p" items="${ project }">
+		                                    			<option value="${ p.pName }">${ p.pName }</option>
+	                                    			</c:forEach>
+	                                    		</select>
+	                                    		<input type="text" size="50" name="boardTitle" class="boardTitle inputBase">
+                                    		</div>
+											<textarea rows="15" name="boardContent" class="boardContent inputBase"></textarea>   
+											<div class="fileAndSubmit">
+												<div>
+													<label for="uploadFile" class="uploadFile">업로드</label>
+													<input type="file" id="uploadFile" name="uploadFile" style="display: none;">
+													<input class="uploadFileName" value="파일선택" readonly>
+												</div>
+												<input type="submit" value="작성" class="submitBtn">
+											</div>        		
+                                    	</form>
                                     </div>
                                     
                                     <!-- 여기까지 작성 -->
@@ -262,6 +226,12 @@
             </div>
         </div>
      </div>
+     <script>
+		$("#uploadFile").on('change', function() {
+			var fileName = $(this).val();
+			$(".uploadFileName").val(fileName);
+		});
+	</script>
         
 <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>

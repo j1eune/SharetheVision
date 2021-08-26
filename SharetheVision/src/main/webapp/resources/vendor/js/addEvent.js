@@ -118,7 +118,7 @@ var newEvent = function (start, end, eventType) {
         //새로운 일정 저장
         $.ajax({
         	type : 'POST',
-        	url: 'addCal.do',
+        	url: 'addCal',
         	data: JSON.stringify(eventParam),
             contentType: "application/json",
             success: function (data) {

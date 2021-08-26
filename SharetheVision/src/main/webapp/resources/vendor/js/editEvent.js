@@ -99,7 +99,7 @@ var editEvent = function (event, element, view) {
         //일정 업데이트
         $.ajax({
         	type : 'POST',
-            url: "updateCal.do",
+            url: "updateCal",
             data: JSON.stringify(eventParam),
             contentType: "application/json",
             success: function (data) {
@@ -128,7 +128,7 @@ var editEvent = function (event, element, view) {
     	   	
     	//삭제
     	$.ajax({
-    		url: "deleteCal.do",
+    		url: "deleteCal",
     		data: { 'id': event.description },
     		success: function (data) {
     				if(data=='success'){

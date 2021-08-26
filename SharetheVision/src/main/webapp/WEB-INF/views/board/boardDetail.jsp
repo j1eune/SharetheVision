@@ -16,7 +16,6 @@
         content=" Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
     <meta name="author" content="CodedThemes">
     <!-- Favicon icon -->
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
     <!-- Required Fremwork -->
@@ -190,7 +189,7 @@
                                     <div class="card boardDetail-card">
                                         <div class="boardDetail-box">
                                             <div class="boardDetail-title">
-                                            	<div><span class="boardDetail-project-name">[ SharetheVision ]</span>${ board.boardTitle }</div>
+                                            	<div><span class="boardDetail-project-name">[ ${ board.project } ]</span>${ board.boardTitle }</div>
                                            	</div>
                                            	<div class="boardDetail-boardInfo">
 												<div class="boardDetail-writer-img"><i class="ti-user"></i></div>
@@ -222,6 +221,18 @@
                                                 <div class="tab-pane boardDetail-content active" id="home1"
                                                     role="tabpanel">
                                                     <p class="m-0">${ board.boardContent }</p>
+                                                    <div class="boardDetail-btn-box">
+                                                    	<c:url var="addScrap" value="addScrap.bo">
+                                                    		<c:param name="title" value="${ board.boardTitle }"></c:param>
+                                                    		<!-- 프로젝트 추가하면 주석 삭제 -->
+<%--                                                     		<c:param name="project" value="${ project.projectName }"></c:param> --%>
+                                                    		<c:param name="writer" value="${ board.boardWriter }"></c:param>
+                                                    	</c:url>
+                                                        <a href="${ addScrap }">
+                                                        	<button type="button" id="boardDetailFileUploadBtn"
+                                                            class="btn boardDetail-btn">스크랩하기</button>
+                                                    	</a>
+                                                    </div>
                                                 </div>
                                                 <div class="tab-pane boardDetail-content" id="profile1" role="tabpanel">
                                                     <p class="m-0">등록된 첨부파일이 없습니다.</p>

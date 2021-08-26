@@ -2,16 +2,20 @@ package com.kh.SharetheVision.commute.model.vo;
 
 import java.sql.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Overwork {
 	
 	private int overworkNo;
-	private String memberNo;
 	private Date overworkDate;
-	private int overworktime;
+	private String overworkStart;
+	private String overworkEnd;
+	private double overworktime;
 	private int type;
 	private Date enrollDate;
 	private String approval;
 	private String overworkContent;
+	private String memberNo;
 	
 	public Overwork() {}
 
@@ -23,14 +27,6 @@ public class Overwork {
 		this.overworkNo = overworkNo;
 	}
 
-	public String getMemberNo() {
-		return memberNo;
-	}
-
-	public void setMemberNo(String memberNo) {
-		this.memberNo = memberNo;
-	}
-
 	public Date getOverworkDate() {
 		return overworkDate;
 	}
@@ -39,11 +35,27 @@ public class Overwork {
 		this.overworkDate = overworkDate;
 	}
 
-	public int getOverworktime() {
+	public String getOverworkStart() {
+		return overworkStart;
+	}
+
+	public void setOverworkStart(String overworkStart) {
+		this.overworkStart = overworkStart;
+	}
+
+	public String getOverworkEnd() {
+		return overworkEnd;
+	}
+
+	public void setOverworkEnd(String overworkEnd) {
+		this.overworkEnd = overworkEnd;
+	}
+
+	public double getOverworktime() {
 		return overworktime;
 	}
 
-	public void setOverworktime(int overworktime) {
+	public void setOverworktime(double overworktime) {
 		this.overworktime = overworktime;
 	}
 
@@ -79,12 +91,20 @@ public class Overwork {
 		this.overworkContent = overworkContent;
 	}
 
+	public String getMemberNo() {
+		return memberNo;
+	}
+
+	public void setMemberNo(String memberNo) {
+		this.memberNo = memberNo;
+	}
+
 	@Override
 	public String toString() {
-		return "Overwork [overworkNo=" + overworkNo + ", memberNo=" + memberNo + ", overworkDate=" + overworkDate
-				+ ", overworktime=" + overworktime + ", type=" + type + ", enrollDate=" + enrollDate + ", approval="
-				+ approval + ", overworkContent=" + overworkContent + "]";
+		return "Overwork [overworkNo=" + overworkNo + ", overworkDate=" + overworkDate + ", overworkStart="
+				+ overworkStart + ", overworkEnd=" + overworkEnd + ", overworktime=" + overworktime + ", type=" + type
+				+ ", enrollDate=" + enrollDate + ", approval=" + approval + ", overworkContent=" + overworkContent
+				+ ", memberNo=" + memberNo + "]";
 	}
-	
 	
 }

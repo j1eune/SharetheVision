@@ -1,4 +1,4 @@
-package com.kh.SharetheVision.ms.controller;
+package com.kh.SharetheVision.ms;
 
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionBindingListener;

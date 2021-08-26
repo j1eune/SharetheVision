@@ -20,4 +20,6 @@ public interface CommuteService {
 	int changeState(Member m);
 
 	Commute commuteDay(String memberNo);
+
+	int insertOverwork(Overwork ow);
 }

@@ -5,7 +5,6 @@
 </style>
 
 <!-- Favicon icon -->
-<link rel="icon" href="resources/assets/images/favicon.ico" type="image/x-icon">
 <!-- Google font-->
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
 <!-- Required Fremwork -->

@@ -29,7 +29,6 @@
         <websocket:mapping handler="handlerChat" path="/chat" />
          <websocket:handshake-interceptors>
 			<beans:bean class="com.kh.SharetheVision.ms.HandshakeInterceptor" />
-		<!-- <bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/> -->
 		</websocket:handshake-interceptors>
         <websocket:sockjs websocket-enabled="true" />
     </websocket:handlers>   
