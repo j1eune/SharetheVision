@@ -202,7 +202,9 @@
                 </a>
             </li>
             <li class="pcoded-hasmenu">
-				<c:url var="board" value="board.bo"></c:url>
+				<c:url var="board" value="board.bo">
+					<c:param name="loginUserDeptNo" value="${ loginUser.deptNo }"></c:param>	
+				</c:url>
 				<c:url var="projectForm" value="createProjectForm.pr"></c:url>
 				
 				<a href="#" onclick="return false;">
