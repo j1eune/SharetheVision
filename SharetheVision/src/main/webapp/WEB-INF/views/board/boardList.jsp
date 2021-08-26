@@ -13,7 +13,6 @@
       <meta name="description" content="CodedThemes">
       <meta name="keywords" content=" Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
       <meta name="author" content="CodedThemes">
-      <!-- Favicon icon -->
       <!-- Google font-->
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
       <!-- Required Fremwork -->
@@ -286,7 +285,7 @@
 		                                                            <td scope="row" class="board-no-align">${ board.boardNo }</td>
 		                                                            <td class="project-name-color">[ ${ board.project } ]</td>
 		                                                            <td>${ board.boardTitle }</td>
-		                                                            <td>장원형</td>
+		                                                            <td>${ board.boardWriter }</td>
 		                                                        </tr>
 	                                                        </c:forEach>
                                                         </c:if>

@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.SharetheVision.attachments.model.vo.Attachment;
 import com.kh.SharetheVision.board.model.dao.BoardDAO;
 import com.kh.SharetheVision.board.model.vo.Board;
 import com.kh.SharetheVision.board.model.vo.PageInfo;
@@ -21,8 +22,8 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDAO DAO;
 
 	@Override
-	public ArrayList<Board> newBoard() {
-		return DAO.newBoard(sqlSession);
+	public ArrayList<Board> newBoard(int deptNo) {
+		return DAO.newBoard(sqlSession, deptNo);
 	}
 
 	@Override
@@ -36,13 +37,29 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public ArrayList<Board> selectBoardList(PageInfo pi) {
-		return DAO.selectBoardLisct(sqlSession, pi);
+	public ArrayList<Board> selectBoardList(PageInfo pi, int deptNo) {
+		return DAO.selectBoardList(sqlSession, pi, deptNo);
 	}
 
 	@Override
 	public ArrayList<Project> selectProjectList(int deptNo) {
 		return DAO.selectProjectList(sqlSession, deptNo);
 	}
+
+	@Override
+	public int insertBoard(Board b) {
+		return DAO.insertBoard(sqlSession, b);
+	}
+
+	@Override
+	public int insertAttachFile(Attachment attachFile) {
+		return DAO.insertAttachFile(sqlSession, attachFile);
+	}
+
+	@Override
+	public Board selectLastBoard() {
+		return DAO.selectLastBoard(sqlSession);
+	}
+
 	
 }
