@@ -7,21 +7,21 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.SharetheVision.leave.model.exception.LeaveException;
-import com.kh.SharetheVision.leave.model.service.LeaveService;
 import com.kh.SharetheVision.leave.model.vo.LeaveAnnual;
-import com.kh.SharetheVision.member.model.service.MemberService;
 import com.kh.SharetheVision.member.model.vo.Member;
 
 import au.com.bytecode.opencsv.CSVReader;
@@ -29,15 +29,49 @@ import au.com.bytecode.opencsv.CSVReader;
 @Controller
 public class LeaveController {
 	
-	@Autowired
-	LeaveService lService;
+//	@Autowired
+//	private LeaveService leService;
 	
-	@Autowired
-	MemberService mService;
+//	@Autowired
+//	private MemberService mService;
 	
 	@RequestMapping("leaveDetail.le")
-	public String leaveDetailView() {
+	public String leaveDetailView(HttpSession session, Model model) {
+//		Member loginUser = ((Member)session.getAttribute("loginUser"));
+//		String memberNo = loginUser.getmCode();
+//		String name = loginUser.getName();
+//		String jobName = loginUser.getJobName();
+		String name = "임지은";
+		String jobName = "팀장";
+		String memberNo = "MaCo2";
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("type", 0);
+		
+//		ArrayList<LeaveAnnual> laList = leService.selectAnnual(map);
+//		System.out.println(laList);
+//		
+//		
+//		model.addAttribute("name", name + " " + jobName);
+//		
+//		
+//		int annualTotal = 0;
+//		if(laList != null) {
+//			for(LeaveAnnual la : laList) {
+//				annualTotal += la.getTotal();
+//			}
+//			model.addAttribute("annualTotal", annualTotal);
+//		}
+//		
+//		ArrayList<LeaveUsed> luList = leService.selectUsed(memberNo);
+		
 		return "leaveDetailView";
+	}
+	
+	@RequestMapping("leaveAll.le")
+	public String leaveMemberAll() {
+		return "leaveMemberAll";
 	}
 	
 	@RequestMapping("leaveSetting.le")
@@ -76,10 +110,10 @@ public class LeaveController {
             		if(j == 0) {
             			Member m = new Member();
             			m.setmId(line[j]);
-            			Member member = mService.loginMember(m);
+//            			Member member = mService.loginMember(m);
             			
             			la.setMemberId(line[j]);
-            			la.setMemberNo(member.getmCode());
+//            			la.setMemberNo(member.getmCode());
             			
 //            			System.out.println("사원아이디 : " + line[j]);
             		} else if(j == 1) {
@@ -98,7 +132,9 @@ public class LeaveController {
             }
         	
         	size = list.size();
-        	result = lService.insertLeave(list);
+//        	result = leService.insertLeave(list);
+        	
+        	System.out.println(result + " : 인서트 결과");
         	
 //            Iterator<String[]> it = data.iterator();
 //            while (it.hasNext()) {
@@ -116,7 +152,7 @@ public class LeaveController {
 		}
 		
 		if(result >= size) {
-			return "leaveDetailView";
+			return "leaveMemberAll";
 		} else {
 			throw new LeaveException("연차 초기 설정에 실패하였습니다.");
 		}

@@ -6,5 +6,47 @@
 		INSERT INTO ANNUAL VALUES
 		(SEQ_LE.NEXTVAL, #{year}, #{baseDate}, #{startDate}, #{endDate}, #{total}, SYSDATE, #{content}, #{memberNo})
 	</insert>
-
+	
+	<select id="selectAnnual" resultMap="annualResultSet">
+		SELECT * 
+		FROM ANNUAL
+			 JOIN MEMBER USING (M_CODE)
+		WHERE M_CODE = #{memberNo}
+<!-- 			<if test="type != null"> -->
+<!-- 				AND A_TYPE = #{type} -->
+<!-- 			</if> -->
+	</select>
+	
+	<resultMap type="LeaveAnnual" id="annualResultSet">
+		<id column="A_NO" property="annualNo"/>
+		<result column="A_YEAR" property="year"/>
+		<result column="A_BASE_DATE" property="baseDate"/>
+		<result column="A_START_DATE" property="startDate"/>
+		<result column="A_END_DATE" property="endDate"/>
+		<result column="A_TOTAL_DAYS" property="total"/>
+		<result column="A_CREATE" property="createDate"/>
+		<result column="A_MEMO" property="content"/>
+		<result column="A_TYPE" property="type"/>
+		<result column="M_CODE" property="memberNo"/>
+		<result column="M_ID" property="memberId"/>
+	</resultMap>
+	
+	<select id="selectUsed" resultMap="usedResultSet">
+		SELECT *
+		FROM USED
+		WHERE M_CODE = #{memberNo}
+	</select>
+	
+	<resultMap type="LeaveUsed" id="usedResultSet">
+		<id column="U_NO" property="leaveUsedNo"/>
+		<result column="U_START_DATE" property="startDate"/>
+		<result column="U_END_DATE" property="endDate"/>
+		<result column="U_USED_DAYS" property="days"/>
+		<result column="U_CREATE" property="createDate"/>
+		<result column="U_MEMO" property="content"/>
+		<result column="U_APPROVAL" property="approval"/>
+		<result column="U_STATUS" property="status"/>
+		<result column="U_TYPE" property="type"/>
+		<result column="M_CODE" property="memberNo"/>
+	</resultMap>
 </mapper>

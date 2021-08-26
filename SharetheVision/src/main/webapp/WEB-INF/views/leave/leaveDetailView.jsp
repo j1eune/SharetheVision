@@ -105,7 +105,6 @@
 		                                                <h3>13</h3>
 		                                            </div>
 		                                        </div>
-	                                            <button type="button" id="setting">연차초기설정</button>
 		                                    </div>
 		                                </div>
 		                            </div>
@@ -261,44 +260,50 @@
 	    }
 	});
 	
-        // 휴가 신청
-        $('.leave-card').on('click', function(){
-            $('#leaveModal').modal('show');
-        });
-        
-        // 휴가 기간 선택
-        $('.datepicker').datepicker();
-
-        $.datepicker.setDefaults({
-            dateFormat: 'yy-mm-dd',
-            prevText: '이전 달',
-            nextText: '다음 달',
-            monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-            monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-            dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-            dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-            showMonthAfterYear: true,
-            yearSuffix: '년'
-        });
-
-        // 반차 선택시 오전 오후
-        $('#half').css('display', 'none');
-
-        $('#leaveType').on('click', function(){
-            var half = $("#leaveType option:selected").val();
-            if(half == '2'){
-                $('#half').show();
-            } else {
-                $('#half').hide();
-            }
-        });
-        
-        // 연차 초기 설정
-        $('#setting').on('click', function(){
-        	 $('#settingModal').modal('show');
-        });
-
+	$(function(){
+	     var today = new Date();
+	        
+	     var year = today.getFullYear().toString();
+	     
+	     var month = today.getMonth() + 1;
+	     month = month < 10 ? '0' + month.toString() : month.toString();
+     
+		$('#currentMonth').html(year + "." + month);
+	});
+	
+	// 휴가 신청
+	$('.leave-card').on('click', function(){
+	    $('#leaveModal').modal('show');
+	});
+	
+	// 휴가 기간 선택
+	$('.datepicker').datepicker();
+	
+	$.datepicker.setDefaults({
+	    dateFormat: 'yy-mm-dd',
+	    prevText: '이전 달',
+	    nextText: '다음 달',
+	    monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	    monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	    dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+	    dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+	    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+	    showMonthAfterYear: true,
+	    yearSuffix: '년'
+	});
+	
+	// 반차 선택시 오전 오후
+	$('#half').css('display', 'none');
+	
+	$('#leaveType').on('click', function(){
+	    var half = $("#leaveType option:selected").val();
+	    if(half == '2'){
+	        $('#half').show();
+	    } else {
+	        $('#half').hide();
+	    }
+	});
+	
 	
 </script>
 	
