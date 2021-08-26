@@ -230,3 +230,47 @@ NOCACHE;
 ALTER TABLE ANNUAL MODIFY A_BASE_DATE VARCHAR2(100);
 ALTER TABLE ANNUAL MODIFY A_START_DATE VARCHAR2(100);
 ALTER TABLE ANNUAL MODIFY A_END_DATE VARCHAR2(100);
+
+-- 2021.08.26 22:14 장원형 UPDATE
+-- V_BOARD 수정, SCRAP 테이블 생성, COMMENT 수정, BOARD.B_WRITER, BOARD.PROJECT 추가, B_STATE 기본 값 설정
+CREATE TABLE SCRAP (
+	M_CODE	VARCHAR2(100)	NOT NULL,
+	B_NO	NUMBER	NOT NULL,
+	P_NAME	VARCHAR2(100)	NULL,
+	B_TITLE	VARCHAR2(100)	NULL,
+	M_NAME	VARCHAR2(100)	NULL
+);
+
+ALTER TABLE SCRAP ADD CONSTRAINT PK_SCRAP PRIMARY KEY (
+	M_CODE,
+	B_NO
+);
+
+ALTER TABLE SCRAP ADD CONSTRAINT FK_MEMBER_TO_SCRAP_1 FOREIGN KEY (
+	M_CODE
+) REFERENCES MEMBER (
+	M_CODE
+);
+
+ALTER TABLE SCRAP ADD CONSTRAINT FK_BOARD_TO_SCRAP_1 FOREIGN KEY (
+	B_NO
+) REFERENCES BOARD (
+	B_NO
+);
+
+COMMENT ON COLUMN "BOARD"."B_TYPE" IS '1: 공지 / 2: 자료실';
+COMMENT ON COLUMN "BOARD"."B_STATE" IS '1: 진행중 / 2: 종료';
+ALTER TABLE BOARD MODIFY B_STATE DEFAULT 1 NOT NULL;
+
+ALTER TABLE BOARD ADD B_WRITER VARCHAR2(100) NOT NULL;
+ALTER TABLE BOARD ADD PROJECT VARCHAR2(100) NOT NULL;
+
+create or replace view v_board
+as select board.b_no, board.b_type, board.b_title, board.b_content, board.b_createdate, board.b_state,
+          board.b_status, board.m_code, board.dept_no, board.b_writer, project.p_name
+    from board
+        left join member on(board.m_code = member.m_code)
+        left join project on(board.project = project.p_name)
+    order by board.b_no desc;
+
+commit;
