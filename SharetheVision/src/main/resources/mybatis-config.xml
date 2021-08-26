@@ -18,6 +18,7 @@
 		<typeAlias alias="Attachment" type="com.kh.SharetheVision.attachments.model.vo.Attachment"/>
 		<typeAlias alias="Messenger" type="com.kh.SharetheVision.ms.model.vo.Messenger"/>
 		<typeAlias alias="Room" type="com.kh.SharetheVision.ms.model.vo.Room"/>
+		<typeAlias alias="Leave" type="com.kh.SharetheVision.leave.model.vo.LeaveAnnual"/>
 	</typeAliases>
 	
 	
@@ -30,6 +31,7 @@
 		<mapper resource="mapper/project-mapper.xml"/>
 		<mapper resource="mapper/attachment-mapper.xml"/>
 		<mapper resource="mapper/messenger-mapper.xml"/>
+		<mapper resource="mapper/leave-mapper.xml"/>
 	</mappers>
 
 

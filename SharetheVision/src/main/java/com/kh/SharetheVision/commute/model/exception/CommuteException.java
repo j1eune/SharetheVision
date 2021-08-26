@@ -1,4 +1,4 @@
-package com.kh.SharetheVision.commute.CommuteException;
+package com.kh.SharetheVision.commute.model.exception;
 
 public class CommuteException extends Exception{
 	public CommuteException() {}

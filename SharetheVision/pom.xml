@@ -255,14 +255,19 @@
 		    <version>2.11.3</version>
 		</dependency>
 		
-		
 		<!--  WebSocket -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-websocket</artifactId>
 		    <version>5.2.4.RELEASE</version>
 		</dependency>
-      
+		
+		<!-- open CSV -->
+		<dependency>
+		    <groupId>net.sf.opencsv</groupId>
+		    <artifactId>opencsv</artifactId>
+		    <version>2.3</version>
+		</dependency>
       
    </dependencies>
     <build>
