@@ -8,16 +8,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.SharetheVision.attachments.model.service.AttachmentService;
 import com.kh.SharetheVision.attachments.model.vo.Attachment;
+import com.kh.SharetheVision.board.model.vo.PageInfo;
 import com.kh.SharetheVision.member.model.service.MemberService;
 import com.kh.SharetheVision.member.model.vo.Member;
+import com.kh.SharetheVision.member.model.vo.MemberPagination;
 import com.kh.SharetheVision.project.model.exception.ProjectException;
 import com.kh.SharetheVision.project.model.service.ProjectService;
 import com.kh.SharetheVision.project.model.vo.Project;
@@ -39,12 +45,6 @@ public class ProjectController {
 	
 	@RequestMapping("createProjectForm.pr")
 	public String createProjectFrom(Model model, HttpSession session) {
-		
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("condition", "refresh");
-		
-		ArrayList<Member> list = mService.selectMember(map);
-		model.addAttribute("list",list);
 		
 		Member loginUser = ((Member)session.getAttribute("loginUser"));
 		String mCode = loginUser.getmCode();
@@ -114,16 +114,54 @@ public class ProjectController {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@RequestMapping(value="projectMember.pr", produces="application/json; charset=UTF-8")
+	@ResponseBody
+	public HashMap<String,Object> projectMember(@RequestParam(value="search", required=false) String search,
+							  @RequestParam(value="page", required=false) Integer page,
+							  HttpServletResponse response, Model model) {
+		
+		System.out.println("search : " + search);
+		System.out.println("search가 null 인가 : " + search == null);
+		System.out.println("search가 빈칸인가? : " + search.trim().equals(""));
+		System.out.println("page : " + page);
+		
+		HashMap<String,Object> map = new HashMap<String, Object>();
+		if(!search.trim().equals("")) {
+			map.put("search", search);
+		} else {
+			search = null;
+		}
+		
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		int listCount = mService.searchListCount(search);
+		
+		PageInfo pi = MemberPagination.getPageInfo(currentPage, listCount);
+		map.put("page", pi);
+		
+		ArrayList<Member> list = mService.searchMember(map);
+
+		HashMap<String,Object> jMap = new HashMap<String, Object>();
+		JSONArray jArr = new JSONArray();
+		for(Member m : list) {
+			JSONObject job = new JSONObject();
+			job.put("mCode", m.getmCode());
+			job.put("name", m.getName());
+			job.put("deptName", m.getDeptName());
+			job.put("jobName", m.getJobName());
+			job.put("phone", m.getPhone());
+			
+			jArr.add(job);
+		}
+		jMap.put("jArr", jArr);
+		jMap.put("pi", pi);
+		
+		
+		return jMap;
+	}
 	
 	
 }

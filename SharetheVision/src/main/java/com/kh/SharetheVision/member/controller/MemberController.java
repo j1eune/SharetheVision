@@ -1,5 +1,6 @@
 package com.kh.SharetheVision.member.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,9 +28,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.SharetheVision.attachments.model.service.AttachmentService;
 import com.kh.SharetheVision.attachments.model.vo.Attachment;
 import com.kh.SharetheVision.attachments.model.vo.AttachmentRename;
+import com.kh.SharetheVision.board.model.vo.Board;
+import com.kh.SharetheVision.board.model.vo.PageInfo;
 import com.kh.SharetheVision.member.model.exception.MemberException;
 import com.kh.SharetheVision.member.model.service.MemberService;
 import com.kh.SharetheVision.member.model.vo.Member;
+import com.kh.SharetheVision.member.model.vo.MemberPagination;
 
 @SessionAttributes({"loginUser","userAttach"})
 @Controller
@@ -53,21 +57,26 @@ public class MemberController {
 	}
 	
 	@RequestMapping("login.me")
-	public String login(@ModelAttribute Member m, Model model) throws MemberException {
+	public void login(@RequestParam("mId") String mId, @RequestParam("pwd") String pwd, 
+					  Model model, HttpServletResponse response) throws MemberException {
 
-		Member member = mService.loginMember(m);
+		Member member = mService.loginMember(mId);
 		Attachment attachment = aService.selectProfile(member.getmCode());
 		
-		boolean check = bcrypt.matches(m.getPwd(), member.getPwd());
+		boolean check = bcrypt.matches(pwd, member.getPwd());
 		
-		if(check) {
-			model.addAttribute("loginUser",member);
-			model.addAttribute("userAttach",attachment);
-		} else {
-			throw new MemberException("로그인에 실패하였습니다.");
+		try {
+			if(check) {
+				model.addAttribute("loginUser",member);
+				model.addAttribute("userAttach",attachment);
+				response.getWriter().println(true);
+			} else {
+				response.getWriter().println(false);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		
-		return "redirect:main";
 	}
 	
 	@RequestMapping("findPwdForm.me")
@@ -95,6 +104,16 @@ public class MemberController {
 			
 		} catch (MessagingException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public void deleteFile(HttpServletRequest request, String memberProfile) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\buplodatFiles";
+		
+		File f= new File(savePath + "\\" + memberProfile);
+		if(f.exists()) {
+			f.delete();
 		}
 	}
 	
@@ -178,6 +197,7 @@ public class MemberController {
 			if(memberProfile.trim().equals("")) {
 				atResult = aService.insertProfile(attachment);
 			} else {
+				deleteFile(request, memberProfile);
 				atResult = aService.updateProfile(attachment);
 			}
 			
@@ -197,15 +217,32 @@ public class MemberController {
 	}
 	
 	@RequestMapping("memberList.me")
-	public String memberList(@RequestParam("condition") String condition, Model model) throws MemberException {
+	public String memberList(@RequestParam("condition") String condition, 
+							 @RequestParam(value="page", required=false) Integer page, Model model) throws MemberException {
 		
-		HashMap<String,String> map = new HashMap<String, String>();
+		System.out.println(page);
+		System.out.println(condition);
+		
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		HashMap<String,Object> map = new HashMap<String, Object>();
 		map.put("condition", condition);
+		
+		int listCount = mService.getListCount(map);
+		
+		PageInfo pi = MemberPagination.getPageInfo(currentPage, listCount);
+		
+		map.put("page", pi);
 		
 		ArrayList<Member> list = mService.selectMember(map);
 		
+		
 		if(!list.isEmpty()) {
 			model.addAttribute("list", list);
+			model.addAttribute("pi",pi);
+			model.addAttribute("condition", condition);
 		} else {
 			model.addAttribute("list", list);
 		}
@@ -289,6 +326,34 @@ public class MemberController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@RequestMapping("searchMember.me")
+	public String searchMember(Model model, @RequestParam("search") String search, @RequestParam(value="page", required=false) Integer page) {
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		int listCount = mService.searchListCount(search);
+		System.out.println("멤버 listCount : " + listCount);
+		PageInfo pi = MemberPagination.getPageInfo(currentPage, listCount);
+		
+		HashMap<String,Object> map = new HashMap<String, Object>();
+		map.put("search", search);
+		map.put("page", pi);
+		
+		ArrayList<Member> list = mService.searchMember(map);
+		
+		if(!list.isEmpty()) {
+			model.addAttribute("list", list);
+			model.addAttribute("pi",pi);
+			model.addAttribute("search",search);
+		} else {
+			model.addAttribute("list", list);
+		}
+			
+		return "memberList";
 	}
 	
 	

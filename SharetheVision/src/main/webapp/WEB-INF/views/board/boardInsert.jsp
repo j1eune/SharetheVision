@@ -12,7 +12,6 @@
     <meta name="description" content="CodedThemes">
     <meta name="keywords" content=" Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
     <meta name="author" content="CodedThemes">
-    <!-- Favicon icon -->
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
     <!-- Required Fremwork -->
@@ -202,6 +201,11 @@
 													<label for="uploadFile" class="uploadFile">업로드</label>
 													<input type="file" id="uploadFile" name="uploadFile" style="display: none;">
 													<input class="uploadFileName" value="파일선택" readonly>
+													
+													<input type="hidden" name="memberCode" value="${ loginUser.mCode }">
+													<input type="hidden" name="deptNo" value="${ loginUser.deptNo }">
+													<input type="hidden" name="boardWriter" value="${ loginUser.name }">
+													
 												</div>
 												<input type="submit" value="작성" class="submitBtn">
 											</div>        		

@@ -12,7 +12,7 @@
 		<result column="B_STATUS" property="boardStatus"/>
 		<result column="M_CODE" property="memberCode"/>
 		<result column="DEPT_NO" property="deptNo"/>
-		<result column="M_NAME" property="boardWriter"/>
+		<result column="B_WRITER" property="boardWriter"/>
 		<result column="P_NAME" property="project"/>
 	</resultMap>
 
@@ -25,7 +25,7 @@
 	<select id="selectBoardList" resultMap="boardResultSet">
 		select *
 		from v_board
-		where b_status = 'Y'
+		where b_status = 'Y' and dept_no = #{deptNo}
 		order by b_no desc
 	</select>
 
@@ -34,7 +34,7 @@
 			select *
 			from (select *
 				  from v_board
-				  where b_type=1 and dept_no=1 and b_status='Y'
+				  where b_type=2 and dept_no=#{deptNo} and b_status='Y'
 				  order by b_no desc)
 			where rownum <= 3
 		]]>
@@ -61,5 +61,21 @@
 		<result column="P_END" property="pEnd"/>
 		<result column="DEPT_NO" property="deptNo"/>
 	</resultMap>
+	
+	<insert id="insertBoard">
+		insert into
+		board values(seq_bno.nextval, 2, #{boardTitle}, #{boardContent}, default, default, default, #{memberCode}, #{deptNo}, #{boardWriter}, #{project})
+	</insert>
+
+	<select id="selectLastBoard" resultMap="boardResultSet">
+		select * from (select * from board order by b_no desc) where rownum = 1
+	</select>
+	
+	<insert id="insertAttachFile">
+		insert into
+		attachments values(seq_at.nextval, #{atLevel}, #{atCategory}, #{atPath}, #{atOrigin}, #{atChange}, null, default)
+	</insert>
+
+
 	
 </mapper>

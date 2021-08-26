@@ -22,6 +22,7 @@
 		<if test="condition == 'leave'">
 		WHERE M_STATE = 4
 		</if>
+		ORDER BY J_NO
 	</select>
 	
 	<resultMap type="Member" id="selectMemberResult">
@@ -44,8 +45,6 @@
 		FROM MEMBER
 		WHERE M_STATUS = 'Y' AND M_NAME = #{ name } AND M_ID = #{ mId }
 	</select>
-	
-
 
 	<select id="loginMember" resultMap="selectMemberResult">
 		SELECT *
@@ -71,5 +70,47 @@
 		SET M_PWD = #{pwd}
 		WHERE M_ID = #{mId}
 	</update>
+
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE M_STATUS = 'Y'
+		<if test="condition == 'refresh'"></if>
+		<if test="condition == 'attendence'">
+		AND M_STATE = 2
+		</if>
+		<if test="condition == 'leave'">
+		AND M_STATE = 4
+		</if>
+	</select>
+	
+	<select id="searchListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+			LEFT JOIN JOB USING(J_NO)
+			LEFT JOIN ADMIN USING(ADMIN_NO)
+			LEFT JOIN DEPARTMENT USING(DEPT_NO)
+		<if test="value != null">
+		WHERE M_STATUS = 'Y' AND (M_NAME = #{value} OR J_NAME = #{value})
+		</if>
+		<if test="value == null">
+		WHERE M_STATUS = 'Y'
+		</if>
+	</select>
+
+	<select id="searchMember" resultMap="selectMemberResult">
+		SELECT *
+		FROM MEMBER
+			LEFT JOIN JOB USING(J_NO)
+			LEFT JOIN ADMIN USING(ADMIN_NO)
+			LEFT JOIN DEPARTMENT USING(DEPT_NO)
+		<if test="search != null">
+		WHERE M_STATUS = 'Y' AND (M_NAME = #{search} OR J_NAME = #{search})
+		</if>
+		<if test="search == null">
+		WHERE M_STATUS = 'Y'
+		</if>
+		ORDER BY J_NO
+	</select>
 
 </mapper>

@@ -50,6 +50,10 @@
 			border-bottom: 1px solid black;
 			cursor:pointer;
 		}
+ 		#paginationBox{ 
+ 			display: inline-block;
+ 			text-align: center;
+ 		} 
 	</style>
 	
 </head>
@@ -127,7 +131,7 @@
 															   </div>
 															   <div class="form-group col-md-1" id="addProjectMemberDiv">
 															      <label for="inputCity">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;&nbsp;
-															      <div style="display:inline-block;" data-toggle="modal" data-target="#exampleModalCenter"><i class="icofont icofont-user icofont-2x"></i><i class="icofont icofont-ui-add icofont-1x"></i></div>
+															      <div id="memberDiv" style="display:inline-block;" data-toggle="modal" data-target="#exampleModalCenter"><i class="icofont icofont-user icofont-2x"></i><i class="icofont icofont-ui-add icofont-1x"></i></div>
 															   </div>
 															   <br><br>
 															   <div class="form-group col-md-12" >
@@ -226,7 +230,7 @@
                                     </div>
                                 </div>
                                 <!-- 사원추가 Modal 창 -->
-                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal fade" id="exampleModalCenter" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 								  <div class="modal-dialog modal-dialog-centered" role="document">
 								    <div class="modal-content">
 								      <div class="modal-header">
@@ -235,34 +239,34 @@
 								          <span aria-hidden="true">&times;</span>
 								        </button>
 								      </div>
+								      <br>
+								      <div class="pcoded-search" style="text-align:right;">
+							              <span class="searchbar-toggle">  </span>
+							              <div class="pcoded-search-box" style="display:inline-block; text-align:right; margin-right:20px;">
+							                  <input type="text" id="searchMember" size="20" placeholder="Search" value="${search }">
+							                  <span class="search-icon" id="searchBtn"><i class="ti-search" aria-hidden="true"></i></span>
+							              </div>
+							          </div>
 								      <div class="modal-body">
-								      		<table style="width:100%;">
-								      			<tr style="border-bottom:1px solid black;">
-								      				<td></td>
-								      				<td style="width: 10%">&nbsp;</td>
-								      				<td style="width: 20%">이름</td>
-								      				<td style="width: 20%">부서</td>
-								      				<td style="width: 20%">직책</td>
-								      				<td style="width: 40%">핸드폰 번호</td>
-								      			</tr>
-								      			<c:if test="${ !empty list }">
-								      				<c:forEach var="list" items="${ list }">
-									      				<tr>
-									      					<td><input type="hidden" value="${ list.mCode }"></td>
-										      				<td><input type="checkbox" name="addMemberCheckbox"></td>
-										      				<td>${ list.name }</td>
-										      				<td>${ list.jobName }</td>
-										      				<td>${ list.deptName }</td>
-										      				<td>${ list.phone }</td>
-									      				</tr>
-								      				</c:forEach>
-								      			</c:if>
-								      			<c:if test="${ empty list }">
-								      				<tr>
-								      					<th style="text-align:center" colspan="6">등록된 사원이 없습니다.</th>
-								      				</tr>
-								      			</c:if>
+								      		<table style="width:100%;" id="memberListTable">
+								      			<thead>
+									      			<tr style="border-bottom:1px solid black;">
+									      				<td></td>
+									      				<td style="width: 10%">&nbsp;</td>
+									      				<td style="width: 20%">이름</td>
+									      				<td style="width: 20%">부서</td>
+									      				<td style="width: 20%">직책</td>
+									      				<td style="width: 40%">핸드폰 번호</td>
+									      			</tr>
+								      			</thead>
+								      			<tbody>
+								      			</tbody>
 								      		</table>
+								      		<br>
+							      			<div id="pageDiv" class="mx-auto" style="text-align:center;">
+												<ul id="paginationBox" class="pagination">
+												</ul>
+											</div>
 								      </div>
 								      <div class="modal-footer">
 								        <button type="button" class="btn btn-primary" id="addMemberButton" data-dismiss="modal">추가</button>
@@ -284,17 +288,82 @@
 	  $('#myInput').trigger('focus')
 	});
 	
-	$("#addMemberButton").click(function(){
-		$.ajax({
-			
-		});
+	$("#memberDiv").click(function(){
+		memberList();
 	});
+	
+	$("#searchBtn").click(function(){
+		memberList();
+	});
+	
+	function memberList(page){
+		var search = $("#searchMember").val();
+		
+		$.ajax({
+			url: "projectMember.pr",
+			data: {search: search, page: page},
+			success: function(data){
+				
+				var $tableBody = $("#memberListTable tbody");
+				$tableBody.html('');
+				
+				var $tr;
+				var $mCode;
+				var $check;
+				var $name;
+				var $jobName;
+				var $deptName;
+				var $phone;
+				
+				for(var i in data.jArr){
+					$tr = $('<tr>');
+					$mCode = $('<td>').html('<input type="hidden" value="'+data.jArr[i].mCode+'"/>');
+					$check = $('<td>').html('<input type="checkbox" name="addMemberCheckbox"/>');
+					$name = $('<td>').text(data.jArr[i].name);
+					$jobName = $('<td>').text(data.jArr[i].jobName);
+					$deptName = $('<td>').text(data.jArr[i].deptName);
+					$phone = $('<td>').text(data.jArr[i].phone);
+					
+					$tr.append($mCode);
+					$tr.append($check);
+					$tr.append($name);
+					$tr.append($jobName);
+					$tr.append($deptName);
+					$tr.append($phone);
+					$tableBody.append($tr);
+				}
+				
+				listPage(data.pi, page);
+				
+			},
+			error: function(data){
+				console.log("실패함");				
+			}
+		});
+	}
+	
+	function listPage(data, page){
+		var search = document.getElementById("searchMember").value;
+		var block = "";
+		
+		// 번호를 표시하는 부분
+		for (var i = data['startPage']-1; i < data['endPage']; i++) {
+			if (page-1 !== i) {
+				block += "<li style='display:inline-block;' class='page-item'><a class='page-link' href='javascript:memberList("
+						+ (i + 1) + ")'>" + (i + 1) + "</a></li>";
+			} else {
+				block += "<li style='display:inline-block;' class='page-item disabled'><a class='page-link'>"
+						+ (i + 1) + "</a></li>";
+			}
+		}
+		$("#paginationBox").html(block);
+		$('#pageDiv').attr('class', 'mx-auto');
+	}
 	
 	$("#addMemberButton").click(function(){
 		var check = $("input[name=addMemberCheckbox]:checked");
 
 		var $tableBody = $("#projectMemberTable tbody");
-		$tableBody.html('');
 		
 		var $tr;
 		var $mNum;
@@ -347,7 +416,7 @@
 	});
 	
 	function reloadPage(){
-		location.replace("createProjectForm.me");
+		location.replace("createProjectForm.pr");
 	}
 	
 	$(document).ready(function(){

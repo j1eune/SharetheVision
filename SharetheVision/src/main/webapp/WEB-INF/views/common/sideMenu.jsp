@@ -43,6 +43,7 @@
 						
 						<c:url var="memberList" value="memberList.me">
 							<c:param name="condition" value="refresh"/>
+							<c:param name="page" value="1"/>
 						</c:url>
 						<a href="${ memberList }"><i class="ti-list"></i>Group Member</a> 
 						
@@ -209,7 +210,9 @@
                 </a>
             </li>
             <li class="pcoded-hasmenu">
-				<c:url var="board" value="board.bo"></c:url>
+				<c:url var="board" value="board.bo">
+					<c:param name="loginUserDeptNo" value="${ loginUser.deptNo }"></c:param>	
+				</c:url>
 				<c:url var="projectForm" value="createProjectForm.pr"></c:url>
 				
 				<a href="#" onclick="return false;">
