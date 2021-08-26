@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.SharetheVision.leave.model.vo.LeaveAnnual;
 import com.kh.SharetheVision.leave.model.vo.LeaveUsed;
 
-@Repository("lDAO")
+@Repository("leDAO")
 public class LeaveDAO {
 
 	public int insertLeave(SqlSessionTemplate sqlSession, LeaveAnnual la) {

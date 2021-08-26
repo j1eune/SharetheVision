@@ -14,6 +14,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.SharetheVision.leave.model.exception.LeaveException;
+import com.kh.SharetheVision.leave.model.service.LeaveService;
 import com.kh.SharetheVision.leave.model.vo.LeaveAnnual;
+import com.kh.SharetheVision.leave.model.vo.LeaveUsed;
 import com.kh.SharetheVision.member.model.vo.Member;
 
 import au.com.bytecode.opencsv.CSVReader;
@@ -29,8 +32,8 @@ import au.com.bytecode.opencsv.CSVReader;
 @Controller
 public class LeaveController {
 	
-//	@Autowired
-//	private LeaveService leService;
+	@Autowired
+	private LeaveService leService;
 	
 //	@Autowired
 //	private MemberService mService;
@@ -44,28 +47,53 @@ public class LeaveController {
 		String name = "임지은";
 		String jobName = "팀장";
 		String memberNo = "MaCo2";
+		model.addAttribute("name", name + " " + jobName);
+		
+		// 생성 연차
+		HashMap<String, Object> annualMap = new HashMap<String, Object>();
+		annualMap.put("memberNo", memberNo);
+		annualMap.put("type", 0);
+		ArrayList<LeaveAnnual> annualList = leService.selectAnnual(annualMap);
+		
+		int annualTotal = 0;
+		if(annualList != null) {
+			for(LeaveAnnual la : annualList) {
+				annualTotal += la.getTotal();
+			}
+			model.addAttribute("annualTotal", annualTotal);
+		}
+		
+		
+		
+		// 조정 연차
+		HashMap<String, Object> adjustMap = new HashMap<String, Object>();
+		adjustMap.put("memberNo", memberNo);
+		adjustMap.put("type", 1);
+		ArrayList<LeaveAnnual> adjustList = leService.selectAnnual(adjustMap);
+		
+		int adjustTotal = 0;
+		if(adjustList != null) {
+			for(LeaveAnnual la : adjustList) {
+				adjustTotal += la.getTotal();
+			}
+			model.addAttribute("adjustTotal", adjustTotal);
+		}
+		
+		// 사용 연차
+		ArrayList<LeaveUsed> luList = leService.selectUsed(memberNo);
+		
+		int usedTotal = 0;
+		if(luList != null) {
+			for(LeaveUsed lu : luList) {
+				usedTotal += lu.getDays();
+			}
+			model.addAttribute("usedTotal", usedTotal);
+		}
+		
+		System.out.println(annualList);
+		System.out.println(adjustList);
+		System.out.println(luList);
 
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("memberNo", memberNo);
-		map.put("type", 0);
-		
-//		ArrayList<LeaveAnnual> laList = leService.selectAnnual(map);
-//		System.out.println(laList);
-//		
-//		
-//		model.addAttribute("name", name + " " + jobName);
-//		
-//		
-//		int annualTotal = 0;
-//		if(laList != null) {
-//			for(LeaveAnnual la : laList) {
-//				annualTotal += la.getTotal();
-//			}
-//			model.addAttribute("annualTotal", annualTotal);
-//		}
-//		
-//		ArrayList<LeaveUsed> luList = leService.selectUsed(memberNo);
-		
 		return "leaveDetailView";
 	}
 	

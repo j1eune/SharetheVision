@@ -12,9 +12,9 @@
 		FROM ANNUAL
 			 JOIN MEMBER USING (M_CODE)
 		WHERE M_CODE = #{memberNo}
-<!-- 			<if test="type != null"> -->
-<!-- 				AND A_TYPE = #{type} -->
-<!-- 			</if> -->
+			<if test="type != null">
+				AND A_TYPE = #{type}
+			</if>
 	</select>
 	
 	<resultMap type="LeaveAnnual" id="annualResultSet">
@@ -34,7 +34,7 @@
 	<select id="selectUsed" resultMap="usedResultSet">
 		SELECT *
 		FROM USED
-		WHERE M_CODE = #{memberNo}
+		WHERE M_CODE = #{memberNo} AND U_STATUS = 'Y'
 	</select>
 	
 	<resultMap type="LeaveUsed" id="usedResultSet">

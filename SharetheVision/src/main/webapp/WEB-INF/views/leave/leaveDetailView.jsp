@@ -82,27 +82,29 @@
 		                                    <div class="card-block">
 		                                        <div class="row">
 		                                            <div class="col-lg my-auto">
-		                                                <h5>홍길동 팀장</h5>
+		                                                <h5>${name}</h5>
 		                                            </div>
 		                                            <div class="col-lg b-r-default b-l-default">
 		                                                <h5 class="m-b-20">발생 연차</h5>
-		                                                <h3>15</h3>
+		                                                <h3>${annualTotal}</h3>
 		                                            </div>
 		                                            <div class="col-lg b-r-default">
 		                                                <h5 class="m-b-20">조정 연차</h5>
-		                                                <h3>0</h3>
+		                                                <h3>${adjustTotal}</h3>
 		                                            </div>
 		                                            <div class="col-lg b-r-default">
 		                                                <h5 class="m-b-20">총 연차</h5>
-		                                                <h3>15</h3>
+		                                                <c:set var="total" value="${annualTotal + adjustTotal}"/>
+		                                                <h3>${total}</h3>
 		                                            </div>
 		                                            <div class="col-lg b-r-default">
 		                                                <h5 class="m-b-20">사용 연차</h5>
-		                                                <h3>2</h3>
+		                                                <h3>${usedTotal}</h3>
 		                                            </div>
 		                                            <div class="col-lg">
 		                                                <h5 class="m-b-20">잔여 연차</h5>
-		                                                <h3>13</h3>
+		                                                <c:set var="remain" value="${annualTotal + adjustTotal - usedTotal}"/>
+		                                                <h3>${remain}</h3>
 		                                            </div>
 		                                        </div>
 		                                    </div>
