@@ -26,19 +26,19 @@ public class MsServiceImple implements MsService{
 		return msdao.toList(sqlSession);
 	}
 
-//	@Override
-//	public int sendInsert(Messenger ms) {
-//		return msdao.sendInsert(sqlSession, ms);
-//	}
-
 	@Override
 	public List<Room> chatRoomList(String userId) {
-		return msdao.selectRoomList(sqlSession,userId);
+		return msdao.selectRoomList(sqlSession, userId);
 	}
-
+	
 	@Override
 	public List<Messenger> messageList(int roomId) {
 		return msdao.selectMList(sqlSession,roomId);
+	}
+	
+	@Override
+	public Room existChatRoom(Room r) {
+		return msdao.existRoom(sqlSession, r);
 	}
 
 	@Override

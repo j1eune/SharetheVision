@@ -18,19 +18,22 @@ public class MsDAO {
 		return (ArrayList)sqlSession.selectList("msMapper.toList");
 	}
 
-//	public int sendInsert(SqlSessionTemplate sqlSession, Messenger ms) {
-//		return sqlSession.insert("msMapper.send",ms);
-//	}
 	public List<Room> selectRoomList(SqlSessionTemplate sqlSession,String userId) {
 		return sqlSession.selectList("msMapper.RoomList",userId);
 	}
-
+	
 	public List<Messenger> selectMList(SqlSessionTemplate sqlSession, int roomId) {
 		return sqlSession.selectList("msMapper.selectList",roomId);
 	}
+	
+	public Room existRoom(SqlSessionTemplate sqlSession, Room r) {
+		return sqlSession.selectOne("msMapper.existRoom",r);
+	}
+	
 	public int insertRoom(SqlSessionTemplate sqlSession, Room r) {
 		return sqlSession.insert("msMapper.insertRoom",r);
 	}
+
 	
 	
 }

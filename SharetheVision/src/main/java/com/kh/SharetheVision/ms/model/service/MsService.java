@@ -11,11 +11,12 @@ public interface MsService {
 
 	ArrayList<Member> tolist();
 
-//	int sendInsert(Messenger ms);
-
 	List<Room> chatRoomList(String userId);
 
 	List<Messenger> messageList(int roomId);
 
+	Room existChatRoom(Room r);
+	
 	int insertRoom(Room r);
+
 }

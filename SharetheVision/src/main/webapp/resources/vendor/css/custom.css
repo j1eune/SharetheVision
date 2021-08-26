@@ -3,11 +3,9 @@
 #chat, .portlet-heading{
 	width: 350px !important;
  }  
- 
 .chatContainer{
 	display:none;
-}
-        
+}        
 .portlet {
     margin-bottom: 15px;
 }

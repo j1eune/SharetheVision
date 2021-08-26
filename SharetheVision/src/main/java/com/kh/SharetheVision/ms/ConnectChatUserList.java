@@ -1,4 +1,4 @@
-package com.kh.SharetheVision.ms.controller;
+package com.kh.SharetheVision.ms;
 
 import java.util.ArrayList;
 import java.util.HashMap;
