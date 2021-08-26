@@ -5,7 +5,7 @@
 <html lang="en">
 
 <head>
-    <title>GURU Able - Free Lite Admin Template </title>
+    <title>Share the Vision</title>
     <!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -37,7 +37,7 @@
 	input[type=password] { font-family: "ELAND_Choice_L"; }
 
 </style>
-<body class="fix-menu">
+<body class="fix-menu" onload="enter();">
     <!-- Pre-loader start -->
     <div class="theme-loader">
     <div class="ball-scale">
@@ -64,7 +64,6 @@
                 <div class="col-sm-12">
                     <!-- Authentication card start -->
                     <div class="login-card card-block auth-body mr-auto ml-auto">
-                        <form action="login.me" method="post" class="md-float-material">
 <!--                             <div class="text-center"> -->
 <!--                                 <img src="resources/assets/images/loginLogo.png" alt="logo.png" style="width:80%;"> -->
 <!--                             </div> -->
@@ -77,11 +76,11 @@
                                 </div>
                                 <hr/>
                                 <div class="input-group">
-                                    <input type="text" name="mId" class="form-control" placeholder="Id">
+                                    <input type="text" name="mId" id="mId" class="form-control" placeholder="Id">
                                     <span class="md-line"></span>
                                 </div>
                                 <div class="input-group">
-                                    <input type="password" name="pwd" style="color: black;" class="form-control" placeholder="Password">
+                                    <input type="password" name="pwd" id="userPwd" style="color: black;" class="form-control" placeholder="Password">
                                     <span class="md-line"></span>
                                 </div>
                                 <div class="row m-t-25 text-left">
@@ -102,7 +101,7 @@
                                         <a href="${home }" class="text-right f-w-600 text-inverse"> home.jsp로 가기</a>
                                     </div>
                                     <div class="col-md-12">
-                                        <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">로그인</button>
+                                        <button type="submit" onclick="login();" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">로그인</button>
                                     </div>
                                 </div>
                                 <hr/>
@@ -116,7 +115,6 @@
                                 </div>
 
                             </div>
-                        </form>
                         <!-- end of form -->
                     </div>
                     <!-- Authentication card end -->
@@ -127,50 +125,44 @@
         </div>
         <!-- end of container-fluid -->
     </section>
-    <!-- Warning Section Starts -->
-    <!-- Older IE warning message -->
-    <!--[if lt IE 9]>
-<div class="ie-warning">
-    <h1>Warning!!</h1>
-    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
-    <div class="iew-container">
-        <ul class="iew-download">
-            <li>
-                <a href="http://www.google.com/chrome/">
-                    <img src="resources/assets/images/browser/chrome.png" alt="Chrome">
-                    <div>Chrome</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.mozilla.org/en-US/firefox/new/">
-                    <img src="resources/assets/images/browser/firefox.png" alt="Firefox">
-                    <div>Firefox</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://www.opera.com">
-                    <img src="resources/assets/images/browser/opera.png" alt="Opera">
-                    <div>Opera</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.apple.com/safari/">
-                    <img src="resources/assets/images/browser/safari.png" alt="Safari">
-                    <div>Safari</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-                    <img src="resources/assets/images/browser/ie.png" alt="">
-                    <div>IE (9 & above)</div>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <p>Sorry for the inconvenience!</p>
-</div>
-<![endif]-->
-    <!-- Warning Section Ends -->
 </body>
+<script>
+
+	function login(){
+		var mId = $("#mId").val();
+		var pwd = $("#userPwd").val();
+		
+		if(mId == '' || pwd == ''){
+			alert("아이디 혹은 비밀번호를 입력해주세요");
+		} else {
+			$.ajax({
+				type: "POST",
+				url: "login.me",
+				data:{mId: mId, pwd: pwd},
+				success: function(data){
+					if(data.trim() == "true"){
+						location.href="main.do";
+					} else {
+						alert("아이디 혹은 비밀번호를 확인해주세요");
+					}
+				},
+				error: function(data){
+					
+				}
+			});
+		}
+		
+	};
+	
+	function enter(){
+		console.log("들어옴");
+		$("#loginSection").bind("keypress", function(e){
+			if(e.keyCode == 13){
+				login();
+			}
+		})
+	}
+	
+</script>
 
 </html>

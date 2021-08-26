@@ -44,6 +44,7 @@
 						
 						<c:url var="memberList" value="memberList.me">
 							<c:param name="condition" value="refresh"/>
+							<c:param name="page" value="1"/>
 						</c:url>
 						<a href="${ memberList }"><i class="ti-list"></i>Group Member</a> 
 						
