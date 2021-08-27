@@ -1,9 +1,14 @@
 package com.kh.SharetheVision.project.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,8 +21,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.SharetheVision.attachments.model.service.AttachmentService;
 import com.kh.SharetheVision.attachments.model.vo.Attachment;
 import com.kh.SharetheVision.board.model.vo.PageInfo;
@@ -163,5 +168,45 @@ public class ProjectController {
 		return jMap;
 	}
 	
+	@RequestMapping("meeting.pr")
+	public void meeting(HttpServletResponse response) {
+		try {
+			String jwt = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6Il9mUEt0VTRqU2lLVGtSaFV2cm01bHciLCJleHAiOjE2MzE4MDQ0MDAsImlhdCI6MTYyOTgwODQwMH0.ywbS3RNvx95bWehc2fWher9dOFUoyJmf_mJc979bvJw"; //
+			String restUrl = "https://api.zoom.us/v2/users/me/meetings"; // zoom 회의 생성 
+			HashMap<String, Object> requestMap = new HashMap<String, Object>();
+			requestMap.put("type", 1);
+			
+			URL url = new URL(restUrl);
+			HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+			con.setConnectTimeout(5000); // 서버에 연결되는 Timeout 시간 설정
+			con.setReadTimeout(5000); // InputStream 읽어 오는 Timeout 시간 설정
+			con.setRequestMethod("POST");
+			con.setRequestProperty("Content-Type", "application/json");
+			con.setRequestProperty("Authorization", "Bearer " + jwt);
+
+			con.setDoOutput(true); // POST 데이터를 OutputStream으로 넘겨 주겠다는 설정
+			ObjectMapper mapper = new ObjectMapper();
+			OutputStream os = con.getOutputStream();
+			os.write(mapper.writeValueAsString(requestMap).getBytes());
+			os.close();
+			
+			
+	    	try (BufferedReader input = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+	    		String line;
+	    		StringBuffer buffer = new StringBuffer();
+	    		while ((line = input.readLine()) != null) {
+	    			buffer.append(line);
+	    			
+	    			response.getWriter().println(buffer.toString());
+	    		}
+	    	}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
+	@RequestMapping("meetingForm.pr")
+	public String meetingForm() {
+		return "meetingForm";
+	}
 }
