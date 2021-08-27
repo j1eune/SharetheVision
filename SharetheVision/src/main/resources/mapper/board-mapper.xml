@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="boardMapper">
 
-	<resultMap type="board" id="boardResultSet">
+	<resultMap type="Board" id="boardResultSet">
 		<id column="B_NO" property="boardNo"/>
 		<result column="B_TYPE" property="boardType"/>
 		<result column="B_TITLE" property="boardTitle"/>
@@ -75,7 +75,36 @@
 		insert into
 		attachments values(seq_at.nextval, #{atLevel}, #{atCategory}, #{atPath}, #{atOrigin}, #{atChange}, null, default)
 	</insert>
+	
+	<insert id="insertScrap">
+		insert into
+		scrap values(#{mCode}, #{boardNo}, #{project}, #{boardTitle}, #{boardWriter}, default)
+	</insert>
 
+	<select id="scrapState" resultMap="scrapResultSet">
+		select *
+		from scrap where b_no=#{boardNo} and m_code=#{mCode}
+	</select>
 
+	<resultMap type="Scrap" id="scrapResultSet">
+		<id column="M_CODE" property="mCode"/>
+		<id column="B_NO" property="boardNo"/>
+		<result column="PROJECT" property="project"/>
+		<result column="B_TITLE" property="boardTitle"/>
+		<result column="B_WRITER" property="boardWriter"/>
+	</resultMap>
+	
+	<delete id="deleteScrap">
+		delete
+		from scrap
+		where b_no=#{boardNo} and m_code=#{mCode}
+	</delete>
+	
+	<select id="scrapList" resultMap="scrapResultSet">
+		select *
+		from scrap
+		where m_code=#{mCode}
+		order by scrap_date desc
+	</select>
 	
 </mapper>

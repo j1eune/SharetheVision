@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.SharetheVision.attachments.model.vo.Attachment;
 import com.kh.SharetheVision.board.model.vo.Board;
 import com.kh.SharetheVision.board.model.vo.PageInfo;
+import com.kh.SharetheVision.board.model.vo.Scrap;
 import com.kh.SharetheVision.project.model.vo.Project;
 
 @Repository("DAO")
@@ -46,6 +47,22 @@ public class BoardDAO {
 
 	public Board selectLastBoard(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("boardMapper.selectLastBoard");
+	}
+
+	public int insertScrap(SqlSessionTemplate sqlSession, Scrap s) {
+		return sqlSession.insert("boardMapper.insertScrap", s);
+	}
+
+	public Scrap scrapState(SqlSessionTemplate sqlSession, Scrap s) {
+		return sqlSession.selectOne("boardMapper.scrapState", s);
+	}
+
+	public int deleteScrap(SqlSessionTemplate sqlSession, Scrap s) {
+		return sqlSession.delete("boardMapper.deleteScrap", s);
+	}
+
+	public ArrayList<Scrap> scrapList(SqlSessionTemplate sqlSession, String mCode) {
+		return (ArrayList)sqlSession.selectList("boardMapper.scrapList", mCode);
 	}
 
 

@@ -24,6 +24,7 @@ import com.kh.SharetheVision.board.model.service.BoardService;
 import com.kh.SharetheVision.board.model.vo.Board;
 import com.kh.SharetheVision.board.model.vo.PageInfo;
 import com.kh.SharetheVision.board.model.vo.Pagination;
+import com.kh.SharetheVision.board.model.vo.Scrap;
 import com.kh.SharetheVision.member.model.vo.Member;
 import com.kh.SharetheVision.project.model.vo.Project;
 
@@ -34,21 +35,33 @@ public class BoardController {
 	private BoardService service;
 	
 	@RequestMapping("board.bo")
-	public String board(@RequestParam(value="loginUserDeptNo") int deptNo, Model model) {
+	public String board(@RequestParam(value="loginUserDeptNo") int deptNo, Model model, HttpSession session) {
+		
+		String mCode = ((Member)session.getAttribute("loginUser")).getmCode();
 		
 		ArrayList<Board> list = service.newBoard(deptNo);
-//		System.out.println(list);
+		ArrayList<Scrap> list2 = service.scrapList(mCode);
+		System.out.println(list2);
 		model.addAttribute("board", list);
+		model.addAttribute("scrap", list2);
 		
 		return "board";
 	}
 	
 	@RequestMapping("boardDetail.bo")
-	public String boardDetail(@RequestParam("bId") int bId, Model model) {
+	public String boardDetail(@RequestParam("bId") int bId, Model model, HttpSession session) {
+		
+		String mCode = ((Member)session.getAttribute("loginUser")).getmCode();
+		
+		Scrap s = new Scrap();
+		s.setmCode(mCode);
+		s.setBoardNo(bId);
 		
 		Board board = service.selectBoardDetail(bId);
+		Scrap scrapState = service.scrapState(s);
 		
 		model.addAttribute("board", board);
+		model.addAttribute("scrapState", scrapState);
 		
 		return "boardDetail";
 	}
@@ -71,7 +84,7 @@ public class BoardController {
 		
 		ArrayList<Board> list = service.selectBoardList(pi, deptNo);
 		
-		System.out.println(list);
+//		System.out.println(list);
 		if (list != null) {
 			mv.addObject("board", list).addObject("pi", pi);
 			mv.setViewName("boardList");
@@ -107,7 +120,7 @@ public class BoardController {
 		
 		if(uploadFile != null && !uploadFile.isEmpty()) {
 			Attachment attachFile = saveFile(uploadFile, request, lastBoardNo);
-			System.out.println(attachFile);
+//			System.out.println(attachFile);
 			
 			int uploadResult = service.insertAttachFile(attachFile);
 			
@@ -165,7 +178,34 @@ public class BoardController {
 	}
 	
 	@RequestMapping("addScrap.bo")
-	public String addScrap() {
-		return "";
+	public String addScrap(@ModelAttribute Scrap s) throws BoardException {
+
+		int bId = s.getBoardNo();
+		
+		int result = service.insertScrap(s);
+		
+		if (result > 0) {
+			return "redirect:boardDetail.bo?bId="+bId;
+		} else {
+			throw new BoardException("게시물 스크랩에 실패했습니다.");
+		}
+	}
+	
+	@RequestMapping("deleteScrap.bo")
+	public String deleteScrap(@RequestParam(value="mCode") String mCode,
+							  @RequestParam(value="boardNo") int boardNo) throws BoardException {
+		
+		Scrap s = new Scrap();
+		s.setBoardNo(boardNo);
+		s.setmCode(mCode);
+		
+		int result = service.deleteScrap(s);
+		
+		if (result > 0) {
+			return "redirect:boardDetail.bo?bId="+boardNo;
+		} else {
+			throw new BoardException("스크랩 취소에 실패했습니다.");
+		}
+		
 	}
 }
