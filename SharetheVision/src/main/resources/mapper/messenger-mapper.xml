@@ -23,7 +23,8 @@
 	<select id="RoomList" resultMap="RoomResultMap">
 		SELECT *
 		  FROM ROOM
-		 WHERE FID = #{fid}
+		 WHERE FID = #{fid} 
+		 	OR TID = #{fid}
 		   AND RSTA ='Y'
 		 ORDER BY RNO DESC
 	</select>
@@ -60,6 +61,11 @@
 	<insert id="insertRoom">
 		INSERT INTO ROOM
 		VALUES (SEQ_RNO.NEXTVAL, #{fid}, #{tid}, DEFAULT)
+	</insert>
+	
+	<insert id="insertMs">
+		INSERT INTO MS
+		VALUES (SEQ_MS.NEXTVAL, #{message}, TO_CHAR(SYSDATE,'YY-MM-DD AMHH:MI:SS'), #{roomId}, DEFAULT, #{userName}, #{toId})
 	</insert>
 	
 </mapper>

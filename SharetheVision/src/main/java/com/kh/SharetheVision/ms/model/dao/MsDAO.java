@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.SharetheVision.member.model.vo.Member;
+import com.kh.SharetheVision.ms.model.vo.ChatVo;
 import com.kh.SharetheVision.ms.model.vo.Messenger;
 import com.kh.SharetheVision.ms.model.vo.Room;
 
@@ -32,6 +33,10 @@ public class MsDAO {
 	
 	public int insertRoom(SqlSessionTemplate sqlSession, Room r) {
 		return sqlSession.insert("msMapper.insertRoom",r);
+	}
+
+	public int insertMessage(SqlSessionTemplate sqlSession, ChatVo chatVo) {
+		return sqlSession.insert("msMapper.insertMs",chatVo);
 	}
 
 	

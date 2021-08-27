@@ -155,7 +155,6 @@
 	};
 	
 	function enter(){
-		console.log("들어옴");
 		$("#loginSection").bind("keypress", function(e){
 			if(e.keyCode == 13){
 				login();

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -11,19 +12,22 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.google.gson.Gson;
+import com.kh.SharetheVision.ms.model.service.MsService;
 import com.kh.SharetheVision.ms.model.vo.ChatVo;
 
 @Component
 public class HandlerChat extends TextWebSocketHandler{
 
-	private Map<String,WebSocketSession> sessionList = new HashMap<String, WebSocketSession>();
-
+	@Autowired
+	private MsService msService;
 	
-	// 클라이언트 서버 연결 메소드 
+	private Map<String,WebSocketSession> sessionList = new HashMap<String, WebSocketSession>();
+	
+	// 웹소켓 서버 접속시 메소드 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 
-		System.out.println("connection handler INNNN");
+		System.out.println("Connection handler INNNN");
 		// 채팅방에 접속한 사용자 세션을 리스트에 저장
 		Map<String, Object> map = session.getAttributes();
 		
@@ -32,7 +36,7 @@ public class HandlerChat extends TextWebSocketHandler{
 
 		// 모든 세션에 채팅 전달
 		for (String user : sessionList.keySet()) {
-			sessionList.get(user).sendMessage(new TextMessage("<p>" + userId + "님  In Messenger. </p>"));
+			sessionList.get(user).sendMessage(new TextMessage("<p> [ID]" + userId + "님이  LogIn 하셨습니다. </p>"));
 		}
 	}
 	
@@ -50,15 +54,25 @@ public class HandlerChat extends TextWebSocketHandler{
 		}else {
 			for (String user: sessionList.keySet()) {
 				if(sessionList.get(user).equals(session)) {
-					sessionList.get(user).sendMessage(new TextMessage("<p class='mychat'>"+ chatVo.userId + " : " + chatVo.message+ "</p>"));
+					sessionList.get(user).sendMessage(new TextMessage("<div class='mychatp'>" + chatVo.message+ "</div>"));
 				}else {
-					sessionList.get(user).sendMessage(new TextMessage("<p class='otherchat'>"+ chatVo.userId + " : " + chatVo.message+ "</p>"));
+					sessionList.get(user).sendMessage(new TextMessage(
+							"<div class='media'>" + "<a class='pull-left'>" +
+							"<img class='media-object img-circle img-chat' src='resources/assets/images/dp.png'>" +
+							"<h4 class='media-heading'>"+ chatVo.userName +"</h4>" +
+							"</a>" + "<p class='otherchatp'>" + chatVo.message + "</p>" +"</div>"));
 				}
 			}
 		}
+		int result = msService.insertMessage(chatVo);
+		if(result>0) {
+			System.out.println("message DB저장 성공");
+		}else {
+			System.out.println("message 저장 실패");
+		}
 	}
 
-	// 클라이언트 연결 종료 메소드
+	// 서버 연결 종료 메소드
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 
@@ -74,10 +88,10 @@ public class HandlerChat extends TextWebSocketHandler{
 		 
 		 if(sessionList.size()>0) { 
 			 for (String user: sessionList.keySet()) {
-				 sessionList.get(user).sendMessage(new TextMessage("<p >"+userId + "님  Exit." +"</p>")); 
+				 sessionList.get(user).sendMessage(new TextMessage("<p> [ID]"+userId + "님이 LogOut 하셨습니다." +"</p>")); 
 			}
 		 } 
-		 System.out.println("close handler outttt");
+		 System.out.println("Close handler outttt");
 		
 	}
 }

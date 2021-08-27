@@ -146,9 +146,6 @@ public class MemberController {
 	@RequestMapping("updatePwd.me")
 	public String updatePwd(@ModelAttribute Member m, HttpServletRequest request) throws MemberException {
 		
-		System.out.println("아이디 : " + m.getmId());
-		System.out.println("비밀번호 : " + m.getPwd());
-		
 		m.setPwd(bcrypt.encode(m.getPwd()));
 		int result = mService.updatePwd(m);
 		
@@ -175,7 +172,7 @@ public class MemberController {
 	public String updateProfile(@RequestParam("profile") MultipartFile file, HttpServletRequest request, @RequestParam("address1") String address1,
 								@RequestParam("address2") String address2, @RequestParam("address3") String address3, @ModelAttribute Member m,
 								@RequestParam("newPwd") String newPwd, @RequestParam("pwd") String pwd, HttpSession session,
-								@RequestParam("memberProfile") String memberProfile) throws MemberException {
+								@RequestParam("memberProfile") String memberProfile, Model model) throws MemberException {
 
 		Member loginUser = ((Member)session.getAttribute("loginUser"));
 		String address = address1+"." + address2 + "." + address3;
@@ -192,6 +189,9 @@ public class MemberController {
 		
 		int atResult = 0;
 		
+		Member updateMember = mService.loginMember(loginUser.getmId());
+		Attachment memberAttach = null;
+		
 		if(file != null && !file.isEmpty()) {
 			Attachment attachment = AttachmentRename.updateProfile(file, request, loginUser.getmCode());
 			if(memberProfile.trim().equals("")) {
@@ -202,13 +202,23 @@ public class MemberController {
 			}
 			
 			if(atResult > 0 && mResult > 0) {
-				return "../home";
+				memberAttach = aService.selectProfile(loginUser.getmCode());
+				
+				model.addAttribute("loginUser",updateMember);
+				model.addAttribute("userAttach",memberAttach);
+				
+				return "redirect:main";
 			} else {
 				throw new MemberException("회원정보 수정에 실패하였습니다.");
 			}
 		} else {
 			if(mResult > 0) {
-				return "../home";
+				memberAttach = aService.selectProfile(loginUser.getmCode());
+				
+				model.addAttribute("loginUser",updateMember);
+				model.addAttribute("userAttach",memberAttach);
+				
+				return "redirect:main";
 			} else {
 				throw new MemberException("회원정보 수정에 실패하였습니다.");
 			}

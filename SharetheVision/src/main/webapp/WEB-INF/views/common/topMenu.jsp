@@ -9,7 +9,7 @@ pageEncoding="UTF-8"%>
             <a class="mobile-search morphsearch-search" href="#">
                 <i class="ti-search"></i>
             </a>
-            <a href="index.jsp">
+            <a href="main">
 <!-- <img class="img-fluid" src="resources/assets/images/logo.png" alt="Theme-Logo" /> -->
                 <img class="img-fluid" src="resources/assets/images/SVlogo.png" alt="Theme-Logo" />
             </a>
@@ -108,8 +108,8 @@ pageEncoding="UTF-8"%>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                <i class="ti-user"></i> Profile
+                            <a href="updateProfileForm.me">
+                                <i class="ti-user"></i> View Profile
                             </a>
                         </li>
                         <li>
@@ -118,12 +118,12 @@ pageEncoding="UTF-8"%>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                <i class="ti-lock"></i> Lock Screen
+                            <a href="meetingForm.pr">
+                                <i class="ti-video-camera"></i> Get Meeting
                             </a>
                         </li>
                         <li>
-                            <a href="auth-normal-sign-in.html">
+                            <a href="#" onclick="logout()">
                                 <i class="ti-layout-sidebar-left"></i> Logout
                             </a>
                         </li>
