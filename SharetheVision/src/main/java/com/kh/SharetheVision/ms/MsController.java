@@ -65,8 +65,7 @@ public class MsController {
 	}
 
 	@RequestMapping(value = "rno_{roomId}")
-	public void messageList(HttpSession session, @PathVariable int roomId, String userId, Model model,
-			HttpServletResponse response) throws JsonIOException, IOException {
+	public void messageList(@PathVariable int roomId, String userId, Model model,HttpServletResponse response) throws JsonIOException, IOException {
 
 		List<Messenger> mList = msService.messageList(roomId);
 		response.setContentType("application/json; charset=utf-8");
@@ -88,7 +87,7 @@ public class MsController {
 
 	@ResponseBody
 	@RequestMapping("createChat")
-	public String createChat(Room r, String userId, String toId) {
+	public Room createChat(Room r, String userId, String toId) {
 
 		System.out.println("create chat IN");
 		
@@ -96,20 +95,24 @@ public class MsController {
 		r.setFid(userId);
 		r.setTid(toId);
 		Room exist = (Room) msService.existChatRoom(r);
-		System.out.println("Room exist?:" + exist.toString());
+		System.out.println("Room exist?:" + exist);
 		
 		// DB에 방이 없을 때  (insert)
 		if(exist == null){
 			int result = msService.insertRoom(r);
 			if(result>0) {
-				return "new";
+				exist = msService.existChatRoom(r);
+				System.out.println("creat Room success in controller");
+				System.out.println("create rNo:"+ r.getRno());
+				return exist;
 			}else {
-				return "fail";
+				System.out.println("creat Room fail in controller");
+				return null;
 			}
-			
 		// DB에 이미 방이 있을 때	
 		}else{
-				return "exist";
+				System.out.println("Room exist, rno:"+ exist.getRno());
+				return exist;
 		}
 	}
 
@@ -118,7 +121,11 @@ public class MsController {
 		List<Room> msList = msService.chatRoomList(userId);
 		for (int i = 0; i < msList.size(); i++) {
 			message.setRoomId(msList.get(i).getRno());
+			if(msList.get(i).getTid()==userId) {
+			message.setUserId(msList.get(i).getFid());
+			}else {
 			message.setUserId(msList.get(i).getTid());
+			}
 			message.setCount(1);
 		}
 

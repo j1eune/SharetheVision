@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.kh.SharetheVision.member.model.vo.Member;
+import com.kh.SharetheVision.ms.model.vo.ChatVo;
 import com.kh.SharetheVision.ms.model.vo.Messenger;
 import com.kh.SharetheVision.ms.model.vo.Room;
 
@@ -18,5 +19,7 @@ public interface MsService {
 	Room existChatRoom(Room r);
 	
 	int insertRoom(Room r);
+
+	int insertMessage(ChatVo chatVo);
 
 }
