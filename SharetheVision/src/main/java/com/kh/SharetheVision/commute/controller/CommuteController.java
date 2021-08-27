@@ -91,7 +91,7 @@ public class CommuteController {
 	}
 	
 	@RequestMapping("commuteEnter.co")
-	public String commuteEnter(HttpSession session, Model model) {
+	public String commuteEnter(HttpSession session, Model model) throws CommuteException {
 		
 //		String memberNo = ((Member)session.getAttribute("loginUser")).getmCode();
 		String memberNo = "MaCo2";
@@ -127,12 +127,12 @@ public class CommuteController {
 		if(result > 0) {
 			return "redirect: commuteMain.co";			
 		} else {
-			return "fail";
+			throw new CommuteException("출근 등록에 실패하였습니다.");
 		}
 	}
 	
 	@RequestMapping("commuteOut.co")
-	public String commuteOut(HttpSession session) {
+	public String commuteOut(HttpSession session) throws CommuteException {
 		
 //		String memberNo = ((Member)session.getAttribute("loginUser")).getmCode();
 		String memberNo = "MaCo2";
@@ -195,7 +195,7 @@ public class CommuteController {
 		if(result > 0) {
 			return "redirect: commuteMain.co";				
 		} else {
-			return "fail";
+			throw new CommuteException("퇴근 등록에 실패하였습니다.");
 		}
 		
 	}
@@ -211,7 +211,7 @@ public class CommuteController {
 //		if(result > 0) {
 //			return "redirect: commuteMain.co";
 //		} else {
-//			return "fail";
+//			throw new CommuteException("상태 변경에 실패하였습니다.");
 //		}
 		
 		return null;

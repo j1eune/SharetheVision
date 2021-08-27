@@ -10,13 +10,15 @@
 	display: inline-block;
 	padding: .5em .75em;
 	color: #999;
+	color: #FFB64D;
 	font-size: inherit;
 	line-height: normal;
 	vertical-align: middle;
-	background-color: #fdfdfd;
+ 	background-color: #fdfdfd;
 	cursor: pointer;
-	border: 1px solid #ebebeb;
-	border-bottom-color: #e2e2e2;
+	border: 1px solid #FFB64D;
+/* 	border: 1px solid #ebebeb; */
+/* 	border-bottom-color: #e2e2e2; */
 	border-radius: .25em;
 }
 
@@ -30,6 +32,7 @@
 	clip:rect(0,0,0,0);
 	border: 0;
 }
+
 </style>
 </head>
 <body>
@@ -44,15 +47,44 @@
 	                </button>
 	            </div>
 	            <div class="modal-body mx-4">
-<!-- 	            	 <div class="filebox"> -->
-<!-- 	            	 	<label for="ex_file">업로드</label> -->
-<!-- 	            	 	<input type="file" id="ex_file"> -->
-<!-- 	            	 </div> -->
-					<form action="leaveSetting.le" method="post" enctype="Multipart/form-data">
-		            	<input type="file" name="uploadFile">
-						<button type="submit" class="btn btn-primary">제출하기</button>
-					</form>
-	            </div>
+					<div class="form-group row">
+						<label for="uploadFile" class="col-sm-6 col-form-label">초기 설정 파일 등록</label>
+						<div class="col-sm-6 filebox">
+							<label for="uploadFile">
+								<i class="icofont icofont-upload-alt"></i>
+								업로드
+							</label>
+	            			<input type="file" name="uploadFile" id="uploadFile">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="download" class="col-sm-6 col-form-label">샘플 양식 다운로드</label>
+						<div class="col-sm-6 filebox">
+							<label for="download">
+								<i class="icofont icofont-download-alt"></i>
+								다운로드
+							</label>
+	            			<input type="file" name="download" id="download">
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-12">
+							<div class="mb-2">
+								<i class="icofont icofont-info-circle"></i>
+								<span>CSV파일 등록 시 주의 사항</span><br>
+							</div>
+							<span> - 사원ID : 각 사원의 사원 아이디를 입력</span><br>
+							<span> - 입사일 : yyyy-mm-dd 형식으로 입사일을 입력</span><br>
+							<span> - 총 연차 개수 : 현재까지 생성된 연차 개수를 입력</span><br>
+							<span> - 사용 연차 개수 : 생성된 연차 개수 중 사용한 연차 개수를 입력</span>
+						</div>
+					</div>
+					<div class="form-group row float-right">
+						<div class="col-sm-10">
+							<button type="submit" class="btn btn-sm btn-primary">제출하기</button>
+						</div>
+					</div>
+				</div>
 				<div class="modal-footer">
 <!-- 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
 				</div>

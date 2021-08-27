@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.SharetheVision.member.model.vo.Member;
 import com.kh.SharetheVision.ms.model.dao.MsDAO;
+import com.kh.SharetheVision.ms.model.vo.ChatVo;
 import com.kh.SharetheVision.ms.model.vo.Messenger;
 import com.kh.SharetheVision.ms.model.vo.Room;
 
@@ -44,6 +45,11 @@ public class MsServiceImple implements MsService{
 	@Override
 	public int insertRoom(Room r) {
 		return msdao.insertRoom(sqlSession, r);
+	}
+
+	@Override
+	public int insertMessage(ChatVo chatVo) {
+		return msdao.insertMessage(sqlSession,chatVo);
 	}
 
 	

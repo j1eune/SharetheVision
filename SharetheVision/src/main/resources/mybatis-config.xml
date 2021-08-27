@@ -18,7 +18,8 @@
 		<typeAlias alias="Attachment" type="com.kh.SharetheVision.attachments.model.vo.Attachment"/>
 		<typeAlias alias="Messenger" type="com.kh.SharetheVision.ms.model.vo.Messenger"/>
 		<typeAlias alias="Room" type="com.kh.SharetheVision.ms.model.vo.Room"/>
-		<typeAlias alias="Leave" type="com.kh.SharetheVision.leave.model.vo.LeaveAnnual"/>
+		<typeAlias alias="LeaveAnnual" type="com.kh.SharetheVision.leave.model.vo.LeaveAnnual"/>
+		<typeAlias alias="LeaveUsed" type="com.kh.SharetheVision.leave.model.vo.LeaveUsed"/>
 	</typeAliases>
 	
 	

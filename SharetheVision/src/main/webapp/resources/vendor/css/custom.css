@@ -3,7 +3,7 @@
 #chat, .portlet-heading{
 	width: 350px !important;
  }  
-.chatContainer{
+.display-none{
 	display:none;
 }        
 .portlet {
@@ -59,10 +59,18 @@
     margin: 0 5px;
 }
 .portlet .portlet-body {
-    padding: 15px;
+    padding:15px 5px 15px 15px;
     background: #fff;
-    height: 400px !important;
+    overflow-y: auto; 
+	verflow-x: unset;
+    width: 350px; 
 }
+.chattingNow{
+	width:inherit;
+	height:inherit;
+	margin-top: 50px;
+}
+
 .portlet .portlet-footer {
     padding: 20px 15px 25px 15px;
     background: #29003d;
@@ -181,16 +189,34 @@ height:40px;
 	width: auto;
 	overflow: auto;
 }
-.mychat {
-	margin: 5px;
-	color: blue;
-	text-align:right;
+
+.mychatp{
+	inline-size: fit-content;
+    margin: 5px 0px 5px 10em;
+    padding: 4px 4px 4px 10px;
+	border-radius: 5px;
+	background-color : #58485c54 ;
+	box-shadow: 0 2px 12px -3px rgba(0, 0, 0.5, 0.5);	
 }
-.otherchat {
-	margin: 5px;
+.otherchatp {
+	inline-size: fit-content;
+	padding: 4px 8px 4px 8px;
+    margin: 10px 0 0 8px;
+	border-radius: 5px;
+	background-color : rgba(169, 145, 236, 0.623) ;
+	box-shadow: 0 2px 12px -3px rgba(0, 0, 0.5, 0.5);
 }
 .alertchat {
 	margin: 0;
 	color: #FFB6C1;
 }
-
+#message{
+	margin: 2px 2px 10px 2px; 
+	width:18em; 
+	rows:2;
+	resize:none; 
+}
+.chatList{
+	margin: 2px 2px 2px 2px;
+	padding: 2px 2px 2px 10px;
+}
