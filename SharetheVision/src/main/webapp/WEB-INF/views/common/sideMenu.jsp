@@ -43,6 +43,7 @@
 						
 						<c:url var="memberList" value="memberList.me">
 							<c:param name="condition" value="refresh"/>
+							<c:param name="page" value="1"/>
 						</c:url>
 						<a href="${ memberList }"><i class="ti-list"></i>Group Member</a> 
 						
@@ -80,6 +81,7 @@
 				<c:url var="commuteMain" value="commuteMain.co"></c:url>
 				<c:url var="commuteDetail" value="commuteDetail.co"></c:url>
 				<c:url var="leaveDetail" value="leaveDetail.le"></c:url>
+				<c:url var="leaveAll" value="leaveAll.le"></c:url>
 				<a href="#" onclick="return false;">
 					<span class="pcoded-micon" style="background-color:#FFB64D;"><i class="icofont icofont-bag-alt"></i></span>
 					<span class="pcoded-mtext"  data-i18n="nav.basic-components.main">근태관리</span>
@@ -104,6 +106,13 @@
 			            <a href="${ leaveDetail }">
 			                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 			                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">휴가현황</span>
+			                <span class="pcoded-mcaret"></span>
+			            </a>
+			        </li>
+			        <li>
+			            <a href="${ leaveAll }">
+			                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+			                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">전사휴가현황</span>
 			                <span class="pcoded-mcaret"></span>
 			            </a>
 			        </li>
@@ -201,7 +210,9 @@
                 </a>
             </li>
             <li class="pcoded-hasmenu">
-				<c:url var="board" value="board.bo"></c:url>
+				<c:url var="board" value="board.bo">
+					<c:param name="loginUserDeptNo" value="${ loginUser.deptNo }"></c:param>	
+				</c:url>
 				<c:url var="projectForm" value="createProjectForm.pr"></c:url>
 				
 				<a href="#" onclick="return false;">

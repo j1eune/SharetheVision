@@ -39,13 +39,6 @@
 	                        </div>
 	                    </div>
 	                    <div class="form-row">
-<!-- 	                        <div class="form-group col-md-3"> -->
-<!-- 	                            <label for="start">근무 시작 시간</label> -->
-<!-- 	                            <select class="form-control" id="start"> -->
-<!-- 	                                <option value="am">오전</option> -->
-<!-- 	                                <option value="pm" selected>오후</option> -->
-<!-- 	                            </select> -->
-<!-- 	                        </div> -->
 	                        <div class="form-group col-md-3">
 	                            <label>근무 시작 시간</label>
 	                            <select class="form-control" id="startHour" name="startHour">
@@ -87,13 +80,6 @@
 	                        </div>
 	                    </div>
 	                    <div class="form-row">
-<!-- 	                        <div class="form-group col-md-3"> -->
-<!-- 	                            <label for="end">근무 종료 시간</label> -->
-<!-- 	                            <select class="form-control" id="end"> -->
-<!-- 	                                <option value="am">오전</option> -->
-<!-- 	                                <option value="pm" selected>오후</option> -->
-<!-- 	                            </select> -->
-<!-- 	                        </div> -->
 	                        <div class="form-group col-md-3">
 	                            <label>근무 종료 시간</label>
 	                            <select class="form-control" id="endHour" name="endHour">
@@ -217,7 +203,6 @@
 	});
 	
 	$('#overworkSubmit').on('click', function(){
-
 		var startHour = $('#startHour').val();
 		var startMin = $('#startMin').val();
 		var endHour = $('#endHour').val();

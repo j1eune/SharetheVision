@@ -127,7 +127,14 @@
                                     <div class="page-body">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <div class="card">
+                                                <div class="card"><br>
+                                                	<div class="pcoded-search" style="text-align:right;">
+											            <span class="searchbar-toggle">  </span>
+											            <div class="pcoded-search-box" style="display:inline-block; text-align:right; margin-right:20px;">
+											                <input type="text" id="searchMember" size="20" placeholder="Search" value="${search }">
+											                <span class="search-icon" id="searchBtn"><i class="ti-search" aria-hidden="true"></i></span>
+											            </div>
+											        </div>
                                                     <div class="card-header">
                                                         <table class="table" id="memberTable">
                                                         	<thead>
@@ -173,6 +180,47 @@
                                                       			</c:if>		
 	                                                        </tbody>
                                                         </table>
+                                                        <br>
+                                                        <div style="text-align: center;">
+                                                        	<c:if test="${pi != null }">
+	                                                        	<c:if test="${pi.currentPage <= 1}">
+		                                                        	<span style="display:inline-block;">&lt;</span>&nbsp;
+	                                                        	</c:if>
+	                                                        	<c:if test="${ pi.currentPage > 1 }">
+																	<c:url var="before" value="memberList.me">
+																		<c:param name="condition" value="${condition }"/>
+																		<c:param name="page" value="${ pi.currentPage - 1 }"/>
+																	</c:url>
+																	<a href="${ before }">&lt;</a> &nbsp;
+																</c:if>
+	                                                        	<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage}">
+	                                                        		<c:if test="${ pi.currentPage eq p }">
+	                                                        			<span style="display:inline-block; border-bottom: 1px solid black;">
+	                                                        			<font color="black" size="4"><b>${p }&nbsp;</b></font>
+	                                                        			</span>
+	                                                        		</c:if>
+	                                                        		
+	                                                        		<c:if test="${ pi.currentPage ne p }">
+																		<c:url var="pageList" value="memberList.me">
+																			<c:param name="condition" value="${ condition }"/>
+																			<c:param name="page" value="${ p }"/>
+																		</c:url>
+																		<a href="${ pageList }">${ p }&nbsp;</a>
+	                                                        		</c:if>                                                        		
+	                                                        	 </c:forEach>
+	                                                        	
+	                                                        	 <c:if test="${ pi.currentPage >= pi.maxPage }">
+		                                                        	&gt;
+	                                                        	 </c:if>
+	                                                        	 <c:if test="${ pi.currentPage < pi.maxPage }">
+																	<c:url var="after" value="memberList.me">
+																		<c:param name="condition" value="${condition }"/>
+																		<c:param name="page" value="${ pi.currentPage + 1 }"/>
+																	</c:url> 
+																	<a href="${ after }">&gt;</a>
+																 </c:if>
+															</c:if>
+                                                        </div>
 	                                                </div>
 	                                            </div>
 	                                        </div>
@@ -412,6 +460,16 @@
 				return false;
 			}
 		}
+		
+		$("#searchBtn").on("click",function(){
+			var search = $("#searchMember").val();
+			
+			location.href="searchMember.me?search="+search;
+			
+		});
+		
+		
+		
 		
 	</script>
 

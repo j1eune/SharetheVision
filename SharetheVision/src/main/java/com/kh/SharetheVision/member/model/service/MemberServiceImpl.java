@@ -25,7 +25,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ArrayList<Member> selectMember(HashMap<String, String> map) {
+	public ArrayList<Member> selectMember(HashMap<String, Object> map) {
 		return mDao.selectMember(sqlSession, map);
 	}
 
@@ -35,8 +35,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public Member loginMember(Member m) {
-		return mDao.loginMember(sqlSession, m);
+	public Member loginMember(String mId) {
+		return mDao.loginMember(sqlSession, mId);
 	}
 
 	@Override
@@ -47,6 +47,21 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int updatePwd(Member m) {
 		return mDao.updatePwd(sqlSession,m);
+	}
+
+	@Override
+	public int getListCount(HashMap<String, Object> map) {
+		return mDao.getListCount(sqlSession, map);
+	}
+
+	@Override
+	public int searchListCount(String search) {
+		return mDao.searchListCount(sqlSession, search);
+	}
+
+	@Override
+	public ArrayList<Member> searchMember(HashMap<String, Object> map) {
+		return mDao.searchMember(sqlSession, map);
 	}
 	
 }

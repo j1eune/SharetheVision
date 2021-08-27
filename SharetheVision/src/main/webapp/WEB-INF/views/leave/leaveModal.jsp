@@ -19,7 +19,7 @@
 	                </button>
 	            </div>
 	            <div class="modal-body mx-4">
-	                <form>
+<!-- 	                <form> -->
 	                    <div class="form-row">
 	                        <div class="form-group col-md-6">
 	                            <label for="leaveType">휴가 종류</label>
@@ -35,12 +35,12 @@
 	                        </div>
 	                    </div>
 	                    <div class="form-group">
-	                        사용가능한 휴가 : 10 일 &nbsp;&nbsp;&nbsp;&nbsp; 신청한 휴가 : 2일
+	                        	사용가능한 휴가 : ${remain} 일 &nbsp;&nbsp;&nbsp;&nbsp; 신청한 휴가 : 2일
 	                    </div>
 	                    <div class="form-row">
 	                        <div class="form-group col-md-5">
 	                            <label for="leavePeriod">휴가 기간</label>
-	                            <input type="text" class="form-control datepicker" placeholder="시작일 년/월/일">
+	                            <input type="text" id="startDate" class="form-control datepicker" placeholder="시작일 년/월/일">
 	                        </div>
 	                        <div class="form-group col-md-1">
 	                            <label>&nbsp;</label>
@@ -48,16 +48,16 @@
 	                        </div>
 	                        <div class="form-group col-md-5">
 	                            <label>&nbsp;</label>
-	                            <input type="text" class="form-control datepicker" placeholder="시작일 년/월/일">
+	                            <input type="text" id="endDate" class="form-control datepicker" placeholder="시작일 년/월/일">
 	                        </div>
 	                    </div>
 	                    <div class="form-group" id="half">
 	                        <label>오전 / 오후</label>
 	                        <div id="leaveTime">
-	                            <input type="radio" name="leaveTime" id="am" checked />
+	                            <input type="radio" name="leaveTime" id="am" value="am"/>
 	                            <label for="am">오전</label>
 	                            
-	                            <input type="radio" name="leaveTime" id="pm"/>
+	                            <input type="radio" name="leaveTime" id="pm" value="pm"/>
 	                            <label for="pm">오후</label>
 	                        </div>
 	                    </div>
@@ -76,13 +76,31 @@
 	                        </div>
 	                    </div> 
 	                    <div class="mb-4 text-center">
-	                        <button type="submit" class="btn btn-block" style="background-color: #FFB64D; color:white">신청하기</button>
-	                        <!-- <button type="button" class="btn btn-primary">저장하기</button> -->
+	                        <button type="button" class="btn" style="border: 1px solid #FFB64D; color: #FFB64D; background-color: white">저장하기</button>
+	                        <button type="button" class="btn" id="leaveSubmit" style="background-color: #FFB64D; color: white">신청하기</button>
 	                    </div>
-	                </form>
+<!-- 	                </form> -->
 	            </div>
 	        </div>
 	    </div>
 <!-- 	</div> -->
+
+<script>
+	$('#leaveSubmit').on('click', function(){
+		var type = $('#leaveType option:selected').val();
+		var startDate = $('#startDate').val();
+		var endDate = $('#endDate').val();
+		var half = $('input:radio[name=leaveTime]:checked').val();
+		var content = $('#leaveContent').val();
+		
+		console.log(type);
+		console.log(startDate);
+		console.log(endDate);
+		console.log(half);
+		console.log(content);
+		
+	});
+	
+</script>
 </body>
 </html>

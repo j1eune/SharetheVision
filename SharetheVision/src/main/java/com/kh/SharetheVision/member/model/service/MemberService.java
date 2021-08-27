@@ -9,14 +9,20 @@ public interface MemberService {
 
 	int insertMember(Member m);
 
-	ArrayList<Member> selectMember(HashMap<String, String> map);
+	ArrayList<Member> selectMember(HashMap<String, Object> map);
 
 	Member checkEmail(Member m);
 
-	Member loginMember(Member m);
+	Member loginMember(String mId);
 
 	int updateMember(Member m);
 
 	int updatePwd(Member m);
+
+	int getListCount(HashMap<String, Object> map);
+
+	int searchListCount(String search);
+
+	ArrayList<Member> searchMember(HashMap<String, Object> map);
 
 }
