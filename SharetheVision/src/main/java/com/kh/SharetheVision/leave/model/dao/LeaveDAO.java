@@ -12,16 +12,20 @@ import com.kh.SharetheVision.leave.model.vo.LeaveUsed;
 @Repository("leDAO")
 public class LeaveDAO {
 
-	public int insertLeave(SqlSessionTemplate sqlSession, LeaveAnnual la) {
-		return sqlSession.insert("leaveMapper.insertLeave", la);
+	public int insertAnnaul(SqlSessionTemplate sqlSession, ArrayList<LeaveAnnual> list) {
+		return sqlSession.insert("leaveMapper.insertAnnaul", list);
 	}
 
-	public ArrayList<LeaveAnnual> selectAnnual(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
-		return (ArrayList)sqlSession.selectList("leaveMapper.selectAnnual", map);
+	public ArrayList<LeaveAnnual> selectAnnual(SqlSessionTemplate sqlSession, String memberNo) {
+		return (ArrayList)sqlSession.selectList("leaveMapper.selectAnnual", memberNo);
 	}
 
-	public ArrayList<LeaveUsed> selectUsed(SqlSessionTemplate sqlSession, String memberNo) {
-		return (ArrayList)sqlSession.selectList("leaveMapper.selectUsed", memberNo);
+	public ArrayList<LeaveUsed> selectLeave(SqlSessionTemplate sqlSession, String memberNo) {
+		return (ArrayList)sqlSession.selectList("leaveMapper.selectLeave", memberNo);
+	}
+
+	public int insertLeave(SqlSessionTemplate sqlSession, LeaveUsed lu) {
+		return sqlSession.insert("leaveMapper.insertLeave", lu);
 	}
 
 }

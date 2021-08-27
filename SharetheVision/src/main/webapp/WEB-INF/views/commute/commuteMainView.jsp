@@ -126,7 +126,7 @@
 		                                                </div>
 		                                                <div class="card-block p-b-10">
 		                                                    <div class="table-responsive">
-		                                                        <table class="table table-hover" id="overworkTable">
+		                                                        <table class="table listTable" id="overworkTable">
 		                                                            <thead>
 		                                                                <tr>
 		                                                                    <th>날짜</th>
@@ -160,27 +160,15 @@
 		                                                </div>
 		                                                <div class="card-block p-b-10">
 		                                                    <div class="table-responsive">
-		                                                        <table class="table table-hover">
+		                                                        <table class="table listTable" id="leaveTable">
 		                                                            <thead>
 		                                                                <tr>
+		                                                                	<th>구분</th>
 		                                                                    <th>날짜</th>
 		                                                                    <th>상태</th>
 		                                                                </tr>
 		                                                            </thead>
 		                                                            <tbody>
-		                                                                <tr>
-		                                                                    <td><div class="task-contain"><p class="d-inline-block">2021.08.19 ~ 2021.08.20</p></div></td>
-		                                                                    <td><p class="d-inline-block">대기</p></td>
-		                                                                </tr>
-		                                                                <tr>
-		                                                                    <td><div class="task-contain"><p class="d-inline-block">2021.05.05 ~ 2021.05.06</p></div>
-		                                                                    </td>
-		                                                                    <td><p class="d-inline-block">반려</p></td>
-		                                                                </tr>
-		                                                                <tr>
-		                                                                    <td><div class="task-contain"><p class="d-inline-block">2021.03.25 ~ 2021.03.26</p></div></td>
-		                                                                    <td><p class="d-inline-block">승인</p></td>
-		                                                                </tr>
 		                                                            </tbody>
 		                                                        </table>
 		                                                    </div>

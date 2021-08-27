@@ -8,7 +8,12 @@ import com.kh.SharetheVision.leave.model.vo.LeaveUsed;
 
 public interface LeaveService {
 
-	ArrayList<LeaveAnnual> selectAnnual(HashMap<String, Object> map);
+	int insertAnnaul(ArrayList<LeaveAnnual> list);
 
-	ArrayList<LeaveUsed> selectUsed(String memberNo);
+	ArrayList<LeaveAnnual> selectAnnual(String memberNo);
+
+	ArrayList<LeaveUsed> selectLeave(String memberNo);
+
+	int insertLeave(LeaveUsed lu);
+
 }

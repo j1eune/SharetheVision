@@ -8,7 +8,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +24,18 @@ import com.kh.SharetheVision.commute.model.exception.CommuteException;
 import com.kh.SharetheVision.commute.model.service.CommuteService;
 import com.kh.SharetheVision.commute.model.vo.Commute;
 import com.kh.SharetheVision.commute.model.vo.Overwork;
+import com.kh.SharetheVision.leave.model.service.LeaveService;
+import com.kh.SharetheVision.leave.model.vo.LeaveAnnual;
+import com.kh.SharetheVision.leave.model.vo.LeaveUsed;
 
 @Controller
 public class CommuteController {
 	
 	@Autowired
 	private CommuteService coService;
+	
+	@Autowired
+	private LeaveService leService;
 	
 	@RequestMapping("commuteMain.co")
 	public String commuteMainView(Model model, HttpSession session) {
@@ -83,6 +88,37 @@ public class CommuteController {
 //			model.addAttribute("totalHour", hour);
 //			model.addAttribute("totalMin", min);
 //		}
+		
+		// 휴가 요청 모달 데이터
+		double annualTotal = 0;
+		double adjustTotal = 0;
+		ArrayList<LeaveAnnual> annualList = leService.selectAnnual(memberNo);
+		if(annualList != null) {
+			for(LeaveAnnual la : annualList) {
+				if(la.getType() == 0) {
+					annualTotal += la.getTotal();
+				}
+			}
+
+			for(LeaveAnnual la : annualList) {
+				if(la.getType() == 1) {
+					adjustTotal += la.getTotal();
+				}
+			}
+		}
+		
+		double usedTotal = 0;
+		ArrayList<LeaveUsed> leaveList = leService.selectLeave(memberNo);
+		if(leaveList != null) {
+			for(LeaveUsed lu : leaveList) {
+				if(lu.getStatus().charAt(0) == 'Y') {
+					usedTotal += lu.getDays();
+				}
+			}
+		}
+		
+		double remain = annualTotal+adjustTotal-usedTotal;
+		model.addAttribute("remain", remain);
 		
 		// 상태 변경
 		model.addAttribute("state", state);
