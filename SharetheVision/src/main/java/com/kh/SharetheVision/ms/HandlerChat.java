@@ -54,7 +54,9 @@ public class HandlerChat extends TextWebSocketHandler{
 		}else {
 			for (String user: sessionList.keySet()) {
 				if(sessionList.get(user).equals(session)) {
-					sessionList.get(user).sendMessage(new TextMessage("<div class='mychatp'>" + chatVo.message+ "</div>"));
+					sessionList.get(user).sendMessage(new TextMessage(
+							"<div class='media'>" + "<p class='mychatp'>" +
+							 chatVo.message +"</p>" +"</div>"));
 				}else {
 					sessionList.get(user).sendMessage(new TextMessage(
 							"<div class='media'>" + "<a class='pull-left'>" +
@@ -62,8 +64,15 @@ public class HandlerChat extends TextWebSocketHandler{
 							"<h4 class='media-heading'>"+ chatVo.userName +"</h4>" +
 							"</a>" + "<p class='otherchatp'>" + chatVo.message + "</p>" +"</div>"));
 				}
+				if(sessionList.size()==1) {
+					 chatVo.setCount(1);
+				} else {
+					 chatVo.setCount(0);
+				}
 			}
 		}
+		System.out.println("sessionListSize:"+sessionList.size());
+		System.out.println("chatVo.count:"+chatVo.getCount());
 		int result = msService.insertMessage(chatVo);
 		if(result>0) {
 			System.out.println("message DB저장 성공");

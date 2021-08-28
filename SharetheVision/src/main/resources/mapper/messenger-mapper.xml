@@ -11,6 +11,24 @@
 		<result column="J_NAME" property="jobName"/>
 	</resultMap>
 	
+ 	<resultMap type="Room" id="RoomResultMap">
+		   <id column="RNO" property="rno"/>
+	   <result column="FID" property="fid"/>
+	   <result column="TID" property="tid"/>
+	   <result column="RSTA" property="rsta"/>
+	</resultMap> 
+	
+	<resultMap type="Messenger" id="MsResultMap">
+		   <id column="MS_NO" property="ms_no"/>
+	   <result column="MS_CONTENT" property="ms_content"/>
+	   <result column="MS_TIME" property="ms_time"/>
+	   <result column="RNO" property="rno"/>
+	   <result column="READCOUNT" property="readcount"/>
+	   <result column="M_CODE" property="m_code"/>
+	   <result column="M_CODE2" property="m_code2"/>
+	</resultMap>
+	
+	
 	<select id="toList" resultMap="MemberResultMap">
 	   SELECT M_CODE, M_NAME, M_ID, DEPT_NO, DEPT_NAME, J_NAME, J_NO
 	     FROM MEMBER
@@ -28,27 +46,12 @@
 		   AND RSTA ='Y'
 		 ORDER BY RNO DESC
 	</select>
- 	<resultMap  type="Room" id="RoomResultMap">
-		    <id column="RNO" property="rno"/>
-		<result column="FID" property="fid"/>
-		<result column="TID" property="tid"/>
-		<result column="RSTA" property="rsta"/>
-	</resultMap> 
 	
 	<select id="selectList" resultMap="MsResultMap">
 	   SELECT *
 		 FROM MS
-	    WHERE EMO=#{roomId}
+	    WHERE RNO=#{roomId}
 	</select>
-	<resultMap  type="Messenger" id="MsResultMap">
-		    <id column="MS_NO" property="ms_no"/>
-		<result column="MS_CONTENT" property="ms_content"/>
-		<result column="MS_TIME" property="ms_time"/>
-		<result column="EMO" property="emo"/>
-		<result column="MS_FILE" property="ms_file"/>
-		<result column="M_CODE" property="m_code"/>
-		<result column="M_CODE2" property="m_code2"/>
-	</resultMap>
 	
 	<select id="existRoom" resultMap="RoomResultMap">
 		SELECT *
@@ -65,7 +68,21 @@
 	
 	<insert id="insertMs">
 		INSERT INTO MS
-		VALUES (SEQ_MS.NEXTVAL, #{message}, TO_CHAR(SYSDATE,'YY-MM-DD AMHH:MI:SS'), #{roomId}, DEFAULT, #{userName}, #{toId})
+		VALUES (SEQ_MS.NEXTVAL, #{message}, TO_CHAR(SYSDATE,'YY-MM-DD AMHH:MI:SS'), #{roomId}, #{count}, #{userName}, #{toId})
 	</insert>
+	
+	<select id="readCount" resultType="_int">
+		SELECT COUNT(*) 
+		  FROM MS
+         WHERE READCOUNT=1 
+		   AND RNO=#{roomId} 
+		   AND M_CODE2=#{userName}
+	</select>
+	
+	<update id="updateCount">
+		UPDATE MS 
+		   SET READCOUNT=0
+		 WHERE RNO=#{roomId}
+	</update>
 	
 </mapper>

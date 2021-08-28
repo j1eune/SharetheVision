@@ -64,74 +64,81 @@ public class MsController {
 		return "ms/msStart";
 	}
 
-	@RequestMapping(value = "rno_{roomId}")
-	public void messageList(@PathVariable int roomId, String userId, Model model,HttpServletResponse response) throws JsonIOException, IOException {
+	@ResponseBody
+	@RequestMapping(value = "rno_{roomId}", produces="application/json; charset=UTF-8")
+	public List<Messenger> messageList(@PathVariable int roomId, String userName, Model model,HttpServletResponse response) throws IOException {
 
-		List<Messenger> mList = msService.messageList(roomId);
+		List<Messenger> mList = new ArrayList<Messenger>();
+		mList = msService.messageList(roomId);
 		response.setContentType("application/json; charset=utf-8");
 		
-		System.out.println("mList:" + mList.toString());
-
-		// 안읽은 메세지 숫자 0으로 바뀌기 (읽음 처리)
-		ChatVo message = new ChatVo();
-		message.setUserId(userId);
-		message.setRoomId(roomId);
-		message.setCount(0);
-//	        msService.updateCount(message);
-
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		gson.toJson(mList, response.getWriter());
-
-		model.addAttribute("mList", mList);
+		// 메세지 카운트 0으로 바뀌기 (읽음 처리)
+		ChatVo chatVo = new ChatVo();
+		chatVo.setUserName(userName);
+		chatVo.setRoomId(roomId);
+		chatVo.setCount(0);
+		
+		for(int i = 0; i < mList.size(); i++) {
+			if(mList.get(i).getReadcount()==1) {
+				msService.updateCount(roomId);
+			}
+		}
+		return mList;
 	}
 
 	@ResponseBody
 	@RequestMapping("createChat")
 	public Room createChat(Room r, String userId, String toId) {
 
-		System.out.println("create chat IN");
-		
 		//같은사람과 대화를 한 방이 존재있는지 체크(select)
 		r.setFid(userId);
 		r.setTid(toId);
-		Room exist = (Room) msService.existChatRoom(r);
-		System.out.println("Room exist?:" + exist);
+		Room exist = (Room)msService.existChatRoom(r);
 		
 		// DB에 방이 없을 때  (insert)
 		if(exist == null){
 			int result = msService.insertRoom(r);
 			if(result>0) {
 				exist = msService.existChatRoom(r);
-				System.out.println("creat Room success in controller");
 				System.out.println("create rNo:"+ r.getRno());
 				return exist;
 			}else {
-				System.out.println("creat Room fail in controller");
 				return null;
 			}
 		// DB에 이미 방이 있을 때	
 		}else{
-				System.out.println("Room exist, rno:"+ exist.getRno());
-				return exist;
+			  System.out.println("Room exist, rno:"+ exist.getRno());
+			  return exist;
 		}
 	}
-
-	@RequestMapping("chatRoomList")
-	public void RoomList(Room room, ChatVo message, String userId, HttpServletResponse response)throws JsonIOException, IOException {
-		List<Room> msList = msService.chatRoomList(userId);
+	
+	@ResponseBody
+	@RequestMapping(value="chatRoomList" , produces="application/json; charset=UTF-8")
+	public List<ChatVo> RoomList(Room r, String userName, HttpServletResponse response)throws IOException {
+		List<ChatVo> chatList = new ArrayList<ChatVo>();
+		List<Room> msList = msService.chatRoomList(userName);
+		int readCount = 0;
 		for (int i = 0; i < msList.size(); i++) {
-			message.setRoomId(msList.get(i).getRno());
-			if(msList.get(i).getTid()==userId) {
-			message.setUserId(msList.get(i).getFid());
-			}else {
-			message.setUserId(msList.get(i).getTid());
+				ChatVo chatVo = new ChatVo();
+				String toId = msList.get(i).getTid();
+				String fromId = msList.get(i).getFid();
+				chatVo.setRoomId(msList.get(i).getRno());
+				//방 참여자 중 본인이 아닌 사람 이름으로 채팅방 이름 표시
+				if( toId == userName) {
+					chatVo.setUserName(toId);
+					chatVo.setToId(fromId);
+				}else {
+					chatVo.setUserName(fromId);
+					chatVo.setToId(toId);
+				}
+			//방마다 안읽은 메세지 수 카운트
+			if(chatVo!=null) {
+				readCount = msService.readCount(chatVo);
+				chatVo.setCount(readCount);
 			}
-			message.setCount(1);
+			chatList.add(chatVo);
 		}
-
-		response.setContentType("application/json; charset=utf-8");
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		gson.toJson(msList, response.getWriter());
+		return chatList;
 	}
 
 	@ResponseBody

@@ -19,8 +19,8 @@ public class MsDAO {
 		return (ArrayList)sqlSession.selectList("msMapper.toList");
 	}
 
-	public List<Room> selectRoomList(SqlSessionTemplate sqlSession,String userId) {
-		return sqlSession.selectList("msMapper.RoomList",userId);
+	public List<Room> selectRoomList(SqlSessionTemplate sqlSession,String fid) {
+		return sqlSession.selectList("msMapper.RoomList",fid);
 	}
 	
 	public List<Messenger> selectMList(SqlSessionTemplate sqlSession, int roomId) {
@@ -39,6 +39,14 @@ public class MsDAO {
 		return sqlSession.insert("msMapper.insertMs",chatVo);
 	}
 
-	
+	public int readCount(SqlSessionTemplate sqlSession, ChatVo chatVo) {
+		return sqlSession.selectOne("msMapper.readCount",chatVo);
+	}
+
+	public int updateCount(SqlSessionTemplate sqlSession, int roomId) {
+		System.out.println("dao innnnnnn");
+		return sqlSession.selectOne("msMapper.updateCount",roomId);
+	}
+
 	
 }

@@ -221,7 +221,7 @@ p {
 
 .card {
 	border-radius: 5px;
-	box-shadow: 0 1px 11px 0 rgba(0, 0, 0, 0.12);
+	box-shadow: 0 1px 11px 0 rgba(169, 145, 236, 0.829)
 	border: none;
 	margin-bottom: 30px;
 	padding-bottom: 30px;
@@ -4337,6 +4337,7 @@ table thead .border-bottom-info th, table tbody .border-bottom-info th,
 
 .card-border-warning {
 	border-top: 4px solid #FFB64D;
+	
 }
 
 .card-border-default {
