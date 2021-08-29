@@ -26,8 +26,8 @@ public class CalendarServiceImpl implements CalendarService{
 
 
 		@Override
-		public List<Calendar> listCal(String mcode, String sDate, String eDate) {
-			return cdao.listCal(sqlSession,mcode,sDate,eDate);
+		public List<Calendar> listCal(String mcode,String deptNo, String sDate, String eDate) {
+			return cdao.listCal(sqlSession,mcode,deptNo,sDate,eDate);
 		}
 
 		@Override

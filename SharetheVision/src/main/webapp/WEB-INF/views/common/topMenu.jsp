@@ -23,7 +23,7 @@ pageEncoding="UTF-8"%>
             </ul>
             <ul class="nav-right">
                 <li class="header-notification">
-                    <span class="text-c-white" style="cursor:pointer" onclick="meeting();">알림 메세지 ( ) 건 </span>
+                    <span class="text-c-white" style="cursor:pointer" onclick="meeting();"></span>
                 </li>            
                 <li class="header-notification">
                     <a href="#!">
@@ -68,26 +68,35 @@ pageEncoding="UTF-8"%>
                 <li class="header-notification">
                     <a href="#!">
                         <i class="ti-comment text-c-yellow"></i>
-                        <span class="badge bg-c-yellow"></span>
+                         <c:if test="${readCount == 0}">
+                       	 	<span class="badge bg-c-purple"></span>
+                        </c:if>
+                         <c:if test="${readCount != 0}">
+                       	 	<span class="badge bg-c-yellow"></span>
+                        </c:if>
                     </a>
+                    
+                    <c:if test="${readCount != 0}">
                     <ul class="show-notification Messenger">
                         <li>
                             <h6 class="text-c-purple">Messenger</h6>
                             <label class="label label-warning">New</label>
                         </li>
-                        <li>
-                            <div class="media">
-                                <img class="d-flex align-self-center img-radius" src="resources/assets/images/avatar-4.jpg" alt="Generic placeholder image">
-                                <div class="media-body">
-                                    <h5 class="notification-user">New Message</h5>
-                                    <p class="notification-msg"> (발신인)님으로부터 새로운 메시지 </p>
-                                    <span class="notification-time">time hh:mm:ss</span>
-                                </div>
-                            </div>
+                        <li> 
+                        	<a style="cursor:pointer" target="_blank" class="chatting">
+	                            <div class="media">
+	                                <i class="ti-email text-c-yellow"></i> 
+	                                <div class="media-body" style="margin-left:15px !important;">
+	                                    <h5 class="notification-user">New Message</h5>
+	                                    <p class="notification-msg">새 메세지가 ${ readCount } 개 있습니다.</p>
+	                                    <span class="notification-time"> - Go Click - </span>
+	                                </div>
+	                            </div>
+                            </a>
                         </li>
                     </ul>
+                    </c:if>
                 </li>
-
 
                 <!-- top right 프로필-->
                 <li class="user-profile header-notification">
@@ -112,8 +121,8 @@ pageEncoding="UTF-8"%>
                                 <i class="ti-user"></i> View Profile
                             </a>
                         </li>
-                        <li>
-                            <a href="#">
+                        <li> 
+                            <a style="cursor:pointer" target="_blank" class="chatting">
                                 <i class="ti-email"></i> My Messages
                             </a>
                         </li>
@@ -133,4 +142,47 @@ pageEncoding="UTF-8"%>
         </div>
     </div>
 </nav>
+
+<script>
+$(function(){
+	//메신저 알람
+	MSreadCount();	
+	//게시물 , 결재 알람 추가 란 ..........
+	
+	setInterval(function(){
+		MSreadCount();
+		
+	},10000);//10second 
+});
+
+function readCount(){
+	$.ajax({
+		url:"MSreadCount",
+		success: function(data){
+			console.log("readCount data::",data);
+		},
+		error: function(data){
+			console.log(error);
+		}
+	});
+}
+
+$(".chatting").click(function () {
+	$.ajax({
+	  type:"POST"
+	  ,url:"chatstatus" 
+	  ,data:{"chatstat" : 1}
+	  ,success:function(){
+		  console.log("${chatstatus}");
+		  location.reload();
+	  },
+	  error: function(xhr, status, error) {
+            alert(error);
+      }  
+	 });
+
+window.open('msStart','MS','top=auto,left=auto,width=380,height=600');
+});
+		
+</script>
             

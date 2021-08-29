@@ -61,7 +61,7 @@ public class HandlerChat extends TextWebSocketHandler{
 					sessionList.get(user).sendMessage(new TextMessage(
 							"<div class='media'>" + "<a class='pull-left'>" +
 							"<img class='media-object img-circle img-chat' src='resources/assets/images/dp.png'>" +
-							"<h4 class='media-heading'>"+ chatVo.userName +"</h4>" +
+							"<div class='media-body'>"+"<h4 class='media-heading'>"+ chatVo.userName +"</h4>" + "</div>"+
 							"</a>" + "<p class='otherchatp'>" + chatVo.message + "</p>" +"</div>"));
 				}
 				if(sessionList.size()==1) {
@@ -71,7 +71,6 @@ public class HandlerChat extends TextWebSocketHandler{
 				}
 			}
 		}
-		System.out.println("sessionListSize:"+sessionList.size());
 		System.out.println("chatVo.count:"+chatVo.getCount());
 		int result = msService.insertMessage(chatVo);
 		if(result>0) {

@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="calendarMapper">
 
-
 	<resultMap type="calendar" id="CalResultMap">
 		<id column="SC_CODE" property="code"/>
 		<result column="DSC_NO" property="no"/>
@@ -18,21 +17,26 @@
 		VALUES(#{code}, SEQ_DSC.NEXTVAL, #{title}, TO_DATE(#{sDate}), TO_DATE(#{eDate}), DEFAULT, #{mCode} )
 	</insert>
 
+	<!-- 부서일정은 같은 부서만, 개인일정은 내일정만 선택해서 가져오기 -->
 	<select id="listCal" resultMap="CalResultMap">
-	   SELECT *
-	     FROM SCHEDULE
-		WHERE M_CODE= #{mcode} 
-		  AND <![CDATA[ SC_SDATE >= TO_DATE(#{sDate}) AND SC_EDATE <= TO_DATE(#{eDate}) ]]>
-		  AND SC_STATUS='N'
+  		SELECT SC.SC_CODE, SC.DSC_NO, SC.SC_TITLE, SC.SC_SDATE, SC.SC_EDATE, SC.SC_STATUS, M.M_CODE, M.M_NAME
+		  FROM SCHEDULE SC, MEMBER M 
+		 WHERE SC.M_CODE= M.M_CODE
+           AND SC.SC_STATUS='N'
+  		   AND <![CDATA[ SC_SDATE >= TO_DATE(#{sDate}) AND SC_EDATE <= TO_DATE(#{eDate}) ]]>
+  		   AND M.DEPT_NO= TO_NUMBER(#{deptNo})
+		   AND SC.SC_CODE='1'
+      
+      	 UNION ALL        
+      	 
+        SELECT SC.SC_CODE, SC.DSC_NO, SC.SC_TITLE, SC.SC_SDATE, SC.SC_EDATE, SC.SC_STATUS, M.M_CODE, M.M_NAME
+    	  FROM SCHEDULE SC, MEMBER M 
+		 WHERE SC.M_CODE= M.M_CODE
+           AND SC.SC_STATUS='N'
+  		   AND <![CDATA[ SC_SDATE >= TO_DATE(#{sDate}) AND SC_EDATE <= TO_DATE(#{eDate}) ]]>
+       	   AND SC.M_CODE=#{mcode}  
+           AND SC.SC_CODE='2' 
 	</select>
-<!--  로그인 유저 생기면 
-	select sc_code, dsc_no, sc_title, sc_sdate, sc_edate, sc_status, m_code, m_name
-	from schedule
-		 join member on (m_code=m_code)
-	where m_code=#{userId} and sc_status='N'-->
-<!-- 부서번호가 정해지면 where절에  <![CDATA[   ]]>  -->
-<!-- < if test="code == 1" > AND DEPT_NO='#{부서번호}' ( JOIN MEMBER ON (M_CODE=M_CODE)  )</if> -->
-<!-- (아니면 code==2이면) WHERE M_CODE=#{mcode}  (개인일정은 개인만) -->	
 	
 	<update id="updateCal">
 	   UPDATE SCHEDULE
@@ -45,6 +49,4 @@
 		   SET SC_STATUS='Y'
 		 WHERE DSC_NO=#{no}
 	</update>
-
-
 </mapper>

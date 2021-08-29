@@ -260,7 +260,8 @@
                                 <div class="col-md-12 col-xl-12">
 	                                <div class="card">                                   
 	                                    <div class="container">
-	                                    
+								        <input type="hidden" id="e-id" value="${loginUser.mCode}">
+								        <input type="hidden" id="e-dept" value="${loginUser.deptNo}">
 								        <!-- 일자 클릭시 메뉴오픈 -->
 								        <div id="contextMenu" class="dropdown clearfix">
 								            <ul class="dropdown-menu dropNewEvent" role="menu" aria-labelledby="dropdownMenu" id="sccode"
@@ -316,9 +317,6 @@
 								                        </div>
 								                    	<div class="row" style="display:none">
 								                            <div class="col-xs-12">
-								                            <!-- **********loginUser 생성시 session 값으로 가져가기  **********-->
-								                            	<input type="text" for="e-id" id="e-id" value="20">
-								                            <!-- **********loginUser 생성시 session 값으로 가져가기  **********-->
 								                                <label class="col-xs-4" for="edit-color">색상</label>
 								                                <select class="inputModal" name="color" id="edit-color">
 									                                    <option value="#660099">보라색</option>
@@ -379,13 +377,12 @@ $( document ).ready(function() {
     //화면 위로 올리는 버튼 액션
     var $window = $(window);
     var nav = $('.fixed-button');
-        $window.scroll(function(){
-            if ($window.scrollTop() >= 200) {
-            nav.addClass('active');
-        }
-        else {
-            nav.removeClass('active');
-        }
+    $window.scroll(function(){
+        if($window.scrollTop() >= 200){
+        	nav.addClass('active');
+   		}else{
+     		nav.removeClass('active');
+     	}
     });
 });     
 // 클릭 연계 이벤트 vendor.js 에 추가함        

@@ -96,6 +96,7 @@
 			    </div>
 				<input type="hidden" id="hiddenRoomId"/> 
 				<input type="hidden" id="hiddenToId"/>  
+				<input type="hidden" id="readCount" name="readCount" value="1"/>  
 				<!-- 채팅방 목록 끝 -->
 			</div>
 	</div><!-- row -->
@@ -122,16 +123,11 @@ $(document).ready(function() {
 	});  
 	
     $('#toId').on('change', function(e){
-		//console.log("change", e);
-		console.log(this.value);
-		console.log($('.chatContainer').hasClass("display-none"));
 		if($('.chatContainer').hasClass("display-none")){
-			//sock.close();
 	    	changeSelect();                                
 	    }else{                                    
 	        $('.chatContainer').toggleClass('display-none');   
 	    }
-		//
 	});
 	
 	$("#sendBtn").click(function() {
@@ -188,12 +184,13 @@ $(document).ready(function() {
 		}else{
 			$("#message").val('보내실 메세지를 입력 하세요');
 		}
+		window.scrollTo(0,document.body.scrollHeight);
 	}
 	//메세지 수신( evt:웹소켓 통해  들어온 메세지)
 	function onMessage(evt) {
 		var data = evt.data;
 		$(".chattingNow").append(data);
-		$('.portlet-footer').scrollTop($('.portlet-footer')[0].scrollHeight);
+		window.scrollTo($('.otherchatp').prop('scrollHeight'));
 	}
 
 	//"new createChat" 
@@ -249,7 +246,6 @@ $(document).ready(function() {
 		$("#hiddenRoomId").val(roomId);
 		$("#hiddenToId").val(toId);
 
-		console.log("roomValue",$("#hiddenRoomId").val());
 		// 현재 html에 추가되었던 동적 태그 전부 지우기
 		$(".msList").html("");
 
@@ -301,15 +297,16 @@ $(document).ready(function() {
 	                                ,'  </div>'
 	                                ,'</li>'
 	                            ].join(''));
-		                          
+		                    
 		                        $li.find(".media-heading").text(data[i].m_code);
 		                        $li.find(".otherchatp").text(data[i].ms_content);
 		                        $li.find(".msSendDate").text(data[i].ms_time);
 	                        }
 		                    $msList.append($li);
+		                    console.log("read , count::",data[i].readcount);
   	                   }
 	              }
-			 $('.portlet-footer').scrollTop($('.portlet-footer')[0].scrollHeight);
+	          window.scrollTo(0,document.body.scrollHeight);
 			},
 	error: function(data){
 		console.log("enterRoom error");
@@ -366,25 +363,29 @@ $(document).ready(function() {
 						$h4 = $("<h4 class='media-heading'> ").text(data[i].toId);
 						$hr = $("<hr>");
 						
-						console.log("data_count:",data[i].count);
+						console.log("data_count>>>>>>>>>>>>>>>>>:",data[i].count);
 						// 읽지 않은 메세지가  있을때!
 						if(data[i].count != 0){
-						    $new = $("<label class='label label-warning'>").text(data[i].count);
+						    $new = $("<label class='label media-body label-warning'>").text(data[i].count +" new");
 						}else{
-							$new = $("<p>");
+							$new = $("<label class='label media-body label-warning'>");
 						}
+						
 						countAll += parseInt(data[i].count);
+						
 						console.log("countAll:::",countAll);
 						console.log("data:::",data[i]);
 						
 						$div.append($img);
 						$div.append($divs);
-						$div.append($h4);
 						$div.append($new);
+						$div.append($h4);
 						$div.append($hr);
 						$chatList.append($div);
 	                }
 	            }
+	            $("#readCount").val('countAll');
+	            console.log("readCountALL>>>>",$("#readCount").val());
 	        },
 	        error: function(data){
 	        	console.log("data",data);

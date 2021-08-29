@@ -28,14 +28,13 @@
 	   <result column="M_CODE2" property="m_code2"/>
 	</resultMap>
 	
-	
 	<select id="toList" resultMap="MemberResultMap">
 	   SELECT M_CODE, M_NAME, M_ID, DEPT_NO, DEPT_NAME, J_NAME, J_NO
 	     FROM MEMBER
 	     JOIN DEPARTMENT USING(DEPT_NO)
 	     JOIN JOB USING(J_NO)
 		WHERE M_STATUS='Y'
-	 ORDER BY J_NO ASC
+	 ORDER BY DEPT_NO ASC, J_NO ASC
 	</select>
 
 	<select id="RoomList" resultMap="RoomResultMap">
@@ -81,7 +80,7 @@
 	
 	<update id="updateCount">
 		UPDATE MS 
-		   SET READCOUNT=0
+		   SET READCOUNT = 0
 		 WHERE RNO=#{roomId}
 	</update>
 	

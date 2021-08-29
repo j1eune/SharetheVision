@@ -1,4 +1,3 @@
-
 var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
 
 /* ****************
@@ -14,7 +13,6 @@ var editEvent = function (event, element, view) {
     if (event.end === null) {
         event.end = event.start;
     }
-
     if (event.allDay === true && event.end !== event.start) {
         editEnd.val(moment(event.end).subtract(1, 'days').format('YYYY-MM-DD'))
     } else {
@@ -31,8 +29,6 @@ var editEvent = function (event, element, view) {
     editType.val(event.type);
     editColor.val(event.backgroundColor).css('color', event.backgroundColor);
 //    editDesc.val(event.description);
-
-
 
     //업데이트 버튼 클릭시
     $('#updateEvent').unbind();
