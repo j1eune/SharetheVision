@@ -23,7 +23,6 @@
 		  FROM SCHEDULE SC, MEMBER M 
 		 WHERE SC.M_CODE= M.M_CODE
            AND SC.SC_STATUS='N'
-  		   AND <![CDATA[ SC_SDATE >= TO_DATE(#{sDate}) AND SC_EDATE <= TO_DATE(#{eDate}) ]]>
   		   AND M.DEPT_NO= TO_NUMBER(#{deptNo})
 		   AND SC.SC_CODE='1'
       
@@ -33,7 +32,6 @@
     	  FROM SCHEDULE SC, MEMBER M 
 		 WHERE SC.M_CODE= M.M_CODE
            AND SC.SC_STATUS='N'
-  		   AND <![CDATA[ SC_SDATE >= TO_DATE(#{sDate}) AND SC_EDATE <= TO_DATE(#{eDate}) ]]>
        	   AND SC.M_CODE=#{mcode}  
            AND SC.SC_CODE='2' 
 	</select>
