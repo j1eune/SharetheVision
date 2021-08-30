@@ -70,7 +70,7 @@
 .chattingNow{
     width: 370px; 
     height:inherit;
-    margin-bottom: 300px;
+    margin-bottom: 180px;
     padding-right: 10px;
     overflow-y: scroll;
 }
@@ -195,8 +195,9 @@ height:40px;
 	overflow: auto;
 }
 .mychatp{
-    inline-size: fit-content;
-    margin: 5px 0px 5px 22em;
+    inline-size: max-content !important;
+    width: 10em !important;
+    margin: 5px 0px 5px 16em !important;
     padding: 4px 4px 4px 10px;
     border-radius: 5px;
     background-color : #58485c54;
@@ -238,7 +239,7 @@ small.msToDate {
     width: 370px;
     height: inherit;
     margin-top: 60px;
-    margin-bottom: 15px;
+    margin-bottom: 100px;
 }
 .chatContainer{
     margin-top: 60px;
@@ -284,10 +285,18 @@ small.msToDate {
     background-color: rgba(255, 255, 255, 0.2);
 }
 #toId select option {
-    padding: 3px;
-    line-height: 3px;
+    padding: 3px 0 3px 6px !important;
+    line-height: 5px !important;
 }
-.label-warning{
+.label-warning, .label-default{
 	display:block;
 	margin-left:80%;
+}
+#closeLabel{
+    width: 65px;
+    margin: 5px 0 0 80%;
+    text-align: center;
+}
+.media-bottom{
+	padding:10px 0 0 50px;
 }

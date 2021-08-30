@@ -12,14 +12,14 @@
 	</resultMap>
 	
  	<resultMap type="Room" id="RoomResultMap">
-		   <id column="RNO" property="rno"/>
+	   <id column="RNO" property="rno"/>
 	   <result column="FID" property="fid"/>
 	   <result column="TID" property="tid"/>
 	   <result column="RSTA" property="rsta"/>
 	</resultMap> 
 	
 	<resultMap type="Messenger" id="MsResultMap">
-		   <id column="MS_NO" property="ms_no"/>
+	   <id column="MS_NO" property="ms_no"/>
 	   <result column="MS_CONTENT" property="ms_content"/>
 	   <result column="MS_TIME" property="ms_time"/>
 	   <result column="RNO" property="rno"/>
@@ -40,9 +40,8 @@
 	<select id="RoomList" resultMap="RoomResultMap">
 		SELECT *
 		  FROM ROOM
-		 WHERE FID = #{fid} 
-		 	OR TID = #{fid}
-		   AND RSTA ='Y'
+		 WHERE (FID = #{userName} OR TID = #{userName} )
+		   AND RSTA ='Y' OR RSTA = #{deptno}
 		 ORDER BY RNO DESC
 	</select>
 	
@@ -75,7 +74,7 @@
 		  FROM MS
          WHERE READCOUNT=1 
 		   AND RNO=#{roomId} 
-		   AND M_CODE2=#{userName}
+		   AND M_CODE=#{toId}
 	</select>
 	
 	<update id="updateCount">
@@ -83,5 +82,19 @@
 		   SET READCOUNT = 0
 		 WHERE RNO=#{roomId}
 	</update>
+	
+	<select id="hasNotRead" resultType="_int">
+		SELECT COUNT(*) 
+		  FROM MS
+	     WHERE READCOUNT=1 
+		   AND M_CODE2=#{mId}
+	</select>
+	
+	<update id="deleteRoom">
+		UPDATE ROOM 
+		   SET RSTA='N'
+		 WHERE RNO=#{rno}
+	</update>
+	
 	
 </mapper>

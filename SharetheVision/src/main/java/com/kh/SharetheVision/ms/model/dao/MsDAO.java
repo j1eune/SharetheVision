@@ -2,6 +2,7 @@ package com.kh.SharetheVision.ms.model.dao;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -19,8 +20,14 @@ public class MsDAO {
 		return (ArrayList)sqlSession.selectList("msMapper.toList");
 	}
 
-	public List<Room> selectRoomList(SqlSessionTemplate sqlSession,String fid) {
-		return sqlSession.selectList("msMapper.RoomList",fid);
+	public List<Room> selectRoomList(SqlSessionTemplate sqlSession,String userName, int deptNo) {
+		String deptno = Integer.toString(deptNo);
+		HashMap<String,String> hashData = new HashMap<String,String>();
+		List<Room> roomList = new ArrayList<Room>();
+		hashData.put("userName", userName);
+		hashData.put("deptno", deptno);
+		roomList = sqlSession.selectList("msMapper.RoomList",hashData);
+		return roomList;
 	}
 	
 	public List<Messenger> selectMList(SqlSessionTemplate sqlSession, int roomId) {
@@ -44,8 +51,15 @@ public class MsDAO {
 	}
 
 	public int updateCount(SqlSessionTemplate sqlSession, int roomId) {
-		System.out.println("dao innnnnnn");
 		return sqlSession.selectOne("msMapper.updateCount",roomId);
+	}
+
+	public int hasNotRead(SqlSessionTemplate sqlSession, String userName) {
+		return sqlSession.selectOne("msMapper.hasNotRead",userName);
+	}
+
+	public int deleteRoom(SqlSessionTemplate sqlSession, int rno) {
+		return sqlSession.update("msMapper.deleteRoom",rno);
 	}
 
 	

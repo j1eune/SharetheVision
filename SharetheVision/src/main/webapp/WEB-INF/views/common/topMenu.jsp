@@ -68,34 +68,26 @@ pageEncoding="UTF-8"%>
                 <li class="header-notification">
                     <a href="#!">
                         <i class="ti-comment text-c-yellow"></i>
-                         <c:if test="${readCount == 0}">
-                       	 	<span class="badge bg-c-purple"></span>
-                        </c:if>
-                         <c:if test="${readCount != 0}">
-                       	 	<span class="badge bg-c-yellow"></span>
-                        </c:if>
+                       	<span class="badge" id="msbadge"></span>
                     </a>
-                    
-                    <c:if test="${readCount != 0}">
                     <ul class="show-notification Messenger">
                         <li>
                             <h6 class="text-c-purple">Messenger</h6>
-                            <label class="label label-warning">New</label>
+                            <label class="label" id="msLabel">New</label>
                         </li>
                         <li> 
                         	<a style="cursor:pointer" target="_blank" class="chatting">
 	                            <div class="media">
 	                                <i class="ti-email text-c-yellow"></i> 
 	                                <div class="media-body" style="margin-left:15px !important;">
-	                                    <h5 class="notification-user">New Message</h5>
-	                                    <p class="notification-msg">새 메세지가 ${ readCount } 개 있습니다.</p>
+	                                    <h5 class="notification-user">SV Messenger</h5>
+	                                    <div class="notification-msg" id="msMsg"></div>
 	                                    <span class="notification-time"> - Go Click - </span>
 	                                </div>
 	                            </div>
                             </a>
                         </li>
                     </ul>
-                    </c:if>
                 </li>
 
                 <!-- top right 프로필-->
@@ -144,45 +136,58 @@ pageEncoding="UTF-8"%>
 </nav>
 
 <script>
-$(function(){
-	//메신저 알람
+$(document).ready(function() {
 	MSreadCount();	
-	//게시물 , 결재 알람 추가 란 ..........
+	function MSreadCount(){
+		$.ajax({
+			url:"MSreadCount",
+			success: function(data){
+				console.log("jsp. readCount data>>>>>>>>",data);
+				$div=$('#msMsg');
+				$div.html('');
+				var $span; 
+				
+				if(data == '0'){
+					$('#msbadge').addClass('bg-c-purple');
+					$('#msLabel').addClass('label-purple');
+					$span=$('<span>').text("새 메세지가 없습니다.");
+				}else{
+					$('#msbadge').addClass('bg-c-yellow');
+					$('#msLabel').addClass('label-warning');
+					$span=$('<span>').text("새로운 메세지가"+ data +"개 있습니다.");
+				}
+					$div.append($span);
+			},
+			error: function(data){
+				console.log("Message Count fail.");
+			}
+		});
+	};	
 	
-	setInterval(function(){
-		MSreadCount();
-		
-	},10000);//10second 
-});
+	//메신저, 게시물 , 결재 알람 15초마다 가져오기 
+	var interval;
+	interval = setInterval(function(){
 
-function readCount(){
-	$.ajax({
-		url:"MSreadCount",
-		success: function(data){
-			console.log("readCount data::",data);
-		},
-		error: function(data){
-			console.log(error);
-		}
-	});
-}
+		// ** 메신저 알람 **
+		MSreadCount();	
+		
+	},15000);//15second 
+
+});
 
 $(".chatting").click(function () {
 	$.ajax({
-	  type:"POST"
-	  ,url:"chatstatus" 
-	  ,data:{"chatstat" : 1}
-	  ,success:function(){
+	  url:"chatstatus", 
+	  data:{"chatstat" : 1},
+	  success:function(){
 		  console.log("${chatstatus}");
-		  location.reload();
+		  //location.reload();
 	  },
 	  error: function(xhr, status, error) {
-            alert(error);
+          alert("Open the Messenger Fail.");
       }  
 	 });
-
-window.open('msStart','MS','top=auto,left=auto,width=380,height=600');
+	window.open('msStart','MS','top=auto,left=auto,width=380,height=600');
 });
 		
 </script>
-            

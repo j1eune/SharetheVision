@@ -26,10 +26,10 @@
 					<div class="portlet-title">
 						<h4> ${loginUser.name} 님의 SV Messenger </h4><br>
 						<div class="portlet-widgets">
-							<button class="listBtn text-c-white"> 대화 목록 </button>
+							<button class="listBtn text-c-white"><i class="ti-user"></i> 대화 목록 </button>
 						</div>
 						<div class="portlet-widgets">
-							<select class="caret" id="toId">
+							<select class="caret" id="toId" onchange="changeSelect()">
 								<option selected disabled>TO</option>
 								<c:forEach items="${ tolist }" var= "to"> 
 									<c:if test="${ to.name != loginUser.name}">  <!-- 본인은 제외시키기  -->
@@ -88,20 +88,20 @@
 				 <!-- 채팅방 목록  시작-->
 			    <div class="chatListContainer display-none">
 			        <div class="chatTop">
-			            <div style="padding: 10px; margin-left: 4px;"> - 이전 대화 목록 -</div>
+			            <div style="padding: 10px; margin-left: 4px;"> - 대화 목록 -</div>
 			        </div>
 			        <div class="chatList">
 						<div class="media enterRoomList"> <!-- 이전 대화목록 데이터 --></div> 
 			        </div>
 			    </div>
-				<input type="hidden" id="hiddenRoomId"/> 
-				<input type="hidden" id="hiddenToId"/>  
-				<input type="hidden" id="readCount" name="readCount" value="1"/>  
 				<!-- 채팅방 목록 끝 -->
 			</div>
 	</div><!-- row -->
 </div><!-- container -->  
 <!--  Messenger END  -->          
+<input type="hidden" id="hiddenRoomId"/> 
+<input type="hidden" id="hiddenToId"/>  
+<input type="hidden" id="readCount" value="1"/>  
 
 <script>
 $(document).ready(function() {
@@ -111,24 +111,17 @@ $(document).ready(function() {
 	$(".listBtn").on('click', function(){
 		//채팅창
 		if($('.chatContainer').hasClass("display-none")){
-		 	$('.chatListContainer').toggleClass("display-none");
 	    }else{             
-	        $('.chatContainer').toggleClass('display-none');   
-	        //sock.close();
+	        $('.chatContainer').toggleClass("display-none");  
+	         onClose();
 	    }
-		//채팅목록
+		//채팅목록(목록 열려있는 상태에서 목록 버튼)
 	    if(!$('.chatListContainer').hasClass('display-none')){  
-	        getRoomList();                                       
+	    }else{
+	    	$('.chatListContainer').toggleClass("display-none");
+	    	getRoomList(); 
 	    }
 	});  
-	
-    $('#toId').on('change', function(e){
-		if($('.chatContainer').hasClass("display-none")){
-	    	changeSelect();                                
-	    }else{                                    
-	        $('.chatContainer').toggleClass('display-none');   
-	    }
-	});
 	
 	$("#sendBtn").click(function() {
 		sendMessage();
@@ -140,35 +133,28 @@ $(document).ready(function() {
 		}
 	});
 
-	// 3초에 한번씩 채팅 목록 불러오기(실시간 알림 전용)
+	// 5초에 한번씩 채팅 목록 불러오기(실시간 알림 전용)
 	      setInterval(function(){
-	          // 방 목록 불러오기
+	          // 방 목록 불러오기 (업데이트)
 	          getRoomList();
-	          // 읽지 않은 메세지 총 갯수가 0개가 아니면
-	          console.log("count:",countAll);
-	          if(countAll != 0){
-	              // 채팅 icon 깜빡거리기
-	              $('.chatIcon').addClass('iconBlink');
-	              //play();
-	          }else{
-	              // 깜빡거림 없애기
-	              $('.chatIcon').removeClass('iconBlink');
-	          }
-	      },3000); 
+	         
+	      },5000); 
 });
 //document ready End/
 	
 	function connect() { 
 		sock = new SockJS("<c:url value='/chat'/>");
 		sock.onopen = onOpen; //웹 소켓에 이벤트가 발생했을 때 호출될 함수 등록
-		sock.onmessage = onMessage; //메세지 입력시 출력 메소드
+		sock.onmessage = onMessage; //메세지 수신시 출력 메소드
 		sock.onclose = onClose; //웹소켓 연결 종료시  메소드
 	}
 	function onOpen() {
+		console.log("sock open");
 	}
 	function onClose() {
+		console.log("sock close");
 	}
-
+	
 	//메세지 전송
 	function sendMessage() {
 		if($("#message").val() !='') {
@@ -179,6 +165,7 @@ $(document).ready(function() {
 				data.roomId = $('#hiddenRoomId').val();
 				data.isFirst = false;
 				data.message = $("#message").val();
+				
 				sock.send(JSON.stringify(data));
 				$("#message").val("");
 		}else{
@@ -190,56 +177,57 @@ $(document).ready(function() {
 	function onMessage(evt) {
 		var data = evt.data;
 		$(".chattingNow").append(data);
-		window.scrollTo($('.otherchatp').prop('scrollHeight'));
+		
+		window.scrollTo(0,document.body.scrollHeight+10);
 	}
 
 	//"new createChat" 
 	// select value -> toId 방 있는지 조회후 없으면 생성,있으면 기록 불러오기
 	function changeSelect(){
+		if( $('.chatListContainer').hasClass("display-none")){
+		}else{                                    
+		     $('.chatListContainer').toggleClass('display-none');   
+		}
+		
+		if(!$('.chatContainer').hasClass('display-none')){  
+		}else{
+			 $('.chatContainer').toggleClass('display-none');  
+		}
+		
 		var toId = $("#toId option:selected").val();
-		var userId = "${ loginUser.name }";
+		var userName = "${ loginUser.name }";
 		$.ajax({
 				url: "createChat",
 				data:{
-					  "userId": userId,
+					  "userName": userName,
 					  "toId"  : toId
 				},
 				dataType: "json",
 				success:function(data){
-					    if(data==null){
-								alert("대화 연결에 실패했습니다.");
+					    if(data!=null){
+							console.log("새로운 메세지 CH 생성 성공");
+					 		enterRoom(data);
 						}else{
-							if($('.chatListContainer').hasClass("display-none")){       
-							   $('.chatContainer').toggleClass("display-none");
-						    }else{                                    
-						        $('.chatListContainer').toggleClass('display-none');   
-						        $('.chatContainer').toggleClass("display-none");
-						    }
-					        enterRoom(data);
+							alert("대화 연결에 실패했습니다.");
 						}
 				},
 				error:function(data){
-					console.log("exist room:",data);
-			        $(".chatContainer").toggleClass("display-none");
-			        $('.chatListContainer').toggleClass("display-none");
-			        enterRoom(data);
-				}
-		});
-	    
-	}; 
+						console.log("exist room:",data);
+			       		enterRoom(data);
+				}	
+		 });
+	  }; 
 
-	 // 1:1 채팅(메세지) 관련
-	 var roomId;
-	 // 채팅 방 클릭 시 방번호 배정 후 웹소켓 연결
+	var roomId;
+	var toId;
+	//방번호 찾아서 들어간뒤 웹소켓 연결
 	function enterRoom(obj){
-      	// obj(this)로 들어온 태그에서 id에 담긴 방번호 추출
-		var roomId;
-		      var toId;
-		if($('#toId option:selected').val() == 'TO' ||
-		   $('#toId option:selected').val() == null ){
+		//List에서 들어왔을때
+		if($('#toId option:selected').val() == 'TO'){
 		       roomId = obj.getAttribute("rno");
 		       toId = obj.getAttribute("tid");
 		}else{
+		//slectbox로 들어왔을때
 		       roomId = obj.rno;
 		       toId = obj.tid;
 		}
@@ -253,7 +241,8 @@ $(document).ready(function() {
 		$.ajax({
 			url: "rno_"+roomId,
 			data:{
-			    "userName": "${loginUser.name}"
+			    "userName": "${loginUser.name}",
+			    "toId"	  : toId,
 			},
 			dataType:"json",
 			contentType: "application/json; charset=utf-8",
@@ -269,8 +258,8 @@ $(document).ready(function() {
 		                    if( "${loginUser.name}" == data[i].m_code){ //보낸 사람이 '나'이면 오른쪽에 표시
 		                    	  
 		                    	$li = $([
-		                            '<li style="float:right" class="media">'
-		                            ,'    <div class="msj macro">'
+		                            '<li class="media right">'
+		                            ,'    <div class="msj macro pull-right">'
 		                            ,'        <div class="text text-r">'
 		                            ,'            <p class="mychatp">fgg</p>'
 		                            ,'            <p><small class="msToDate">21-08-27 오후08:59:23</small></p>'
@@ -284,12 +273,12 @@ $(document).ready(function() {
 		                      
 		                    }else{ //보낸사람이 상대방이면 왼쪽에 표시
 		                    	$li = $([
-	                                '<li class="media" style="float:left" >'
+	                                '<li class="media">'
 	                                ,'  <a class="pull-left" >'
 	                                ,'      <img class="media-object img-circle img-chat" src="resources/assets/images/dp.png">'
+	                                ,'  	<h4 class="media-heading"></h4>'
 	                                ,'  </a>'
-	                                ,'  <h4 class="media-heading"></h4>'
-	                                ,'  <div class="msj macro">'
+	                                ,'  <div class="media-body">'
 	                                ,'        <div class="text text-r">'
 	                                ,'            <p class="otherchatp">fgg</p>'
 	                                ,'            <p><small class="msSendDate">21-08-27 오후08:59:23</small></p>'
@@ -298,22 +287,22 @@ $(document).ready(function() {
 	                                ,'</li>'
 	                            ].join(''));
 		                    
-		                        $li.find(".media-heading").text(data[i].m_code);
 		                        $li.find(".otherchatp").text(data[i].ms_content);
 		                        $li.find(".msSendDate").text(data[i].ms_time);
+		                        $li.find(".media-heading").text(data[i].m_code);
 	                        }
 		                    $msList.append($li);
 		                    console.log("read , count::",data[i].readcount);
-  	                   }
-	              }
-	          window.scrollTo(0,document.body.scrollHeight);
-			},
-	error: function(data){
-		console.log("enterRoom error");
-	}
-});//ajax end( 채팅 데이터 로딩,)
-	      // 웹소켓 연결 (소켓 서버 연결 시작)
-	      connect();
+	  	                   }
+		              }
+		          window.scrollTo(0,document.body.scrollHeight);
+				},
+		error: function(data){
+			console.log("enterRoom error");
+		}
+	});//ajax end( 채팅 데이터 로딩)
+      // 웹소켓 연결 (소켓 서버 연결 시작)
+      connect();
 	}
    
 	//채팅 방 열어주기
@@ -322,15 +311,15 @@ $(document).ready(function() {
         $(".chatContainer").toggleClass("display-none");
 	});
   
-	// 채팅 목록 (Room) 
-	// 총 읽지 않은 갯수
 	var countAll;	
+	var readCount= $('#readCount').val();
 	function getRoomList(){
 	    // 채팅 방 목록 가져오기
 	     $.ajax({
 	        url:"chatRoomList",
 	        data:{
-	            "userName":"${loginUser.name}"
+	            "userName":"${loginUser.name}",
+	            "readCount": readCount
 	        },
 	        dataType:"json",
 	        contentType: "application/json; charset=utf-8",
@@ -339,10 +328,10 @@ $(document).ready(function() {
 	            $chatList.html("");
 	            var $div;     // enterRoomList div 연결
 	            var $img;     // 유저 프로필이미지
-	            var $divs;    // header div
-	            var $h4;    // 유저 아이디
+	            var $h4;      // 유저 아이디
+	            var $divs;    // close label
+	            var $new;    // new label
 	            var $hr;
-	            //var $span;    // 시간
 	            
 	            if(data.length > 0){
 					// 읽지 않은 메세지 초기화
@@ -357,41 +346,61 @@ $(document).ready(function() {
 						    $div = $("<div class='enterRoomList' onclick='enterRoom(this);'>")
 						    		.attr("rno", data[i].roomId).attr("tid",data[i].toId);
 						}
-						$img = $("<img class='media-object img-circle img-chat'>")
-								.attr("src", "resources/assets/images/dp.png");
-						$divs = $("<div class='media-body'>");
-						$h4 = $("<h4 class='media-heading'> ").text(data[i].toId);
+						$img = $("<img class='media-object img-circle img-chat' style='float:left'>").attr("src", "resources/assets/images/dp.png");
+						$h4 = $("<h4 class='media-bottom'>").text(data[i].toId);
 						$hr = $("<hr>");
 						
-						console.log("data_count>>>>>>>>>>>>>>>>>:",data[i].count);
 						// 읽지 않은 메세지가  있을때!
 						if(data[i].count != 0){
-						    $new = $("<label class='label media-body label-warning'>").text(data[i].count +" new");
+						    $new = $("<label class='label media-body label-warning'>").text("NEW ["+data[i].count +"]");
 						}else{
-							$new = $("<label class='label media-body label-warning'>");
+							$new = $("<label class='label media-body label-default'>");
 						}
-						
 						countAll += parseInt(data[i].count);
 						
-						console.log("countAll:::",countAll);
-						console.log("data:::",data[i]);
+						//그룹톡방은 close 감추기
+						if('900'+'${loginUser.deptNo}' != data[i].roomId){ 
+							$divs = $("<div class='label media-body label-purple' id='closeLabel' onclick='deleteRoom(data[i].roomId)'>").text(" X ");
+						}
 						
 						$div.append($img);
-						$div.append($divs);
-						$div.append($new);
 						$div.append($h4);
+						$div.append($new);
+						$div.append($divs);
 						$div.append($hr);
 						$chatList.append($div);
 	                }
 	            }
-	            $("#readCount").val('countAll');
-	            console.log("readCountALL>>>>",$("#readCount").val());
+	            $("#readCount").val(countAll);
 	        },
 	        error: function(data){
 	        	console.log("data",data);
 	        }
 	    });
-	}   
+	}
+	
+	function deleteRoom(roomId){
+		console.log("del RoomId",roomId);
+		if(confirm("선택한 대화 기록을 삭제하시겠습니까?")){
+			$.ajax({
+				url: "deleteRoom",
+				data:{
+				    "roomId": roomId
+				},
+				success:function(data){
+					if(data=='success'){
+						console.log('기록 삭제 성공');
+						location.reload();
+					}else{
+						console.log('delete error');
+					}
+				},
+				error:function(data){
+					console.log("기록 삭제 실패");
+				}
+			});
+		}
+	}
 	window.onunload = function() {
 		$.ajax({
 			type : "POST",
