@@ -190,7 +190,6 @@ public class ProjectController {
 			os.write(mapper.writeValueAsString(requestMap).getBytes());
 			os.close();
 			
-			
 	    	try (BufferedReader input = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
 	    		String line;
 	    		StringBuffer buffer = new StringBuffer();

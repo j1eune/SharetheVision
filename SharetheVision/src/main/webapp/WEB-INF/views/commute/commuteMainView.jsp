@@ -15,48 +15,115 @@
 <meta name="keywords" content=" Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
 <meta name="author" content="CodedThemes">
 <link href="resources/assets/css/datePicker/datePicker.css" rel="stylesheet" type="text/css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <style>
-	#goTo, #getOff, #changeState, #seleteState{border: 2px solid #660099; background-color: white; color: #660099; font-size: 2.5vmin; font-weight: bold; box-shadow: none;}
-	#selectState{border-radius: 20px;}
-	#selectState li{font-size: 2.5vmin;}
-	#selectState li:hover{cursor: pointer; color:#660099; background-color: #F8F9FA;}	
-	
-	.listTable>thead>tr>th, .listTable>tbody>tr>td, .listTable>tbody>tr>th{text-align: center}
-	
-	#selectState>li>input[type="radio"]{
-		display: hidden;
-		height: 0;
-		width: 0;
-	}
-	
-	#leaveTime input[type="radio"]{
-		visibility: hidden;
-		height: 0;
-		width: 0;
-	}
-	
-	#leaveTime label {
-		/* display: table-cell; */
-		vertical-align: middle;
-		text-align: center;
-		cursor: pointer;
-		background-color: white;
-		color: #FFB64D;;
-		border: 1px solid #FFB64D;;
-		padding: 5px 10px;
-		border-radius: 3px;
-	}
-	
-	#leaveTime input[type="radio"]:checked + label{
-		background-color: #FFB64D;;
-		color: white;
-	}
-	
-	.commuteClick{border: 2px solid gray; color: gray;}
-	
+#goTo, #getOff, #changeState, #seleteState {
+	border: 2px solid #660099;
+	background-color: white;
+	color: #660099;
+	font-size: 2.5vmin;
+	font-weight: bold;
+	box-shadow: none;
+}
+
+#selectState {
+	border-radius: 20px;
+}
+
+#selectState li {
+	font-size: 2.5vmin;
+}
+
+#selectState li:hover {
+	cursor: pointer;
+	color: #660099;
+	background-color: #F8F9FA;
+}
+
+.listTable>thead>tr>th, .listTable>tbody>tr>td, .listTable>tbody>tr>th {
+	text-align: center
+}
+
+#selectState>li>input[type="radio"] {
+	display: hidden;
+	height: 0;
+	width: 0;
+}
+
+#leaveTime input[type="radio"] {
+	visibility: hidden;
+	height: 0;
+	width: 0;
+}
+
+#leaveTime label {
+	/* display: table-cell; */
+	vertical-align: middle;
+	text-align: center;
+	cursor: pointer;
+	background-color: white;
+	color: #FFB64D;;
+	border: 1px solid #FFB64D;;
+	padding: 5px 10px;
+	border-radius: 3px;
+}
+
+#leaveTime input[type="radio"]:checked+label {
+	background-color: #FFB64D;;
+	color: white;
+}
+
+.commuteClick {
+	border: 2px solid gray;
+	color: gray;
+}
+
+#commuteTable td{
+	font-size: 1.2rem;
+}
+
 /*  	.ui-widget-header .ui-icon { background-image: url('/images/btns.png'); } */
- 	
+
+#startBtn, #endBtn{
+	color: #660099;
+	border: 1.5px solid #660099;
+	background-color: #fff;
+	background-color: transparent;
+	font-size: 1rem;
+}
+
+#startBtn:hover, #endBtn:hover{
+	color: white;
+	background-color: #660099;
+}
+
+#working, #workEnd, #outside, #leave{
+	color: #660099;
+	border: 1px solid #660099;
+	background-color: #fff;
+	background-color: transparent;
+	font-size: 12px;
+}
+
+#working:hover, #workEnd:hover, #outside:hover, #leave:hover{
+	color: white;
+	background-color: #660099;
+}
+
+.click{
+	color: white;
+	background-color: #660099;
+}
+
+canvas{
+    margin: 0 auto;
+}
+
+#overworkHour, #workHour{
+	font-size: 18px;
+	font-weight: bold;
+}
+
 </style>
 <jsp:include page="../common/common.jsp" />
 </head>
@@ -88,26 +155,153 @@
 		                <div class="main-body">
 		                    <div class="page-wrapper">
 		                        <div class="page-body">
-		                            <div class="row">
+		                        	<div class="card" style="padding-bottom: 0px;">
+		                        		<div class="card-body">
+			                        		<div class="row">
+			                        			<div class="col-md-4">
+				                        			<c:set var="javatoday" value="<%=new java.util.Date()%>" />
+													<c:set var="todayTime"><fmt:formatDate value="${javatoday}" pattern="yyyy-MM-dd E hh:mm:ss" /></c:set> 
+													<c:set var="today"><fmt:formatDate value="${javatoday}" pattern="yyyy-MM-dd E" /></c:set> 
+													<c:set var="year"><fmt:formatDate value="${javatoday}" pattern="yyyy" /></c:set> 
+													<c:set var="month"><fmt:formatDate value="${javatoday}" pattern="MM" /></c:set> 
+													<c:set var="date"><fmt:formatDate value="${javatoday}" pattern="dd" /></c:set> 
+													<c:set var="time"><fmt:formatDate value="${javatoday}" pattern="hh:mm:ss" /></c:set> 
+													<div class="mb-4">
+														<h5>${today} ${time}</h5>
+													</div>
+													<div class="mt-4">
+														<div>
+															<span style="font-size: 16px;">오늘 근무한 시간</span>
+															<h2>${hour}:${min}:${sec}</h2>
+														</div>
+													</div>
+													<div class="mt-4">
+												    	<button type="button" class="btn btn-round" id="startBtn">
+												    		<i class="icofont icofont-sign-in"></i>
+												    		<span>출근하기</span>
+												    	</button>
+												    	<button type="button" class="btn btn-round" id="endBtn">
+												    		<i class="icofont icofont-sign-out"></i>
+												    		<span>퇴근하기</span>
+												    	</button>
+													</div>
+			                        			</div>
+			                        			<div class="col-md-4 b-l-default text-center">
+													<div class="mt-4 mb-4 text-center">
+														<table id="commuteTable" style="width: 100%;">
+															<tr>
+																<td>출근시간</td>
+																<td><b>${startTime}</b></td>
+															</tr>
+															<tr>
+																<td>퇴근시간</td>
+																<td><b>${endTime}</b></td>
+															</tr>
+														</table>
+													</div>
+													<div style="padding-top: 20px;" class="text-center">
+														<button class="btn btn-outline btn-sm" id="working">
+															<i class="icofont icofont-user-alt-3"></i>
+															<span>근무중</span>
+														</button>
+														<button class="btn btn-outline btn-sm" id="workEnd">
+															<i class="icofont icofont-user-alt-3"></i>
+															<span>근무종료</span>
+														</button>
+														<button class="btn btn-outline btn-sm" id="outside">
+															<i class="icofont icofont-user-alt-3"></i>
+															<span>외근</span>
+														</button>
+														<button class="btn btn-outline btn-sm" id="leave">
+															<i class="icofont icofont-user-alt-3"></i>
+															<span>휴가</span>
+														</button>
+													</div>
+			                        			</div>
+			                        			<div class="col-md-4 b-l-default">
+			                        				<div class="p-3">
+				                        				<div class="mt-3">
+															<span style="font-size: 16px;">표준 근무  09:00 ~ 18:00</span>
+															<div class="progress">
+				                                                <div id="progress" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+				                                            </div>
+				                        				</div>
+				                        				<div class="mt-3">
+															<span style="font-size: 16px;">연장 근무</span>
+															<div class="progress">
+				                                                <div id="overProgress" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+				                                            </div>
+				                        				</div>
+			                        				</div>
+												</div>
+		                        			</div>
+		                        		</div>
+		                        	</div>
+<!-- 		                            <div class="row"> -->
 		                                <!-- 금주근무현황 -->
-		                                <div class="col-md-8">
+		                                <div>
 		                                    <div class="card">
 		                                        <div class="card-header">
-		                                            <h3>금주근무현황</h3>
-		                                            <div class="card-header-right">
-		                                                <i class="icofont icofont-spinner-alt-5"></i>
-		                                            </div>
+		                                            <h3>이번 주 근무현황</h3>
 		                                        </div>
-		                                        <div class="card-block">
-													<div>
-<%-- 												  		<canvas id="myChart" width="100%"></canvas> --%>
+		                                        <div class="row">
+		                                        	<div class="col-md-8">
+				                                        <div class="card-block">
+				                                            <div id="morris-bar-chart"></div>
+			                                        	</div>
+			                                        </div>
+			                                        <div class="col-md-4 b-l-default">
+			                                        	<div class="card-block">
+					                                    	<div style="position: relative">
+																<canvas id="myChart" width="250" height="250"></canvas>
+																<div style="border-top: 2px dotted gray; width: 50px; position: absolute; top: 55px; right: 65px;"></div> 
+																<div style="position: absolute; top: 47px; right:10px;">
+																	<h6>연장근무</h6>
+																	<h6>&nbsp;<span id="overworkHour"></span>&nbsp;/12h</h6>
+																</div>
+																<div style="border-top: 2px dotted gray; width: 65px; position: absolute; top: 95px; left: 45px;"></div> 
+																<div style="position: absolute; top: 90px; left: -10px;">
+																	<h6>표준근무</h6>
+																	<h6><span id="workHour"></span>&nbsp;/40h</h6>
+																</div>
+					                                    	</div>
+			                                        	</div>
+			                                        </div>
+		                                        </div>
+		                                    	<div class="b-t-default m-3"></div>
+		                                    	<div class="card-body text-center">
+													<div style="display: inline-block;">
+			                                    		<div style="background-color: #62D1F3; width: 10px; height: 10px; border-radius: 50%; display: inline-block;"></div>
+			                                    		<span>표준근무시간</span>
+			                                    		&nbsp;&nbsp;&nbsp;
+			                                    		<div style="background-color: #FFC952; width: 10px; height: 10px; border-radius: 50%; display: inline-block;"></div>
+			                                    		<span>연장근무시간</span>
+			                                    		&nbsp;&nbsp;&nbsp;
+			                                    		<div style="background-color: #FF7473; width: 10px; height: 10px; border-radius: 50%; display: inline-block;"></div>
+			                                    		<span>총 근무시간</span>
 													</div>
-		                                            <div id="morris-bar-chart"></div>
-		                                        </div>
+													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													<div style="display: inline-block; vertical-align: middle;">
+														<div style="background-color: #62D1F3; border-radius: 20px; padding-right: 5px; padding-left: 5px; display: inline-block;">
+															<span style="color: white;">표준근무</span>
+														</div>
+														<span id="workHourSpan"></span><b>시간</b>&nbsp;<span id="workMinSpan"></span><b>분</b>
+														&nbsp;&nbsp;
+														<div style="background-color: #FFC952; border-radius: 20px; padding-right: 5px; padding-left: 5px; display: inline-block;">
+															<span style="color: white;">연장근무</span>
+														</div>
+														<span id="overworkHourSpan"></span><b>시간</b>&nbsp;<span id="overworkMinSpan"></span><b>분</b>
+														&nbsp;&nbsp;
+														<div style="background-color: #FF7473; border-radius: 20px; padding-right: 5px; padding-left: 5px; display: inline-block;">
+															<span style="color: white;">총 근무시간</span>
+														</div>
+														<span id="totalHourSpan"></span><b>시간</b>&nbsp;<span id="totalMinSpan"></span><b>분</b>
+													</div>
+		                                    	</div>
 		                                    </div>
-		                                    <div class="row">
+			                                <div class="row">
 		                                        <!-- 표준 외 근무 요청 -->
-		                                        <div class="col-lg-6">
+		                                        <div class="col-lg-4">
 		                                            <div class="card project-task">
 		                                                <div class="card-header">
 		                                                    <div class="card-header-left">
@@ -116,7 +310,7 @@
 		                                                    <div class="card-header-right">
 		                                                        <ul class="list-unstyled card-option">
 		                                                            <li><i class="icofont icofont-simple-left"></i></li>
-<!-- 		                                                            <li><i class="icofont icofont-maximize full-card"></i></li> -->
+	<!-- 		                                                            <li><i class="icofont icofont-maximize full-card"></i></li> -->
 		                                                            <li id="overworkFull"><i class="icofont icofont-maximize"></i></li>
 		                                                            <li><i class="icofont icofont-minus minimize-card"></i></li>
 		                                                            <li id="overworkReload"><i class="icofont icofont-refresh"></i></li>
@@ -142,7 +336,7 @@
 		                                            </div>
 		                                        </div>
 		                                        <!-- 휴가 요청 -->
-		                                        <div class="col-lg-6">
+		                                        <div class="col-lg-4">
 		                                            <div class="card project-task">
 		                                                <div class="card-header">
 		                                                    <div class="card-header-left">
@@ -176,104 +370,11 @@
 		                                            </div>
 		                                        </div>
 		                                    </div>
+										</div>
+										<div class="col-md-4">
+		                                    
 		                                </div>
-		                                <!-- 근태관리 -->
-		                                <div class="col-md-4">
-		                                    <div class="card">
-		                                        <div class="card-header">
-		                                            <h3>근태관리</h3>
-		                                        </div>
-		                                        <div class="card-body">
-		                                            <c:set var="javatoday" value="<%=new java.util.Date()%>" />
-													<c:set var="todayTime"><fmt:formatDate value="${javatoday}" pattern="yyyy-MM-dd E hh:mm:ss" /></c:set> 
-													<c:set var="today"><fmt:formatDate value="${javatoday}" pattern="yyyy-MM-dd E" /></c:set> 
-													<c:set var="year"><fmt:formatDate value="${javatoday}" pattern="yyyy" /></c:set> 
-													<c:set var="month"><fmt:formatDate value="${javatoday}" pattern="MM" /></c:set> 
-													<c:set var="date"><fmt:formatDate value="${javatoday}" pattern="dd" /></c:set> 
-													<c:set var="time"><fmt:formatDate value="${javatoday}" pattern="hh:mm:ss" /></c:set> 
-													
-													<div class="mb-3">
-														<h5>${today}</h5>
-														<h5>${time}</h5>
-													</div>
-		                                            <div id="totalTime" style="font-size: 35px;">${totalHour}h ${totalMin}m</div>
-		                                            <div class="progress mb-4">
-		                                                <div id="progress" class="progress-bar" role="progressbar" style="width: 25%" aria-valuemin="0" aria-valuemax="100"></div>
-		                                            </div>
-		                                            <table class="table table-borderless">
-		                                                <tr>
-		                                                    <td><h5>출근시간</h5></td>
-		                                                    <td class="text-right"><h5 id="goToTime">${startTime}</h5></td>
-		                                                </tr>
-		                                                <tr>
-		                                                    <td><h5>퇴근시간</h5></td>
-		                                                    <td class="text-right"><h5 id="getOffTime">${endTime}</h5></td>
-		                                                </tr>
-		                                            </table>
-		                                            <hr style="border-top: 2px dashed #bbb;">
-													<div class="mt-3 row">
-													    <div class="col-md-6">
-													    	<button type="button" class="btn btn-round btn-block" id="goTo">
-													    		출근하기
-													    		<i class="icofont icofont-sign-in"></i>
-													    	</button>
-													    </div>
-													    <div class="col-md-6">
-													    	<button type="button" class="btn btn-round btn-block" id="getOff">
-													    		퇴근하기
-													    		<i class="icofont icofont-sign-out"></i>
-													    	</button>
-													    </div>
-													</div>
-													<div class="mt-3">
-														<div>
-															<c:forEach var="i" begin="1" end="4">
-															    <c:if test="${state == i}">
-															    	<button type="button" id="changeState" class="btn btn-round btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-															    		<c:choose>
-															    			<c:when test="${state == 1}">
-															    				근무 종료
-															    			</c:when>
-															    			<c:when test="${state == 2}">
-															    				근무 중
-															    			</c:when>
-															    			<c:when test="${state == 3}">
-															    				휴가
-															    			</c:when>
-															    			<c:when test="${state == 4}">
-															    				외근
-															    			</c:when>
-															    			<c:otherwise>
-															    				상태변경
-															    			</c:otherwise>
-															    		</c:choose>
-															    	</button>
-															    </c:if>
-															</c:forEach>
-														    <ul id="selectState" class="dropdown-menu col-md-12" aria-labelledby="changeState" style="width: 90%;">
-															    <li class="dropdown-item">
-																	<input type="radio" value="1">
-																	<label>근무종료</label>
-															    </li>
-															    <li class="dropdown-item">
-															    	<input type="radio" value="2">
-																	<label>근무 중</label>
-															    </li>
-															    <li class="dropdown-item">
-															    	<input type="radio" value="3">
-																	<label>휴가</label>
-															    </li>
-															    <li class="dropdown-item">
-															    	<input type="radio" value="4">
-																	<label>외근</label>
-															    </li>
-															</ul>
-														</div>
-													</div>
-		                                        </div>
-		                                    </div>
-		                                </div>
-		                            </div>
+<!-- 		                            </div> -->
 		                        </div>
 		                        <!-- 표준 외 근무 신청 모달 -->
 		                        <div class="modal fade" id="overworkModal" tabindex="-1" role="dialog" aria-labelledby="overworkModalLabel" aria-hidden="true">
@@ -307,44 +408,29 @@
 
 <script>
 	$(function(){
-        // 근태관리 현재 시간
-//         var today = new Date();
-        
-//         var year = today.getFullYear().toString();
-        
-//         var month = today.getMonth() + 1;
-//         month = month < 10 ? '0' + month.toString() : month.toString();
-        
-//         var date = today.getDate();
-//         date = date < 10 ? '0' + date.toString() : date.toString();
-        
-//         var hour = today.getHours();
-//         hour = hour < 10 ? '0' + hour.toString() : hour.toString();
-        
-//         var minutes = today.getMinutes();
-//         minutes = minutes < 10 ? '0' + minutes.toString() : minutes.toString();
-        
-//         var seconds = today.getSeconds();
-//         seconds = seconds < 10 ? '0' + seconds.toString() : seconds.toString();
-        
-//         var week = new Array('일', '월', '화', '수', '목', '금', '토');
-//         var day = week[today.getDay()];
-        
-//         var formatToday = year + "년 " + month + "월 " + date + "일(" + day +") " + hour + ":" + minutes + ":" + seconds;
-        
-//         document.getElementById('today').innerHTML = formatToday;
-        
-        // 현재까지 근무시간
-        // percent = 현재까지 근무시간(분) / 3120 * 100  (예를 든 현재 시간은 41시간 42분. 41*60+42/52*60 * 100)
-//         var totalHour = ${totalHour}
-//         var totalMin = ${totalMin}
-//         var percent = ((totalHour*60 + totalMin)/ 3120 * 100).toFixed(2);
-        
-//         $('#progress').css('width', percent +"%");
-    });
-	
+		var state = <c:out value="${state}" />
+		if(state == 1){
+			$('#working').css('background-color', '#660099');
+			$('#working').find('i').css('color', 'white');
+			$('#working').find('span').css('color', 'white');
+		}else if(state == 2){
+			$('#workEnd').css('background-color', '#660099');
+			$('#workEnd').find('i').css('color', 'white');
+			$('#workEnd').find('span').css('color', 'white');
+		}else if(state == 3){
+			$('#outside').css('background-color', '#660099');
+			$('#outside').find('i').css('color', 'white');
+			$('#outside').find('span').css('color', 'white');
+		}else if(state == 4){
+			$('#leave').css('background-color', '#660099');
+			$('#leave').find('i').css('color', 'white');
+			$('#leave').find('span').css('color', 'white');
+		}
+		
+	});
+
 	// 출근하기
-	$('#goTo').on('click', function(){
+	$('#startBtn').on('click', function(){
 		var check = confirm('출근하시겠습니까?');
        	
        	if(check){
@@ -367,19 +453,31 @@
 	});
         
 	// 퇴근하기
-	$('#getOff').on('click', function(){
+	$('#endBtn').on('click', function(){
 		var check = confirm('퇴근하시겠습니까?');
 		
 		if(check){
 			location.href="commuteOut.co";
 		}
 	});
-        
-	// 상태 변경
-	$('#selectState').find('li').on('click', function(){
-		var state = $(this).children('input').val();
+	
+	$('.stateBtn').on('click', function(){
+		
+		var text = $(this).find('span').text();
+		var state;
+		if(text == '근무중'){
+			state = 1;
+		} else if(text == '근무종료'){
+			state = 2;
+		} else if(text == '외근'){
+			state = 3;
+		} else if(text == '휴가'){
+			state = 4;
+		}
+		
 		location.href="changeState.co?state="+state;
 	});
+		
 	  
 	// 날짜 선택
 	$('.datepicker').datepicker();
@@ -459,6 +557,13 @@
 						arrWorkTime[j] = 0;
 					}
 				}
+				var workTotal = 0;
+				for(var i = 0; i < 7; i++){
+					workTotal += arrWorkTime[i];
+				}
+				$('#workHour').html(Math.round(workTotal)).css('color', '#62D1F3');
+				$('#workHourSpan').html(Math.round(workTotal)).css({'font-size':'22px', 'color':'#62D1F3', 'font-weight':'bold'});
+				$('#workMinSpan').html((workTotal*100).toFixed(0).substring(2,4)).css({'font-size':'22px', 'color':'#62D1F3', 'font-weight':'bold'});
 				
 				if(map.owlist.length != 0){
 					for(var i = 0; i < map.owlist.length; i++){
@@ -476,6 +581,20 @@
 						arrOverWork[j] = 0;
 					}	
 				}
+				var overworkTotal = 0;
+				for(var i = 0; i < 7; i++){
+					overworkTotal += arrOverWork[i];
+				}
+				$('#overworkHour').html(overworkTotal).css('color', '#FFC952');
+				$('#overworkHourSpan').html(Math.round(overworkTotal)).css({'font-size':'22px', 'color':'#FFC952', 'font-weight':'bold'});
+				$('#overworkMinSpan').html((overworkTotal*100).toFixed(0).substring(2,4)).css({'font-size':'22px', 'color':'#FFC952', 'font-weight':'bold'});
+				
+				var total = 0;
+				for(var i = 0; i < 7; i++){
+					total += arrWorkTime[i]+arrOverWork[i];
+				}
+				$('#totalHourSpan').html(Math.round(total)).css({'font-size':'22px', 'color':'#FF7473', 'font-weight':'bold'});
+				$('#totalMinSpan').html((total*100).toFixed(0).substring(2,4)).css({'font-size':'22px', 'color':'#FF7473', 'font-weight':'bold'});
 				
 				Morris.Bar({
 					element: 'morris-bar-chart',
@@ -518,20 +637,105 @@
 				    xkey: 'y',
 				    ykeys: ['a', 'b', 'c'],
 				    labels: ['표준 근무시간', '표준 외 근무시간', '총 근무시간'],
-				    barColors: ['#62d1f3', '#FFB64D', '#FC6180'],
+				    barColors: ['#62D1F3', '#FFC952', '#FF7473'],
 				    hideHover: 'auto',
 // 				    gridLineColor: '#eef0f2',
 				    gridLineColor: 'white',
 				    resize: true
 				});
 
+
+				var config = {
+					type : 'doughnut',
+					data : {
+						labels : [ '근무시간', '잔여 근무시간' ],
+						datasets : [
+								/* Outer doughnut data starts*/
+								{
+									data : [ overworkTotal, (12 - overworkTotal) ],
+									backgroundColor : [ "#FFC952", "#F5F5F5" ],
+									label : '표준 외 근무 시간'
+								},
+								/* Outer doughnut data ends*/
+								/* Inner doughnut data starts*/
+								{
+									data : [ (Math.round(workTotal * 100) / 100),
+											 (40 - (Math.round(workTotal * 100) / 100)) ],
+									backgroundColor : [ "#62D1F3", "#F0F0F0"],
+									label : '표준 근무 시간'
+								}
+						/* Inner doughnut data ends*/
+						],
+
+					},
+					options : {
+						responsive : false,
+						legend : {
+// 							position: 'top',
+							display : false,
+						},
+						title : {
+							display : true,
+// 							text: 'Chart.js Doughnut Chart'
+						},
+						animation : {
+							animateScale : true,
+							animateRotate : true
+						},
+						tooltips : {
+							callbacks : {
+								label : function(item, data) {
+									console.log(data.labels, item);
+									return data.datasets[item.datasetIndex].label
+											+ ": "
+											+ data.labels[item.index]
+											+ ": "
+											+ data.datasets[item.datasetIndex].data[item.index];
+								}
+							}
+						}
+					},
+					centerText: {
+				        display: true,
+				        text: "280"
+				    }
+				};
+// 						window.onload = function() {
+				var ctx = document.getElementById("myChart").getContext("2d");
+				window.myDoughnut = new Chart(ctx, config);
+// 						};
+
+				// today process bar
+				var today = new Date();
+				var start = map.commute.commuteStart;
+				var startDate = new Date(start.substring(0, 11) + '09:00:00');
+				var overworkDate = new Date(start.substring(0, 11) + '18:00:00');
+
+				var diffSec = 0;
+				var worktimePer = 0;
+				if(today.getHours() < 6){
+					diffSec = (today.getTime() - startDate.getTime())/1000;
+					worktimePer = Math.round(diffSec/32400*100*100)/100;
+					$('#progress').css('width', worktimePer + "%").css('background-color', '#62D1F3');
+				} else {
+					diffSec = (today.getTime() - overworkDate.getTime())/1000;
+					worktimePer = Math.round(diffSec/21600*100*100)/100;
+					$('#overProgress').css('width', worktimePer + "%").css('background-color', '#FFC952');
+				}
+				
+				
+				console.log(worktimePer);
+				
+				var hour = diffSec/3600;
+				var min = diffSec%3600/60;
+				var sec = diffSec%3600%60;
+				
 			},
-			error: function(data){
+			error : function(data) {
 				console.log('에러');
 			}
 		});
 	});
-	
 </script>
 	
 <!-- test Chart -->

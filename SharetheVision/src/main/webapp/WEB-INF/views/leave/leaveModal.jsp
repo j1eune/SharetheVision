@@ -130,13 +130,6 @@
 			btDay = 0.5;
 		}
 		
-		console.log(type + " : 타입");
-		console.log(startStr + " : 시작");
-		console.log(endStr + " : 끝");
-		console.log(startDate + " : 시작날짜");
-		console.log(endDate + " : 끝날짜");
-		console.log(btDay + " : 며칠");
-		
 		var leave = {"type":type, "startDate":startStr, "endDate":endStr, "days":btDay, "content":content};
 		
 		$.ajax({
@@ -176,7 +169,6 @@
 				var length = data.list.length-1;
 				
 				for(var i = length; i > length-5; i--){
-					console.log('반복');
 					$tr = $('<tr>');
 					
 					var typeStr = data.list[i].type;
