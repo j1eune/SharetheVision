@@ -296,6 +296,7 @@ small.msToDate {
     width: 65px;
     margin: 5px 0 0 80%;
     text-align: center;
+    cursor:pointer !important; 
 }
 .media-bottom{
 	padding:10px 0 0 50px;

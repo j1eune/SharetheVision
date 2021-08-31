@@ -24,7 +24,7 @@ public interface MsService {
 
 	int readCount(ChatVo chatVo);
 
-	int updateCount(int roomId);
+	void updateCount(int roomId);
 
 	int hasNotRead(String userName);
 

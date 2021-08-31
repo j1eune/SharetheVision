@@ -134,11 +134,12 @@ $(document).ready(function() {
 	});
 
 	// 5초에 한번씩 채팅 목록 불러오기(실시간 알림 전용)
-	      setInterval(function(){
-	          // 방 목록 불러오기 (업데이트)
-	          getRoomList();
-	         
-	      },5000); 
+    setInterval(function(){
+	    // 방 목록 불러오기 (업데이트)
+	    getRoomList();
+	    sessionStorage.setItem("loginUser","${loginUser.name}");
+	    debugger;
+    },5000); 
 });
 //document ready End/
 	
@@ -360,7 +361,7 @@ $(document).ready(function() {
 						
 						//그룹톡방은 close 감추기
 						if('900'+'${loginUser.deptNo}' != data[i].roomId){ 
-							$divs = $("<div class='label media-body label-purple' id='closeLabel' onclick='deleteRoom(data[i].roomId)'>").text(" X ");
+							$divs = $("<input type='button' class='label media-body label-purple' id='closeLabel' value='X'>");
 						}
 						
 						$div.append($img);
@@ -378,10 +379,12 @@ $(document).ready(function() {
 	        }
 	    });
 	}
-	
-	function deleteRoom(roomId){
+
+	$(document).on("click","#closeLabel",function(){
+		
 		console.log("del RoomId",roomId);
 		if(confirm("선택한 대화 기록을 삭제하시겠습니까?")){
+			$('.enterRoomList').off('click');
 			$.ajax({
 				url: "deleteRoom",
 				data:{
@@ -389,18 +392,18 @@ $(document).ready(function() {
 				},
 				success:function(data){
 					if(data=='success'){
-						console.log('기록 삭제 성공');
-						location.reload();
+						alert('기록 삭제 성공');
 					}else{
-						console.log('delete error');
+						alert('기록 삭제 실패');
 					}
 				},
 				error:function(data){
-					console.log("기록 삭제 실패");
+					console.log("기록 삭제 에러");
 				}
 			});
 		}
-	}
+		location.reload(true);
+	});
 	window.onunload = function() {
 		$.ajax({
 			type : "POST",

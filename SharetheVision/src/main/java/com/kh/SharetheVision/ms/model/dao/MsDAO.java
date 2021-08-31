@@ -50,8 +50,8 @@ public class MsDAO {
 		return sqlSession.selectOne("msMapper.readCount",chatVo);
 	}
 
-	public int updateCount(SqlSessionTemplate sqlSession, int roomId) {
-		return sqlSession.selectOne("msMapper.updateCount",roomId);
+	public void updateCount(SqlSessionTemplate sqlSession, int roomId) {
+		sqlSession.update("msMapper.updateCount",roomId);
 	}
 
 	public int hasNotRead(SqlSessionTemplate sqlSession, String userName) {

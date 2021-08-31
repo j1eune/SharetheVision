@@ -58,8 +58,8 @@ public class MsServiceImple implements MsService{
 	}
 
 	@Override
-	public int updateCount(int roomId) {
-		return msdao.updateCount(sqlSession, roomId);
+	public void updateCount(int roomId) {
+		msdao.updateCount(sqlSession, roomId);
 	}
 
 	@Override

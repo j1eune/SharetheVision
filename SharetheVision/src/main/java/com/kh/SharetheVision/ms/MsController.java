@@ -38,45 +38,38 @@ public class MsController {
 
 	@RequestMapping(value = "msStart", method = RequestMethod.GET)
 	public String home(HttpSession session, Model model) {
+
+		String mId =""; //유저 아이디
+		
+		//유저정보(메시지발신인) 받아오기
+		loginUser = (Member) session.getAttribute("loginUser");
+		mId = loginUser.getmId();
 		
 		//회원정보(메세지수신인) 받아오기
 		ArrayList<Member> tolist = msService.tolist();
-		model.addAttribute("tolist",tolist);
-		//유저정보(메시지발신인) 받아오기
-		loginUser = (Member) session.getAttribute("loginUser");
-		String mId = loginUser.getmId();
 		
 		//참여멤버 리스트
 		List<String> list = ConnectChatUserList.getInstance().userMap.get("userlist");
-		//리스트에 유저 추가
-		list.add(mId);
+		list.add(mId); //리스트에 유저 추가
 		
 		//map에 wrapping
 		ConnectChatUserList.getInstance().userMap.put("userlist", list);
-		for (String str : ConnectChatUserList.getInstance().userMap.get("userlist")) {
-		}
+
+		model.addAttribute("tolist",tolist);
+
 		return "ms/msStart";
 	}
-
 	@ResponseBody
 	@RequestMapping(value = "rno_{roomId}", produces="application/json; charset=UTF-8")
-	public List<Messenger> messageList(@PathVariable int roomId, String userName,String toId, Model model,HttpServletResponse response) throws IOException {
-
+	public List<Messenger> messageList(@PathVariable int roomId, Model model, HttpServletResponse response) throws IOException {
 		List<Messenger> mList = new ArrayList<Messenger>();
 		mList = msService.messageList(roomId);
 		response.setContentType("application/json; charset=utf-8");
 		
 		// 메세지 카운트 0으로 바뀌기 (읽음 처리)
-		ChatVo chatVo = new ChatVo();
-		chatVo.setUserName(userName);
-		chatVo.setToId(toId);
-		chatVo.setRoomId(roomId);
-		chatVo.setCount(0);
-		int result = 0;
-
 		for(int i = 0; i < mList.size(); i++) {
 			if(mList.get(i).getReadcount()==1) {
-				result = msService.updateCount(roomId);
+				msService.updateCount(roomId);
 			}
 		}
 		return mList;
@@ -94,7 +87,7 @@ public class MsController {
 		chatVo.setUserName(userName);
 		
 		// DB에 방이 없을 때  생성(insert)
-		if(exist == null){
+		if("".equals(exist.getRno())){
 			int result = msService.insertRoom(r);
 			if(result>0) {
 				exist = msService.existChatRoom(r);
