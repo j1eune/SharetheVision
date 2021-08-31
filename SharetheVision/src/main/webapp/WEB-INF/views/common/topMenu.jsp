@@ -189,7 +189,7 @@ $(".chatting").click(function () {
           alert("Open the Messenger Fail.");
       }  
 	 });
-	window.open('msStart','MS','top=auto,left=auto,width=380,height=600');
+	window.open('msStart','MS','top=auto,left=auto,width=383,height=600');
 });
 		
 </script>

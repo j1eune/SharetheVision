@@ -31,7 +31,7 @@ public class HandlerChat extends TextWebSocketHandler{
 		String userId = (String)map.get("userId");
 		sessionList.put(userId, session);
 		// 모든 세션에 채팅 전달
-		if(!sessionList.get(userId).equals(session)) {
+		if(sessionList.size()>1) {
 			for (String user : sessionList.keySet()) {
 				sessionList.get(user).sendMessage(new TextMessage("<p> [ID]" + userId + "님이  LogIn 하셨습니다. </p>"));
 			}

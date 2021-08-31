@@ -348,6 +348,6 @@ $(".chatting").click(function () {
 		      }  
 			 });
 	
-		window.open('msStart','MS','top=auto,left=auto,width=380,height=600');
+		window.open('msStart','MS','top=auto,left=auto,width=383,height=600');
 });
 </script>
