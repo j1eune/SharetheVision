@@ -87,7 +87,7 @@ public class MsController {
 		chatVo.setUserName(userName);
 		
 		// DB에 방이 없을 때  생성(insert)
-		if("".equals(exist.getRno())){
+		if(exist == null){
 			int result = msService.insertRoom(r);
 			if(result>0) {
 				exist = msService.existChatRoom(r);

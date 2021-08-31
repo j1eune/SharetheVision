@@ -48,8 +48,8 @@ public class MsServiceImple implements MsService{
 	}
 
 	@Override
-	public int insertMessage(ChatVo chatVo) {
-		return msdao.insertMessage(sqlSession,chatVo);
+	public void insertMessage(ChatVo chatVo) {
+		msdao.insertMessage(sqlSession,chatVo);
 	}
 
 	@Override

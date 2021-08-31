@@ -30,7 +30,7 @@
 						</div>
 						<div class="portlet-widgets">
 							<select class="caret" id="toId" onchange="changeSelect()">
-								<option selected disabled>TO</option>
+								<option value="" selected disabled>TO</option>
 								<c:forEach items="${ tolist }" var= "to"> 
 									<c:if test="${ to.name != loginUser.name}">  <!-- 본인은 제외시키기  -->
 										<optgroup label="${ to.deptName } 팀 ">
@@ -114,9 +114,12 @@ $(document).ready(function() {
 	    }else{             
 	        $('.chatContainer').toggleClass("display-none");  
 	         onClose();
+	         $("#toId").val(""); //선택되어 있는 사람 있으면 null값 세팅
+			 window.location.reload();
 	    }
 		//채팅목록(목록 열려있는 상태에서 목록 버튼)
 	    if(!$('.chatListContainer').hasClass('display-none')){  
+	    	getRoomList(); 
 	    }else{
 	    	$('.chatListContainer').toggleClass("display-none");
 	    	getRoomList(); 
@@ -137,8 +140,7 @@ $(document).ready(function() {
     setInterval(function(){
 	    // 방 목록 불러오기 (업데이트)
 	    getRoomList();
-	    sessionStorage.setItem("loginUser","${loginUser.name}");
-	    debugger;
+	    
     },5000); 
 });
 //document ready End/
@@ -178,19 +180,18 @@ $(document).ready(function() {
 	function onMessage(evt) {
 		var data = evt.data;
 		$(".chattingNow").append(data);
-		
 		window.scrollTo(0,document.body.scrollHeight+10);
 	}
 
-	//"new createChat" 
-	// select value -> toId 방 있는지 조회후 없으면 생성,있으면 기록 불러오기
+	// select로 1:1 연결 -> toId 방 있는지 조회후 없으면 생성, 있으면 기록 불러오기
 	function changeSelect(){
 		if( $('.chatListContainer').hasClass("display-none")){
 		}else{                                    
 		     $('.chatListContainer').toggleClass('display-none');   
 		}
-		
 		if(!$('.chatContainer').hasClass('display-none')){  
+			onClose();
+			window.location.reload();
 		}else{
 			 $('.chatContainer').toggleClass('display-none');  
 		}
@@ -224,7 +225,7 @@ $(document).ready(function() {
 	//방번호 찾아서 들어간뒤 웹소켓 연결
 	function enterRoom(obj){
 		//List에서 들어왔을때
-		if($('#toId option:selected').val() == 'TO'){
+		if($('#toId option:selected').val()==''){
 		       roomId = obj.getAttribute("rno");
 		       toId = obj.getAttribute("tid");
 		}else{
@@ -293,7 +294,6 @@ $(document).ready(function() {
 		                        $li.find(".media-heading").text(data[i].m_code);
 	                        }
 		                    $msList.append($li);
-		                    console.log("read , count::",data[i].readcount);
 	  	                   }
 		              }
 		          window.scrollTo(0,document.body.scrollHeight);
@@ -307,10 +307,10 @@ $(document).ready(function() {
 	}
    
 	//채팅 방 열어주기
-	$(document).on("click", ".enterRoomList",function(){
+ 	$(document).on("click", ".enterRoomList",function(){
         $(this).parent().parent().toggleClass("display-none");
         $(".chatContainer").toggleClass("display-none");
-	});
+	}); 
   
 	var countAll;	
 	var readCount= $('#readCount').val();
@@ -381,8 +381,6 @@ $(document).ready(function() {
 	}
 
 	$(document).on("click","#closeLabel",function(){
-		
-		console.log("del RoomId",roomId);
 		if(confirm("선택한 대화 기록을 삭제하시겠습니까?")){
 			$('.enterRoomList').off('click');
 			$.ajax({
