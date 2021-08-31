@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.SharetheVision.attachments.model.vo.Attachment;
 import com.kh.SharetheVision.board.model.vo.Board;
 import com.kh.SharetheVision.board.model.vo.PageInfo;
+import com.kh.SharetheVision.board.model.vo.Scrap;
 import com.kh.SharetheVision.project.model.vo.Project;
 
 public interface BoardService {
@@ -24,6 +25,20 @@ public interface BoardService {
 	int insertAttachFile(Attachment attachFile);
 
 	Board selectLastBoard();
+
+	int insertScrap(Scrap s);
+
+	Scrap scrapState(Scrap s);
+
+	int deleteScrap(Scrap s);
+
+	ArrayList<Scrap> scrapList(String mCode);
+
+	int getScrapListCount(String mCode);
+
+	ArrayList<Scrap> selectScrapBoardList(PageInfo pi, String mCode);
+
+	Board selectBoardStatus(int bId);
 
 
 }

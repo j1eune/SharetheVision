@@ -230,9 +230,6 @@ public class MemberController {
 	public String memberList(@RequestParam("condition") String condition, 
 							 @RequestParam(value="page", required=false) Integer page, Model model) throws MemberException {
 		
-		System.out.println(page);
-		System.out.println(condition);
-		
 		int currentPage = 1;
 		if(page != null) {
 			currentPage = page;
@@ -318,7 +315,7 @@ public class MemberController {
 	
 	@RequestMapping("logout.me")
 	public String logout(SessionStatus session) {
-		session.isComplete();
+		session.setComplete();
 		
 		return "redirect:home";
 	}

@@ -24,6 +24,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
 	<jsp:include page="/WEB-INF/views/common/common.jsp"/>
+	<script src="https://unpKg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <style>
 	
@@ -186,8 +187,8 @@
                                                     	<c:if test="${ empty list }">
 	                                                    	<c:forEach var="board" items="${ board }">
 		                                                        <tr>
-		                                                        <c:url var="boardDetail" value="boardDetail.bo">
-		                                                        </c:url>
+			                                                        <c:url var="boardDetail" value="boardDetail.bo">
+			                                                        </c:url>
 		                                                            <td scope="row" class="board-no-align">${ board.boardNo }</td>
 		                                                            <td class="project-name-color">[ ${ board.project } ]</td>
 		                                                            <td>${ board.boardTitle }</td>
@@ -207,19 +208,17 @@
                                     </div>
 
                                     <div class="card">
-                                           <div class="card-header">
-                                               <h5>스크랩한 게시물</h5>
-                                               <div class="card-header-right">
-
-
-												<c:url var="boardList" value="boardList.bo">
+	                                    <div class="card-header">
+	                                        <h5>스크랩한 게시물</h5>
+	                                        <div class="card-header-right more-btn-box">
+												<c:url var="boardScrapList" value="boardScrapList.bo">
 												</c:url>
-	                                           <a href="${ boardList }">
-	                                               <span class="more-btn">더보기<i class="ti-angle-double-right"></i></span>
-	                                           </a>
-                                               </div>
-                                           </div>
-                                           <div class="card-block table-border-style">
+			                                    <a href="${ boardScrapList }">
+			                                        <span class="more-btn">더보기<i class="ti-angle-double-right"></i></span>
+			                                    </a>
+	                                        </div>
+	                                    </div>
+                                        <div class="card-block table-border-style">
                                             <div class="table-responsive">
                                                 <table class="table table-hover board-table">
                                                     <thead>
@@ -231,18 +230,25 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                        <c:url var="boardDetail" value="boardDetail.bo">
-                                                        </c:url>
-                                                            <td scope="row" class="board-no-align">1</td>
-                                                            <td class="project-name-color">[ SharetheVision ]</td>
-                                                            <td>SV 프로젝트 자료1</td>
-                                                            <td>장원형</td>
-                                                        </tr>
+                                                    	<c:if test="${ empty list }">
+	                                                    	<c:forEach var="scrap" items="${ scrap }">
+		                                                        <tr>
+			                                                        <c:url var="boardDetail" value="boardDetail.bo">
+			                                                        </c:url>
+		                                                            <td scope="row" class="board-no-align">${ scrap.boardNo }</td>
+		                                                            <td class="project-name-color">[ ${ scrap.project } ]</td>
+		                                                            <td>${ scrap.boardTitle }</td>
+		                                                            <td>${ scrap.boardWriter }</td>
+		                                                        </tr>
+	                                                        </c:forEach>
+                                                        </c:if>
+                                                        <c:if test="${ !empty list }">
+                                                        	<tr>
+                                                        		<td colspan="4" class="emptyList">스크랩한 게시물이 없습니다.</td>
+                                                        	</tr>
+                                                        </c:if>
                                                     </tbody>
                                                 </table>
-                                                
-                                                
                                             </div>
                                         </div>
                                     </div>
@@ -303,9 +309,31 @@ var nav = $('.fixed-button');
  		$('.board-table').find("td").click(function() {
  			var bId = $(this).parents().children("td").eq(0).text();
  			
- 			location.href="boardDetail.bo?bId="+bId;
+			$.ajax({
+	 			url: 'boardStatus.bo',
+	 			data: {bId: bId},
+	 			success: function(data) {
+	 				var data1 = $.trim(data);
+	 				if (data1 == '삭제') {
+	 					swal({
+	 						title: "잠깐!",
+	 						text: "삭제된 게시글입니다. 스크랩 목록에서 삭제됩니다.",
+	 						icon: "error",
+	 						dangerMode: true,
+	 					})
+	 					.then((willDelete) => {
+	 						if (willDelete) {
+								location.href="alertDeleteScrap.bo?bId="+bId;
+	 						}
+	 					})
+	 				} else if (data1 == '존재') {
+						location.href="boardDetail.bo?bId="+bId;
+	 				}
+	 			}
+	 		})
  		});
  	});
+	
 </script>
 </body>
 
