@@ -16,10 +16,11 @@ public class CalendarDAO {
 		return sqlSession.insert("calendarMapper.addCal",c);
 	}
 
-	public List<Calendar> listCal(SqlSessionTemplate sqlSession, String mcode, String sDate, String eDate) {	
+	public List<Calendar> listCal(SqlSessionTemplate sqlSession, String mcode, String deptNo, String sDate, String eDate) {	
 		HashMap<String, String> mapData = new HashMap<String, String>();
 		List<Calendar> calendarList = new ArrayList<Calendar>(); 
 		mapData.put("mcode", mcode);
+		mapData.put("deptNo", deptNo);
 		mapData.put("sDate", sDate);
 		mapData.put("eDate", eDate);
 		

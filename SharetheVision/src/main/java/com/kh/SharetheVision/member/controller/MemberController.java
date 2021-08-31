@@ -315,7 +315,7 @@ public class MemberController {
 	
 	@RequestMapping("logout.me")
 	public String logout(SessionStatus session) {
-		session.isComplete();
+		session.setComplete();
 		
 		return "redirect:home";
 	}

@@ -28,8 +28,8 @@ public class MsServiceImple implements MsService{
 	}
 
 	@Override
-	public List<Room> chatRoomList(String userId) {
-		return msdao.selectRoomList(sqlSession, userId);
+	public List<Room> chatRoomList(String userName,int deptNo) {
+		return msdao.selectRoomList(sqlSession, userName, deptNo);
 	}
 	
 	@Override
@@ -50,6 +50,26 @@ public class MsServiceImple implements MsService{
 	@Override
 	public int insertMessage(ChatVo chatVo) {
 		return msdao.insertMessage(sqlSession,chatVo);
+	}
+
+	@Override
+	public int readCount(ChatVo chatVo) {
+		return msdao.readCount(sqlSession, chatVo);
+	}
+
+	@Override
+	public void updateCount(int roomId) {
+		msdao.updateCount(sqlSession, roomId);
+	}
+
+	@Override
+	public int hasNotRead(String userName) {
+		return msdao.hasNotRead(sqlSession, userName);
+	}
+
+	@Override
+	public int deleteRoom(int rno) {
+		return msdao.deleteRoom(sqlSession, rno);
 	}
 
 	

@@ -10,7 +10,7 @@ public interface CalendarService {
 	int addCal(Calendar c);
 	
 	//일정 조회
-	List<Calendar> listCal(String mcode, String sDate, String eDate);
+	List<Calendar> listCal(String mcode, String deptNo, String sDate, String eDate);
 
 	//일정수정
 	int updateCal(Calendar c);

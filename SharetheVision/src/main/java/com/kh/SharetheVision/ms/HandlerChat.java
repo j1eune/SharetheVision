@@ -26,21 +26,16 @@ public class HandlerChat extends TextWebSocketHandler{
 	// 웹소켓 서버 접속시 메소드 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-
-		System.out.println("Connection handler INNNN");
 		// 채팅방에 접속한 사용자 세션을 리스트에 저장
 		Map<String, Object> map = session.getAttributes();
-		
 		String userId = (String)map.get("userId");
 		sessionList.put(userId, session);
-
 		// 모든 세션에 채팅 전달
 		for (String user : sessionList.keySet()) {
 			sessionList.get(user).sendMessage(new TextMessage("<p> [ID]" + userId + "님이  LogIn 하셨습니다. </p>"));
 		}
 	}
 	
-
 	// 서버로 전송된 메세지 처리 메소드
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
@@ -48,27 +43,33 @@ public class HandlerChat extends TextWebSocketHandler{
 		String chat = message.getPayload();
 		Gson gson = new Gson();
 		ChatVo chatVo = gson.fromJson(chat, ChatVo.class);
-		
 		// 모든 세션에 채팅 전달
 		if(chatVo.isFirst) {
 		}else {
 			for (String user: sessionList.keySet()) {
 				if(sessionList.get(user).equals(session)) {
-					sessionList.get(user).sendMessage(new TextMessage("<div class='mychatp'>" + chatVo.message+ "</div>"));
+					sessionList.get(user).sendMessage(new TextMessage(
+							"<div class='media'>" + "<p class='mychatp'>" +
+							 chatVo.message +"</p>" +"</div>"));
 				}else {
 					sessionList.get(user).sendMessage(new TextMessage(
 							"<div class='media'>" + "<a class='pull-left'>" +
 							"<img class='media-object img-circle img-chat' src='resources/assets/images/dp.png'>" +
-							"<h4 class='media-heading'>"+ chatVo.userName +"</h4>" +
+							"<div class='media-body'>"+"<h4 class='media-heading'>"+ chatVo.userName +"</h4>" + "</div>"+
 							"</a>" + "<p class='otherchatp'>" + chatVo.message + "</p>" +"</div>"));
+				}
+				//세션에 혼자접속해있을시 상대방에게 안읽은메세지 처리로 저장
+				if(sessionList.size()==1) {
+					 chatVo.setCount(1);
+				} else {
+					 chatVo.setCount(0);
 				}
 			}
 		}
 		int result = msService.insertMessage(chatVo);
 		if(result>0) {
-			System.out.println("message DB저장 성공");
 		}else {
-			System.out.println("message 저장 실패");
+			System.out.println("ms save error");
 		}
 	}
 

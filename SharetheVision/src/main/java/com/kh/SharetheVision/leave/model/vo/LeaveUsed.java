@@ -7,7 +7,7 @@ public class LeaveUsed {
 	private int leaveUsedNo;
 	private String startDate;
 	private String endDate;
-	private int days;
+	private double days;
 	private Date createDate;
 	private String content;
 	private String approval;
@@ -41,11 +41,11 @@ public class LeaveUsed {
 		this.endDate = endDate;
 	}
 
-	public int getDays() {
+	public double getDays() {
 		return days;
 	}
 
-	public void setDays(int days) {
+	public void setDays(double days) {
 		this.days = days;
 	}
 

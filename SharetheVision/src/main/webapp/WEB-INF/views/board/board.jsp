@@ -186,8 +186,8 @@
                                                     	<c:if test="${ empty list }">
 	                                                    	<c:forEach var="board" items="${ board }">
 		                                                        <tr>
-		                                                        <c:url var="boardDetail" value="boardDetail.bo">
-		                                                        </c:url>
+			                                                        <c:url var="boardDetail" value="boardDetail.bo">
+			                                                        </c:url>
 		                                                            <td scope="row" class="board-no-align">${ board.boardNo }</td>
 		                                                            <td class="project-name-color">[ ${ board.project } ]</td>
 		                                                            <td>${ board.boardTitle }</td>
@@ -207,19 +207,17 @@
                                     </div>
 
                                     <div class="card">
-                                           <div class="card-header">
-                                               <h5>스크랩한 게시물</h5>
-                                               <div class="card-header-right">
-
-
+	                                    <div class="card-header">
+	                                        <h5>스크랩한 게시물</h5>
+	                                        <div class="card-header-right more-btn-box">
 												<c:url var="boardList" value="boardList.bo">
 												</c:url>
-	                                           <a href="${ boardList }">
-	                                               <span class="more-btn">더보기<i class="ti-angle-double-right"></i></span>
-	                                           </a>
-                                               </div>
-                                           </div>
-                                           <div class="card-block table-border-style">
+			                                    <a href="${ boardList }">
+			                                        <span class="more-btn">더보기<i class="ti-angle-double-right"></i></span>
+			                                    </a>
+	                                        </div>
+	                                    </div>
+                                        <div class="card-block table-border-style">
                                             <div class="table-responsive">
                                                 <table class="table table-hover board-table">
                                                     <thead>
@@ -231,18 +229,25 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                        <c:url var="boardDetail" value="boardDetail.bo">
-                                                        </c:url>
-                                                            <td scope="row" class="board-no-align">1</td>
-                                                            <td class="project-name-color">[ SharetheVision ]</td>
-                                                            <td>SV 프로젝트 자료1</td>
-                                                            <td>장원형</td>
-                                                        </tr>
+                                                    	<c:if test="${ empty list }">
+	                                                    	<c:forEach var="scrap" items="${ scrap }">
+		                                                        <tr>
+			                                                        <c:url var="boardDetail" value="boardDetail.bo">
+			                                                        </c:url>
+		                                                            <td scope="row" class="board-no-align">${ scrap.boardNo }</td>
+		                                                            <td class="project-name-color">[ ${ scrap.project } ]</td>
+		                                                            <td>${ scrap.boardTitle }</td>
+		                                                            <td>${ scrap.boardWriter }</td>
+		                                                        </tr>
+	                                                        </c:forEach>
+                                                        </c:if>
+                                                        <c:if test="${ !empty list }">
+                                                        	<tr>
+                                                        		<td colspan="4" class="emptyList">스크랩한 게시물이 없습니다.</td>
+                                                        	</tr>
+                                                        </c:if>
                                                     </tbody>
                                                 </table>
-                                                
-                                                
                                             </div>
                                         </div>
                                     </div>

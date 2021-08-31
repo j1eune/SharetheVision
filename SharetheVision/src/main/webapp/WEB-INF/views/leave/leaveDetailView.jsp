@@ -82,7 +82,7 @@
 		                                    <div class="card-block">
 		                                        <div class="row">
 		                                            <div class="col-lg my-auto">
-		                                                <h5>${name}</h5>
+		                                                <h5>${name} ${jobName}</h5>
 		                                            </div>
 		                                            <div class="col-lg b-r-default b-l-default">
 		                                                <h5 class="m-b-20">발생 연차</h5>
@@ -138,19 +138,69 @@
 		                                                    <th>휴가구분</th>
 		                                                    <th>연차 사용기간</th>
 		                                                    <th>사용연차</th>
-		                                                    <th>내용</th>
 		                                                    <th>결제상태</th>
+		                                                    <th>사용상태</th>
 		                                                </tr>
 		                                            </thead>
 		                                            <tbody>
-		                                                <tr>
-		                                                    <th>2021-07-15</th>
-		                                                    <td>연차</td>
-		                                                    <td>2021-08-19 ~ 2021-08-19</td>
-		                                                    <td>1</td>
-		                                                    <td></td>
-		                                                    <td>대기</td>
-		                                                </tr>
+		                                            <c:forEach var="r" items="${leaveList}">
+		                                            	<tr>
+		                                            		<td>${r.createDate}</td>
+		                                            		<td>
+		                                            			<c:choose>	
+																	<c:when test="${r.type == 1}">
+																		연차
+																	</c:when>
+																	<c:when test="${r.type == 2}">
+																		반차
+																	</c:when>
+																	<c:when test="${r.type == 3}">
+																		경조사
+																	</c:when>
+																	<c:when test="${r.type == 4}">
+																		공가
+																	</c:when>
+																	<c:when test="${r.type == 5}">
+																		병가
+																	</c:when>
+																	<c:when test="${r.type == 6}">
+																		특별휴가
+																	</c:when>
+																	<c:when test="${r.type == 7}">
+																		오전반차
+																	</c:when>
+																	<c:when test="${r.type == 8}">
+																		오후반차
+																	</c:when>
+		                                            			</c:choose>
+		                                            		</td>
+		                                            		<td>${r.startDate} ~ ${r.endDate}</td>
+		                                            		<td>${r.days}</td>
+		                                            		<td>
+		                                            			<c:choose>	
+																	<c:when test="${r.approval == 'Y'}">
+																		승인
+																	</c:when>
+																	<c:when test="${r.approval == 'N'}">
+																		반려
+																	</c:when>
+																	<c:when test="${r.approval == 'W'}">
+																		대기
+																	</c:when>
+		                                            			</c:choose>
+		                                            		</td>
+		                                            		<td>
+		                                            			<c:choose>	
+																	<c:when test="${r.status == 'Y'}">
+																		사용완료
+																	</c:when>
+																	<c:when test="${r.status == 'N'}">
+																		미사용
+																	</c:when>
+		                                            			</c:choose>
+		                                            		</td>
+		                                            	</tr>
+		                                            </c:forEach>
 		                                            </tbody>
 		                                        </table>
 		                                    </div>
@@ -184,14 +234,45 @@
 		                                                </tr>
 		                                            </thead>
 		                                            <tbody>
-		                                                <tr>
-		                                                    <th>홍길동</th>
-		                                                    <td>디자인팀</td>
-		                                                    <td>2021-05-23 ~ 2021-05-23</td>
-		                                                    <td>1</td>
-		                                                    <td></td>
-		                                                    <td></td>
-		                                                </tr>
+		                                            <c:forEach var="r" items="${leaveList}">
+		                                            	<c:if test="${r.status == 'Y'}">
+		                                            	<tr>
+		                                            		<td>${name}</td>
+		                                            		<td>${deptName}</td>
+		                                            		<td>
+		                                            			<c:choose>
+																	<c:when test="${r.type == 1}">
+																		연차
+																	</c:when>
+																	<c:when test="${r.type == 2}">
+																		반차
+																	</c:when>
+																	<c:when test="${r.type == 3}">
+																		경조사
+																	</c:when>
+																	<c:when test="${r.type == 4}">
+																		공가
+																	</c:when>
+																	<c:when test="${r.type == 5}">
+																		병가
+																	</c:when>
+																	<c:when test="${r.type == 6}">
+																		특별휴가
+																	</c:when>
+																	<c:when test="${r.type == 7}">
+																		오전반차
+																	</c:when>
+																	<c:when test="${r.type == 8}">
+																		오후반차
+																	</c:when>
+		                                            			</c:choose>
+		                                            		</td>
+		                                            		<td>${r.days}</td>
+		                                            		<td>${r.startDate} ~ ${r.endDate}</td>
+		                                            		<td>${r.content}</td>
+		                                            	</tr>
+		                                            	</c:if>
+		                                            </c:forEach>
 		                                            </tbody>
 		                                        </table>
 		                                    </div>
@@ -217,17 +298,30 @@
 		                                            <thead>
 		                                                <tr>
 		                                                    <th>등록일</th>
+		                                                    <th>연차구분</th>
 		                                                    <th>사용기간</th>
 		                                                    <th>발생일수</th>
 		                                                    <th>내용</th>
 		                                                </tr>
 		                                            </thead>
 		                                            <tbody>
-		                                                <tr>
-		                                                    <th>2021-03-01</th>
-		                                                    <td>2021-03-01 ~ 2022-03-31</td>
-		                                                    <td>15</td>
-		                                                </tr>
+		                                                <c:forEach var="r" items="${annualList}">
+		                                                	<tr>
+		                                                		<td>${r.createDate}</td>
+		                                                		<c:if test="${r.type == 0}">
+		                                                			<td>생성연차</td>
+		                                                		</c:if>
+		                                                		<c:if test="${r.type == 1}">
+		                                                			<td>조정연차</td>
+		                                                		</c:if>
+		                                                		<c:if test="${r.type == 2}">
+		                                                			<td>1년미만 연차</td>
+		                                                		</c:if>
+		                                                		<td>${r.startDate} ~ ${r.endDate}</td>
+		                                                		<td>${r.total}</td>
+		                                                		<td>${r.content}</td>
+		                                                	</tr>
+		                                                </c:forEach>
 		                                            </tbody>
 		                                        </table>
 		                                    </div>
@@ -237,9 +331,6 @@
 		                        <!-- 휴가 신청 모달 -->
 		                        <div class="modal fade" id="leaveModal" tabindex="-1" role="dialog" aria-labelledby="leaveModalLabel" aria-hidden="true">
 		                        	<%@include file="leaveModal.jsp" %>
-		                    	</div>
-		                        <div class="modal fade" id="settingModal" tabindex="-1" role="dialog" aria-labelledby="settingModalLabel" aria-hidden="true">
-		                        	<%@include file="leaveSettingModal.jsp" %>
 		                    	</div>
 		                    </div>
 		                </div>

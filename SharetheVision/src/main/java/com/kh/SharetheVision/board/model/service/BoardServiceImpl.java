@@ -10,6 +10,7 @@ import com.kh.SharetheVision.attachments.model.vo.Attachment;
 import com.kh.SharetheVision.board.model.dao.BoardDAO;
 import com.kh.SharetheVision.board.model.vo.Board;
 import com.kh.SharetheVision.board.model.vo.PageInfo;
+import com.kh.SharetheVision.board.model.vo.Scrap;
 import com.kh.SharetheVision.project.model.vo.Project;
 
 @Service
@@ -59,6 +60,26 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public Board selectLastBoard() {
 		return DAO.selectLastBoard(sqlSession);
+	}
+
+	@Override
+	public int insertScrap(Scrap s) {
+		return DAO.insertScrap(sqlSession, s);
+	}
+
+	@Override
+	public Scrap scrapState(Scrap s) {
+		return DAO.scrapState(sqlSession, s);
+	}
+
+	@Override
+	public int deleteScrap(Scrap s) {
+		return DAO.deleteScrap(sqlSession, s);
+	}
+
+	@Override
+	public ArrayList<Scrap> scrapList(String mCode) {
+		return DAO.scrapList(sqlSession, mCode);
 	}
 
 	

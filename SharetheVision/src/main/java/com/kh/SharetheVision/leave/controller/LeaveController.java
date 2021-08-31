@@ -17,14 +17,19 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.kh.SharetheVision.leave.model.exception.LeaveException;
 import com.kh.SharetheVision.leave.model.service.LeaveService;
 import com.kh.SharetheVision.leave.model.vo.LeaveAnnual;
 import com.kh.SharetheVision.leave.model.vo.LeaveUsed;
+import com.kh.SharetheVision.member.model.service.MemberService;
 import com.kh.SharetheVision.member.model.vo.Member;
 
 import au.com.bytecode.opencsv.CSVReader;
@@ -35,8 +40,8 @@ public class LeaveController {
 	@Autowired
 	private LeaveService leService;
 	
-//	@Autowired
-//	private MemberService mService;
+	@Autowired
+	private MemberService mService;
 	
 	@RequestMapping("leaveDetail.le")
 	public String leaveDetailView(HttpSession session, Model model) {
@@ -46,59 +51,57 @@ public class LeaveController {
 //		String jobName = loginUser.getJobName();
 		String name = "임지은";
 		String jobName = "팀장";
+		String deptName = "인사팀";
 		String memberNo = "MaCo2";
-		model.addAttribute("name", name + " " + jobName);
+		model.addAttribute("name", name);
+		model.addAttribute("jobName", jobName);
+		model.addAttribute("deptName", deptName);
 		
-		// 생성 연차
-		HashMap<String, Object> annualMap = new HashMap<String, Object>();
-		annualMap.put("memberNo", memberNo);
-		annualMap.put("type", 0);
-		ArrayList<LeaveAnnual> annualList = leService.selectAnnual(annualMap);
-		
-		int annualTotal = 0;
+		// 연차 생성
+		ArrayList<LeaveAnnual> annualList = leService.selectAnnual(memberNo);
 		if(annualList != null) {
+			model.addAttribute("annualList", annualList);
+
+			double annualTotal = 0;
 			for(LeaveAnnual la : annualList) {
-				annualTotal += la.getTotal();
+				if(la.getType() == 0) {
+					annualTotal += la.getTotal();
+				}
 			}
 			model.addAttribute("annualTotal", annualTotal);
-		}
-		
-		
-		
-		// 조정 연차
-		HashMap<String, Object> adjustMap = new HashMap<String, Object>();
-		adjustMap.put("memberNo", memberNo);
-		adjustMap.put("type", 1);
-		ArrayList<LeaveAnnual> adjustList = leService.selectAnnual(adjustMap);
-		
-		int adjustTotal = 0;
-		if(adjustList != null) {
-			for(LeaveAnnual la : adjustList) {
-				adjustTotal += la.getTotal();
+
+			double adjustTotal = 0;
+			for(LeaveAnnual la : annualList) {
+				if(la.getType() == 1) {
+					adjustTotal += la.getTotal();
+				}
 			}
 			model.addAttribute("adjustTotal", adjustTotal);
 		}
 		
-		// 사용 연차
-		ArrayList<LeaveUsed> luList = leService.selectUsed(memberNo);
-		
-		int usedTotal = 0;
-		if(luList != null) {
-			for(LeaveUsed lu : luList) {
-				usedTotal += lu.getDays();
+		// 연차 사용
+		ArrayList<LeaveUsed> leaveList = leService.selectLeave(memberNo);
+		if(leaveList != null) {
+			model.addAttribute("leaveList", leaveList);
+			
+			double usedTotal = 0;
+			for(LeaveUsed lu : leaveList) {
+				if(lu.getStatus().charAt(0) == 'Y') {
+					usedTotal += lu.getDays();
+				}
 			}
 			model.addAttribute("usedTotal", usedTotal);
 		}
 		
-		System.out.println(annualList);
-		System.out.println(adjustList);
-		System.out.println(luList);
-
+		System.out.println("생성연차 : " + annualList);
+		System.out.println("신청내역 : " + leaveList);
+		
 		return "leaveDetailView";
 	}
 	
 	@RequestMapping("leaveAll.le")
 	public String leaveMemberAll() {
+		
 		return "leaveMemberAll";
 	}
 	
@@ -136,12 +139,10 @@ public class LeaveController {
         		la.setYear(Integer.toString(year));
             	for(int j = 0; j < line.length; j++) {
             		if(j == 0) {
-            			Member m = new Member();
-            			m.setmId(line[j]);
-//            			Member member = mService.loginMember(m);
+            			Member member = mService.loginMember(line[j].toString());
             			
             			la.setMemberId(line[j]);
-//            			la.setMemberNo(member.getmCode());
+            			la.setMemberNo(member.getmCode());
             			
 //            			System.out.println("사원아이디 : " + line[j]);
             		} else if(j == 1) {
@@ -160,7 +161,7 @@ public class LeaveController {
             }
         	
         	size = list.size();
-//        	result = leService.insertLeave(list);
+        	result = leService.insertAnnaul(list);
         	
         	System.out.println(result + " : 인서트 결과");
         	
@@ -186,4 +187,41 @@ public class LeaveController {
 		}
 		
 	}
+	
+	@ResponseBody
+	@RequestMapping("leaveRequest.le")
+	public String leaveRequest(@ModelAttribute LeaveUsed lu) throws LeaveException {
+//		Member loginUser = ((Member)session.getAttribute("loginUser"));
+//		String memberNo = loginUser.getmCode();
+		String memberNo = "MaCo2";
+		
+		lu.setMemberNo(memberNo);
+		
+		int result = leService.insertLeave(lu);
+		
+		if(result > 0) {
+			return "success";
+		} else {
+			throw new LeaveException("휴가 신청에 실패하였습니다.");
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="leaveList.le", produces="application/json; charset=utf-8")
+	public String LeaveTable(HttpSession session) {
+//		Member loginUser = ((Member)session.getAttribute("loginUser"));
+//		String memberNo = loginUser.getmCode();
+		String memberNo = "MaCo2";
+		
+		ArrayList<LeaveUsed> list = leService.selectLeave(memberNo);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("list", list);
+		
+		return gson.toJson(map);
+	}
+	
 }

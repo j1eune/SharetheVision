@@ -12,7 +12,7 @@ public interface MsService {
 
 	ArrayList<Member> tolist();
 
-	List<Room> chatRoomList(String userId);
+	List<Room> chatRoomList(String userName, int deptNo);
 
 	List<Messenger> messageList(int roomId);
 
@@ -21,5 +21,13 @@ public interface MsService {
 	int insertRoom(Room r);
 
 	int insertMessage(ChatVo chatVo);
+
+	int readCount(ChatVo chatVo);
+
+	void updateCount(int roomId);
+
+	int hasNotRead(String userName);
+
+	int deleteRoom(int rno);
 
 }

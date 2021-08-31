@@ -21,14 +21,26 @@ public class LeaveServiceImpl implements LeaveService {
 	private LeaveDAO leDAO;
 
 	@Override
-	public ArrayList<LeaveAnnual> selectAnnual(HashMap<String, Object> map) {
-		return leDAO.selectAnnual(sqlSession, map);
+	public int insertAnnaul(ArrayList<LeaveAnnual> list) {
+		return leDAO.insertAnnaul(sqlSession, list);
 	}
 
 	@Override
-	public ArrayList<LeaveUsed> selectUsed(String memberNo) {
-		return leDAO.selectUsed(sqlSession, memberNo);
+	public ArrayList<LeaveAnnual> selectAnnual(String memberNo) {
+		return leDAO.selectAnnual(sqlSession, memberNo);
 	}
+
+	@Override
+	public ArrayList<LeaveUsed> selectLeave(String memberNo) {
+		return leDAO.selectLeave(sqlSession, memberNo);
+	}
+
+	@Override
+	public int insertLeave(LeaveUsed lu) {
+		return leDAO.insertLeave(sqlSession, lu);
+	}
+
+	
 	
 	
 }

@@ -222,15 +222,31 @@
                                                     <p class="m-0">${ board.boardContent }</p>
                                                     <div class="boardDetail-btn-box">
                                                     	<c:url var="addScrap" value="addScrap.bo">
-                                                    		<c:param name="title" value="${ board.boardTitle }"></c:param>
-                                                    		<!-- 프로젝트 추가하면 주석 삭제 -->
-<%--                                                     		<c:param name="project" value="${ project.projectName }"></c:param> --%>
-                                                    		<c:param name="writer" value="${ board.boardWriter }"></c:param>
+                                                    		<c:param name="mCode" value="${ loginUser.mCode }"/>
+                                                    		<c:param name="boardNo" value="${ board.boardNo }"/>
+                                                    		<c:param name="project" value="${ board.project }"/>
+                                                    		<c:param name="boardTitle" value="${ board.boardTitle }"/>
+                                                    		<c:param name="boardWriter" value="${ board.boardWriter }"/>
                                                     	</c:url>
-                                                        <a href="${ addScrap }">
-                                                        	<button type="button" id="boardDetailFileUploadBtn"
-                                                            class="btn boardDetail-btn">스크랩하기</button>
-                                                    	</a>
+                                                    	<c:url var="deleteScrap" value="deleteScrap.bo">
+                                                    		<c:param name="mCode" value="${ loginUser.mCode }"/>
+                                                    		<c:param name="boardNo" value="${ board.boardNo }"/>
+                                                    	</c:url>
+                                                    	
+                                                    	<c:if test="${ scrapState == null }">
+	                                                        <a href="${ addScrap }">
+	                                                        	<button type="button" id="boardDetailFileUploadBtn"
+	                                                            class="btn boardDetail-btn">스크랩 하기</button>
+	                                                    	</a>
+                                                    	</c:if>
+                                                    	
+                                                    	<c:if test="${ scrapState != null }">
+	                                                        <a href="${ deleteScrap }">
+	                                                        	<button type="button" id="boardDetailFileUploadBtn"
+	                                                            class="btn boardDetail-btn">스크랩 취소</button>
+	                                                    	</a>
+                                                    	</c:if>
+                                                    	
                                                     </div>
                                                 </div>
                                                 <div class="tab-pane boardDetail-content" id="profile1" role="tabpanel">

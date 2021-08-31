@@ -9,7 +9,7 @@ public class LeaveAnnual {
 	private String baseDate;
 	private String startDate;
 	private String endDate;
-	private int total;
+	private double total;
 	private int adjust;
 	private Date createDate;
 	private String content;
@@ -59,11 +59,11 @@ public class LeaveAnnual {
 		this.endDate = endDate;
 	}
 
-	public int getTotal() {
+	public double getTotal() {
 		return total;
 	}
 
-	public void setTotal(int total) {
+	public void setTotal(double total) {
 		this.total = total;
 	}
 
