@@ -425,8 +425,7 @@ var nav = $('.fixed-button');
 <script>
  	$(function(){
  		$('.board-table').find("td").click(function() {
- 			var bId = $(this).parents().children("td").eq(0).text();
- 			
+			var bId = $(this).parents().children("td").eq(0).text(); 			
  			location.href="boardDetail.bo?bId="+bId;
  		});
  	});

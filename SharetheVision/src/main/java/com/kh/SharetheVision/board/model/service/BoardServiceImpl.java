@@ -82,5 +82,20 @@ public class BoardServiceImpl implements BoardService {
 		return DAO.scrapList(sqlSession, mCode);
 	}
 
+	@Override
+	public int getScrapListCount(String mCode) {
+		return DAO.selectScrapListCount(sqlSession, mCode);
+	}
+
+	@Override
+	public ArrayList<Scrap> selectScrapBoardList(PageInfo pi, String mCode) {
+		return DAO.selectScrapBoardList(sqlSession, pi, mCode);
+	}
+
+	@Override
+	public Board selectBoardStatus(int bId) {
+		return DAO.selectBoardStatus(sqlSession, bId);
+	}
+
 	
 }

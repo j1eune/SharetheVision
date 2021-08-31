@@ -107,4 +107,23 @@
 		order by scrap_date desc
 	</select>
 	
+	<select id="selectScrapListCount" resultType="_int">
+		select count(*)
+		from scrap
+		where m_code=#{mCode}
+	</select>
+	
+	<select id="selectScrapBoardList" resultMap="scrapResultSet">
+		select *
+		from scrap
+		where m_code = #{mCode}
+		order by scrap_date desc
+	</select>
+	
+	<select id="selectBoardStatus" resultMap="boardResultSet">
+		select *
+		from board
+		where b_status='N' and b_no=#{bId}
+	</select>
+	
 </mapper>

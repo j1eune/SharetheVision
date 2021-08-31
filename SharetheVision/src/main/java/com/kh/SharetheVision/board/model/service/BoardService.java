@@ -34,5 +34,11 @@ public interface BoardService {
 
 	ArrayList<Scrap> scrapList(String mCode);
 
+	int getScrapListCount(String mCode);
+
+	ArrayList<Scrap> selectScrapBoardList(PageInfo pi, String mCode);
+
+	Board selectBoardStatus(int bId);
+
 
 }

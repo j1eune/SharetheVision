@@ -43,7 +43,7 @@
 	}
 
 	.boardTitle {
-		width: 877px;
+		width: 876px;
 		height: 40px;
 		border-style: none;
 		border: 1px solid #ccc;
