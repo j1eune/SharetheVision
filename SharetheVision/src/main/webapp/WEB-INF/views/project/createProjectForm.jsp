@@ -138,6 +138,15 @@
 															   <br>
 															   		<table id="projectMemberTable">
 															   			<tbody>
+															   				<tr>
+															   					<td><input type="hidden" name="mCode" value="${loginUser.mCode }" />
+															   					<td style="width:10%"><i class="icofont icofont-user icofont-1x" style="color: gray;"></i></td>
+															   					<td style="width:20%">${loginUser.name }</td>
+															   					<td style="width:20%">${loginUser.jobName }</td>
+															   					<td style="width:20%">${loginUser.deptName }</td>
+															   					<td style="width:30%">${loginUser.phone }</td>
+															   					<td style="width:10%"><i class="icofont icofont-ui-close icofont-xs deleteIcon"></i></td>
+															   				</tr>
 															   			</tbody>
 															   		</table>
 															   </div>
@@ -153,7 +162,7 @@
                                                     </div>
                                                     <br>
                                                     <div class="card-block">
-	                                                   	<label>진행중인 프로젝트</label><br>
+	                                                   	<h5>진행중인 프로젝트</h5><br>
 															<div class="container">
 															    <div class="row">
 			                                                   		<c:if test="${ !empty pList }">
@@ -161,8 +170,12 @@
 																			<c:if test="${pro.pEnd eq 'N'}">
 																		        <div class="col-md-3 m-2" style="box-shadow: 2px 2px 1px 1px lightgray; height: 200px; border-radius: 20px; overflow: auto;">
 																		        	<input type="hidden" name="pNo" value="${pro.pNo }"/>
-																		        	${pro.pName }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-																		        	<button class="completeBtn">완료</button>&nbsp;<button class="deleteBtn" >삭제</button>
+																		        	<div style="text-align:left">
+																		        		${pro.pName }
+																		        	</div>
+																		        	<div style="text-align:right;">
+																			        	<button class="completeBtn">완료</button>&nbsp;<button class="deleteBtn" >삭제</button>
+																		        	</div>
 																		        	<hr style="border: solid 1px black;">
 																		        	${pro.pIntro }<br><br><br>
 																		        	<c:forEach var="mPro" items="${ pmList }">
@@ -188,7 +201,7 @@
                                                     	</c:if>
                                                     </div>
                                                     <div class="card-block">
-                                                    	<label>완료된 프로젝트</label><br>
+                                                    	<h5>완료된 프로젝트</h5><br>
 															<div class="container">
 															    <div class="row">
 			                                                   		<c:if test="${ !empty pList }">
@@ -196,8 +209,12 @@
 																			<c:if test="${pro.pEnd eq 'Y' }">
 																		        <div class="col-md-3 m-2" style="box-shadow: 2px 2px 1px 1px lightgray; height: 200px; border-radius: 20px; overflow: auto;">
 																		        	<input type="hidden" name="pNo" value="${pro.pNo }"/>
-																		        	${pro.pName }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-																		        	<button class="progressBtn">진행</button>&nbsp;<button class="deleteBtn" >삭제</button>
+																		        	<div style="text-align:left;">
+																		        		${pro.pName }
+																		        	</div>
+																		        	<div style="text-align:right;">
+																		        		<button class="progressBtn">진행</button>&nbsp;<button class="deleteBtn" >삭제</button>
+																		        	</div>
 																		        	<hr style="border: solid 1px black;">
 																		        	${pro.pIntro }<br><br><br>
 																		        	<c:forEach var="mPro" items="${ pmList }">
@@ -477,6 +494,8 @@
 		
 		
 	})
+	
+	
 
 
 </script>

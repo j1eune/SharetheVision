@@ -15,13 +15,6 @@
     
     <jsp:include page="/WEB-INF/views/common/common.jsp"/>
     
-    <style>
-    	#meetingBtn{
-    		padding: 10px;
-    		border: none;
-    		border-radius: 40px;
-    	}
-    </style>
 </head>
 
 <body>
@@ -74,7 +67,7 @@
                                             	<div class="page-header-breadcrumb">
                                                     <ul class="breadcrumb-title" >
                                                         <li class="breadcrumb-item">
-                                                        	<input type="button" class="btn-danger btn-round" id="meetingBtn" value="회의 시작하기"/>
+                                                        	<input type="button" class="btn btn-danger btn-round btn-outline-danger" id="meetingBtn" value="회의 시작하기"/>
                                                         </li>
                                                     </ul>
                                                 </div>

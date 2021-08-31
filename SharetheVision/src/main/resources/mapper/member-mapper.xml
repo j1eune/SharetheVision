@@ -34,6 +34,7 @@
 		<result column="M_EMAIL" property="email"/>
 		<result column="M_STATE" property="mState"/>
 		<result column="ADMIN_NAME" property="adminName"/>
+		<result column="ADMIN_NO" property="adminNo"/>
 		<result column="DEPT_NAME" property="deptName"/>
 		<result column="J_NAME" property="jobName"/>
 		<result column="DEPT_NO" property="deptNo"/>

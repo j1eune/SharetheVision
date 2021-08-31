@@ -63,6 +63,7 @@ public class ProjectController {
 			
 			ArrayList<Project> pmList = pService.selectProjectMember(pList);
 			model.addAttribute("pmList",pmList);
+			
 			String[] memberCode = new String[pmList.size()];
 			for(int i = 0; i < memberCode.length; i++) {
 				memberCode[i] = pmList.get(i).getmCode();

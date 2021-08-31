@@ -30,7 +30,7 @@
 				</div>
 				<div class="user-details">
 					<span>${loginUser.name} 님</span>
-                     <span id="more-details">${loginUser.deptName}팀&nbsp;${loginUser.jobName }&nbsp;<i class="ti-angle-down"></i></span> 
+                     <span id="more-details">${loginUser.deptName}팀&nbsp;<font color="gray">${loginUser.jobName }</font>&nbsp;<i class="ti-angle-down"></i></span> 
 				</div>
 			</div>
 
