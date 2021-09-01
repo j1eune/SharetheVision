@@ -34,7 +34,7 @@
 	     JOIN DEPARTMENT USING(DEPT_NO)
 	     JOIN JOB USING(J_NO)
 		WHERE M_STATUS='Y'
-	 ORDER BY DEPT_NO ASC, J_NO ASC
+	 ORDER BY DEPT_NO ASC, J_NO DESC
 	</select>
 
 	<select id="RoomList" resultMap="RoomResultMap">

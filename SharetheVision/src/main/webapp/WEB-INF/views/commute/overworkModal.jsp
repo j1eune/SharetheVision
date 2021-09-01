@@ -247,7 +247,6 @@
 				var length = data.list.length-1;
 				
 				for(var i = length; i > length-5; i--){
-					console.log('반복');
 					$tr = $('<tr>');
 					$date = $('<td>').text(data.list[i].overworkDate);
 					$time = $('<td>').text(data.list[i].overworkStart + ' ~ ' + data.list[i].overworkEnd);

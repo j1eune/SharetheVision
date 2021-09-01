@@ -31,8 +31,10 @@ public class HandlerChat extends TextWebSocketHandler{
 		String userId = (String)map.get("userId");
 		sessionList.put(userId, session);
 		// 모든 세션에 채팅 전달
-		for (String user : sessionList.keySet()) {
-			sessionList.get(user).sendMessage(new TextMessage("<p> [ID]" + userId + "님이  LogIn 하셨습니다. </p>"));
+		if(sessionList.size()>1) {
+			for (String user : sessionList.keySet()) {
+				sessionList.get(user).sendMessage(new TextMessage("<p> [ID]" + userId + "님이  LogIn 하셨습니다. </p>"));
+			}
 		}
 	}
 	
@@ -66,11 +68,8 @@ public class HandlerChat extends TextWebSocketHandler{
 				}
 			}
 		}
-		int result = msService.insertMessage(chatVo);
-		if(result>0) {
-		}else {
-			System.out.println("ms save error");
-		}
+		msService.insertMessage(chatVo);
+
 	}
 
 	// 서버 연결 종료 메소드
@@ -92,7 +91,5 @@ public class HandlerChat extends TextWebSocketHandler{
 				 sessionList.get(user).sendMessage(new TextMessage("<p> [ID]"+userId + "님이 LogOut 하셨습니다." +"</p>")); 
 			}
 		 } 
-		 System.out.println("Close handler outttt");
-		
 	}
 }

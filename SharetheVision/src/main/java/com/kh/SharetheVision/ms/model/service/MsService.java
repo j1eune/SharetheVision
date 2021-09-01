@@ -20,7 +20,7 @@ public interface MsService {
 	
 	int insertRoom(Room r);
 
-	int insertMessage(ChatVo chatVo);
+	void insertMessage(ChatVo chatVo);
 
 	int readCount(ChatVo chatVo);
 

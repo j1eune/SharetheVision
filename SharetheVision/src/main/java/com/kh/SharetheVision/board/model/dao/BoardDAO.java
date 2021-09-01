@@ -65,5 +65,19 @@ public class BoardDAO {
 		return (ArrayList)sqlSession.selectList("boardMapper.scrapList", mCode);
 	}
 
+	public int selectScrapListCount(SqlSessionTemplate sqlSession, String mCode) {
+		return sqlSession.selectOne("boardMapper.selectScrapListCount", mCode);
+	}
+
+	public ArrayList<Scrap> selectScrapBoardList(SqlSessionTemplate sqlSession, PageInfo pi, String mCode) {
+		int offset = pi.getBoardLimit() * (pi.getCurrentPage() - 1);
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("boardMapper.selectScrapBoardList", mCode, rowBounds);
+	}
+
+	public Board selectBoardStatus(SqlSessionTemplate sqlSession, int bId) {
+		return sqlSession.selectOne("boardMapper.selectBoardStatus", bId);
+	}
+
 
 }

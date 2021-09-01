@@ -42,8 +42,8 @@ public class MsDAO {
 		return sqlSession.insert("msMapper.insertRoom",r);
 	}
 
-	public int insertMessage(SqlSessionTemplate sqlSession, ChatVo chatVo) {
-		return sqlSession.insert("msMapper.insertMs",chatVo);
+	public void insertMessage(SqlSessionTemplate sqlSession, ChatVo chatVo) {
+		sqlSession.insert("msMapper.insertMs",chatVo);
 	}
 
 	public int readCount(SqlSessionTemplate sqlSession, ChatVo chatVo) {

@@ -24,6 +24,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
 	<jsp:include page="/WEB-INF/views/common/common.jsp"/>
+	<script src="https://unpKg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <style>
 	
@@ -210,9 +211,9 @@
 	                                    <div class="card-header">
 	                                        <h5>스크랩한 게시물</h5>
 	                                        <div class="card-header-right more-btn-box">
-												<c:url var="boardList" value="boardList.bo">
+												<c:url var="boardScrapList" value="boardScrapList.bo">
 												</c:url>
-			                                    <a href="${ boardList }">
+			                                    <a href="${ boardScrapList }">
 			                                        <span class="more-btn">더보기<i class="ti-angle-double-right"></i></span>
 			                                    </a>
 	                                        </div>
@@ -308,9 +309,31 @@ var nav = $('.fixed-button');
  		$('.board-table').find("td").click(function() {
  			var bId = $(this).parents().children("td").eq(0).text();
  			
- 			location.href="boardDetail.bo?bId="+bId;
+			$.ajax({
+	 			url: 'boardStatus.bo',
+	 			data: {bId: bId},
+	 			success: function(data) {
+	 				var data1 = $.trim(data);
+	 				if (data1 == '삭제') {
+	 					swal({
+	 						title: "잠깐!",
+	 						text: "삭제된 게시글입니다. 스크랩 목록에서 삭제됩니다.",
+	 						icon: "error",
+	 						dangerMode: true,
+	 					})
+	 					.then((willDelete) => {
+	 						if (willDelete) {
+								location.href="alertDeleteScrap.bo?bId="+bId;
+	 						}
+	 					})
+	 				} else if (data1 == '존재') {
+						location.href="boardDetail.bo?bId="+bId;
+	 				}
+	 			}
+	 		})
  		});
  	});
+	
 </script>
 </body>
 
