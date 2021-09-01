@@ -21,7 +21,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
     <!-- 아이콘2 -->
     <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
-    <!-- 폰트2 -->
+    <!-- 아이콘3 -->
     <link rel="stylesheet" type="text/css" href="assets/icon/icofont/css/icofont.css">
     <!-- 공통css -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
@@ -52,6 +52,9 @@
 --main-container-bg: #f0f0f7;
 }
 
+p, a, h1, h2, h3, h4, h5, h6 {
+    transform: skew(-0.1deg);
+}
 * {
 outline: none;
 box-sizing: border-box;
@@ -60,6 +63,7 @@ box-sizing: border-box;
 html {
 box-sizing: border-box;
 -webkit-font-smoothing: antialiased;
+
 }
 
 body {
@@ -246,6 +250,7 @@ margin-top: 20px;
 display: flex;
 align-items: center;
 justify-content: space-between;
+
 }
 .task-stat {
 text-align: center;
@@ -2000,12 +2005,12 @@ padding: 10px 20px;
 
                                            <!--결재 대쉬보드 로그인세션 계급-->
                                            <div class="user-information">
-                                            <div class="user-class">사원</div>
+                                            <div class="user-class">${loginUser.jobName }</div>
                                            <!--결재 대쉬보드 로그인세션 이름-->
-                                            <div class="user-name">강정환</div>
+                                            <div class="user-name">${loginUser.name}</div>
                                            </div>
                                            <!--결재 대쉬보드 로그인세션 부서-->
-                                           <div class="user-dept">인사부</div>
+                                           <div class="user-dept">${loginUser.deptName}팀</div>
                                            <!--결재 대쉬보드 로그인세션 이메일-->
                                            <div class="user-mail">k0102065@gmail.com</div>
                                           </div>
@@ -2104,7 +2109,7 @@ padding: 10px 20px;
                                                       <div class="tab">
                                                         <form name="apform1" action="값을 보낼 주소" method="post">
                                                         <!--결재 관련 이름 시작-->
-                                                       <div id="apwstart">🔍기안자는&nbsp;</div><div id="apw1" name="apd1">부서&nbsp;</div><div id="apw2" name="apn1">이름&nbsp;</div><div id="apw3" name="apc1">직급&nbsp;</div><div>님&nbsp;입니다.</div>
+                                                       <div id="apwstart">🔍기안자는&nbsp;</div><div id="apw1" name="apd1">${loginUser.deptName}팀&nbsp;</div><div id="apw2" name="apn1">${loginUser.name}&nbsp;</div><div id="apw3" name="apc1">${loginUser.jobName }&nbsp;</div><div>님&nbsp;입니다.</div>
                                                         <br>
                                                         <div id="wlwjd">👩‍💼👨‍💼결재선 지정</div>
                                                         <br>
@@ -2176,7 +2181,7 @@ padding: 10px 20px;
                                                       <div class="tab">
                                                         <form name="apform2" action="값을 보낼 주소" method="post">
                                                         <!--결재 관련 이름 시작--> <!--로그인세션 부서,이름,직급 보낸 후 뿌려주기 -->
-                                                       <div id="apwstart">🧾기안자는&nbsp;</div><div id="apw1" name="apd2">부서&nbsp;</div><div id="apw2" name="apn2" >이름&nbsp;</div><div id="apw3" name="apc2">직급&nbsp;</div><div>님&nbsp;입니다.</div>
+                                                       <div id="apwstart">🧾기안자는&nbsp;</div><div id="apw1" name="apd2">${loginUser.deptName}팀&nbsp;</div><div id="apw2" name="apn2" >${loginUser.name}&nbsp;</div><div id="apw3" name="apc2">${loginUser.jobName }&nbsp;</div><div>님&nbsp;입니다.</div>
                                                         <br>
                                                         <div id="wlwjd">👨‍💻결재선 지정</div>
                                                         <br>
@@ -2247,7 +2252,7 @@ padding: 10px 20px;
                                                       <div class="tab">
                                                         <form name="apform3" action="값을 보낼 주소" method="post">
                                                         <!--결재 관련 이름 시작-->
-                                                       <div id="apwstart">📁기안자는&nbsp;</div><div id="apw1" name="apd3">부서&nbsp;</div><div id="apw2" name="apn3">이름&nbsp;</div><div id="apw3" name="apc3">직급&nbsp;</div><div>님&nbsp;입니다.</div>
+                                                       <div id="apwstart">📁기안자는&nbsp;</div><div id="apw1" name="apd3">${loginUser.deptName}팀&nbsp;</div><div id="apw2" name="apn3">${loginUser.name}&nbsp;</div><div id="apw3" name="apc3">${loginUser.jobName }&nbsp;</div><div>님&nbsp;입니다.</div>
                                                         <br>
                                                         <div id="wlwjd">👨‍🏫결재선 지정</div>
                                                         <br>
@@ -2318,7 +2323,7 @@ padding: 10px 20px;
                                                       <div class="tab">
                                                         <form name="apform4" action="값을 보낼 주소" method="post">
                                                          <!--결재 관련 이름 시작-->
-                                                       <div id="apwstart">📦기안자는&nbsp;</div><div id="apw1" name="apd4">부서&nbsp;</div><div id="apw2" name="apn4">이름&nbsp;</div><div id="apw3" name="apc4">직급&nbsp;</div><div>님&nbsp;입니다.</div>
+                                                       <div id="apwstart">📦기안자는&nbsp;</div><div id="apw1" name="apd4">${loginUser.deptName}팀&nbsp;</div><div id="apw2" name="apn4">${loginUser.name}&nbsp;</div><div id="apw3" name="apc4">${loginUser.jobName }&nbsp;</div><div>님&nbsp;입니다.</div>
                                                        <br>
                                                        <div id="wlwjd">💵결재선 지정</div>
                                                        <br>
@@ -2389,7 +2394,7 @@ padding: 10px 20px;
                                                       <div class="tab">
                                                         <form name="apform5" action="값을 보낼 주소" method="post">
                                                         <!--결재 관련 이름 시작-->
-                                                        <div id="apwstart">🧾기안자는&nbsp;</div><div id="apw1" name="apd5">부서&nbsp;</div><div id="apw2" name="apn5">이름&nbsp;</div><div id="apw3" name="apc5">직급&nbsp;</div><div>님&nbsp;입니다.</div>
+                                                        <div id="apwstart">🧾기안자는&nbsp;</div><div id="apw1" name="apd5">${loginUser.deptName}팀&nbsp;</div><div id="apw2" name="apn5">${loginUser.name}&nbsp;</div><div id="apw3" name="apc5">${loginUser.jobName }&nbsp;</div><div>님&nbsp;입니다.</div>
                                                         <br>
                                                         <div id="wlwjd">🙆‍♂️결재선 지정</div>
                                                         <br>
