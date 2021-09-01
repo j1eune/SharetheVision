@@ -122,13 +122,16 @@
         </ul>
         
         <ul class="pcoded-item pcoded-left-item">
+        
+			<c:url var="approval" value="approval.ap"></c:url>
             <li>
-                <a href="form-elements-component.html">
+                <a href="${ approval }">
                     <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
                     <span class="pcoded-mtext" data-i18n="nav.form-components.main">전자결재</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
+            
             <li class="pcoded-hasmenu">
 				<c:url var="board" value="board.bo">
 					<c:param name="loginUserDeptNo" value="${ loginUser.deptNo }"></c:param>	
