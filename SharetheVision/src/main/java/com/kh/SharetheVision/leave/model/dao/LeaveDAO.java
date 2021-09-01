@@ -28,4 +28,8 @@ public class LeaveDAO {
 		return sqlSession.insert("leaveMapper.insertLeave", lu);
 	}
 
+	public int changeStatus(SqlSessionTemplate sqlSession, LeaveUsed lu) {
+		return sqlSession.update("leaveMapper.changeStatus", lu);
+	}
+
 }

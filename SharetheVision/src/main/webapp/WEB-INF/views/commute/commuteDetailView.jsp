@@ -95,8 +95,6 @@
 		                               
 		                               <div class="card-block accordion-block">
 		                                   <div id="accordion" role="tablist" aria-multiselectable="true">
-		                                   
-<%-- 		                                   		<c:set var="d" value="1"/> --%>
 				                               	<c:forEach var="i" begin="1" end="6">
 			                                       <div class="accordion-panel">
 			                                           <div class="accordion-heading clickWeek" role="tab" id="heading${i}">
@@ -123,29 +121,6 @@
 			                                                                   </tr>
 			                                                               </thead>
 			                                                               <tbody>
-			                                                               <!-- 일 반복 -->
-<%-- 				                                                               <c:forEach var="j" begin="0" end="6"> --%>
-<!-- 					                                                               <tr class="clickDaily"> -->
-<%-- 																						<td id="${d}date"></td> --%>
-<%-- 																						<td id="${d}start"></td> --%>
-<%-- 																						<td id="${d}end"></td> --%>
-<%-- 																						<td id="${d}total"></td> --%>
-<%-- 																						<td id="${d}detail"></td> --%>
-<%-- 																						<td id="${d}request"></td> --%>
-<!-- 					                                                               </tr> -->
-<%-- 																						<c:set var="d" value="${d+1}"/> --%>
-<!-- 					                                                               <tr class="tiemTr"> -->
-<!-- 					                                                               		<th colspan="6"> -->
-<!-- 					                                                               			<div class="row"> -->
-<%-- 					                                                               				<c:forEach var="k" begin="1" end="24"> --%>
-<!-- 					                                                               					<div class="col d-inline-block"> -->
-<%-- 					                                                               						${k<0 ? "0" + k : k} --%>
-<!-- 					                                                               					</div> -->
-<%-- 					                                                               				</c:forEach> --%>
-<!-- 					                                                               			</div> -->
-<!-- 					                                                               		</th> -->
-<!-- 					                                                               </tr> -->
-<%-- 				                                                               </c:forEach> --%>
 			                                                               </tbody>
 			                                                           </table>
 			                                                       </div>
@@ -232,7 +207,7 @@
 	        	url: 'commuteTable.co',
 	        	data: {year:first.getFullYear(), month:monthList[first.getMonth()], last:pageYear[first.getMonth()]},
 	        	success: function(map){
-	        		console.log('성공');
+	        		console.log('commuteTable 성공');
 	        		console.log(map);
 	        		
 	     	        var cnt = 1;
@@ -271,15 +246,15 @@
 			                    $dailyTr.append($td6);
 			                    
 			                    // 일일 시간
-			                    var $timeTr = $('<tr id="'+cnt+'daily" class="timeTr">').css('display', 'none')
-			                    var $th = $('<th class="small font-weight-bold" colspan="6">');
-			                    var $rDiv = $('<div class="row" id="'+cnt+'timeDiv">');
+			                    var $timeTr = $('<tr id="'+cnt+'daily" class="timeTr">').css({'display':'none'});
+			                    var $timeTh = $('<th class="small font-weight-bold" colspan="6">').css({'background-color':'rgba(222, 199, 254, 0.1)'});
+			                    var $timeDiv = $('<div class="row" id="'+cnt+'timeDiv">');
 			                    for(var k = 00; k < 24; k++){
-			                        var $div = $('<div class="col d-inline-block" id="'+k+'time">').html(k < 10 ? "0" + k : k);
-			                        $rDiv.append($div);
+			                        var $timeDetaildiv = $('<div class="col d-inline-block" id="'+k+'time">').html(k < 10 ? "0" + k : k);
+			                        $timeDiv.append($timeDetaildiv);
 			                    }
-			                    $th.append($rDiv);
-			                    $timeTr.append($th);
+			                    $timeTh.append($timeDiv);
+			                    $timeTr.append($timeTh);
 								
 			                    $weekTable.append($dailyTr);
 			                    $weekTable.append($timeTr);
@@ -290,14 +265,13 @@
 	     	        }
 	        		
 	        		// Commute 데이터 붙이기
-	        		for(var i = 0; i < map.colist.length; i++){
+	        		for(var i = 0; i < map.colist.length - 1; i++){
 	        			var day = map.colist[i].enrollDate.substring(8);
 	        			var startTime = map.colist[i].commuteStart.substring(11);
 	        			var endTime = map.colist[i].commuteEnd.substring(11);
 	        			var workTime = map.colist[i].worktime;
-	        			
 	        			var detailStartTime = map.colist[i].commuteStart.substring(11, 13);
-	        			var detailEndTime = map.colist[i].commuteEnd.substring(11, 13);
+        				var detailEndTime = map.colist[i].commuteEnd.substring(11, 13);
 	        			
 	        			for(var j = 1; j <= 31; j++){
 	        				if(day == j){
@@ -314,8 +288,8 @@
 	        					var $detailStartDiv = $('#'+j+'timeDiv').children('div').eq(detailStartTime);
 	        					var $detailTimeDiv = $('#'+j+'timeDiv').children('div').eq(detailEndTime);
 	        					
-	        					var $startSpan = $('<br><span class="b-l-default small">').html('&nbsp;출근');
-	        					var $endSpan = $('<br><span class="b-l-default small">').html('&nbsp;퇴근');
+	        					var $startSpan = $('<br><span class="small">').html('&nbsp;출근').css({'border-left':'2px solid #A05FFC'});
+	        					var $endSpan = $('<br><span class="small">').html('&nbsp;퇴근').css({'border-left':'2px solid #A05FFC'});
 	        					$detailStartDiv.append($startSpan);
 	        					$detailTimeDiv.append($endSpan);
 	        				}
@@ -346,7 +320,7 @@
 	        					var $detailStartDiv = $('#'+j+'timeDiv').children('div').eq(detailStartTime);
 // 	        					var $detailTimeDiv = $('#'+j+'timeDiv').children('div').eq(detailEndTime);
 	        					
-	        					var $startSpan = $('<br><span class="b-l-default small">').html('&nbsp;연장');
+	        					var $startSpan = $('<br><span class="small">').html('&nbsp;연장').css({'border-left':'2px solid #A05FFC'});
 // 	        					var $endSpan = $('<br><span class="b-l-default small">').html('&nbsp;퇴근');
 	        					$detailStartDiv.append($startSpan);
 // 	        					$detailTimeDiv.append($endSpan);
@@ -365,15 +339,16 @@
 	    showCalendar();
 		
 	 	// 일일 출퇴근 상세 현황
-	    $(document).on("click", ".clickDaily", function (e) {
+	    $(document).on("click", ".clickDaily", function(){
 	    	var currentRow = $(this);
 	        var detail = currentRow.next('tr');
-	        
+        	currentRow.css({'border-top':'1.5px solid #DEC7FE'});
 	        if(detail.is(":visible")){
+	        	currentRow.css({'border-top':'0'});
 	            detail.hide();
 	        } else {
 	            detail.show();
-	            detail.css({'border':'2px solid #f2f2f2', 'cursor':'default', 'background-color':'white'});
+	            detail.css({'cursor':'default', 'border-bottom':'1.5px solid #DEC7FE'});
 	        }
 	    });
 
