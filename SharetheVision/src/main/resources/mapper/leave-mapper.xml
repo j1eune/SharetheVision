@@ -52,4 +52,10 @@
 	<insert id="insertLeave">
 		INSERT INTO USED VALUES(SEQ_USED.NEXTVAL, #{startDate}, #{endDate}, #{days}, SYSDATE, #{content}, DEFAULT, DEFAULT, #{type}, #{memberNo})
 	</insert>
+	
+	<update id="changeStatus">
+		UPDATE USED
+		SET U_STATUS = #{status}
+		WHERE M_CODE = #{memberNo} AND U_NO = #{leaveUsedNo}
+	</update>
 </mapper>

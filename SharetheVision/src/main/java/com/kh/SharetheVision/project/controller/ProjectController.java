@@ -64,13 +64,6 @@ public class ProjectController {
 			ArrayList<Project> pmList = pService.selectProjectMember(pList);
 			model.addAttribute("pmList",pmList);
 			
-			String[] memberCode = new String[pmList.size()];
-			for(int i = 0; i < memberCode.length; i++) {
-				memberCode[i] = pmList.get(i).getmCode();
-			}
-			
-			ArrayList<Attachment> aList = aService.selectProjectMember(memberCode);
-			model.addAttribute("aList",aList);
 		}
 		
 		
@@ -190,7 +183,6 @@ public class ProjectController {
 			OutputStream os = con.getOutputStream();
 			os.write(mapper.writeValueAsString(requestMap).getBytes());
 			os.close();
-			
 			
 	    	try (BufferedReader input = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
 	    		String line;

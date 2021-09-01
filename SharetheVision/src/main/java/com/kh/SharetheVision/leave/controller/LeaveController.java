@@ -224,4 +224,26 @@ public class LeaveController {
 		return gson.toJson(map);
 	}
 	
+	@RequestMapping("changeStatus.le")
+	public String changeStatus(@RequestParam("status") String status, @RequestParam("no") int no, HttpSession session) throws LeaveException {
+//		Member loginUser = ((Member)session.getAttribute("loginUser"));
+//		String memberNo = loginUser.getmCode();
+		String memberNo = "MaCo2";
+		
+		LeaveUsed lu = new LeaveUsed();
+		lu.setMemberNo(memberNo);
+		lu.setLeaveUsedNo(no);
+		lu.setStatus(status);
+		
+		int result = leService.changeStatus(lu);
+		System.out.println(result + " : 결과");
+		
+		if(result > 0) {
+			return "redirect: leaveDetail.le";
+		} else {
+			throw new LeaveException("변경에 실패하였습니다.");
+		}
+	}
+	
+	
 }

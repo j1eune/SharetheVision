@@ -30,11 +30,13 @@
 
 ## mapper
 + board-mapper 추가
-+ calender-mapper 추가   
++ calender-mapper 추가  
++ approval-mapper 추가 
 
 ## mybatis.config
 + alias 추가 (게시판 type)
 + alias 추가 (캘린더 type)   
++ alias 추가 (전자결재 type)
 
 ## src > firstmain
 + Controller
@@ -58,7 +60,7 @@
 
 ## views > common   
 + common.jsp : CSS link, .js srcipt 분리 
-+ sideMenu.jsp : 사이드바 분리
++ sideMenu.jsp : 사이드바 분리 , 미사용 메뉴(Components ,Maps,Pages,Menu Levels) 및 div text 삭제
 + topMenu.jsp : 상단바 분리   
 + errorPage.jsp 
 
@@ -67,6 +69,7 @@
   - <jsp:include page="/WEB-INF/views/common/common.jsp" />
   - <jsp:include page="/WEB-INF/views/common/topMenu.jsp" />     
   - <jsp:include page="/WEB-INF/views/common/sideMenu.jsp" />
-  
-  
+
+## apvcss.css
++ assets/css/apvcss.css 전자결재 css 파일 추가
 

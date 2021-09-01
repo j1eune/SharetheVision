@@ -54,6 +54,17 @@
  			display: inline-block;
  			text-align: center;
  		} 
+ 		.projectContent::-webkit-scrollbar{
+ 			background-color: white;
+ 			width: 8px;
+ 		}
+ 		.projectContent::-webkit-scrollbar-thumb{
+ 			background-color: lightgray;
+ 			border-radius: 30px;
+ 		}
+ 		.projectContent::-webkit-scrollbar-track{
+ 			background-color: white;
+ 		}
 	</style>
 	
 </head>
@@ -161,7 +172,7 @@
 														 </form>
                                                     </div>
                                                     <br>
-                                                    <div class="card-block">
+                                                    <div style="overflow:auto; height: 600px;" class="card-block projectContent">
 	                                                   	<h5>진행중인 프로젝트</h5><br>
 															<div class="container">
 															    <div class="row">
@@ -200,7 +211,8 @@
                                                     		진행 중인 프로젝트가 없습니다.
                                                     	</c:if>
                                                     </div>
-                                                    <div class="card-block">
+                                                    <br><br>
+                                                    <div style="overflow:auto; height: 600px;" class="card-block  projectContent">
                                                     	<h5>완료된 프로젝트</h5><br>
 															<div class="container">
 															    <div class="row">
@@ -438,8 +450,10 @@
 	
 	$(document).ready(function(){
 		$(".completeBtn").bind("click", function(){
-			var pNo = $(this).prev().val();
+			var pNo = $(this).parent().parent().children('input').val();
 			var condition = 1;
+			console.log("pNo : ");
+			console.log(pNo);
 			$.ajax({
 				url:"changeProject.pr",
 				data: {pNo: pNo, condition: condition},
@@ -456,7 +470,7 @@
 		
 		$(".progressBtn").bind("click", function(){
 			console.log("진행 버튼");
-			var pNo = $(this).prev().val();
+			var pNo = $(this).parent().parent().children('input').val();
 			console.log(pNo);
 			var condition = 2;
 			$.ajax({
@@ -475,7 +489,7 @@
 		
 		$(".deleteBtn").bind("click", function(){
 			console.log("삭제 버튼");
-			var pNo = $(this).prev().prev().val();
+			var pNo = $(this).parent().parent().children('input').val();
 			console.log(pNo);
 			var condition = 3;
 			$.ajax({

@@ -19,6 +19,7 @@
 		<typeAlias alias="LeaveUsed" type="com.kh.SharetheVision.leave.model.vo.LeaveUsed"/>
 		<typeAlias alias="Scrap" type="com.kh.SharetheVision.board.model.vo.Scrap"/>
 		<typeAlias alias="Todo" type="com.kh.SharetheVision.firstmain.model.vo.Todo"/>
+		<typeAlias alias="Approval" type="com.kh.SharetheVision.approval.model.vo.Approval"/>
 	</typeAliases>
 	
 	
@@ -31,6 +32,7 @@
 		<mapper resource="mapper/attachment-mapper.xml"/>
 		<mapper resource="mapper/messenger-mapper.xml"/>
 		<mapper resource="mapper/leave-mapper.xml"/>
+		<mapper resource="mapper/approval-mapper.xml"/>
 	</mappers>
 
 
