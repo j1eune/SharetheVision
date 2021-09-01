@@ -2327,7 +2327,7 @@ padding: 10px 20px;
                                                        <div class="approver">👩결재자:</div><input class="form-styling3" type="text" name="approver4" placeholder="결재자를 지정하세요." required/>
                                                        <br>
                                                        <div class="apside">
-                                                         <div id="wlwjd2">품의서 작성</div>
+                                                         <div id="wlwjd2">📄품의서 작성</div>
                                                          <br>
                                                        <div id="aptitle" name="apt4">제목:</div><input class="form-styling" type="text" name="apt4" placeholder="결재 제목" required/>
                                                        
@@ -2398,7 +2398,7 @@ padding: 10px 20px;
                                                         <div class="approver">🕵️‍♂️결재자:</div><input class="form-styling3" type="text" name="approver5" placeholder="결재자를 지정하세요." required/>
                                                         <br>
                                                         <div class="apside">
-                                                          <div id="wlwjd2">계획서 작성</div>
+                                                          <div id="wlwjd2">📚계획서 작성</div>
                                                           <br>
                                                         <div id="aptitle" name="apt5">제목:</div><input class="form-styling" type="text" name="apt5" placeholder="결재 제목" required/>
                                                         
