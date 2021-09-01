@@ -13,19 +13,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.SharetheVision.member.model.vo.Member;
 import com.kh.SharetheVision.ms.model.service.MsService;
 import com.kh.SharetheVision.ms.model.vo.ChatVo;
 import com.kh.SharetheVision.ms.model.vo.Messenger;
 import com.kh.SharetheVision.ms.model.vo.Room;
+import com.kh.SharetheVision.ms.ConnectChatUserList;
 
 @SessionAttributes("loginUser")
 @Controller
