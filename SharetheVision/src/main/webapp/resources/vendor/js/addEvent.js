@@ -11,17 +11,6 @@ var editDesc = $('#edit-desc');
 var addBtnContainer = $('.modalBtnContainer-addEvent');
 var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
 
-
-///* ****************
-// *  context 클릭 이벤트, 카테고리 연계
-// * ************** */
-//$('#sccode li').on('click',function(){
-//	var sccode = $(this).val(); 		
-//	var sccolor = $('#edit-type option:selected').val();
-//});
-
-
-
 /* ****************
  *  새로운 일정 생성
  * ************** */
@@ -57,11 +46,6 @@ var newEvent = function (start, end, eventType) {
     //새로운 일정 저장버튼 클릭
     $('#save-event').unbind();
     $('#save-event').on('click', function () {
-        
-    	/******** 임시 RAMDON ID - 실제 DB 연동시 삭제 **********/
-    	// var eventId = 1 + Math.floor(Math.random() * 1000);
-    	/******** 임시 RAMDON ID - 실제 DB 연동시 삭제 **********/
-	    console.log("id:",eventId.val());    
     	   	
         var eventData = {
             _id: eventId.val(),
@@ -79,7 +63,6 @@ var newEvent = function (start, end, eventType) {
         
         var eventParam = {
         		"code"	: editType.val(),
-//        		"no"    : editDesc.val(),
         		"title"	: editTitle.val(),
         		"sDate"	: editStart.val(),
         		"eDate"	: editEnd.val(),
@@ -88,12 +71,12 @@ var newEvent = function (start, end, eventType) {
         
 
         if (eventData.start > eventData.end) {
-        	 alert('시작일과 종료일을 확인하세요.');
+        	 alert('시작일과 종료일을 확인해 주세요.');
             return false;
         }
 
         if (eventData.title === '') {
-        	alert('일정명을 작성해 주세요.');
+        	alert('일정 이름을 입력하세요.');
             return false;
         }
 

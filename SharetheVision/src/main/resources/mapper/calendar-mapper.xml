@@ -12,6 +12,14 @@
 		<result column="M_CODE" property="mCode"/>
 	</resultMap>
 	
+	<resultMap type="Todo" id="TodoResultMap">
+		<id column="CH_NO" property="chNo"/>
+		<result column="DCH_NO" property="dchNo"/>
+		<result column="CH_NAME" property="chName"/>
+		<result column="C_STATUS" property="chStatus"/>
+		<result column="M_CODE" property="mCode"/>
+	</resultMap>
+	
 	<insert id="addCal">
 		INSERT INTO SCHEDULE
 		VALUES(#{code}, SEQ_DSC.NEXTVAL, #{title}, TO_DATE(#{sDate}), TO_DATE(#{eDate}), DEFAULT, #{mCode} )
@@ -45,6 +53,31 @@
 	<update id="deleteCal">
 		UPDATE SCHEDULE
 		   SET SC_STATUS='Y'
-		 WHERE DSC_NO=#{no}
+		 WHERE DSC_NO=#{no} AND M_CODE= #{mCode} 
 	</update>
+	
+	<select id="listTodo" resultMap="TodoResultMap">
+		SELECT *
+		  FROM CHECKLIST
+		 WHERE M_CODE=#{mcode} AND C_STATUS='N'
+	  ORDER BY CH_NO DESC, DCH_NO DESC
+	</select>
+	
+	<insert id="insertTodo">
+		INSERT INTO CHECKLIST
+		VALUES (DEFAULT, SEQ_DCH.NEXTVAL, #{chName}, DEFAULT, #{mCode})
+	</insert>
+	
+	<update id="updateTodo">
+		UPDATE CHECKLIST
+		   SET CH_NO = 1
+		 WHERE DCH_NO=#{dchNo}  
+	</update>
+	
+	<update id="deleteTodo">
+		UPDATE CHECKLIST
+		   SET C_STATUS='Y'
+		 WHERE DCH_NO=#{dchNo}
+	</update>
+	
 </mapper>

@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
-
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
-	
-	
 	
 	<typeAliases>
 		<typeAlias alias="calendar" type="com.kh.SharetheVision.firstmain.model.vo.Calendar"/>
@@ -21,8 +18,8 @@
 		<typeAlias alias="LeaveAnnual" type="com.kh.SharetheVision.leave.model.vo.LeaveAnnual"/>
 		<typeAlias alias="LeaveUsed" type="com.kh.SharetheVision.leave.model.vo.LeaveUsed"/>
 		<typeAlias alias="Scrap" type="com.kh.SharetheVision.board.model.vo.Scrap"/>
+		<typeAlias alias="Todo" type="com.kh.SharetheVision.firstmain.model.vo.Todo"/>
 	</typeAliases>
-	
 	
 	
 	<mappers>
