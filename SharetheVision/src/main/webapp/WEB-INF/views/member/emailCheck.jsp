@@ -115,7 +115,8 @@
 	        if (this.comSecond < 0) {			// 시간이 종료 되었으면..
 	            clearInterval(this.timer);		// 타이머 해제
 	            alert("인증시간이 초과하였습니다. 다시 인증해주시기 바랍니다.");
-	            location.href="findPwdForm.me";
+// 	            location.href="findPwdForm.me";
+				location.href="javascript:history.go(-1)";
 	        }
 	    }
 	    ,fnStop : function(){

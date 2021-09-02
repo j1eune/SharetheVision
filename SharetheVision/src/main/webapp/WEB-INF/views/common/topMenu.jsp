@@ -104,11 +104,6 @@ pageEncoding="UTF-8"%>
                     </a>
                     <ul class="show-notification profile-notification">
                         <li>
-                            <a href="#!">
-                                <i class="ti-settings"></i> Settings
-                            </a>
-                        </li>
-                        <li>
                             <a href="updateProfileForm.me">
                                 <i class="ti-user"></i> View Profile
                             </a>

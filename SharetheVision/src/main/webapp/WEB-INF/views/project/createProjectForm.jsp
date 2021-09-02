@@ -211,7 +211,6 @@
                                                     		진행 중인 프로젝트가 없습니다.
                                                     	</c:if>
                                                     </div>
-                                                    <br><br>
                                                     <div style="overflow:auto; height: 600px;" class="card-block  projectContent">
                                                     	<h5>완료된 프로젝트</h5><br>
 															<div class="container">
