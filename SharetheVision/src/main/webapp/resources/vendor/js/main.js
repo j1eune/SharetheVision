@@ -21,7 +21,7 @@ var calendar = $("#calendar").fullCalendar({
                               },
   eventLimitClick           : 'week', //popover
   navLinks                  : true,
-  defaultDate               : moment('2021-08-11'), //실제 사용시 현재 날짜로 수정
+  defaultDate               : moment('2021-09-01'), //실제 사용시 현재 날짜로 수정
   timeFormat                : 'HH:mm',
   defaultTimedEventDuration : '01:00:00',
   editable                  : true,
@@ -193,6 +193,7 @@ var calendar = $("#calendar").fullCalendar({
 
     //날짜 클릭시 카테고리 선택메뉴
     var $contextMenu = $("#contextMenu");
+    
     $contextMenu.on("click", "a", function (e) {
       e.preventDefault();
 
@@ -212,8 +213,8 @@ var calendar = $("#calendar").fullCalendar({
 
   },
 
-	  //이벤트 클릭시 수정이벤트
-	  eventClick: function (event, jsEvent, view) {
-	    editEvent(event);
-	  }	
+  //이벤트 클릭시 수정이벤트
+  eventClick: function (event, jsEvent, view) {
+	  editEvent(event);
+  }	
 });

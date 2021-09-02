@@ -1,12 +1,9 @@
 var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
-
 /* ****************
  *  일정 편집
  * ************** */
 var editEvent = function (event, element, view) {
-
     $('#updateEvent').data('id', event.description); //클릭한 이벤트의  ID
-    
     $('.popover.fade.top').remove();
     $(element).popover("hide");
 
@@ -18,7 +15,6 @@ var editEvent = function (event, element, view) {
     } else {
         editEnd.val(event.end.format('YYYY-MM-DD'));
     }
-
     addBtnContainer.hide();
     modifyBtnContainer.show();
     eventModal.modal('show');
@@ -28,19 +24,16 @@ var editEvent = function (event, element, view) {
     editStart.val(event.start.format('YYYY-MM-DD'));
     editType.val(event.type);
     editColor.val(event.backgroundColor).css('color', event.backgroundColor);
-//    editDesc.val(event.description);
 
     //업데이트 버튼 클릭시
     $('#updateEvent').unbind();
     $('#updateEvent').on('click', function () {
-
         if (editStart.val() > editEnd.val()) {
-            alert('끝나는 날짜가 앞설 수 없습니다.');
+            alert('시작일과 종료일을 확인해 주세요.');
             return false;
         }
-
         if (editTitle.val() === '') {
-            alert('일정명은 필수입니다.')
+            alert('일정 이름을 입력하세요.')
             return false;
         }
 
@@ -48,7 +41,6 @@ var editEvent = function (event, element, view) {
         var startDate;
         var endDate;
         var displayDate;
-
         if (editAllDay.is(':checked')) {
             statusAllDay = true;
             startDate = moment(editStart.val()).format('YYYY-MM-DD');
@@ -62,17 +54,12 @@ var editEvent = function (event, element, view) {
         }
 
         eventModal.modal('hide');
-        
         event.title = editTitle.val();
         event.start = startDate;
         event.end = endDate;
         event.type = editType.val();
         event.description;
 
-//        $("#calendar").fullCalendar('updateEvent', event);
-        
-        console.log("e.desc:",event.description);
-        
         var eventParam = {
         		"code"	: event.type,
         		"no"	: event.description,
@@ -99,46 +86,40 @@ var editEvent = function (event, element, view) {
             data: JSON.stringify(eventParam),
             contentType: "application/json",
             success: function (data) {
-	            	if(data=='success'){
-		            	alert('일정이 수정 되었습니다.');
-		            	location.reload();
+	            	 if(data=='success'){
+		             alert('일정이 수정 되었습니다.');
+		             location.reload();
 	            	}
             },error: function(data){
-	            	alert('일정 수정에 실패했습니다.');
-					console.log("modify error");
+            		 alert('일정을 등록한 사람만 수정할 수 있습니다.');
+					 console.log(data);
             }
         });
 
     });
     
-    
 // 삭제버튼
     $('#deleteEvent').data('id', event.description); //클릭한 이벤트의  ID
     $('#deleteEvent').on('click', function () {
-    	
-    	var id = event.description;
-    	
-    	$('#deleteEvent').unbind();
-    	$("#calendar").fullCalendar('removeEvents', $(this).data('id'));
-    	eventModal.modal('hide');
-    	   	
-    	//삭제
-    	$.ajax({
-    		url: "deleteCal",
-    		data: { 'id': event.description },
-    		success: function (data) {
-    				if(data=='success'){
-	    				alert('일정이 삭제되었습니다.');
-	    				location.reload();
-    				}
-    		}, error: function(data){
-	    			alert('일정이 삭제되지 않았습니다.');
-	    			console.log("delete error");
-	    			location.reload();
-    		}
-    	});
-    	
+    	if(confirm('일정을 삭제하시겠습니까?')){
+	    	var id = event.description;
+	    	$('#deleteEvent').unbind();
+	    	$("#calendar").fullCalendar('removeEvents', $(this).data('id'));
+	    	eventModal.modal('hide');
+	    	//삭제
+	    	$.ajax({
+	    		url: "deleteCal",
+	    		data: { 'id': id },
+	    		success: function (data) {
+	    				if(data=='success'){
+		    			alert('일정이 삭제되었습니다.');
+	    				}
+	    		}, error: function(data){
+	    				alert('일정을 등록한 사람만 삭제할 수 있습니다.');
+		    			console.log(data);
+	    		}
+	    	});
+    	}
+    	location.reload();
     });
-    
-    
 };

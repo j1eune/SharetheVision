@@ -20531,7 +20531,6 @@ px
 }
 
 .to-do-list {
-	border-bottom: 1px solid #ddd;
 	padding-bottom: 10px;
 	margin-bottom: 20px;
 }
@@ -20579,6 +20578,15 @@ px
 	color: #919aa3;
 	text-decoration: line-through;
 }
+#addTodo{
+    border: none;
+    width: 30em;
+    overflow: hidden;
+    margin: 0 10px;
+}
+
+
+
 
 /**====== Todo css end ======**/
 @media only screen and (max-width: 1366px) {

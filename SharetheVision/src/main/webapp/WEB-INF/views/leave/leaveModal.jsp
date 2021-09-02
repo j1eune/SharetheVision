@@ -56,7 +56,6 @@
                         <div id="leaveTime">
                             <input type="radio" name="leaveTime" id="am" value="am"/>
                             <label for="am">오전</label>
-                            
                             <input type="radio" name="leaveTime" id="pm" value="pm"/>
                             <label for="pm">오후</label>
                         </div>
@@ -160,7 +159,7 @@
 		$.ajax({
 			url: 'leaveList.le',
 			success: function(data){
-				console.log('성공');
+				console.log('휴가 요청 성공');
 				console.log(data);
 				
 				var $tbody = $('#leaveTable').find('tbody');
@@ -191,17 +190,19 @@
 						$type = $('<td>').text('오후반차');
 					}
 					
-					$date = $('<td>').text(data.list[i].startDate + ' ~ ' + data.list[i].endDate);
+					$date = $('<td>').text(data.list[i].startDate + '~' + data.list[i].endDate);
 					
+					$approval = $('<td>');
 					var approvalStr = data.list[i].approval;
 					if(approvalStr == 'N'){
-						$approval = $('<td>').text('반려');
+						$approvalDiv = $('<div>').text('반려').css({'background-color':'rgba(226, 54, 54, 0.1)', 'color':'#E23636', 'border-radius':'10px', 'width':'40px'});
 					} else if(approvalStr == 'Y'){
-						$approval = $('<td>').text('승인');
+						$approvalDiv = $('<div>').text('승인').css({'background-color':'rgba(13, 110, 253, 0.1)', 'color':'#0D6EFD', 'border-radius':'10px', 'width':'40px'});
 					} else if(approvalStr == 'W'){
-						$approval = $('<td>').text('대기');
+						$approvalDiv = $('<div>').text('대기').css({'background-color':'rgba(0, 177, 89, 0.1)', 'color':'#00b159', 'border-radius':'10px', 'width':'40px'});
 					}
 					
+					$approval.append($approvalDiv);
 					$tr.append($type);
 					$tr.append($date);
 					$tr.append($approval);

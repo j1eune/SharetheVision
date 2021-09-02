@@ -40,6 +40,11 @@ public class LeaveServiceImpl implements LeaveService {
 		return leDAO.insertLeave(sqlSession, lu);
 	}
 
+	@Override
+	public int changeStatus(LeaveUsed lu) {
+		return leDAO.changeStatus(sqlSession, lu);
+	}
+
 	
 	
 	

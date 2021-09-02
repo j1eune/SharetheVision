@@ -14,8 +14,8 @@
 <meta name="author" content="CodedThemes">
 <link href="resources/assets/css/datePicker/datePicker.css" rel="stylesheet" type="text/css">
 <style>
-	.listTable>thead>tr>th, .listTable>tbody>tr>td, .listTable>tbody>tr>th{text-align: center}
-        
+	.listTable>thead>tr>th, .listTable>tbody>tr>td, .listTable>tbody>tr>th, .listTable>tbody>tr>td>div {text-align: center}
+       
 	#leaveTime input[type="radio"]{
 		visibility: hidden;
 		height: 0;
@@ -23,7 +23,6 @@
 	}
 	
 	#leaveTime label {
-		/* display: table-cell; */
 		vertical-align: middle;
 		text-align: center;
 		cursor: pointer;
@@ -35,9 +34,33 @@
 	}
 	
 	#leaveTime input[type="radio"]:checked + label{
-		background-color: #FFB64D;;
+		background-color: #FFB64D;
 		color: white;
 	}
+	
+	#usedTd input[type="radio"] {
+    	visibility: hidden;
+		height: 0;
+		width: 0;
+    }
+    
+	#usedTd label {
+		vertical-align: middle;
+		text-align: center;
+		cursor: pointer;
+		background-color: white;
+		color: #FFC107;;
+ 		border: 1.2px solid #FFC107; 
+		padding-left: 3px;
+		padding-right: 3px;
+		border-radius: 3px;
+	}
+	
+	#usedTd input[type="radio"]:checked + label{
+		background-color: #FFC107;
+		color: white;
+	}
+    
 </style>
 <jsp:include page="../common/common.jsp" />
 </head>
@@ -143,7 +166,8 @@
 		                                                </tr>
 		                                            </thead>
 		                                            <tbody>
-		                                            <c:forEach var="r" items="${leaveList}">
+		                                            <c:forEach var="r" items="${leaveList}" varStatus="vs">
+		                                            	<input type="hidden" value="${r.leaveUsedNo}">
 		                                            	<tr>
 		                                            		<td>${r.createDate}</td>
 		                                            		<td>
@@ -179,25 +203,21 @@
 		                                            		<td>
 		                                            			<c:choose>	
 																	<c:when test="${r.approval == 'Y'}">
-																		승인
+																		<div style="background-color:rgba(13, 110, 253, 0.1); color:#0D6EFD; border-radius: 10px; width:40px; display: inline-block">승인</div>
 																	</c:when>
 																	<c:when test="${r.approval == 'N'}">
-																		반려
+																		<div style="background-color:rgba(226, 54, 54, 0.1); color:#E23636; border-radius: 10px; width:40px; display: inline-block">반려</div>
 																	</c:when>
 																	<c:when test="${r.approval == 'W'}">
-																		대기
+																		<div style="background-color:rgba(0, 177, 89, 0.1); color:#00b159; border-radius: 10px; width:40px; display: inline-block">대기</div>
 																	</c:when>
 		                                            			</c:choose>
 		                                            		</td>
-		                                            		<td>
-		                                            			<c:choose>	
-																	<c:when test="${r.status == 'Y'}">
-																		사용완료
-																	</c:when>
-																	<c:when test="${r.status == 'N'}">
-																		미사용
-																	</c:when>
-		                                            			</c:choose>
+		                                            		<td id="usedTd">
+																<input type="radio" name="usedRadio" id="noUsed${vs.count}" value="N"/>
+									                            <label for="noUsed${vs.count}" <c:if test="${r.status == 'N'}">style="background-color: #FFC107; color: white"</c:if>>미사용</label>
+									                            <input type="radio" name="usedRadio" id="used${vs.count}" value="Y"/>
+									                            <label for="used${vs.count}" <c:if test="${r.status == 'Y'}">style="background-color: #FFC107; color: white"</c:if>>사용완료</label>
 		                                            		</td>
 		                                            	</tr>
 		                                            </c:forEach>
@@ -396,6 +416,15 @@
 	        $('#half').hide();
 	    }
 	});
+	
+	// 휴가 미사용 사용완료
+	$('input[name=usedRadio]').on('click', function(){
+		var status = $(this).val();
+		var no = $(this).parents('tr').prev().val();
+		
+		location.href="changeStatus.le?status="+status+"&no="+no;
+	});
+	
 	
 	
 </script>

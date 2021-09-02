@@ -16,4 +16,6 @@ public interface LeaveService {
 
 	int insertLeave(LeaveUsed lu);
 
+	int changeStatus(LeaveUsed lu);
+
 }

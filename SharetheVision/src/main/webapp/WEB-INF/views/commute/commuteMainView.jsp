@@ -159,20 +159,13 @@ canvas{
 		                        		<div class="card-body">
 			                        		<div class="row">
 			                        			<div class="col-md-4">
-				                        			<c:set var="javatoday" value="<%=new java.util.Date()%>" />
-													<c:set var="todayTime"><fmt:formatDate value="${javatoday}" pattern="yyyy-MM-dd E hh:mm:ss" /></c:set> 
-													<c:set var="today"><fmt:formatDate value="${javatoday}" pattern="yyyy-MM-dd E" /></c:set> 
-													<c:set var="year"><fmt:formatDate value="${javatoday}" pattern="yyyy" /></c:set> 
-													<c:set var="month"><fmt:formatDate value="${javatoday}" pattern="MM" /></c:set> 
-													<c:set var="date"><fmt:formatDate value="${javatoday}" pattern="dd" /></c:set> 
-													<c:set var="time"><fmt:formatDate value="${javatoday}" pattern="hh:mm:ss" /></c:set> 
 													<div class="mb-4">
-														<h5>${today} ${time}</h5>
+														<span id="time" style="font-size: 20px;"></span>
 													</div>
 													<div class="mt-4">
 														<div>
 															<span style="font-size: 16px;">오늘 근무한 시간</span>
-															<h2>${hour}:${min}:${sec}</h2>
+															<h2 id="workingTime"></h2>
 														</div>
 													</div>
 													<div class="mt-4">
@@ -191,7 +184,7 @@ canvas{
 														<table id="commuteTable" style="width: 100%;">
 															<tr>
 																<td>출근시간</td>
-																<td><b>${startTime}</b></td>
+																<td id="startTime"><b>${startTime}</b></td>
 															</tr>
 															<tr>
 																<td>퇴근시간</td>
@@ -228,7 +221,7 @@ canvas{
 				                        				</div>
 				                        				<div class="mt-3">
 															<span style="font-size: 16px;">연장 근무</span>
-															<div class="progress">
+															<div class="progress active">
 				                                                <div id="overProgress" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
 				                                            </div>
 				                        				</div>
@@ -407,28 +400,86 @@ canvas{
 </script>
 
 <script>
-	$(function(){
-		var state = <c:out value="${state}" />
-		if(state == 1){
-			$('#working').css('background-color', '#660099');
-			$('#working').find('i').css('color', 'white');
-			$('#working').find('span').css('color', 'white');
-		}else if(state == 2){
-			$('#workEnd').css('background-color', '#660099');
-			$('#workEnd').find('i').css('color', 'white');
-			$('#workEnd').find('span').css('color', 'white');
-		}else if(state == 3){
-			$('#outside').css('background-color', '#660099');
-			$('#outside').find('i').css('color', 'white');
-			$('#outside').find('span').css('color', 'white');
-		}else if(state == 4){
-			$('#leave').css('background-color', '#660099');
-			$('#leave').find('i').css('color', 'white');
-			$('#leave').find('span').css('color', 'white');
-		}
+	setInterval("time()",1000);
+	function time(){
+		var now = new Date();
 		
-	});
+		var year = now.getFullYear(); // 년도
+		var month = now.getMonth() + 1;  // 월
+		var date = now.getDate();  // 날짜
+		var dayNum = now.getDay();  // 요일
+		var hours = now.getHours();
+		var minutes = now.getMinutes();
+		var seconds = now.getSeconds();
+		
+		var dayList = ['일','월','화','수','목','금','토'];
+		var day = dayList[dayNum];
+		
+		month = (month < 10) ? "0"+month : month;
+		date = (date < 10) ? "0"+date : date;
+		hours = (hours < 10) ? "0"+hours : hours;
+		minutes = (minutes < 10) ? "0"+minutes : minutes;
+		seconds = (seconds < 10) ? "0"+seconds : seconds;
+		
+		document.getElementById("time").innerHTML = year + "-" + month + "-" + date + " " + day + " " + hours + ":" + minutes + ":" + seconds;
+	}
+	
+	setInterval("commuteTime()", 1000);
+	function commuteTime(){
+		$.ajax({
+			url: 'commuteTime.co',
+			success: function(data){
+// 				console.log('출퇴근시간 성공');
+// 				console.log(data);
+				
+				// today process bar
+				// 오늘 근무한 시간
+				var today = new Date();
+				var start = data.commuteStart;
+				var startDate = new Date(start);
+				var overworkDate = new Date(start.substring(0, 11) + '18:00:00');
+				var diffSec = 0;
+				var worktimePer = 0;
+				
+				var hour = 0;
+				var min = 0;
+				var sec = 0;
+				
+				diffSec = (today.getTime() - startDate.getTime())/1000;
+				diff = diffSec/(8*60*60)*100;
+				hour = Math.floor(diffSec/3600) - 1;
+				min = Math.floor(diffSec%3600/60);
+				sec = Math.floor(diffSec%3600%60);
+				
+				hour = (hour < 10) ? "0"+hour : hour;
+				min = (min < 10) ? "0"+min : min;
+				sec = (sec < 10) ? "0"+sec : sec;
 
+				$('#workingTime').text(hour + ":" + min + ":" + sec);
+				
+				if(today.getHours() < 18){
+					diffSec = (today.getTime() - startDate.getTime())/1000;
+					diff = diffSec/(8*60*60)*100;
+					worktimePer = Math.round(diff*100)/100;
+
+					$('#progress').css({'width':worktimePer+'%', 'background-color':'#62D1F3'});
+					$('#progress').text(Math.round(diff) + "%");
+				} else {
+					diffSec = (today.getTime() - overworkDate.getTime())/1000;
+					diff = diffSec/(6*60*60)*100;
+					worktimePer = Math.round(diff*100)/100;
+
+					$('#overProgress').css({'width':worktimePer+'%', 'background-color':'#FFC952'});
+					$('#overProgress').text(Math.round(diff) + "%");
+				}
+			},
+			error: function(data){
+				console.log('에러');
+			}
+		});
+		
+	}
+	
 	// 출근하기
 	$('#startBtn').on('click', function(){
 		var check = confirm('출근하시겠습니까?');
@@ -528,6 +579,26 @@ canvas{
 		getOverworkList();
 	});
 	
+	$(function(){
+		var state = <c:out value="${state}" />
+		if(state == 1){
+			$('#working').css('background-color', '#660099');
+			$('#working').find('i').css('color', 'white');
+			$('#working').find('span').css('color', 'white');
+		}else if(state == 2){
+			$('#workEnd').css('background-color', '#660099');
+			$('#workEnd').find('i').css('color', 'white');
+			$('#workEnd').find('span').css('color', 'white');
+		}else if(state == 3){
+			$('#outside').css('background-color', '#660099');
+			$('#outside').find('i').css('color', 'white');
+			$('#outside').find('span').css('color', 'white');
+		}else if(state == 4){
+			$('#leave').css('background-color', '#660099');
+			$('#leave').find('i').css('color', 'white');
+			$('#leave').find('span').css('color', 'white');
+		}
+	});
 	
 	// 메인 차트
 	$(function(){
@@ -700,35 +771,9 @@ canvas{
 				        text: "280"
 				    }
 				};
-// 						window.onload = function() {
 				var ctx = document.getElementById("myChart").getContext("2d");
 				window.myDoughnut = new Chart(ctx, config);
-// 						};
 
-				// today process bar
-				var today = new Date();
-				var start = map.commute.commuteStart;
-				var startDate = new Date(start.substring(0, 11) + '09:00:00');
-				var overworkDate = new Date(start.substring(0, 11) + '18:00:00');
-
-				var diffSec = 0;
-				var worktimePer = 0;
-				if(today.getHours() < 6){
-					diffSec = (today.getTime() - startDate.getTime())/1000;
-					worktimePer = Math.round(diffSec/32400*100*100)/100;
-					$('#progress').css('width', worktimePer + "%").css('background-color', '#62D1F3');
-				} else {
-					diffSec = (today.getTime() - overworkDate.getTime())/1000;
-					worktimePer = Math.round(diffSec/21600*100*100)/100;
-					$('#overProgress').css('width', worktimePer + "%").css('background-color', '#FFC952');
-				}
-				
-				
-				console.log(worktimePer);
-				
-				var hour = diffSec/3600;
-				var min = diffSec%3600/60;
-				var sec = diffSec%3600%60;
 				
 			},
 			error : function(data) {

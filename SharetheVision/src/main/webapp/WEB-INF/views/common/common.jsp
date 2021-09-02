@@ -4,20 +4,6 @@
 * { font-family: 'NanumSquare', sans-serif;}
 </style>
 
-<!-- Favicon icon -->
-<!-- Google font-->
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
-<!-- Required Fremwork -->
-<link rel="stylesheet" type="text/css" href="resources/assets/css/bootstrap/css/bootstrap.min.css">
-<!-- themify-icons line icon -->
-<link rel="stylesheet" type="text/css" href="resources/assets/icon/themify-icons/themify-icons.css">
-<!-- ico font -->
-<link rel="stylesheet" type="text/css" href="resources/assets/icon/icofont/css/icofont.css">
-<!-- Style.css -->
-<link rel="stylesheet" type="text/css" href="resources/assets/css/style.css">
-<link rel="stylesheet" type="text/css" href="resources/assets/css/jquery.mCustomScrollbar.css">
-
-
 <!-- Required Jquery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="resources/assets/js/jquery/jquery.min.js"></script>
@@ -45,3 +31,16 @@
 <script src="resources/assets/js/pcoded.min.js"></script>
 <script src="resources/assets/js/demo-12.js"></script>
 <script src="resources/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<!-- Favicon icon -->
+<!-- Google font-->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+<!-- Required Fremwork -->
+<link rel="stylesheet" type="text/css" href="resources/assets/css/bootstrap/css/bootstrap.min.css">
+<!-- themify-icons line icon -->
+<link rel="stylesheet" type="text/css" href="resources/assets/icon/themify-icons/themify-icons.css">
+<!-- ico font -->
+<link rel="stylesheet" type="text/css" href="resources/assets/icon/icofont/css/icofont.css">
+<!-- Style.css -->
+<link rel="stylesheet" type="text/css" href="resources/assets/css/style.css">
+<link rel="stylesheet" type="text/css" href="resources/assets/css/jquery.mCustomScrollbar.css">

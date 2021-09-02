@@ -69,8 +69,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- card1 end -->
-                                <!-- card1 start -->
+                                <!-- card2 start -->
                                 <div class="col-md-6 col-xl-3">
                                     <div class="card widget-card-1">
                                         <div class="card-block-small">
@@ -85,8 +84,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- card1 end -->
-                                <!-- card1 start -->
+                                <!-- card3 start -->
                                 <div class="col-md-6 col-xl-3">
                                     <div class="card widget-card-1">
                                         <div class="card-block-small">
@@ -101,8 +99,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- card1 end -->
-                                <!-- card1 start -->
+                                <!-- card4 start -->
                                 <div class="col-md-6 col-xl-3">
                                     <div class="card widget-card-1">
                                         <div class="card-block-small">
@@ -117,7 +114,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- card1 end -->
+                                <!-- card4 end -->
 
                                 <!-- Data widget start -->
                                 <div class="col-md-12 col-xl-5">
@@ -126,12 +123,8 @@
                                             <div class="card-header-left ">
                                                 <h4>프로젝트</h4>
                                             </div>
-                                            <!-- 팀장급만 프로젝트 추가 권한 조건 {-->
-                                            <!-- <div class="card-header-right">
-                                                <button id="addPro" class="btn-sm btn-primary" style="background-color: #660099;">ADD + </button>
-                                            </div> -->
-                                            <!-- } 버튼 보이는 조건 여기까지-->
                                         </div>
+                                        <!-- 로그인유저가 속한 프로젝트가 있다면 가져오기-->
                                         <div class="card-block p-b-10">
                                             <div class="table-responsive">
                                                 <table class="table table-hover">
@@ -145,10 +138,7 @@
                                                                 </div>
                                                             </td>
                                                             <th>
-                                                                <div class="progress d-inline-block">
-                                                                    <div class="progress-bar bg-c-purple" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:80%"></div>
-                                                                </div>
-                                                                <p> 21-02-15 ~ 21-09-16</p>
+                                                                <p>참여자 명단, 김떙땡, 이땡땡, .. 명</p>
                                                             </th>
                                                         </tr>
                                                         <tr>
@@ -159,104 +149,47 @@
                                                                 </div>
                                                             </td>
                                                             <th>
-                                                                <div class="progress d-inline-block">
-                                                                    <div class="progress-bar bg-c-blue" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:50%"></div>
-                                                                </div>
-                                                                <p> 21-05-14 ~ 21-07-06</p>
+                                                                <p> 참여자 명단, 김떙땡, 이땡땡, .. 명 </p>
                                                             </th>
                                                         </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="task-contain">
-                                                                    <h6 class="bg-c-yellow d-inline-block text-center">S2</h6>
-                                                                    <p class="d-inline-block m-l-20">Final Project</p>
-                                                                </div>
-                                                            </td>
-                                                            <th>
-                                                                <div class="progress d-inline-block">
-                                                                    <div class="progress-bar bg-c-yellow" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:10%"></div>
-                                                                </div>
-                                                                <p> 21-07-09 ~ 21-09-15</p>
-                                                            </th>
-                                                        </tr>
+                                                       
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
+                                        <!-- 프로젝트 목록 widget -->
                                     </div>
                                 </div>
+                                <!-- To Do List -->
                                 <div class="col-md-12 col-xl-7" >
                                     <div class="card add-task-card" style="height: 350px; overflow-y:scroll;">
                                         <div class="card-header">
                                             <div class="card-header-left">
                                                 <h4>업무 목록</h4>
                                             </div>
-                                            <div class="card-header-right">
-                                                <button class="btn btn-card bg-c-purple text-c-white" id="addTodo">Del - </button>
-                                                <button class="btn btn-card bg-c-purple text-c-white" id="addTodo">ADD + </button>
-                                            </div>
                                         </div>
                                         <div class="card-block">
+                                         <!--  체크리스트 시작 -->
                                             <div class="to-do-list">
-                                                <div class="checkbox-fade fade-in-primary d-block">
-                                                    <label class="check-task d-block">
-                                                        <input type="checkbox" value="">
-                                                        <span class="cr">
-                                                            <i class="cr-icon icofont icofont-ui-check txt-default"></i>
-                                                        </span>
-                                                        <span><h6>Schedule Meeting with Compnes </h6></span>
-                                                    </label>
-                                                </div>
                                             </div>
-                                            <div class="to-do-list">
-                                                <div class="checkbox-fade fade-in-primary d-block">
-                                                    <label class="check-task d-block">
-                                                        <input type="checkbox" value="">
+                                            <div>
+                                                <div class="checkbox-fade d-block">
                                                         <span class="cr">
-                                                            <i class="cr-icon icofont icofont-ui-check txt-default"></i>
+                                                            <i class="cr-icon icofont txt-default"></i>
                                                         </span>
-                                                        <span><h6>DB에 있는 To do list 테이블 가져와서 개인업무 뿌리기</h6></span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="to-do-list">
-                                                <div class="checkbox-fade fade-in-primary d-block">
-                                                    <label class="check-task d-block">
-                                                        <input type="checkbox" value="">
-                                                        <span class="cr">
-                                                            <i class="cr-icon icofont icofont-ui-check txt-default"></i>
+                                                        <span>
+                                                        	<input type="text" id="addTodo" placeholder="( Todo 작성하시고 꼭 Save 하세요 )">
+                                                        	 <span class="f-right">
+                                                        	 	<button class="btn btn-mini bg-c-purple text-c-white" id="saveBtn"> SAVE</button>
+							  		 						 </span><hr>
                                                         </span>
-                                                        <span><h6>기능구현할때 로그 써논 장소 적어뒀다가 지우는거 까먹지 말기</h6></span>
-                                                    </label>                                                            
                                                 </div>
-                                            </div>
-                                            <div class="to-do-list">
-                                                <div class="checkbox-fade fade-in-primary d-block">
-                                                    <label class="check-task d-block">
-                                                        <input type="checkbox" value="">
-                                                        <span class="cr">
-                                                            <i class="cr-icon icofont icofont-ui-check txt-default"></i>
-                                                        </span>
-                                                        <span><h6>팀장급만 프로젝트 ADD 버튼 보이게 하는 조건식 쓰기, 버튼 디자인 정돈하기 </h6></span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="to-do-list">
-                                                <div class="checkbox-fade fade-in-primary d-block">
-                                                    <label class="check-task d-block">
-                                                        <input type="checkbox" value="">
-                                                        <span class="cr">
-                                                            <i class="cr-icon icofont icofont-ui-check txt-default"></i>
-                                                        </span>
-                                                        <span><h6>작업시작시 README 일기, Fetch/pull 하고 시작하기, 마지막에 push </h6></span>
-                                                    </label>
-                                                </div>
-                                            </div>
+                                             </div>
+                                          <!--  체크리스트 끝 -->
                                         </div>
                                     </div>
                                 </div>   
-
-           <!--   ***************캘린더 Calendar Schedule *************************  -->
+          					 <!-- Calendar Schedule -->
                                 <div class="col-md-12 col-xl-12">
 	                                <div class="card">                                   
 	                                    <div class="container">
@@ -272,12 +205,10 @@
 								                <li><a tabindex="-1" href="#" data-role="close">Close</a></li>
 								            </ul>
 								        </div>
-								
 								        <div id="wrapper">
 								            <div id="loading"></div>
 								            <div id="calendar"></div>
 								        </div>
-								
 								        <!-- 일정 추가 MODAL -->
 								        <div class="modal fade" tabindex="-1" role="dialog" id="eventModal">
 								            <div class="modal-dialog" role="document">
@@ -329,14 +260,11 @@
 								                        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 								                        <button type="button" class="btn btn-primary" id="save-event">저장</button>
 								                    </div>
-								                    <!--  일정 추가 MODAL -->
 								                    <!--  일정 수정 MODAL -->
 								                    <div class="modal-footer modalBtnContainer-modifyEvent">
 								                        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-								                    <%-- <c:if test="${ loginUser.id eq c.mCode }"> 부서 일정 등록자만 삭제 수정 가능--%>
-								                        <button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
+										                <button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
 								                        <button type="button" class="btn btn-primary" id="updateEvent">저장</button>
-							                    	<%-- </c:if> --%>
 							                    	</div>
 								                </div><!-- /.modal-content -->
 								            </div><!-- /.modal-dialog -->
@@ -361,7 +289,6 @@
     <!-- Main Content End -->           
     </div>
 </div>
-
 <script src="resources/vendor/js/moment.min.js"></script>
 <script src="resources/vendor/js/fullcalendar.min.js"></script>
 <script src="resources/vendor/js/ko.js"></script>
@@ -373,7 +300,69 @@
 <script src="resources/vendor/js/bootstrap-datetimepicker.min.js"></script>
 
 <script>
-$( document ).ready(function() {
+$( document ).ready(function() {	
+	listTodo();
+	function listTodo(){
+		$.ajax({
+			url: 'listTo',
+			success: function(data){
+				$todiv = $('.to-do-list');
+				$todiv.html('');
+				
+				if(data.length>0){
+					for(var i in data){
+						$li= $([
+							'<li class="checkbox-fade fade-in-primary d-block">'
+							,'   <label class="check-task d-block">'
+							,'      <input type="checkbox" id="checkbox">'
+							,'       <span class="cr">'
+							,'			 <i class="cr-icon icofont icofont-ui-check txt-default"></i>'		
+							,'		 </span>'	
+							,'		 <div><h6 class="todoName"></h6>'
+							,'			 <span class="f-right" style="margin-top:-10px;">'
+							,'	 			<a class="delete_todolist">'
+							,'					<i class="icofont icofont-ui-delete" style="cursor:pointer"></i>'
+							,'	 			</a>'
+							,'   		 </span>'
+							,'		 </div>'
+							,' 	 </label>'
+							,' 	 <hr>'
+							,'</li>'
+						].join(''));
+						
+						if(data[i].chNo=='2'){
+							$li.find('#checkbox').attr("checked",false);
+						}else{
+							$li.find('#checkbox').attr("checked",true);
+							$li.find('.todoName').css("text-decoration", "line-through");
+						}
+						$li.find('.todoName').text(data[i].chName);
+						$li.find('.delete_todolist').attr("onclick","delete_todo('"+data[i].dchNo+"')");
+						$li.find('#checkbox').attr("onchange","update_todo('"+data[i].dchNo+"')");
+						
+						$todiv.append($li);
+					}
+				}	
+			}
+		});
+	}
+	
+	$('#saveBtn').on('click',function(){
+		var chName;
+			chName = $('#addTodo').val();
+		if(chName.trim()!=""){
+			$.ajax({
+				url: 'addTodo',
+				data: { 'chName': chName},
+				success: function(data){
+					location.reload();
+				}
+			});
+		}else{
+			$('#addTodo').val('').focus();
+		}
+	})
+
     //화면 위로 올리는 버튼 액션
     var $window = $(window);
     var nav = $('.fixed-button');
@@ -384,7 +373,38 @@ $( document ).ready(function() {
      		nav.removeClass('active');
      	}
     });
-});     
+    
+});//document ready end    
+
+function update_todo(dchNo){
+	$.ajax({
+		url: 'updateTo',
+		data: { 'dchNo': dchNo },
+		success: function(data){
+			if(data=="success"){
+				location.reload();
+			}else{
+				console.log(data);
+			}
+		}
+	});
+}
+function delete_todo(dchNo){
+
+	console.log("dchno:::::",dchNo);
+	$.ajax({
+		url: 'deleteTo',
+		data: { 'dchNo': dchNo },
+		success: function(data){
+			if(data=="success"){
+				location.reload();
+			}else{
+				console.log(data);
+			}
+		}
+	});
+}
+
 // 클릭 연계 이벤트 vendor.js 에 추가함        
 </script>
 </body>

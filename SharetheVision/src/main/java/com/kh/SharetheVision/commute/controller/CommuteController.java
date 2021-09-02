@@ -60,33 +60,33 @@ public class CommuteController {
 				model.addAttribute("endTime", endArr[1]);
 			}
 			
-			Date date = new Date(System.currentTimeMillis());
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
-			String nowStr = sdf.format(date);
-			
-			try {
-				// worktime 계산
-				java.util.Date startDate = null;
-				java.util.Date nowDate = null;
-				startDate = sdf.parse(co.getCommuteStart());
-				nowDate = sdf.parse(nowStr);
-				
-				long diffSec = (nowDate.getTime() - startDate.getTime()) / 1000;
-				long longhour = diffSec/3600 - 1;
-				long longmin = diffSec%3600/60;
-				long longsec = diffSec%3600%60;
-				
-				String hour = (longhour < 10) ? "0"+longhour : Long.toString(longhour);
-				String min = (longmin < 10) ? "0"+longmin : Long.toString(longmin);
-				String sec = (longsec < 10) ? "0"+longsec : Long.toString(longsec);
-				
-				model.addAttribute("hour", hour);
-				model.addAttribute("min", min);
-				model.addAttribute("sec", sec);
-
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+//			Date date = new Date(System.currentTimeMillis());
+//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+//			String nowStr = sdf.format(date);
+//			
+//			try {
+//				// worktime 계산
+//				java.util.Date startDate = null;
+//				java.util.Date nowDate = null;
+//				startDate = sdf.parse(co.getCommuteStart());
+//				nowDate = sdf.parse(nowStr);
+//				
+//				long diffSec = (nowDate.getTime() - startDate.getTime()) / 1000;
+//				long longhour = diffSec/3600 - 1;
+//				long longmin = diffSec%3600/60;
+//				long longsec = diffSec%3600%60;
+//				
+//				String hour = (longhour < 10) ? "0"+longhour : Long.toString(longhour);
+//				String min = (longmin < 10) ? "0"+longmin : Long.toString(longmin);
+//				String sec = (longsec < 10) ? "0"+longsec : Long.toString(longsec);
+//				
+//				model.addAttribute("hour", hour);
+//				model.addAttribute("min", min);
+//				model.addAttribute("sec", sec);
+//
+//			} catch (ParseException e) {
+//				e.printStackTrace();
+//			}
 			
 		}
 		
@@ -136,7 +136,7 @@ public class CommuteController {
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 //		String enterTime = sdf.format(date);
-		String enterTime = "2021-09-01 08:31:50";
+		String enterTime = "2021-09-02 08:58:52";
 		
 		// 지각 여부
 		int status = 0;
@@ -174,13 +174,13 @@ public class CommuteController {
 
 		Commute co = coService.commuteDay(memberNo);
 //		String start = co.getCommuteStart();
-		String start = "2021-08-31 08:30:41";
+		String start = "2021-09-01 08:31:50";
 		
 		// 퇴근 시간
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 //		String end = sdf.format(date);
-		String end = "2021-08-31 17:55:53";
+		String end = "2021-09-01 17:45:52";
 		
 		// 18시 이후 여부
 		Double workTime = 0.00;
@@ -265,7 +265,6 @@ public class CommuteController {
 		
 		ArrayList<Commute> colist = coService.commuteList(map);
 		ArrayList<Overwork> owlist = coService.overworkList(map);
-		Commute commute = coService.commuteDay(memberNo);
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		
@@ -275,11 +274,24 @@ public class CommuteController {
 //		System.out.println(colist);
 //		System.out.println(owlist);
 		
-		resultMap.put("commute", commute);
 		resultMap.put("colist", colist);
 		resultMap.put("owlist", owlist);
 		
 		return gson.toJson(resultMap);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="commuteTime.co", produces="application/json; charset=utf-8")
+	public String commuteTime() {
+//		Member loginUser = ((Member)session.getAttribute("loginUser"));
+//		String memberNo = loginUser.getmCode();
+		String memberNo = "MaCo2";
+		
+		Commute commute = coService.commuteDay(memberNo);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		return gson.toJson(commute);
 	}
 	
 	@RequestMapping("commuteDetail.co")
