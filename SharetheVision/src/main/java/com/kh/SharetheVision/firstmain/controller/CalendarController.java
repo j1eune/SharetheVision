@@ -23,6 +23,8 @@ import com.kh.SharetheVision.firstmain.model.service.CalendarService;
 import com.kh.SharetheVision.firstmain.model.vo.Calendar;
 import com.kh.SharetheVision.firstmain.model.vo.Todo;
 import com.kh.SharetheVision.member.model.vo.Member;
+import com.kh.SharetheVision.project.model.service.ProjectService;
+import com.kh.SharetheVision.project.model.vo.Project;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -30,6 +32,8 @@ public class CalendarController {
 	
 	@Autowired
 	private CalendarService cService;
+	@Autowired
+	private ProjectService pService;
 	
 	@RequestMapping(value = "addCal", method = RequestMethod.POST)
 	@ResponseBody
@@ -146,4 +150,20 @@ public class CalendarController {
 			return "fail";
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping("listProject")
+	public ArrayList<Project> listProject(HttpSession session) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String mCode = loginUser.getmCode();
+		ArrayList<Project> pList = pService.selectProject(mCode);
+		//pList
+		if(!pList.isEmpty()) {
+			return pList;
+		}else {
+			System.out.println("속한 프로젝트가 없음");
+			return null;
+		}
+	}
+		
 }
