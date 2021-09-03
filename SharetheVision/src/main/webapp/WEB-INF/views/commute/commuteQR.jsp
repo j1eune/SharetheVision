@@ -17,20 +17,6 @@
 <script type="text/javascript" src="resources/assets/js/qrcode.js"></script>
 <script type="text/javascript" src="resources/assets/js/jsQR.js"></script>
 <style>
-	@font-face {
-	    font-family: 'TmonMonsori';
-	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/TmonMonsori.woff') format('woff');
-	    font-weight: normal;
-	    font-style: normal;
-	}
-	
-	@font-face {
-	    font-family: 'SpoqaHanSansNeo-Medium';
-	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Medium.woff') format('woff');
-	    font-weight: normal;
-	    font-style: normal;
-	}
-	
 	#main h1{font-family : 'TmonMonsori'}
 	
  	#main {
@@ -88,6 +74,7 @@
  	} 
 </style>
 <jsp:include page="../common/common.jsp" />
+<jsp:include page="../common/font.jsp" />
 </head>
 <body>
 	<div id="main">

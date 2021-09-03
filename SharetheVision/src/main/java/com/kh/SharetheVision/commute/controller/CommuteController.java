@@ -258,8 +258,11 @@ public class CommuteController {
 	@RequestMapping(value="commuteTime.co", produces="application/json; charset=utf-8")
 	public String commuteTime(HttpSession session) {
 		Member loginUser = ((Member)session.getAttribute("loginUser"));
-		String memberNo = loginUser.getmCode();
-//		String memberNo = "MaCo2";
+
+		String memberNo = null;
+		if(loginUser != null) {
+			memberNo = loginUser.getmCode();
+		}
 		
 		Commute commute = coService.commuteDay(memberNo);
 		

@@ -64,6 +64,7 @@
 	}
 </style>
 <jsp:include page="../common/common.jsp" />
+<jsp:include page="../common/font.jsp" />
 </head>
 <body>
 <!-- Pre-loader start -->

@@ -1,7 +1,7 @@
 <!-- font -->
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
 <style>
-* { font-family: 'NanumSquare', sans-serif;}
+	* { font-family: 'NanumSquare', sans-serif;}
 </style>
 
 <!-- Required Jquery -->

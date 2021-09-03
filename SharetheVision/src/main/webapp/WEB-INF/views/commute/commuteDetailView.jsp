@@ -15,8 +15,19 @@
 <meta name="author" content="CodedThemes">
 <style>
 	#prev, #next{cursor:pointer}
+		
+	#title h5 {
+		font-family : 'Recipekorea';
+	}
+	
+	#title h3 {
+		font-family : 'SpoqaHanSansNeo-Regular';
+		color: #660099;
+	}
+
 </style>
 <jsp:include page="../common/common.jsp" />
+<jsp:include page="../common/font.jsp" />
 </head>
 <body>
 <!-- Pre-loader start -->
@@ -56,7 +67,7 @@
 		                               &nbsp;
 		                               <label id="next"><i class="icofont icofont-rounded-right icofont-2x"></i></label>
 		                               <div class="">
-		                                   <div class="card-block text-center">
+		                                   <div class="card-block text-center" id="title">
 		                                       <div class="row">
 		                                           <div class="col-lg b-r-default">
 		                                               <h5 class="m-b-20">이번 주 누적</h5>
@@ -193,6 +204,7 @@
 		
 	    function showCalendar(){
 	        currentTitle.innerHTML = first.getFullYear() + "." + monthList[first.getMonth()];
+	        currentTitle.style.fontFamily = "SpoqaHanSansNeo-Bold";
 	       
 	        String.prototype.format = function() {
 	            var formatted = this;
@@ -203,7 +215,6 @@
 	        };
 	     	
 	        $.ajax({
-	        	
 	        	url: 'commuteTable.co',
 	        	data: {year:first.getFullYear(), month:monthList[first.getMonth()], last:pageYear[first.getMonth()]},
 	        	success: function(map){
@@ -222,7 +233,7 @@
 			                
 			                if((i == 1 && j >= first.getDay()) || (i != 1 && cnt <= pageYear[first.getMonth()])){
 			                    // 날짜 + 요일
-			                    var $td1 = document.createElement('td');
+			                    var $td1 = document.createElement('th');
 			                    var $td2 = document.createElement('td');
 			                    var $td3 = document.createElement('td');
 			                    var $td4 = document.createElement('td');
@@ -281,15 +292,15 @@
 	        					$('#'+j+'total').html(workTime);
 	        					
 	        					var workTimeSplit = workTime.toString().split('.');
-	        					var detail = (workTimeSplit.length == 2) ? '기본'+"{0}h{1}m".format(workTimeSplit[0], workTimeSplit[1]) : '기본'+"{0}h".format(workTimeSplit[0])
+	        					var detail = (workTimeSplit.length == 2) ? '기본'+"{0}h{1}m".format(workTimeSplit[0], workTimeSplit[1]) : '기본'+"{0}h".format(workTimeSplit[0]);
 	        					$('#'+j+'detail').html(detail);
 	        					
 	        					// detail 시간
 	        					var $detailStartDiv = $('#'+j+'timeDiv').children('div').eq(detailStartTime);
 	        					var $detailTimeDiv = $('#'+j+'timeDiv').children('div').eq(detailEndTime);
 	        					
-	        					var $startSpan = $('<br><span class="small">').html('&nbsp;출근').css({'border-left':'2px solid #A05FFC'});
-	        					var $endSpan = $('<br><span class="small">').html('&nbsp;퇴근').css({'border-left':'2px solid #A05FFC'});
+	        					var $startSpan = $('<br><span class="small">').html('&nbsp;출근').css({'border-left':'2px solid #A05FFC', 'font-family':'SpoqaHanSansNeo-Medium'});
+	        					var $endSpan = $('<br><span class="small">').html('&nbsp;퇴근').css({'border-left':'2px solid #A05FFC', 'font-family':'SpoqaHanSansNeo-Medium'});
 	        					$detailStartDiv.append($startSpan);
 	        					$detailTimeDiv.append($endSpan);
 	        				}
@@ -320,7 +331,7 @@
 	        					var $detailStartDiv = $('#'+j+'timeDiv').children('div').eq(detailStartTime);
 // 	        					var $detailTimeDiv = $('#'+j+'timeDiv').children('div').eq(detailEndTime);
 	        					
-	        					var $startSpan = $('<br><span class="small">').html('&nbsp;연장').css({'border-left':'2px solid #A05FFC'});
+	        					var $startSpan = $('<br><span class="small">').html('&nbsp;연장').css({'border-left':'2px solid #A05FFC', 'font-family':'SpoqaHanSansNeo-Medium'});
 // 	        					var $endSpan = $('<br><span class="b-l-default small">').html('&nbsp;퇴근');
 	        					$detailStartDiv.append($startSpan);
 // 	        					$detailTimeDiv.append($endSpan);

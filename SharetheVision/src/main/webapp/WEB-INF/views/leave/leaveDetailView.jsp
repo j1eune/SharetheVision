@@ -60,9 +60,19 @@
 		background-color: #FFC107;
 		color: white;
 	}
+	
+	#title h5{
+		font-family: 'Recipekorea';
+	}
+	
+	#title h3 {
+		font-family: 'SpoqaHanSansNeo-Regular';
+		color: #660099;
+	}
     
 </style>
 <jsp:include page="../common/common.jsp" />
+<jsp:include page="../common/font.jsp" />
 </head>
 <body>
 <!-- Pre-loader start -->
@@ -102,7 +112,7 @@
 		                                &nbsp;
 		                                <label id="next"><i class="icofont icofont-rounded-right icofont-2x"></i></label>
 		                                <div class="">
-		                                    <div class="card-block">
+		                                    <div class="card-block" id="title">
 		                                        <div class="row">
 		                                            <div class="col-lg my-auto">
 		                                                <h5>${name} ${jobName}</h5>
@@ -381,7 +391,7 @@
 	     var month = today.getMonth() + 1;
 	     month = month < 10 ? '0' + month.toString() : month.toString();
      
-		$('#currentMonth').html(year + "." + month);
+		$('#currentMonth').html(year + "." + month).css({'font-family':'SpoqaHanSansNeo-Bold'});
 	});
 	
 	// 휴가 신청
