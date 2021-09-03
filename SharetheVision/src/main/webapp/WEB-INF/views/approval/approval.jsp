@@ -159,6 +159,7 @@ text-align: center;
 align-items: center;
 }
 
+
 .side-wrapper {
 padding: 25px 40px;
 border-bottom: 1px solid var(--border-color);
@@ -1552,7 +1553,7 @@ border-radius: 12px;
 .modal-content{
 width:100%; 
 width:600px;
-height:900px;
+height:990px;
 margin-left:-270px;
 margin-top:-10px;
 background-color:#15172b;
@@ -1957,7 +1958,8 @@ background: #09d;
 color: white;
 padding: 10px 20px;
 }
-    
+
+
     </style>
 </head>
 
@@ -1998,7 +2000,14 @@ padding: 10px 20px;
                                          <div class="task-manager">Sv Company</div>
                                           <div class="side-wrapper">
                                            <div class="user-profile">
-                                            <img src="https://images.unsplash.com/flagged/photo-1574282893982-ff1675ba4900?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80" alt="" class="user-photo">
+                                            <div class="profileBox">
+												<c:if test="${userAttach != null}">
+													<img class="profileImg" src="resources/muploadFile/${userAttach.atChange }"/>
+												</c:if>
+												<c:if test="${userAttach == null }">
+													<img class="profileImg" src="resources/assets/images/defaultProfile.png">
+												</c:if>
+											</div>
                                             <br>
                                            <!--결재 대쉬보드 프로필 시작-->
 
@@ -2113,17 +2122,108 @@ padding: 10px 20px;
                                                         <br>
                                                         <div id="wlwjd">👩‍💼👨‍💼결재선 지정</div>
                                                         <br>
-                                                        <div class="agreeer">🔵합의자:</div><input class="form-styling" type="text" name="agreeer" placeholder="합의자를 지정하세요." required/>
-                                                        <div class="referrer">🟣참조자:</div><input class="form-styling" type="text" name="referrer" placeholder="참조자를 지정하세요." required/>
-                                                        <div class="approver">🟢결재자:</div><input class="form-styling3" type="text" name="approver" placeholder="결재자를 지정하세요." required/>
+                                                         <div class="agreeer">🔵합의자:</div>
+                                                        <!--기안서 폼 합의자 선택 시작-->
+                                                        <div class="agrselect">
+                                                        <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                          <optgroup label="인사" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="마케팅" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="생산" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="영업" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>      
+                                                             <optgroup label="회계" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                        </select>
+                                                      </div>
+                                                       <!--기안서 폼 합의자 선택 끝-->
+                                                        <div class="referrer">🟣참조자:</div> 
+                                                        <!--기안서 폼 참조자 선택 시작-->
+                                                        <div class="refselect">
+                                                          <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                            <optgroup label="인사" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="마케팅" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="생산" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="영업" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>      
+                                                             <optgroup label="회계" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                          </select>
+                                                        </div>
+                                                         <!--기안서 폼 참조자 선택 끝-->
+                                                        <div class="approver">🟢결재자:</div>
+                                                        <!--기안서 폼 결재자 선택 시작-->
+                                                        <div class="apselect">
+                                                          <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                            <optgroup label="인사" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="마케팅" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="생산" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="영업" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>      
+                                                             <optgroup label="회계" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                          </select>
+                                                        </div>
+                                                         <!--기안서 폼 결재자 선택 끝-->
                                                         <br>
                                                         <div class="apside">
                                                           <div id="wlwjd2">📜기안서 작성</div>
                                                           <br>
                                                         <div id="aptitle" name="apt1">제목:</div><input class="form-styling" type="text" name="apt1" placeholder="결재 제목" required/>
-                                                        
                                                         <br>
-                                                       
                                                       </div>
                                                       <br>         
 
@@ -2185,9 +2285,109 @@ padding: 10px 20px;
                                                         <br>
                                                         <div id="wlwjd">👨‍💻결재선 지정</div>
                                                         <br>
-                                                        <div class="agreeer">📘합의자:</div><input class="form-styling" type="text" name="agreeer2" placeholder="합의자를 지정하세요." required/>
-                                                        <div class="referrer">📕참조자:</div><input class="form-styling" type="text" name="referrer2" placeholder="참조자를 지정하세요." required />
-                                                        <div class="approver">📗결재자:</div><input class="form-styling3" type="text" name="approver3" placeholder="결재자를 지정하세요." required/>
+                                                        <div class="agreeer">📘합의자:</div>
+                                                        
+                                                        <!--세금계산서 폼 합의자 선택 시작-->
+                                                        <div class="agrselect2">
+                                                        <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                          <optgroup label="인사" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="마케팅" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="생산" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="영업" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>      
+                                                             <optgroup label="회계" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                        </select>
+                                                      </div>
+                                                       <!--세금계산서 폼 합의자 선택 끝-->
+                                                       
+                                                        <div class="referrer">📕참조자:</div>
+                                                        
+                                                        <!--세금계산서 폼 참조자 선택 시작-->
+                                                        <div class="refselect2">
+                                                          <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                            <optgroup label="인사" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="마케팅" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="생산" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="영업" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>      
+                                                             <optgroup label="회계" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                          </select>
+                                                        </div>
+                                                         <!--세금계산서 폼 참조자 선택 끝-->
+                                                        
+                                                        
+                                                        <div class="approver">📗결재자:</div>
+                                                        
+                                                        <!--세금계산서 폼 결재자 선택 시작-->
+                                                        <div class="apselect2">
+                                                          <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                            <optgroup label="인사" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="마케팅" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="생산" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="영업" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>      
+                                                             <optgroup label="회계" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                          </select>
+                                                        </div>
+                                                         <!--세금계산서 폼 결재자 선택 끝-->
+                                                        
                                                         <br>
                                                         <div class="apside">
                                                           <div id="wlwjd2">💰세금계산서 작성</div>
@@ -2256,9 +2456,108 @@ padding: 10px 20px;
                                                         <br>
                                                         <div id="wlwjd">👨‍🏫결재선 지정</div>
                                                         <br>
-                                                        <div class="agreeer">👩‍🏫합의자:</div><input class="form-styling" type="text" name="agreeer3" placeholder="합의자를 지정하세요." required/>
-                                                        <div class="referrer">👨‍🏫참조자:</div><input class="form-styling" type="text" name="referrer3" placeholder="참조자를 지정하세요." required/>
-                                                        <div class="approver">👨‍⚖️결재자:</div><input class="form-styling3" type="text" name="approver3" placeholder="결재자를 지정하세요." required/>
+                                                        <div class="agreeer">👩‍🏫합의자:</div>
+                                                        
+                                                        <!--보고서 폼 합의자 선택 시작-->
+                                                        <div class="agrselect3">
+                                                        <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                          <optgroup label="인사" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="마케팅" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="생산" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="영업" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>      
+                                                             <optgroup label="회계" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                        </select>
+                                                      </div>
+                                                       <!--보고서 폼 합의자 선택 끝-->
+                                                        
+                                                        <div class="referrer">👨‍🏫참조자:</div>
+                                                        
+                                                        <!--보고서 폼 참조자 선택 시작-->
+                                                        <div class="refselect3">
+                                                          <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                            <optgroup label="인사" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="마케팅" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="생산" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="영업" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>      
+                                                             <optgroup label="회계" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                          </select>
+                                                        </div>
+                                                         <!--보고서 폼 참조자 선택 끝-->
+                                                        
+                                                        <div class="approver">👨‍⚖️결재자:</div>
+                                                        
+                                                        <!--보고서 폼 결재자 선택 시작-->
+                                                        <div class="apselect3">
+                                                          <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                            <optgroup label="인사" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="마케팅" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="생산" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="영업" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>      
+                                                             <optgroup label="회계" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                          </select>
+                                                        </div>
+                                                         <!--보고서 폼 결재자 선택 끝-->
+                                                        
                                                         <br>
                                                         <div class="apside">
                                                           <div id="wlwjd2">📈보고서 작성</div>
@@ -2327,9 +2626,109 @@ padding: 10px 20px;
                                                        <br>
                                                        <div id="wlwjd">💵결재선 지정</div>
                                                        <br>
-                                                       <div class="agreeer">👨합의자:</div><input class="form-styling" type="text" name="agreeer4" placeholder="합의자를 지정하세요." required/>
-                                                       <div class="referrer">🧑참조자:</div><input class="form-styling" type="text" name="referrer4" placeholder="참조자를 지정하세요." required/>
-                                                       <div class="approver">👩결재자:</div><input class="form-styling3" type="text" name="approver4" placeholder="결재자를 지정하세요." required/>
+                                                       <div class="agreeer">👨합의자:</div>
+                                                       
+                                                       <!--품의서 폼 합의자 선택 시작-->
+                                                        <div class="agrselect4">
+                                                        <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                          <optgroup label="인사" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="마케팅" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="생산" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="영업" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>      
+                                                             <optgroup label="회계" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                        </select>
+                                                      </div>
+                                                       <!--품의서 폼 합의자 선택 끝-->
+                                                       
+                                                       <div class="referrer">🧑참조자:</div>
+                                                       
+                                                       
+                                                       <!--품의서 폼 참조자 선택 시작-->
+                                                        <div class="refselect4">
+                                                          <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                            <optgroup label="인사" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="마케팅" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="생산" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="영업" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>      
+                                                             <optgroup label="회계" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                          </select>
+                                                        </div>
+                                                         <!--품의서 폼 참조자 선택 끝-->
+                                                       <div class="approver">👩결재자:</div>
+                                                       <!--기안서 폼 결재자 선택 시작-->
+                                                        <div class="apselect4">
+                                                          <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                            <optgroup label="인사" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="마케팅" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="생산" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="영업" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>      
+                                                             <optgroup label="회계" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                          </select>
+                                                        </div>
+                                                         <!--기안서 폼 결재자 선택 끝-->
+                                                       
+                                                       
+                                                       
                                                        <br>
                                                        <div class="apside">
                                                          <div id="wlwjd2">📄품의서 작성</div>
@@ -2398,9 +2797,112 @@ padding: 10px 20px;
                                                         <br>
                                                         <div id="wlwjd">🙆‍♂️결재선 지정</div>
                                                         <br>
-                                                        <div class="agreeer">🕵️‍♂️합의자:</div><input class="form-styling" type="text" name="agreeer5" placeholder="합의자를 지정하세요." required/>
-                                                        <div class="referrer">🕵️‍♂️참조자:</div><input class="form-styling" type="text" name="referrer5" placeholder="참조자를 지정하세요." required/>
-                                                        <div class="approver">🕵️‍♂️결재자:</div><input class="form-styling3" type="text" name="approver5" placeholder="결재자를 지정하세요." required/>
+                                                        <div class="agreeer">🕵️‍♂️합의자:</div>
+                                                        
+                                                        <!--계획서 폼 합의자 선택 시작-->
+                                                        <div class="agrselect5">
+                                                        <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                          <optgroup label="인사" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="마케팅" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="생산" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="영업" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>      
+                                                             <optgroup label="회계" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                        </select>
+                                                      </div>
+                                                       <!--계획서 폼 합의자 선택 끝-->
+                                                       
+                                                       
+                                                        <div class="referrer">🕵️‍♂️참조자:</div>
+                                                        
+                                                        <!--계획서 폼 참조자 선택 시작-->
+                                                        <div class="refselect5">
+                                                          <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                            <optgroup label="인사" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="마케팅" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="생산" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="영업" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>      
+                                                             <optgroup label="회계" data-max-options="3">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                          </select>
+                                                        </div>
+                                                         <!--계획서 폼 참조자 선택 끝-->
+                                                         
+                                                        
+                                                        <div class="approver">🕵️‍♂️결재자:</div>
+                                                        
+                                                        
+                                                        <!--계획서 폼 결재자 선택 시작-->
+                                                        <div class="apselect5">
+                                                          <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                            <optgroup label="인사" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="마케팅" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="생산" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                            <optgroup label="영업" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>      
+                                                             <optgroup label="회계" data-max-options="1">
+                                                              <option>아무개 과장</option>
+                                                              <option>홍길동 사원</option>
+                                                              <option>강정환 사장</option>
+                                                            </optgroup>
+                                                          </select>
+                                                        </div>
+                                                         <!--계획서 폼 결재자 선택 끝-->
+                                                         
+                                                         
                                                         <br>
                                                         <div class="apside">
                                                           <div id="wlwjd2">📚계획서 작성</div>
@@ -2841,12 +3343,19 @@ function clock() {
 }
   </script>
   <!--시계 스크립트 끝-->
+  <!-- 멀티 셀렉 스크립트 -->
+  <script>
+  $('.selectpicker').selectpicker();
+  </script>
 <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
 <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js"></script>
 <!-- jquery slimscroll js -->
 <script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+<!--멀티 셀렉 bootstrap-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 <!-- modernizr js -->
 <script type="text/javascript" src="assets/js/modernizr/modernizr.js"></script>
 <script type="text/javascript" src="assets/js/modernizr/css-scrollbars.js"></script>

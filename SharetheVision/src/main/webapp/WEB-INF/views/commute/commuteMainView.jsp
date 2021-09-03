@@ -16,6 +16,7 @@
 <meta name="author" content="CodedThemes">
 <link href="resources/assets/css/datePicker/datePicker.css" rel="stylesheet" type="text/css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script type="text/javascript" src="resources/assets/js/qrcode.js"></script>
 <style>
 #goTo, #getOff, #changeState, #seleteState {
 	border: 2px solid #660099;
@@ -84,7 +85,7 @@
 
 /*  	.ui-widget-header .ui-icon { background-image: url('/images/btns.png'); } */
 
-#startBtn, #endBtn{
+#startBtn, #endBtn, #qrStartBtn{
 	color: #660099;
 	border: 1.5px solid #660099;
 	background-color: #fff;
@@ -92,7 +93,7 @@
 	font-size: 1rem;
 }
 
-#startBtn:hover, #endBtn:hover{
+#startBtn:hover, #endBtn:hover, #qrStartBtn:hover{
 	color: white;
 	background-color: #660099;
 }
@@ -115,7 +116,7 @@
 	background-color: #660099;
 }
 
-canvas{
+#myChart{
     margin: 0 auto;
 }
 
@@ -171,12 +172,31 @@ canvas{
 													<div class="mt-4">
 												    	<button type="button" class="btn btn-round" id="startBtn">
 												    		<i class="icofont icofont-sign-in"></i>
-												    		<span>출근하기</span>
+												    		<span>GPS출근</span>
+												    	</button>
+												    	<button type="button" class="btn btn-round" id="qrStartBtn">
+												    		<i class="icofont icofont-sign-in"></i>
+												    		<span>QR출근</span>
 												    	</button>
 												    	<button type="button" class="btn btn-round" id="endBtn">
 												    		<i class="icofont icofont-sign-out"></i>
-												    		<span>퇴근하기</span>
+												    		<span>퇴근</span>
 												    	</button>
+													</div>
+													<div class="modal fade" id="QRModal" tabindex="-1" role="dialog" aria-labelledby="QRModalLabel" aria-hidden="true">
+														<div class="modal-dialog modal-sm" role="document">
+															<div class="modal-content">
+																<div class="modal-header">
+																    <h4 class="modal-title mx-auto" id="QRModalLabel">QR</h4>
+																    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																    <span aria-hidden="true">&times;</span>
+																    </button>
+																</div>
+																<div class="modal-body mx-auto">
+																	<div id="qrcode"></div>
+																</div>
+															</div>
+														</div>
 													</div>
 			                        			</div>
 			                        			<div class="col-md-4 b-l-default text-center">
@@ -184,11 +204,17 @@ canvas{
 														<table id="commuteTable" style="width: 100%;">
 															<tr>
 																<td>출근시간</td>
-																<td id="startTime"><b>${startTime}</b></td>
+																<td id="startTime">
+																	<c:if test="${!empty startTime}"><b>${startTime}</b></c:if>
+																	<c:if test="${empty startTime}">미출근</c:if>
+																</td>
 															</tr>
 															<tr>
 																<td>퇴근시간</td>
-																<td><b>${endTime}</b></td>
+																<td>
+																	<c:if test="${!empty endTime}"><b>${endTime}</b></c:if>
+																	<c:if test="${empty endTime}">미퇴근</c:if>
+																</td>
 															</tr>
 														</table>
 													</div>
@@ -400,386 +426,478 @@ canvas{
 </script>
 
 <script>
-	setInterval("time()",1000);
-	function time(){
-		var now = new Date();
+	
+	$(function(){
+		$('#QRModal').modal('hide');
+	});
+	
+	$('#qrStartBtn').click(function() {
+		var check = confirm('QR생성 하시겠습니까? 이미 생성하셨다면 취소를 눌러주세요.');
+		if(check){
+			$('#QRModal').modal('show');
+			var mCode = '<c:out value="${loginUser.mCode}"/>';
+			
+			var qrcode = new QRCode(document.getElementById("qrcode"), {
+			    text: mCode,
+			    width: 128,
+			    height: 128,
+			    colorDark : "#000000",
+			    colorLight : "#ffffff",
+			    correctLevel : QRCode.CorrectLevel.H
+			});
+			
+		    $("#qrcode > img").css({"margin":"auto"});
+		} else {
+			popupOpen('qrStart.co');
+		}
+	});
+	
+	function popupOpen(url){
+		var popupX = (window.screen.width / 2) - (510 / 2);
+// 		// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+		var popupY= (window.screen.height /2) - (700 / 2);
+		// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
 		
+	  	var name="qrstart";
+	    var specs = 'width=510, height=700, menubar=no,status=no,toolbar=no, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY;
+// 	    var specs = 'width=510, height=700, menubar=no,status=no,toolbar=no';
+	    var newWindow = window.open(url,name,specs);
+	    newWindow.focus();
+	}
+
+	setInterval("time()", 1000);
+	function time() {
+		var now = new Date();
+
 		var year = now.getFullYear(); // 년도
-		var month = now.getMonth() + 1;  // 월
-		var date = now.getDate();  // 날짜
-		var dayNum = now.getDay();  // 요일
+		var month = now.getMonth() + 1; // 월
+		var date = now.getDate(); // 날짜
+		var dayNum = now.getDay(); // 요일
 		var hours = now.getHours();
 		var minutes = now.getMinutes();
 		var seconds = now.getSeconds();
-		
-		var dayList = ['일','월','화','수','목','금','토'];
+
+		var dayList = [ '일', '월', '화', '수', '목', '금', '토' ];
 		var day = dayList[dayNum];
-		
-		month = (month < 10) ? "0"+month : month;
-		date = (date < 10) ? "0"+date : date;
-		hours = (hours < 10) ? "0"+hours : hours;
-		minutes = (minutes < 10) ? "0"+minutes : minutes;
-		seconds = (seconds < 10) ? "0"+seconds : seconds;
-		
-		document.getElementById("time").innerHTML = year + "-" + month + "-" + date + " " + day + " " + hours + ":" + minutes + ":" + seconds;
+
+		month = (month < 10) ? "0" + month : month;
+		date = (date < 10) ? "0" + date : date;
+		hours = (hours < 10) ? "0" + hours : hours;
+		minutes = (minutes < 10) ? "0" + minutes : minutes;
+		seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+		document.getElementById("time").innerHTML = year + "-" + month + "-"
+				+ date + " " + day + " " + hours + ":" + minutes + ":"
+				+ seconds;
 	}
-	
+
 	setInterval("commuteTime()", 1000);
-	function commuteTime(){
+	function commuteTime() {
 		$.ajax({
-			url: 'commuteTime.co',
-			success: function(data){
-// 				console.log('출퇴근시간 성공');
-// 				console.log(data);
-				
-				// today process bar
-				// 오늘 근무한 시간
-				var today = new Date();
-				var start = data.commuteStart;
-				var startDate = new Date(start);
-				var overworkDate = new Date(start.substring(0, 11) + '18:00:00');
-				var diffSec = 0;
-				var worktimePer = 0;
-				
-				var hour = 0;
-				var min = 0;
-				var sec = 0;
-				
-				diffSec = (today.getTime() - startDate.getTime())/1000;
-				diff = diffSec/(8*60*60)*100;
-				hour = Math.floor(diffSec/3600) - 1;
-				min = Math.floor(diffSec%3600/60);
-				sec = Math.floor(diffSec%3600%60);
-				
-				hour = (hour < 10) ? "0"+hour : hour;
-				min = (min < 10) ? "0"+min : min;
-				sec = (sec < 10) ? "0"+sec : sec;
+					url : 'commuteTime.co',
+					success : function(data) {
+// 						console.log('출퇴근시간 성공');
+// 						console.log(data);
 
-				$('#workingTime').text(hour + ":" + min + ":" + sec);
-				
-				if(today.getHours() < 18){
-					diffSec = (today.getTime() - startDate.getTime())/1000;
-					diff = diffSec/(8*60*60)*100;
-					worktimePer = Math.round(diff*100)/100;
-
-					$('#progress').css({'width':worktimePer+'%', 'background-color':'#62D1F3'});
-					$('#progress').text(Math.round(diff) + "%");
-				} else {
-					diffSec = (today.getTime() - overworkDate.getTime())/1000;
-					diff = diffSec/(6*60*60)*100;
-					worktimePer = Math.round(diff*100)/100;
-
-					$('#overProgress').css({'width':worktimePer+'%', 'background-color':'#FFC952'});
-					$('#overProgress').text(Math.round(diff) + "%");
-				}
-			},
-			error: function(data){
-				console.log('에러');
-			}
-		});
-		
-	}
+						// today process bar
+						// 오늘 근무한 시간
+						if(data != null){
+							var today = new Date();
+							var start = data.commuteStart;
+							var startDate = new Date(start);
+							var overworkDate = new Date(start.substring(0, 11) + '18:00:00');
+							var diffSec = 0;
+							var worktimePer = 0;
 	
+							var hour = 0;
+							var min = 0;
+							var sec = 0;
+	
+							diffSec = (today.getTime() - startDate.getTime()) / 1000;
+							diff = diffSec / (8 * 60 * 60) * 100;
+							hour = Math.floor(diffSec / 3600) - 1;
+							min = Math.floor(diffSec % 3600 / 60);
+							sec = Math.floor(diffSec % 3600 % 60);
+	
+							hour = (hour < 10) ? "0" + hour : hour;
+							min = (min < 10) ? "0" + min : min;
+							sec = (sec < 10) ? "0" + sec : sec;
+	
+							$('#workingTime').text(hour + ":" + min + ":" + sec);
+	
+							if (today.getHours() < 18) {
+								diffSec = (today.getTime() - startDate.getTime()) / 1000;
+								diff = diffSec / (8 * 60 * 60) * 100;
+								worktimePer = Math.round(diff * 100) / 100;
+	
+								$('#progress').css({
+									'width' : worktimePer + '%',
+									'background-color' : '#62D1F3'
+								});
+								$('#progress').text(Math.round(diff) + "%");
+							} else {
+								diffSec = (today.getTime() - overworkDate.getTime()) / 1000;
+								diff = diffSec / (6 * 60 * 60) * 100;
+								worktimePer = Math.round(diff * 100) / 100;
+	
+								$('#overProgress').css({
+									'width' : worktimePer + '%',
+									'background-color' : '#FFC952'
+								});
+								$('#overProgress').text(Math.round(diff) + "%");
+							}
+						} else {
+							$('#workingTime').text("00:00:00");
+						}
+					},
+					error : function(data) {
+						console.log('에러');
+					}
+				});
+
+	}
+
 	// 출근하기
-	$('#startBtn').on('click', function(){
+	$('#startBtn').on('click', function() {
 		var check = confirm('출근하시겠습니까?');
-       	
-       	if(check){
-       		navigator.geolocation.getCurrentPosition(function(pos){
-       		    var latitude = pos.coords.latitude;
-       		    var longitude = pos.coords.longitude;
-// 				alert("현재 위치는 : " + latitude + ", "+ longitude);
-				
-// 				우리 집 위도 : 37.494555 / 우리 집 경도 : 126.958055
-// 				회사 위도 : 37.499146193359344  /  회사 경도 : 127.03289826885084
-// 				if((latitude > '37.4945' && latitude < '37.4946') && (longitude > '126.9580' && longitude < '126.9581')){
-// 				if((latitude > '37.49' && latitude < '37.50') && (longitude > '126.94' && longitude < '126.95')){
-       		    if(true){
-       		    	location.href="commuteEnter.co";
-       		    } else {
-       		    	alert('출근 지역에서 벗어났습니다.');
-       		    }
-       		});
-       	}
-	});
-        
-	// 퇴근하기
-	$('#endBtn').on('click', function(){
-		var check = confirm('퇴근하시겠습니까?');
-		
-		if(check){
-			location.href="commuteOut.co";
+
+		if (check) {
+			navigator.geolocation.getCurrentPosition(function(pos) {
+				var latitude = pos.coords.latitude;
+				var longitude = pos.coords.longitude;
+				// 				alert("현재 위치는 : " + latitude + ", "+ longitude);
+
+				// 				우리 집 위도 : 37.494555 / 우리 집 경도 : 126.958055
+				// 				회사 위도 : 37.499146193359344  /  회사 경도 : 127.03289826885084
+				// 				if((latitude > '37.4945' && latitude < '37.4946') && (longitude > '126.9580' && longitude < '126.9581')){
+				// 				if((latitude > '37.49' && latitude < '37.50') && (longitude > '126.94' && longitude < '126.95')){
+				if (true) {
+					location.href = "commuteEnter.co";
+				} else {
+					alert('출근 지역에서 벗어났습니다.');
+				}
+			});
 		}
 	});
-	
-	$('.stateBtn').on('click', function(){
-		
+
+	// 퇴근하기
+	$('#endBtn').on('click', function() {
+		var check = confirm('퇴근하시겠습니까?');
+
+		if (check) {
+			location.href = "commuteOut.co";
+		}
+	});
+
+	$('.stateBtn').on('click', function() {
+
 		var text = $(this).find('span').text();
 		var state;
-		if(text == '근무중'){
+		if (text == '근무중') {
 			state = 1;
-		} else if(text == '근무종료'){
+		} else if (text == '근무종료') {
 			state = 2;
-		} else if(text == '외근'){
+		} else if (text == '외근') {
 			state = 3;
-		} else if(text == '휴가'){
+		} else if (text == '휴가') {
 			state = 4;
 		}
-		
-		location.href="changeState.co?state="+state;
+
+		location.href = "changeState.co?state=" + state;
 	});
-		
-	  
+
 	// 날짜 선택
 	$('.datepicker').datepicker();
-	
+
 	$.datepicker.setDefaults({
-	    dateFormat: 'yy-mm-dd',
-	    prevText: '이전 달',
-	    nextText: '다음 달',
-	    monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-	    monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-	    dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-	    dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-	    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-	    showMonthAfterYear: true,
-	    yearSuffix: '년'
+		dateFormat : 'yy-mm-dd',
+		prevText : '이전 달',
+		nextText : '다음 달',
+		monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
+				'10월', '11월', '12월' ],
+		monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+				'9월', '10월', '11월', '12월' ],
+		dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
+		dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
+		dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
+		showMonthAfterYear : true,
+		yearSuffix : '년'
 	});
 
 	// 반차 선택시 오전 오후
 	$('#half').css('display', 'none');
-	
-	$('#leaveType').on('click', function(){
-	    var half = $("#leaveType option:selected").val();
-	    if(half == '2'){
-	        $('#half').show();
-	    } else {
-	        $('#half').hide();
-	    }
+
+	$('#leaveType').on('click', function() {
+		var half = $("#leaveType option:selected").val();
+		if (half == '2') {
+			$('#half').show();
+		} else {
+			$('#half').hide();
+		}
 	});
-        
+
 	// 연장근무 신청
-	$('.overwork-card').on('click', function(){
-	    $('#overworkModal').modal('show');
+	$('.overwork-card').on('click', function() {
+		$('#overworkModal').modal('show');
 	});
-	
+
 	// 휴가 신청
-	$('.leave-card').on('click', function(){
-	    $('#leaveModal').modal('show');
+	$('.leave-card').on('click', function() {
+		$('#leaveModal').modal('show');
 	});
-	
+
 	// overworkFull
-	$('#overworkFull').on('click', function(){
-		location.href="overworkDetailView.co";
+	$('#overworkFull').on('click', function() {
+		location.href = "overworkDetailView.co";
 	});
-	
+
 	// overworkReload
-	$('#overworkReload').on('click', function(){
-		console.log('클릭');		
+	$('#overworkReload').on('click', function() {
+		console.log('클릭');
 		getOverworkList();
 	});
-	
-	$(function(){
+
+	$(function() {
 		var state = <c:out value="${state}" />
-		if(state == 1){
+		if (state == 1) {
 			$('#working').css('background-color', '#660099');
 			$('#working').find('i').css('color', 'white');
 			$('#working').find('span').css('color', 'white');
-		}else if(state == 2){
+		} else if (state == 2) {
 			$('#workEnd').css('background-color', '#660099');
 			$('#workEnd').find('i').css('color', 'white');
 			$('#workEnd').find('span').css('color', 'white');
-		}else if(state == 3){
+		} else if (state == 3) {
 			$('#outside').css('background-color', '#660099');
 			$('#outside').find('i').css('color', 'white');
 			$('#outside').find('span').css('color', 'white');
-		}else if(state == 4){
+		} else if (state == 4) {
 			$('#leave').css('background-color', '#660099');
 			$('#leave').find('i').css('color', 'white');
 			$('#leave').find('span').css('color', 'white');
 		}
 	});
-	
+
 	// 메인 차트
-	$(function(){
-		$.ajax({
-			url: 'commuteChart.co',
-			success: function(map){
-				console.log('성공');
-				console.log(map);
-				
-				var arrWorkTime = new Array();
-				var arrOverWork = new Array();
-				var total = 0;
-				
-				if(map.colist.length != 0){
-					for(var i = 0; i < map.colist.length; i++){
-						for(var j = 0; j < 7; j++){
-							if(new Date(map.colist[i].enrollDate).getDay() == j){
-								arrWorkTime[j] = map.colist[i].worktime;
+	$(function() {
+		$
+				.ajax({
+					url : 'commuteChart.co',
+					success : function(map) {
+						console.log('성공');
+						console.log(map);
+
+						var arrWorkTime = new Array();
+						var arrOverWork = new Array();
+						var total = 0;
+
+						if (map.colist.length != 0) {
+							for (var i = 0; i < map.colist.length; i++) {
+								for (var j = 0; j < 7; j++) {
+									if (new Date(map.colist[i].enrollDate)
+											.getDay() == j) {
+										arrWorkTime[j] = map.colist[i].worktime;
+									}
+									if (arrWorkTime[j] == undefined) {
+										arrWorkTime[j] = 0;
+									}
+								}
 							}
-							if(arrWorkTime[j] == undefined){
-								arrWorkTime[j] = 0;	
+						} else {
+							for (var j = 0; j < 7; j++) {
+								arrWorkTime[j] = 0;
 							}
 						}
-					}
-				} else {
-					for(var j = 0; j < 7; j++){
-						arrWorkTime[j] = 0;
-					}
-				}
-				var workTotal = 0;
-				for(var i = 0; i < 7; i++){
-					workTotal += arrWorkTime[i];
-				}
-				$('#workHour').html(Math.round(workTotal)).css('color', '#62D1F3');
-				$('#workHourSpan').html(Math.round(workTotal)).css({'font-size':'22px', 'color':'#62D1F3', 'font-weight':'bold'});
-				$('#workMinSpan').html((workTotal*100).toFixed(0).substring(2,4)).css({'font-size':'22px', 'color':'#62D1F3', 'font-weight':'bold'});
-				
-				if(map.owlist.length != 0){
-					for(var i = 0; i < map.owlist.length; i++){
-						for(var j = 0; j < 7; j++){
-							if(new Date(map.owlist[i].overworkDate).getDay() == j){
-								arrOverWork[j] = map.owlist[i].overworktime;
+						var workTotal = 0;
+						for (var i = 0; i < 7; i++) {
+							workTotal += arrWorkTime[i];
+						}
+						$('#workHour').html(Math.round(workTotal)).css('color',
+								'#62D1F3');
+						$('#workHourSpan').html(Math.round(workTotal)).css({
+							'font-size' : '22px',
+							'color' : '#62D1F3',
+							'font-weight' : 'bold'
+						});
+						$('#workMinSpan').html(
+								(workTotal * 100).toFixed(0).substring(2, 4))
+								.css({
+									'font-size' : '22px',
+									'color' : '#62D1F3',
+									'font-weight' : 'bold'
+								});
+
+						if (map.owlist.length != 0) {
+							for (var i = 0; i < map.owlist.length; i++) {
+								for (var j = 0; j < 7; j++) {
+									if (new Date(map.owlist[i].overworkDate)
+											.getDay() == j) {
+										arrOverWork[j] = map.owlist[i].overworktime;
+									}
+									if (arrOverWork[j] == undefined) {
+										arrOverWork[j] = 0;
+									}
+								}
 							}
-							if(arrOverWork[j] == undefined){
-								arrOverWork[j] = 0;	
+						} else {
+							for (var j = 0; j < 7; j++) {
+								arrOverWork[j] = 0;
 							}
 						}
-					}
-				} else {
-					for(var j = 0; j < 7; j++){
-						arrOverWork[j] = 0;
-					}	
-				}
-				var overworkTotal = 0;
-				for(var i = 0; i < 7; i++){
-					overworkTotal += arrOverWork[i];
-				}
-				$('#overworkHour').html(overworkTotal).css('color', '#FFC952');
-				$('#overworkHourSpan').html(Math.round(overworkTotal)).css({'font-size':'22px', 'color':'#FFC952', 'font-weight':'bold'});
-				$('#overworkMinSpan').html((overworkTotal*100).toFixed(0).substring(2,4)).css({'font-size':'22px', 'color':'#FFC952', 'font-weight':'bold'});
-				
-				var total = 0;
-				for(var i = 0; i < 7; i++){
-					total += arrWorkTime[i]+arrOverWork[i];
-				}
-				$('#totalHourSpan').html(Math.round(total)).css({'font-size':'22px', 'color':'#FF7473', 'font-weight':'bold'});
-				$('#totalMinSpan').html((total*100).toFixed(0).substring(2,4)).css({'font-size':'22px', 'color':'#FF7473', 'font-weight':'bold'});
-				
-				Morris.Bar({
-					element: 'morris-bar-chart',
-				    data: [{
-				        y: '일',
-				        a: arrWorkTime[0],
-				        b: arrOverWork[0],
-				        c: arrWorkTime[0]+arrOverWork[0]
-				    }, {
-				        y: '월',
-				        a: arrWorkTime[1],
-				        b: arrOverWork[1],
-				        c: arrWorkTime[1]+arrOverWork[1]
-				    }, {
-				        y: '화',
-				        a: arrWorkTime[2],
-				        b: arrOverWork[2],
-				        c: arrWorkTime[2]+arrOverWork[2]
-				    }, {
-				        y: '수',
-				        a: arrWorkTime[3],
-				        b: arrOverWork[3],
-				        c: arrWorkTime[3]+arrOverWork[3]
-				    }, {
-				        y: '목',
-				        a: arrWorkTime[4],
-				        b: arrOverWork[4],
-				        c: arrWorkTime[4]+arrOverWork[4]
-				    }, {
-				        y: '금',
-				        a: arrWorkTime[5],
-				        b: arrOverWork[5],
-				        c: arrWorkTime[5]+arrOverWork[5]
-				    }, {
-				        y: '토',
-				        a: arrWorkTime[6],
-				        b: arrOverWork[6],
-				        c: arrWorkTime[6]+arrOverWork[6]
-				    }],
-				    xkey: 'y',
-				    ykeys: ['a', 'b', 'c'],
-				    labels: ['표준 근무시간', '표준 외 근무시간', '총 근무시간'],
-				    barColors: ['#62D1F3', '#FFC952', '#FF7473'],
-				    hideHover: 'auto',
-// 				    gridLineColor: '#eef0f2',
-				    gridLineColor: 'white',
-				    resize: true
-				});
+						var overworkTotal = 0;
+						for (var i = 0; i < 7; i++) {
+							overworkTotal += arrOverWork[i];
+						}
+						$('#overworkHour').html(overworkTotal).css('color',
+								'#FFC952');
+						$('#overworkHourSpan').html(Math.round(overworkTotal))
+								.css({
+									'font-size' : '22px',
+									'color' : '#FFC952',
+									'font-weight' : 'bold'
+								});
+						$('#overworkMinSpan').html(
+								(overworkTotal * 100).toFixed(0)
+										.substring(2, 4)).css({
+							'font-size' : '22px',
+							'color' : '#FFC952',
+							'font-weight' : 'bold'
+						});
 
+						var total = 0;
+						for (var i = 0; i < 7; i++) {
+							total += arrWorkTime[i] + arrOverWork[i];
+						}
+						$('#totalHourSpan').html(Math.round(total)).css({
+							'font-size' : '22px',
+							'color' : '#FF7473',
+							'font-weight' : 'bold'
+						});
+						$('#totalMinSpan').html(
+								(total * 100).toFixed(0).substring(2, 4)).css({
+							'font-size' : '22px',
+							'color' : '#FF7473',
+							'font-weight' : 'bold'
+						});
 
-				var config = {
-					type : 'doughnut',
-					data : {
-						labels : [ '근무시간', '잔여 근무시간' ],
-						datasets : [
-								/* Outer doughnut data starts*/
-								{
-									data : [ overworkTotal, (12 - overworkTotal) ],
-									backgroundColor : [ "#FFC952", "#F5F5F5" ],
-									label : '표준 외 근무 시간'
+						Morris.Bar({
+							element : 'morris-bar-chart',
+							data : [ {
+								y : '일',
+								a : arrWorkTime[0],
+								b : arrOverWork[0],
+								c : arrWorkTime[0] + arrOverWork[0]
+							}, {
+								y : '월',
+								a : arrWorkTime[1],
+								b : arrOverWork[1],
+								c : arrWorkTime[1] + arrOverWork[1]
+							}, {
+								y : '화',
+								a : arrWorkTime[2],
+								b : arrOverWork[2],
+								c : arrWorkTime[2] + arrOverWork[2]
+							}, {
+								y : '수',
+								a : arrWorkTime[3],
+								b : arrOverWork[3],
+								c : arrWorkTime[3] + arrOverWork[3]
+							}, {
+								y : '목',
+								a : arrWorkTime[4],
+								b : arrOverWork[4],
+								c : arrWorkTime[4] + arrOverWork[4]
+							}, {
+								y : '금',
+								a : arrWorkTime[5],
+								b : arrOverWork[5],
+								c : arrWorkTime[5] + arrOverWork[5]
+							}, {
+								y : '토',
+								a : arrWorkTime[6],
+								b : arrOverWork[6],
+								c : arrWorkTime[6] + arrOverWork[6]
+							} ],
+							xkey : 'y',
+							ykeys : [ 'a', 'b', 'c' ],
+							labels : [ '표준 근무시간', '표준 외 근무시간', '총 근무시간' ],
+							barColors : [ '#62D1F3', '#FFC952', '#FF7473' ],
+							hideHover : 'auto',
+							// 				    gridLineColor: '#eef0f2',
+							gridLineColor : 'white',
+							resize : true
+						});
+
+						var config = {
+							type : 'doughnut',
+							data : {
+								labels : [ '근무시간', '잔여 근무시간' ],
+								datasets : [
+										/* Outer doughnut data starts*/
+										{
+											data : [ overworkTotal,
+													(12 - overworkTotal) ],
+											backgroundColor : [ "#FFC952",
+													"#F5F5F5" ],
+											label : '표준 외 근무 시간'
+										},
+										/* Outer doughnut data ends*/
+										/* Inner doughnut data starts*/
+										{
+											data : [
+													(Math
+															.round(workTotal * 100) / 100),
+													(40 - (Math
+															.round(workTotal * 100) / 100)) ],
+											backgroundColor : [ "#62D1F3",
+													"#F0F0F0" ],
+											label : '표준 근무 시간'
+										}
+								/* Inner doughnut data ends*/
+								],
+
+							},
+							options : {
+								responsive : false,
+								legend : {
+									// 							position: 'top',
+									display : false,
 								},
-								/* Outer doughnut data ends*/
-								/* Inner doughnut data starts*/
-								{
-									data : [ (Math.round(workTotal * 100) / 100),
-											 (40 - (Math.round(workTotal * 100) / 100)) ],
-									backgroundColor : [ "#62D1F3", "#F0F0F0"],
-									label : '표준 근무 시간'
+								title : {
+									display : true,
+								// 							text: 'Chart.js Doughnut Chart'
+								},
+								animation : {
+									animateScale : true,
+									animateRotate : true
+								},
+								tooltips : {
+									callbacks : {
+										label : function(item, data) {
+											console.log(data.labels, item);
+											return data.datasets[item.datasetIndex].label
+													+ ": "
+													+ data.labels[item.index]
+													+ ": "
+													+ data.datasets[item.datasetIndex].data[item.index];
+										}
+									}
 								}
-						/* Inner doughnut data ends*/
-						],
-
-					},
-					options : {
-						responsive : false,
-						legend : {
-// 							position: 'top',
-							display : false,
-						},
-						title : {
-							display : true,
-// 							text: 'Chart.js Doughnut Chart'
-						},
-						animation : {
-							animateScale : true,
-							animateRotate : true
-						},
-						tooltips : {
-							callbacks : {
-								label : function(item, data) {
-									console.log(data.labels, item);
-									return data.datasets[item.datasetIndex].label
-											+ ": "
-											+ data.labels[item.index]
-											+ ": "
-											+ data.datasets[item.datasetIndex].data[item.index];
-								}
+							},
+							centerText : {
+								display : true,
+								text : "280"
 							}
-						}
-					},
-					centerText: {
-				        display: true,
-				        text: "280"
-				    }
-				};
-				var ctx = document.getElementById("myChart").getContext("2d");
-				window.myDoughnut = new Chart(ctx, config);
+						};
+						var ctx = document.getElementById("myChart")
+								.getContext("2d");
+						window.myDoughnut = new Chart(ctx, config);
 
-				
-			},
-			error : function(data) {
-				console.log('에러');
-			}
-		});
+					},
+					error : function(data) {
+						console.log('에러');
+					}
+				});
 	});
 </script>
 	
