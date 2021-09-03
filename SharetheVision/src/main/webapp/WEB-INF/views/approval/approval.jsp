@@ -1959,7 +1959,48 @@ color: white;
 padding: 10px 20px;
 }
 
+.dropdown-item:focus, .dropdown-item:hover {
+    color: blue;
+    text-decoration: none;
+    background-color: #f8f9fa;
+}
 
+.dropdown-menu {
+border-radius:15px;
+
+}
+
+.btn-primary {
+    background-color: #303245;
+    color:white;
+    border-color: grey;
+    outline: none;
+    border-radius: 15px;
+    font-size: 15px;
+    padding: 10px 25px;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+ 
+::-webkit-scrollbar-track {
+    background-color:#fff;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background-color:purple; 
+}
+
+
+.inner::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background-color:grey; 
+}
     </style>
 </head>
 
@@ -3370,5 +3411,6 @@ function clock() {
 <script src="assets/js/pcoded.min.js"></script>
 <script src="assets/js/demo-12.js"></script>
 <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+
 </body>
 </html>
