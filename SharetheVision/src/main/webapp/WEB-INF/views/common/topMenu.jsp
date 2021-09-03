@@ -133,17 +133,16 @@ pageEncoding="UTF-8"%>
 </nav>
 
 <script>
-$(document).ready(function() {
-	MSreadCount();	
+var loginUser = "${loginUser}";
+if( loginUser !=null){
+	MSreadCount();
 	function MSreadCount(){
 		$.ajax({
 			url:"MSreadCount",
 			success: function(data){
-				console.log("jsp. readCount data>>>>>>>>",data);
 				$div=$('#msMsg');
 				$div.html('');
 				var $span; 
-				
 				if(data == '0'){
 					$('#msbadge').addClass('bg-c-purple');
 					$('#msLabel').addClass('label-purple');
@@ -153,7 +152,7 @@ $(document).ready(function() {
 					$('#msLabel').addClass('label-warning');
 					$span=$('<span>').text("새로운 메세지가"+ data +"개 있습니다.");
 				}
-					$div.append($span);
+				$div.append($span);
 			},
 			error: function(data){
 				console.log("Message Count fail.");
@@ -161,17 +160,13 @@ $(document).ready(function() {
 		});
 	};	
 	
-	//메신저, 게시물 , 결재 알람 15초마다 가져오기 
-/* 	var interval;
-	interval = setInterval(function(){
-
-		// ** 메신저 알람 **
+	//메신저  알람 3분 마다 업데이트 가져오기 
+	setInterval(function(){
 		MSreadCount();	
 		
-	},15000);//15second 
+	},180000);// 3min
 
-}); */
-
+}
 $(".chatting").click(function () {
 	$.ajax({
 	  url:"chatstatus", 
@@ -185,6 +180,5 @@ $(".chatting").click(function () {
       }  
 	 });
 	window.open('msStart','MS','top=auto,left=auto,width=383,height=600');
-});
-		
+});		
 </script>

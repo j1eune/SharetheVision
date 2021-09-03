@@ -161,8 +161,7 @@ public class CalendarController {
 		if(!pList.isEmpty()) {
 			return pList;
 		}else {
-			System.out.println("속한 프로젝트가 없음");
-			return null;
+			return pList;
 		}
 	}
 		
