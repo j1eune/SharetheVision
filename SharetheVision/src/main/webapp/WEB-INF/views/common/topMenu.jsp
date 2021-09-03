@@ -162,7 +162,7 @@ $(document).ready(function() {
 	};	
 	
 	//메신저, 게시물 , 결재 알람 15초마다 가져오기 
-	var interval;
+/* 	var interval;
 	interval = setInterval(function(){
 
 		// ** 메신저 알람 **
@@ -170,7 +170,7 @@ $(document).ready(function() {
 		
 	},15000);//15second 
 
-});
+}); */
 
 $(".chatting").click(function () {
 	$.ajax({
