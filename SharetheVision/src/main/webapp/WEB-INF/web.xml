@@ -115,8 +115,7 @@
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>
-				/WEB-INF/spring/appServlet/project-context.xml
+			<param-value>/WEB-INF/spring/appServlet/project-context.xml
 			</param-value>
 		</init-param>
 	</servlet>
@@ -129,17 +128,16 @@
 	
 	<!-- 전자 결재 관련 -->
 	<servlet>
-		<servlet-name>projectServlet</servlet-name>
+		<servlet-name>approvalServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>
-				/WEB-INF/spring/appServlet/approval-context.xml
+			<param-value>/WEB-INF/spring/appServlet/approval-context.xml
 			</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>projectServlet</servlet-name>
+		<servlet-name>approvalServlet</servlet-name>
 		<url-pattern>*.ap</url-pattern>
 	</servlet-mapping>
 

@@ -126,17 +126,23 @@ public class CommuteController {
 	}
 	
 	@RequestMapping("commuteEnter.co")
-	public String commuteEnter(HttpSession session, Model model) throws CommuteException {
+	public String commuteEnter(@RequestParam(value="mCode", required=false) String mCode, HttpSession session) throws CommuteException {
 		
 //		String memberNo = ((Member)session.getAttribute("loginUser")).getmCode();
-		String memberNo = "MaCo2";
+//		String memberNo = "MaCo2";
+		String memberNo = "MaCo21";
+		
+		if(!mCode.equals(memberNo)) {
+			System.out.println("로그인 회원이 아님");
+			throw new CommuteException("로그인된 회원이 아닙니다.");
+		}
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 //		String enterTime = sdf.format(date);
-		String enterTime = "2021-09-02 08:58:52";
+		String enterTime = "2021-09-03 08:50:52";
 		
 		// 지각 여부
 		int status = 0;
@@ -510,5 +516,11 @@ public class CommuteController {
 		
 		return "overworkDetailView";
 	}
+	
+	@RequestMapping("qrStart.co")
+	public String qrCommuteEnter() {
+		return "commuteQR";
+	}
+	
 	
 }
