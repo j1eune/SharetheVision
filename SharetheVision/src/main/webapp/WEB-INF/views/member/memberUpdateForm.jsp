@@ -47,6 +47,9 @@
 		display:none;
 	}
 	input[type=password] { font-family: "ELAND_Choice_L"; }
+	#random{
+		display:none;
+	}
 </style>
 <body>
     <!-- Pre-loader start -->
@@ -132,7 +135,7 @@
 																	<tr>
 																		<td>
 																			<label><b>전화번호</b></label>
-																			<input type="tel" class="form-control mt-1 adressInput" name="phone" value="${loginUser.phone }"/>
+																			<input type="tel" class="form-control mt-1 adressInput" required name="phone" value="${loginUser.phone }"/>
 																		</td>
 																	</tr>
 																	<tr><td>&nbsp;</td></tr>
@@ -160,14 +163,21 @@
 																	<tr>
 																		<td>
 																			<label><b>이메일</b></label>
-																			<input type="email" class="form-control mt-1 adressInput" name="email"value="${loginUser.email }"/>
+																			<input type="hidden" id="hiddenEmail"  value="${loginUser.email }"/>
+																			<input type="email" id="email" onblur="changeEmail();" class="form-control mt-1 adressInput" required name="email" value="${loginUser.email }"/>
 																		</td>
 																	</tr>
-																	<tr><td>&nbsp;</td></tr>
+																	<tr>
+																		<td>
+																			<input type="hidden" id="randomCheck"/>
+																			<input type="text" id="random" onchange="randomNumCheck();" class="form-control" placeholder="인증번호 입력"/>
+																			<div id="emailCheckDiv"></div>
+																		</td>
+																	</tr>
 																	<tr>
 																		<td>
 																			<label><b>비밀번호 입력</b></label>
-																			<input type="password" class="form-control mt-1 adressInput" name="pwd" id="userPwd" onkeyup="userPwdCheck();" placeholder="기존 비밀번호"/>
+																			<input type="password" class="form-control mt-1 adressInput" name="pwd" id="userPwd" onkeyup="userPwdCheck();" required placeholder="기존 비밀번호"/>
 																			<div style="color: black; text-align: left; padding-top: 2px;" id="userPwdMessage"></div>
 																			
 																			<input type="password" class="form-control mt-1 adressInput" name="newPwd" onkeyup="newPwdCheck();"id="newPwd" placeholder="새로운 비밀번호(문자,숫자,특수문자 포함)"/>
@@ -183,7 +193,7 @@
 		                                                    <br>
 		                                                    <div class="card-block" style="text-align:center;">
 		                                                        <div id="morris-site-visit">
-		                                                        	<button type="submit" class="btn btn-danger" onclick="updateM();">수정하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
+		                                                        	<button type="submit" class="btn btn-danger">수정하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
 		                                                        	<button type="button" class="btn btn-inverse btn-outline-inverse" onclick="location.href='home.me'">취소</button>
 		                                                        </div>
 		                                                    </div>
@@ -271,6 +281,7 @@
 	userPwd = false;
 	userNewPwd = false;
 	checkPwd = false;
+	checkEmail = true;
 
 	// 새로운 비밀번호
 	function newPwdCheck(){
@@ -327,8 +338,13 @@
 			url: "userPwdCheck.me",
 			data: {pwd:pwd},
 			success:function(data){
-				console.log("기존 비밀번호 성공");
-				userPwd = true;
+				if(data.trim() == 'true'){
+					console.log("기존 비밀번호 일치");
+					userPwd = true;
+				} else {
+					console.log("기존 비밀번호 불일치");
+					userPwd = false;
+				}
 			},
 			error:function(data){
 				console.log("기존 비밀번호 실패");
@@ -342,28 +358,77 @@
 		var pwd1 = document.getElementById("newPwd");
 		var pwd = document.getElementById("userPwd");
 		
-		if(pwd1.value.trim() == ""){
-			if(userPwd){
-				console.log("비밀번호 변경 x 기존 비밀번호 o");
-				return true;
+		if(checkEmail){
+			if(pwd1.value.trim() == ""){
+				if(userPwd){
+					console.log("비밀번호 변경 x 기존 비밀번호 o");
+					return true;
+				} else {
+					console.log("비밀번호 변경 x 기존 비밀번호 x");
+					alert("비밀번호를 확인해주세요.");
+					return false;
+				}
 			} else {
-				console.log("비밀번호 변경 x 기존 비밀번호 x");
-				alert("비밀번호를 확인해주세요.");
-				return false;
+				if(userPwd && userNewPwd && checkPwd){
+					console.log("비밀번호 변경 o 기존 비밀번호 o");
+					return true;
+				} else {
+					console.log("비밀번호 변경 o 기존 비밀번호 x");
+					alert("비밀번호를 확인해주세요.");
+					return false;
+				}
 			}
 		} else {
-			if(userPwd && userNewPwd && checkPwd){
-				console.log("비밀번호 변경 o 기존 비밀번호 o");
-				return true;
-			} else {
-				console.log("비밀번호 변경 o 기존 비밀번호 x");
-				alert("비밀번호를 확인해주세요.");
-				return false;
-			}
+			alert("이메일 인증해주세요");
+			return false;
 		}
 		
 	}
 	
+	// 이메일 변경시
+	function changeEmail(){
+		var email = document.getElementById("email").value;
+		var hiddenEmail = document.getElementById("hiddenEmail").value;
+		
+		if(confirm("이메일을 변경하시겠습니까?")){
+			$.ajax({
+				url:"checkEmail.me",
+				data:{email:email},
+				success:function(data){
+					console.log("이메일 인증 성공");
+					console.log(data);
+					$("#randomCheck").val(data);
+					$("#random").show();
+					checkEmail = false;
+				},
+				error:function(data){
+					console.log("이메일 인증 실패");
+				}
+			});		
+		} else {
+			$("#email").val(hiddenEmail);
+			$("#random").hide();
+		}
+	};
+	
+	// 인증번호 확인
+	function randomNumCheck(){
+		console.log("randomNumCheck 들어옴");
+		var checkNum = document.getElementById("randomCheck").value;
+		var inputNum = document.getElementById("random").value;
+		var checkDiv = document.getElementById("emailCheckDiv");
+
+		if(checkNum.trim() == inputNum.trim()){
+			checkDiv.innerHTML = '<sub>이메일 인증에 성공하였습니다.</sub>';
+			checkDiv.style.color = 'blue';
+			checkEmail = true;
+		} else {
+			checkDiv.innerHTML = '<sub>인증번호가 일치하지 않습니다.</sub>';
+			checkDiv.style.color = 'red';
+			checkEmail = false;
+		}
+		
+	}
 	
 </script>	
 </body>
