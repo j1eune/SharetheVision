@@ -13696,7 +13696,7 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
 }
 
 .widget-card-1 {
-	margin-top: 40px;
+	margin-top: -10px !important;
 	text-align: right;
 }
 
@@ -20580,13 +20580,10 @@ px
 }
 #addTodo{
     border: none;
-    width: 30em;
+    width: 28em;
     overflow: hidden;
     margin: 0 10px;
 }
-
-
-
 
 /**====== Todo css end ======**/
 @media only screen and (max-width: 1366px) {

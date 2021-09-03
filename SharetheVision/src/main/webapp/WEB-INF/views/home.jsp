@@ -117,8 +117,8 @@
                                 <!-- card4 end -->
 
                                 <!-- Data widget start -->
-                                <div class="col-md-12 col-xl-5">
-                                    <div class="card project-task" style="height: 350px;">
+                                <div class="col-md-12 col-xl-6">
+                                    <div class="card project-task" style="height: 300px;">
                                         <div class="card-header">
                                             <div class="card-header-left ">
                                                 <h4>프로젝트</h4>
@@ -127,32 +127,10 @@
                                         <!-- 로그인유저가 속한 프로젝트가 있다면 가져오기-->
                                         <div class="card-block p-b-10">
                                             <div class="table-responsive">
-                                                <table class="table table-hover">
+                                                <table class="table table-hover" id="projectTb">
                                                     <thead></thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="task-contain">
-                                                                    <h6 class="bg-c-purple d-inline-block text-center">M1</h6>
-                                                                    <p class="d-inline-block m-l-20">UI Design 12345</p>
-                                                                </div>
-                                                            </td>
-                                                            <th>
-                                                                <p>참여자 명단, 김떙땡, 이땡땡, .. 명</p>
-                                                            </th>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="task-contain">
-                                                                    <h6 class="bg-c-blue d-inline-block text-center">S2</h6>
-                                                                    <p class="d-inline-block m-l-20">Semi Project</p>
-                                                                </div>
-                                                            </td>
-                                                            <th>
-                                                                <p> 참여자 명단, 김떙땡, 이땡땡, .. 명 </p>
-                                                            </th>
-                                                        </tr>
-                                                       
+                                                      
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -161,8 +139,8 @@
                                     </div>
                                 </div>
                                 <!-- To Do List -->
-                                <div class="col-md-12 col-xl-7" >
-                                    <div class="card add-task-card" style="height: 350px; overflow-y:scroll;">
+                                <div class="col-md-12 col-xl-6" >
+                                    <div class="card add-task-card" style="height: 300px; overflow-y:scroll;">
                                         <div class="card-header">
                                             <div class="card-header-left">
                                                 <h4>업무 목록</h4>
@@ -170,19 +148,16 @@
                                         </div>
                                         <div class="card-block">
                                          <!--  체크리스트 시작 -->
-                                            <div class="to-do-list">
-                                            </div>
+                                            <div class="to-do-list"></div>
                                             <div>
                                                 <div class="checkbox-fade d-block">
-                                                        <span class="cr">
-                                                            <i class="cr-icon icofont txt-default"></i>
-                                                        </span>
-                                                        <span>
-                                                        	<input type="text" id="addTodo" placeholder="( Todo 작성하시고 꼭 Save 하세요 )">
-                                                        	 <span class="f-right">
-                                                        	 	<button class="btn btn-mini bg-c-purple text-c-white" id="saveBtn"> SAVE</button>
-							  		 						 </span><hr>
-                                                        </span>
+                                                    <span class="cr">
+                                                         <i class="cr-icon icofont txt-default"></i>
+                                                     </span>
+                                                     <div>
+                                                     	 <input type="text" id="addTodo" placeholder="( Todo 작성하시고 꼭 Save 하세요 )">
+	                                                     <span class="f-right"><button class="btn btn-mini bg-c-purple text-c-white" id="saveBtn"> SAVE</button></span><hr>
+                                                     </div>
                                                 </div>
                                              </div>
                                           <!--  체크리스트 끝 -->
@@ -363,6 +338,46 @@ $( document ).ready(function() {
 		}
 	})
 
+	
+	listProject();
+	function listProject(){
+		$.ajax({
+			url: 'listProject',
+			success: function(data){
+				$tbody = $('#projectTb tbody');
+				$tbody.html('');
+				if(data.length>0){
+					for(var i in data){
+						$tr= $([
+							'<tr>'
+							,'   <td>'
+							,'      <div class="task-contain">'
+							,'       	<h6 class="bg-c-purple d-inline-block text-center" id="pNo">P1</h6>'
+							,'			<p class="d-inline-block m-l-20" id="pName">ProjectName</p>'		
+							,'		 </div>'
+							,'	 </td>'
+							,'	 <th>'
+							,'	 	 <p id="pMember">MemberName</p>'
+							,'	 </th>'
+							,'</tr>'  
+						].join(''));
+						$tr.find('#pNo').text('P'+data[i].pNo);
+						$tr.find('#pName').text(data[i].pName);
+						$tr.find('#pMember').text(data[i].mCode);
+						$tbody.append($tr);
+					}
+				}else{
+					var $th;
+					$th = $('<th>').text("현재 참여중인 프로젝트가 없습니다."); 
+					$tbody.append($th);
+				}	
+			},
+			error:function(){
+				console.log("프로젝트 불러오기 실패 error.");
+			}
+		});
+	}
+	
     //화면 위로 올리는 버튼 액션
     var $window = $(window);
     var nav = $('.fixed-button');
@@ -390,8 +405,6 @@ function update_todo(dchNo){
 	});
 }
 function delete_todo(dchNo){
-
-	console.log("dchno:::::",dchNo);
 	$.ajax({
 		url: 'deleteTo',
 		data: { 'dchNo': dchNo },
