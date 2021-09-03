@@ -364,9 +364,9 @@
 		                                                    <div class="card-header-right">
 		                                                        <ul class="list-unstyled card-option">
 		                                                            <li><i class="icofont icofont-simple-left"></i></li>
-		                                                            <li><i class="icofont icofont-maximize full-card"></i></li>
+		                                                            <li id="leaveFull"><i class="icofont icofont-maximize full-card"></i></li>
 		                                                            <li><i class="icofont icofont-minus minimize-card"></i></li>
-		                                                            <li><i class="icofont icofont-refresh reload-card"></i></li>
+		                                                            <li id="leaveReload"><i class="icofont icofont-refresh reload-card"></i></li>
 		                                                            <li><i class="icofont icofont-ui-edit leave-card"></i></li>
 		                                                        </ul>
 		                                                    </div>
@@ -651,11 +651,20 @@
 		location.href = "overworkDetailView.co";
 	});
 
-	// overworkReload
+	// reload
 	$('#overworkReload').on('click', function() {
-		console.log('클릭');
 		getOverworkList();
 	});
+
+	$('#overworkReload').on('click', function() {
+		getLeaveList();
+	});
+	
+	// leaveFull
+	$('#leaveFull').on('click', function(){
+		location.href = "leaveDetail.le";
+	});
+	
 
 	$(function() {
 		var state = <c:out value="${state}" />

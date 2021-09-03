@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -41,13 +42,11 @@ public class CommuteController {
 	@RequestMapping("commuteMain.co")
 	public String commuteMainView(Model model, HttpSession session) {
 
-//		Member loginUser = ((Member)session.getAttribute("loginUser"));
+		Member loginUser = ((Member)session.getAttribute("loginUser"));
 		
-//		String memberNo = loginUser.getmCode();
-//		int state = loginUser.getmState();
-		String memberNo = "MaCo2";
-		int state = 2;
-		
+		String memberNo = loginUser.getmCode();
+		int state = loginUser.getmState();
+
 		Commute co = coService.commuteDay(memberNo);
 		
 		if(co != null) {
@@ -59,35 +58,6 @@ public class CommuteController {
 				String[] endArr = co.getCommuteEnd().split(" ");
 				model.addAttribute("endTime", endArr[1]);
 			}
-			
-//			Date date = new Date(System.currentTimeMillis());
-//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
-//			String nowStr = sdf.format(date);
-//			
-//			try {
-//				// worktime 계산
-//				java.util.Date startDate = null;
-//				java.util.Date nowDate = null;
-//				startDate = sdf.parse(co.getCommuteStart());
-//				nowDate = sdf.parse(nowStr);
-//				
-//				long diffSec = (nowDate.getTime() - startDate.getTime()) / 1000;
-//				long longhour = diffSec/3600 - 1;
-//				long longmin = diffSec%3600/60;
-//				long longsec = diffSec%3600%60;
-//				
-//				String hour = (longhour < 10) ? "0"+longhour : Long.toString(longhour);
-//				String min = (longmin < 10) ? "0"+longmin : Long.toString(longmin);
-//				String sec = (longsec < 10) ? "0"+longsec : Long.toString(longsec);
-//				
-//				model.addAttribute("hour", hour);
-//				model.addAttribute("min", min);
-//				model.addAttribute("sec", sec);
-//
-//			} catch (ParseException e) {
-//				e.printStackTrace();
-//			}
-			
 		}
 		
 		// 휴가 요청 모달 데이터
@@ -128,9 +98,7 @@ public class CommuteController {
 	@RequestMapping("commuteEnter.co")
 	public String commuteEnter(@RequestParam(value="mCode", required=false) String mCode, HttpSession session) throws CommuteException {
 		
-//		String memberNo = ((Member)session.getAttribute("loginUser")).getmCode();
-//		String memberNo = "MaCo2";
-		String memberNo = "MaCo21";
+		String memberNo = ((Member)session.getAttribute("loginUser")).getmCode();
 		
 		if(!mCode.equals(memberNo)) {
 			System.out.println("로그인 회원이 아님");
@@ -141,8 +109,8 @@ public class CommuteController {
 		
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
-//		String enterTime = sdf.format(date);
-		String enterTime = "2021-09-03 08:50:52";
+		String enterTime = sdf.format(date);
+//		String enterTime = "2021-09-03 08:50:52";
 		
 		// 지각 여부
 		int status = 0;
@@ -175,12 +143,12 @@ public class CommuteController {
 	@RequestMapping("commuteOut.co")
 	public String commuteOut(HttpSession session) throws CommuteException {
 		
-//		String memberNo = ((Member)session.getAttribute("loginUser")).getmCode();
-		String memberNo = "MaCo2";
+		String memberNo = ((Member)session.getAttribute("loginUser")).getmCode();
+//		String memberNo = "MaCo2";
 
 		Commute co = coService.commuteDay(memberNo);
-//		String start = co.getCommuteStart();
-		String start = "2021-09-01 08:31:50";
+		String start = co.getCommuteStart();
+//		String start = "2021-09-01 08:31:50";
 		
 		// 퇴근 시간
 		Date date = new Date(System.currentTimeMillis());
@@ -259,11 +227,11 @@ public class CommuteController {
 	
 	@ResponseBody
 	@RequestMapping(value="commuteChart.co", produces="application/json; charset=utf-8")
-	public String commuteChart() {
+	public String commuteChart(HttpSession session) {
 		
-//		Member loginUser = ((Member)session.getAttribute("loginUser"));
-//		String memberNo = loginUser.getmCode();
-		String memberNo = "MaCo2";
+		Member loginUser = ((Member)session.getAttribute("loginUser"));
+		String memberNo = loginUser.getmCode();
+//		String memberNo = "MaCo2";
 		
 		HashMap<String, String> map = getDate(1, null, null);
 		map.put("memberNo", memberNo);
@@ -288,10 +256,10 @@ public class CommuteController {
 	
 	@ResponseBody
 	@RequestMapping(value="commuteTime.co", produces="application/json; charset=utf-8")
-	public String commuteTime() {
-//		Member loginUser = ((Member)session.getAttribute("loginUser"));
-//		String memberNo = loginUser.getmCode();
-		String memberNo = "MaCo2";
+	public String commuteTime(HttpSession session) {
+		Member loginUser = ((Member)session.getAttribute("loginUser"));
+		String memberNo = loginUser.getmCode();
+//		String memberNo = "MaCo2";
 		
 		Commute commute = coService.commuteDay(memberNo);
 		
@@ -303,9 +271,9 @@ public class CommuteController {
 	@RequestMapping("commuteDetail.co")
 	public String commuteDetailView(HttpSession session, Model model) {
 		
-//		Member loginUser = ((Member)session.getAttribute("loginUser"));
-//		String memberNo = loginUser.getmCode();
-		String memberNo = "MaCo2";
+		Member loginUser = ((Member)session.getAttribute("loginUser"));
+		String memberNo = loginUser.getmCode();
+//		String memberNo = "MaCo2";
 		
 		HashMap<String, String> weekMap = getDate(1, null, null);
 		weekMap.put("memberNo", memberNo);
@@ -360,7 +328,6 @@ public class CommuteController {
 			model.addAttribute("monthOverTotal", monthOverTotal);
 		}
 		
-		
 //		System.out.println(weekCoList);
 //		System.out.println(weekOwList);
 //		System.out.println(monCoList);
@@ -383,11 +350,11 @@ public class CommuteController {
 	
 	@ResponseBody
 	@RequestMapping(value="commuteTable.co", produces="application/json; charset=utf-8")
-	public String commuteTable(@RequestParam("year") int year, @RequestParam("month") int month, @RequestParam("last") int last) {
+	public String commuteTable(@RequestParam("year") int year, @RequestParam("month") int month, @RequestParam("last") int last, HttpSession session) {
 
-//		Member loginUser = ((Member)session.getAttribute("loginUser"));
-//		String memberNo = loginUser.getmCode();
-		String memberNo = "MaCo2";
+		Member loginUser = ((Member)session.getAttribute("loginUser"));
+		String memberNo = loginUser.getmCode();
+//		String memberNo = "MaCo2";
 		
 		String selectedMonthStart = year+"/"+month+"/"+"01";
 		String selectedMonthEnd = year+"/"+month+"/"+last;
@@ -463,9 +430,9 @@ public class CommuteController {
 	@ResponseBody
 	@RequestMapping("owInsert.co")
 	public String overworkInsert(@ModelAttribute Overwork ow, HttpSession session) throws CommuteException {
-//		Member loginUser = ((Member)session.getAttribute("loginUser"));
-//		String memberNo = loginUser.getmCode();
-		String memberNo = "MaCo2";
+		Member loginUser = ((Member)session.getAttribute("loginUser"));
+		String memberNo = loginUser.getmCode();
+//		String memberNo = "MaCo2";
 		
 		ow.setMemberNo(memberNo);
 		
@@ -481,9 +448,9 @@ public class CommuteController {
 	@ResponseBody
 	@RequestMapping(value="overworkList.co", produces="application/json; charset=utf-8")
 	public String overworkTable(HttpSession session) {
-//		Member loginUser = ((Member)session.getAttribute("loginUser"));
-//		String memberNo = loginUser.getmCode();
-		String memberNo = "MaCo2";
+		Member loginUser = ((Member)session.getAttribute("loginUser"));
+		String memberNo = loginUser.getmCode();
+//		String memberNo = "MaCo2";
 		
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("memberNo", memberNo);
@@ -500,17 +467,18 @@ public class CommuteController {
 	}
 	
 	@RequestMapping("overworkDetailView.co")
-	public String overworkFull(Model model) {
-//		Member loginUser = ((Member)session.getAttribute("loginUser"));
-//		String memberNo = loginUser.getmCode();
-		String memberNo = "MaCo2";
+	public String overworkFull(Model model, HttpSession session) {
+		Member loginUser = ((Member)session.getAttribute("loginUser"));
+		String memberNo = loginUser.getmCode();
+//		String memberNo = "MaCo2";
 		
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("memberNo", memberNo);
 		
 		ArrayList<Overwork> list = coService.overworkList(map);
-		
 		if(list != null) {
+			Collections.reverse(list);
+			
 			model.addAttribute("list", list);			
 		}
 		

@@ -66,7 +66,7 @@
 	                                    </div>
 	                                    <div class="card-block p-b-10 p-l-30 p-r-30">
 	                                        <div class="table-responsive">
-	                                            <table class="table table-hover">
+	                                            <table class="table">
 	                                                <thead>
 	                                                    <tr>
 	                                                        <th>구분</th>
@@ -96,12 +96,17 @@
 	                                                 		<td>${ow.overworktime}</td>
 	                                                 		<td>${ow.overworkContent}</td>
 	                                                 		<td>
-	                                                 			<c:if test="${ow.approval == 'Y'}">
-	                                                 				승인
-	                                                 			</c:if>
-	                                                 			<c:if test="${ow.approval == 'N'}">
-	                                                 				대기
-	                                                 			</c:if>
+	                                                 			<c:choose>	
+																	<c:when test="${ow.approval == 'Y'}">
+																		<div style="background-color:rgba(13, 110, 253, 0.1); color:#0D6EFD; border-radius: 10px; width:40px; display: inline-block">승인</div>
+																	</c:when>
+																	<c:when test="${ow.approval == 'N'}">
+																		<div style="background-color:rgba(226, 54, 54, 0.1); color:#E23636; border-radius: 10px; width:40px; display: inline-block">반려</div>
+																	</c:when>
+																	<c:when test="${ow.approval == 'W'}">
+																		<div style="background-color:rgba(0, 177, 89, 0.1); color:#00b159; border-radius: 10px; width:40px; display: inline-block">대기</div>
+																	</c:when>
+		                                            			</c:choose>
 	                                                 		</td>
 	                                                		</tr>
 	                                                	</c:forEach>

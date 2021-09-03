@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -60,6 +61,7 @@ public class LeaveController {
 		// 연차 생성
 		ArrayList<LeaveAnnual> annualList = leService.selectAnnual(memberNo);
 		if(annualList != null) {
+			Collections.reverse(annualList);
 			model.addAttribute("annualList", annualList);
 
 			double annualTotal = 0;
@@ -82,6 +84,7 @@ public class LeaveController {
 		// 연차 사용
 		ArrayList<LeaveUsed> leaveList = leService.selectLeave(memberNo);
 		if(leaveList != null) {
+			Collections.reverse(leaveList);
 			model.addAttribute("leaveList", leaveList);
 			
 			double usedTotal = 0;
@@ -93,8 +96,8 @@ public class LeaveController {
 			model.addAttribute("usedTotal", usedTotal);
 		}
 		
-		System.out.println("생성연차 : " + annualList);
-		System.out.println("신청내역 : " + leaveList);
+//		System.out.println("생성연차 : " + annualList);
+//		System.out.println("신청내역 : " + leaveList);
 		
 		return "leaveDetailView";
 	}
