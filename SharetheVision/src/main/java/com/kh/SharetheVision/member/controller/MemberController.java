@@ -87,7 +87,16 @@ public class MemberController {
 	public void sendEmail(String email, int random) {
 		
 		String subject = "[SV Company] 비밀번호 변경 인증번호 입니다.";
-		String content = "<h4> 문의하신 메일 인증번호는 "+ random + "입니다 </h4>";
+		String content = "<div style='text-align:center;'>"
+						+"<h1>인증번호를 알려드립니다.</h1><br><hr style='width: 50%;'><br>"
+						+"<h3>안녕하세요. SV Company 입니다.</h3><br>"
+						+"요청하신 인증번호를 다음과 같이 알려 드립니다.<br>"
+						+"<font color='blue;'>인증번호를 진행 중인 화면에 입력해 주세요.</font><br>"
+						+"인증번호는 메일이 발송된 시점부터 <b>3분간 유효</b>합니다."
+						+"<br><br><hr style='width: 50%;'><br>"
+						+"<div style='text-align:center;'><b>인증번호 : <font color='skyblue'>" + random + "</font></b></div>"
+						+"<br><hr style='width: 50%;'><br><br>"
+						+"Share the Vision을 이용해 주셔서 감사합니다.</div>";
 		String from = "SVCompany0812@gmail.com";
 		String to = email;
 		
@@ -328,8 +337,10 @@ public class MemberController {
 		
 		try {
 			if(check) {
-				response.getWriter().println(1);
-			} 
+				response.getWriter().println(true);
+			} else {
+				response.getWriter().println(false);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

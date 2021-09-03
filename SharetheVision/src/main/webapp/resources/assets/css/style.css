@@ -13696,7 +13696,7 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
 }
 
 .widget-card-1 {
-	margin-top: 40px;
+	margin-top: -10px !important;
 	text-align: right;
 }
 
@@ -20531,7 +20531,6 @@ px
 }
 
 .to-do-list {
-	border-bottom: 1px solid #ddd;
 	padding-bottom: 10px;
 	margin-bottom: 20px;
 }
@@ -20578,6 +20577,12 @@ px
 .done-task span, .done-task .captions {
 	color: #919aa3;
 	text-decoration: line-through;
+}
+#addTodo{
+    border: none;
+    width: 28em;
+    overflow: hidden;
+    margin: 0 10px;
 }
 
 /**====== Todo css end ======**/

@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.SharetheVision.firstmain.model.vo.Calendar;
+import com.kh.SharetheVision.firstmain.model.vo.Todo;
 
 @Repository("cdao")
 public class CalendarDAO {
@@ -16,26 +17,31 @@ public class CalendarDAO {
 		return sqlSession.insert("calendarMapper.addCal",c);
 	}
 
-	public List<Calendar> listCal(SqlSessionTemplate sqlSession, String mcode, String deptNo, String sDate, String eDate) {	
-		HashMap<String, String> mapData = new HashMap<String, String>();
-		List<Calendar> calendarList = new ArrayList<Calendar>(); 
-		mapData.put("mcode", mcode);
-		mapData.put("deptNo", deptNo);
-		mapData.put("sDate", sDate);
-		mapData.put("eDate", eDate);
-		
-		calendarList = sqlSession.selectList("calendarMapper.listCal",mapData);		
-		return calendarList;
+	public List<Calendar> listCal(SqlSessionTemplate sqlSession, HashMap<String, String> mapData) {
+		return sqlSession.selectList("calendarMapper.listCal",mapData);		
 	}
 
 	public int updateCal(SqlSessionTemplate sqlSession, Calendar c) {		
 		return  sqlSession.update("calendarMapper.updateCal",c);
 	}
 
-	public int deleteCal(SqlSessionTemplate sqlSession, String no) {
-		return sqlSession.update("calendarMapper.deleteCal",no);
+	public int deleteCal(SqlSessionTemplate sqlSession, Calendar c) {
+		return sqlSession.update("calendarMapper.deleteCal",c);
 	}
 
+	public ArrayList<Todo> listTodo(SqlSessionTemplate sqlSession, String mcode) {
+		return (ArrayList)sqlSession.selectList("calendarMapper.listTodo", mcode);
+	}
 
-	
+	public int insertTodo(SqlSessionTemplate sqlSession, Todo todo) {
+		return sqlSession.insert("calendarMapper.insertTodo",todo);
+	}
+
+	public int updateTodo(SqlSessionTemplate sqlSession, Integer dchNo) {
+		return sqlSession.update("calendarMapper.updateTodo",dchNo);
+	}
+
+	public int deleteTodo(SqlSessionTemplate sqlSession, Integer dchNo) {
+		return sqlSession.update("calendarMapper.deleteTodo",dchNo);
+	}
 }

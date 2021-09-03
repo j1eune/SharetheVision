@@ -55,7 +55,7 @@
                 <div class="col-sm-12">
                     <!-- Authentication card start -->
                     <div class="login-card card-block auth-body mr-auto ml-auto">
-                        <form onsubmit="return randomCheck();"action="updatePwdForm.me" method="post" class="md-float-material">
+                        <form onsubmit="return randomNumCheck();"action="updatePwdForm.me" method="post" class="md-float-material">
 <!--                             <div class="text-center"> -->
 <!--                                 <img src="resources/assets/images/loginLogo.png" alt="logo.png" style="width:80%;"> -->
 <!--                             </div> -->
@@ -78,7 +78,7 @@
                                 </div>
                                 <div class="row m-t-30">
                                     <div class="col-md-12">
-                                        <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" onclick="randomCheck();">인증번호 입력</button>
+                                        <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">인증번호 입력</button>
                                     </div>
                                 </div>
                                 <hr/>
@@ -115,7 +115,8 @@
 	        if (this.comSecond < 0) {			// 시간이 종료 되었으면..
 	            clearInterval(this.timer);		// 타이머 해제
 	            alert("인증시간이 초과하였습니다. 다시 인증해주시기 바랍니다.");
-	            location.href="findPwdForm.me";
+// 	            location.href="findPwdForm.me";
+				location.href="javascript:history.go(-1)";
 	        }
 	    }
 	    ,fnStop : function(){
@@ -134,7 +135,7 @@
 
 	count = 1;
 	
-	function randomCheck(){
+	function randomNumCheck(){
 		var ran1 = document.getElementById("random").value;
 		var ran2 = document.getElementById("inputRandom").value;
 		

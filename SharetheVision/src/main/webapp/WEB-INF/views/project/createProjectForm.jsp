@@ -211,7 +211,6 @@
                                                     		진행 중인 프로젝트가 없습니다.
                                                     	</c:if>
                                                     </div>
-                                                    <br><br>
                                                     <div style="overflow:auto; height: 600px;" class="card-block  projectContent">
                                                     	<h5>완료된 프로젝트</h5><br>
 															<div class="container">
@@ -272,7 +271,7 @@
 								      <div class="pcoded-search" style="text-align:right;">
 							              <span class="searchbar-toggle">  </span>
 							              <div class="pcoded-search-box" style="display:inline-block; text-align:right; margin-right:20px;">
-							                  <input type="text" id="searchMember" size="20" placeholder="Search" value="${search }">
+							                  <input type="text" id="searchMember" size="20" placeholder="이름, 직급으로 검색" value="${search }">
 							                  <span class="search-icon" id="searchBtn"><i class="ti-search" aria-hidden="true"></i></span>
 							              </div>
 							          </div>
@@ -284,7 +283,7 @@
 									      				<td style="width: 10%">&nbsp;</td>
 									      				<td style="width: 20%">이름</td>
 									      				<td style="width: 20%">부서</td>
-									      				<td style="width: 20%">직책</td>
+									      				<td style="width: 20%">직급</td>
 									      				<td style="width: 40%">핸드폰 번호</td>
 									      			</tr>
 								      			</thead>

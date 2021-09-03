@@ -124,7 +124,7 @@
                                                 	<div class="pcoded-search" style="text-align:right;">
 											            <span class="searchbar-toggle">  </span>
 											            <div class="pcoded-search-box" style="display:inline-block; text-align:right; margin-right:20px;">
-											                <input type="text" id="searchMember" size="20" placeholder="Search" value="${search }">
+											                <input type="text" id="searchMember" size="20" placeholder="이름, 직급으로 검색" value="${search }">
 											                <span class="search-icon" id="searchBtn"><i class="ti-search" aria-hidden="true"></i></span>
 											            </div>
 											        </div>
