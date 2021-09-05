@@ -13,27 +13,40 @@
 		<result column="M_CODE" property="memberCode"/>
 		<result column="DEPT_NO" property="deptNo"/>
 		<result column="B_WRITER" property="boardWriter"/>
-		<result column="P_NAME" property="project"/>
+		<result column="PROJECT" property="project"/>
+	</resultMap>
+	
+	<resultMap type="Attachment" id="attachmentResultSet">
+		<id column="AT_NO" property="atNo"/>
+		<result column="AT_LEVEL" property="atLevel"/>
+		<result column="AT_CATEGORY" property="atCategory"/>
+		<result column="AT_PATH" property="atPath"/>
+		<result column="AT_ORIGIN" property="atOrigin"/>
+		<result column="AT_CHANGE" property="atChange"/>
+		<result column="AT_EXTENTION" property="atExtention"/>
+		<result column="AT_STATUS" property="atStatus"/>
 	</resultMap>
 
 	<select id="selectListCount" resultType="_int">
 		select count(*)
 		from board
-		where b_status = 'Y'
+		where b_status = 'Y' and dept_no = #{deptNo}
 	</select>
 	
 	<select id="selectBoardList" resultMap="boardResultSet">
+		<!-- v -->
 		select *
-		from v_board
+		from board
 		where b_status = 'Y' and dept_no = #{deptNo}
 		order by b_no desc
 	</select>
 
 	<select id="selectNewBoard" resultMap="boardResultSet">
+		<!-- v -->
 		<![CDATA[
 			select *
 			from (select *
-				  from v_board
+				  from board
 				  where b_type=2 and dept_no=#{deptNo} and b_status='Y'
 				  order by b_no desc)
 			where rownum <= 3
@@ -41,8 +54,9 @@
 	</select>
 	
 	<select id="selectBoardDetail" resultMap="boardResultSet">
+		<!-- v -->
 		select *
-		from v_board
+		from board
 		where b_status='Y' and b_no=#{bId}
 	</select>
 	
@@ -125,5 +139,50 @@
 		from board
 		where b_status='N' and b_no=#{bId}
 	</select>
+	
+	<select id="selectSearchBoard" resultMap="boardResultSet">
+		select *
+		from board
+		<if test="category == 'title'">
+		where b_title like '%'||#{word}||'%'
+		</if>
+		<if test="category == 'project'">
+		where project like '%'||#{word}||'%'
+		</if>
+		<if test="category == 'writer'">
+		where b_writer like '%'||#{word}||'%'
+		</if>
+		and dept_no = #{deptNo} and b_status = 'Y'
+		order by b_no desc
+	</select>
+	
+	<select id="selectSearchListCount" resultType="_int">
+		select count(*)
+		from board
+		<if test="category == 'title'">
+		where b_title like '%'||#{word}||'%'
+		</if>
+		<if test="category == 'project'">
+		where project like '%'||#{word}||'%'
+		</if>
+		<if test="category == 'writer'">
+		where b_writer like '%'||#{word}||'%'
+		</if>
+		and dept_no = #{deptNo} and b_status = 'Y'
+	</select>
+	
+	<select id="selectAttechedFile" resultMap="attachmentResultSet">
+		select *
+		from attachments
+		where at_level = 3 and at_category = #{bId}
+	</select>
+	
+	<update id="deleteBoard">
+		update board set b_status = 'N' where b_no = #{bId}
+	</update>
+	
+	<update id="deleteBoardAttachFile">
+		update attachments set at_status = 'N' where at_level = 3 and at_category = #{bId}
+	</update>
 	
 </mapper>

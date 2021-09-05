@@ -13,18 +13,20 @@
       <meta name="description" content="CodedThemes">
       <meta name="keywords" content=" Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
       <meta name="author" content="CodedThemes">
-      <!-- Google font-->
-      <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
-      <!-- Required Fremwork -->
-      <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
-      <!-- themify-icons line icon -->
-      <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
-      <!-- ico font -->
-      <link rel="stylesheet" type="text/css" href="assets/icon/icofont/css/icofont.css">
-      <!-- Style.css -->
-      <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-      <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
+<!--       Google font -->
+<!--       <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet"> -->
+<!--       Required Fremwork -->
+<!--       <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css"> -->
+<!--       themify-icons line icon -->
+<!--       <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css"> -->
+<!--       ico font -->
+<!--       <link rel="stylesheet" type="text/css" href="assets/icon/icofont/css/icofont.css"> -->
+<!--       Style.css -->
+<!--       <link rel="stylesheet" type="text/css" href="assets/css/style.css"> -->
+<!--       <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css"> -->
    	  <jsp:include page="/WEB-INF/views/common/common.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/font.jsp"/>
+	<script src="https://unpKg.com/sweetalert/dist/sweetalert.min.js"></script>
   
     <style>
 
@@ -53,18 +55,17 @@
     }
 
     .boardList-search-position {
-        width: 250px;
         height: 30px;
         float: right;
         position: absolute;
         bottom: 7px;
         right: 20px;
         display: flex;
+        flex-direction: row;
         font-size: 12px;
     }
 
     .boardList-search-box {
-        width: 250px;
         height: 30px;
         position: relative;
     }
@@ -79,10 +80,12 @@
     .board-search {
         position: absolute;
         top: 50%;
-        right: 5px;
+        right: -10px;
         transform: translate(-50%, -50%);
         margin-top: 0 !important;
         cursor: pointer;
+        border: none;
+        background: #fff;
     }
 
     .boardList-card {
@@ -122,6 +125,17 @@
        
 	.boardList-page-box i {
 		cursor: pointer;
+	}
+	
+	.searchOption {
+		width: 90px;
+		height: 30px;
+		margin-right: 10px;
+		padding-left: 5px;
+		font-size: 12px;
+		border-color: #ccc;
+		color: #444;
+		border-radius: 2px;
 	}
 	
 	.project-name {
@@ -170,6 +184,14 @@
 	.project-name-color {
 		color: blue;
 		font-weight: 600;
+	}
+	
+	.emptyList {
+		text-align: center;
+		pointer-events: none;
+		color: #666;
+		height: 60px;
+		line-height: 60px;	
 	}
 
     </style>
@@ -257,11 +279,18 @@
 
                                     <div class="card boardList-card">
                                         <div class="card-header card-header-position">
-                                            <h5>부서별 자료실</h5>
+                                            <h5 style="margin-left: 10px;">${ boardListTitle }</h5>
                                             <div class="boardList-search-position">
                                                 <div class="pcoded-search-box boardList-search-box">
-                                                    <input type="text" placeholder="Search" class="boardList-search">
-                                                    <span class="search-icon board-search"><i class="ti-search" aria-hidden="true"></i></span>
+	                                                <form action="boardSearch.bo" method="post">
+	                                                	<select class="searchOption" name="category">
+	                                                		<option value="title">제목</option>
+	                                                		<option value="project">프로젝트</option>
+	                                                		<option value="writer">작성자</option>
+	                                                	</select>
+	                                                    <input type="text" placeholder="Search" name="word" class="boardList-search">
+	                                                    <button class="search-icon board-search"><i class="ti-search" aria-hidden="true"></i></span></button>
+	                                                </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -270,14 +299,14 @@
                                                 <table class="table table-hover board-table">
                                                     <thead>
                                                         <tr>
-                                                            <th></th>
-                                                            <th>프로젝트 명</th>
-                                                            <th>제목</th>
+                                                            <th class="project-no"></th>
+                                                            <th class="project-name">프로젝트 명</th>
+                                                            <th class="project-title">제목</th>
                                                             <th>작성자</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                       <c:if test="${ empty list }">
+                                                       <c:if test="${ !empty board }">
 	                                                    	<c:forEach var="board" items="${ board }">
 		                                                        <tr>
 		                                                        <c:url var="boardDetail" value="boardDetail.bo">
@@ -289,11 +318,26 @@
 		                                                        </tr>
 	                                                        </c:forEach>
                                                         </c:if>
-                                                        <c:if test="${ !empty list }">
+                                                        <c:if test="${ empty board }">
                                                         	<tr>
                                                         		<td colspan="4" class="emptyList">등록된 게시물이 없습니다.</td>
                                                         	</tr>
                                                         </c:if>
+<%-- 														<c:forEach var="board" items="${ board }"> --%>
+<!-- 															<tr> -->
+<%-- 																<c:if test="${ !empty board }"> --%>
+<%-- 																	<c:url var="boardDetail" value="boardDetail.bo"> --%>
+<%-- 			                                                        </c:url> --%>
+<%-- 																	<td scope="row" class="board-no-align">${ board.boardNo }</td> --%>
+<%-- 		                                                            <td class="project-name-color">[ ${ board.project } ]</td> --%>
+<%-- 		                                                            <td>${ board.boardTitle }</td> --%>
+<%-- 		                                                            <td>${ board.boardWriter }</td> --%>
+<%-- 		                                                        </c:if> --%>
+<!-- 															</tr> -->
+<%-- 														</c:forEach> --%>
+<%--                                                         <c:if test="${ empty board }"> --%>
+<!--                                                         	<td colspan="4" class="emptyList">등록된 게시물이 없습니다.</td> -->
+<%--                                                         </c:if> --%>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -388,45 +432,68 @@
         </div>
 	</div>
 
-<!-- Warning Section Ends -->
-<!-- Required Jquery -->
-<script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>
-<script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
-<script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js"></script>
-<!-- jquery slimscroll js -->
-<script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
-<!-- modernizr js -->
-<script type="text/javascript" src="assets/js/modernizr/modernizr.js"></script>
-<!-- am chart -->
-<script src="assets/pages/widget/amchart/amcharts.min.js"></script>
-<script src="assets/pages/widget/amchart/serial.min.js"></script>
-<!-- Todo js -->
-<script type="text/javascript " src="assets/pages/todo/todo.js "></script>
-<!-- Custom js -->
-<script type="text/javascript" src="assets/pages/dashboard/custom-dashboard.js"></script>
-<script type="text/javascript" src="assets/js/script.js"></script>
-<script type="text/javascript " src="assets/js/SmoothScroll.js"></script>
-<script src="assets/js/pcoded.min.js"></script>
-<script src="assets/js/demo-12.js"></script>
-<script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<!-- <!-- Warning Section Ends --> -->
+<!-- <!-- Required Jquery --> -->
+<!-- <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script> -->
+<!-- <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script> -->
+<!-- <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script> -->
+<!-- <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js"></script> -->
+<!-- <!-- jquery slimscroll js --> -->
+<!-- <script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script> -->
+<!-- <!-- modernizr js --> -->
+<!-- <script type="text/javascript" src="assets/js/modernizr/modernizr.js"></script> -->
+<!-- <!-- am chart --> -->
+<!-- <script src="assets/pages/widget/amchart/amcharts.min.js"></script> -->
+<!-- <script src="assets/pages/widget/amchart/serial.min.js"></script> -->
+<!-- <!-- Todo js --> -->
+<!-- <script type="text/javascript " src="assets/pages/todo/todo.js "></script> -->
+<!-- <!-- Custom js --> -->
+<!-- <script type="text/javascript" src="assets/pages/dashboard/custom-dashboard.js"></script> -->
+<!-- <script type="text/javascript" src="assets/js/script.js"></script> -->
+<!-- <script type="text/javascript " src="assets/js/SmoothScroll.js"></script> -->
+<!-- <script src="assets/js/pcoded.min.js"></script> -->
+<!-- <script src="assets/js/demo-12.js"></script> -->
+<!-- <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script> -->
 <script>
-var $window = $(window);
-var nav = $('.fixed-button');
-    $window.scroll(function(){
-        if ($window.scrollTop() >= 200) {
-         nav.addClass('active');
-     }
-     else {
-         nav.removeClass('active');
-     }
- });
+	var $window = $(window);
+	var nav = $('.fixed-button');
+	    $window.scroll(function(){
+	        if ($window.scrollTop() >= 200) {
+	         nav.addClass('active');
+	     }
+	     else {
+	         nav.removeClass('active');
+	     }
+	 });
 </script>
 <script>
  	$(function(){
  		$('.board-table').find("td").click(function() {
-			var bId = $(this).parents().children("td").eq(0).text(); 			
- 			location.href="boardDetail.bo?bId="+bId;
+			var bId = $(this).parents().children("td").eq(0).text(); 		
+			
+			$.ajax({
+	 			url: 'boardStatus.bo',
+	 			data: {bId: bId, current: 'list'},
+	 			success: function(data) {
+	 				var data1 = $.trim(data);
+	 				if (data1 == '삭제') {
+	 					swal({
+	 						title: "잠깐!",
+	 						text: "삭제된 게시글입니다. 스크랩 목록에서 삭제됩니다.",
+	 						icon: "error",
+	 						dangerMode: true,
+	 					})
+	 					.then((willDelete) => {
+	 						if (willDelete) {
+								location.href="alertDeleteScrap.bo?bId="+bId+"&current=boardScrapList";
+	 						}
+	 					})
+	 				} else if (data1 == '존재') {
+						location.href="boardDetail.bo?bId="+bId;
+	 				}
+	 			}
+	 		})
+	 		
  		});
  	});
 </script>
