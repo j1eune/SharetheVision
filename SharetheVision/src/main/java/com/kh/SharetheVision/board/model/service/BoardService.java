@@ -50,6 +50,10 @@ public interface BoardService {
 	int deleteBoard(int bId);
 
 	int deleteBoardAttachFile(int bId);
+
+	int changeBoard(HashMap<String, Object> map);
+
+	int deleteProjectScrap(HashMap<String, Object> map);
 	
 
 }

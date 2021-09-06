@@ -123,5 +123,15 @@ public class BoardServiceImpl implements BoardService {
 		return DAO.deleteBoardAttachFile(sqlSession, bId);
 	}
 
+	@Override
+	public int changeBoard(HashMap<String, Object> map) {
+		return DAO.changeBoard(sqlSession, map);
+	}
+
+	@Override
+	public int deleteProjectScrap(HashMap<String, Object> map) {
+		return DAO.deleteProjectScrap(sqlSession, map);
+	}
+
 	
 }

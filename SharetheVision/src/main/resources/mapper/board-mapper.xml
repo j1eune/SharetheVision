@@ -185,4 +185,23 @@
 		update attachments set at_status = 'N' where at_level = 3 and at_category = #{bId}
 	</update>
 	
+	<update id="changeBoard">
+		UPDATE BOARD
+		<if test="condition == 1">
+		SET B_STATE = 2
+		</if>
+		<if test="condition == 2">
+		SET B_STATE = 1
+		</if>
+		<if test="condition == 3">
+		SET B_STATUS = 'N'
+		</if>
+		WHERE PROJECT = #{projectName}
+	</update>
+	
+	<delete id="deleteProjectScrap">
+		DELETE
+		FROM SCRAP
+		WHERE PROJECT = #{projectName} AND M_CODE = #{mCode}
+	</delete>
 </mapper>

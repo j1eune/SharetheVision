@@ -86,7 +86,7 @@ public class MemberController {
 	
 	public void sendEmail(String email, int random) {
 		
-		String subject = "[SV Company] 비밀번호 변경 인증번호 입니다.";
+		String subject = "[SV Company] 이메일 인증번호 입니다.";
 		String content = "<div style='text-align:center;'>"
 						+"<h1>인증번호를 알려드립니다.</h1><br><hr style='width: 50%;'><br>"
 						+"<h3>안녕하세요. SV Company 입니다.</h3><br>"
@@ -374,5 +374,19 @@ public class MemberController {
 		return "memberList";
 	}
 	
+	@RequestMapping("checkId.me")
+	public void checkId(@RequestParam("mId") String mId, HttpServletResponse response) {
+		Member loginUser = mService.loginMember(mId);
+		try {
+			if(loginUser == null) {
+				response.getWriter().println(true);
+			} else {
+				response.getWriter().println(false);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 }

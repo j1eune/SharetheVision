@@ -3,7 +3,7 @@
 <mapper namespace="projectMapper">
 	<insert id="insertProject">
 		INSERT INTO PROJECT
-		VALUES(SEQ_PRO.NEXTVAL, #{pName}, #{pIntro}, DEFAULT, DEFAULT, 1)
+		VALUES(SEQ_PRO.NEXTVAL, #{pName}, #{pIntro}, DEFAULT, DEFAULT, #{deptNo})
 	</insert>
 	
 	<insert id="insertProjectMember">

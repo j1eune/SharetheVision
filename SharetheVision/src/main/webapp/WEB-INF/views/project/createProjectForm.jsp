@@ -65,6 +65,11 @@
  		.projectContent::-webkit-scrollbar-track{
  			background-color: white;
  		}
+ 		.projectName:hover{
+ 			cursor:pointer;
+			color: blue;
+			font-weight: bold; 			
+ 		}
 	</style>
 	
 </head>
@@ -156,7 +161,6 @@
 															   					<td style="width:20%">${loginUser.jobName }</td>
 															   					<td style="width:20%">${loginUser.deptName }</td>
 															   					<td style="width:30%">${loginUser.phone }</td>
-															   					<td style="width:10%"><i class="icofont icofont-ui-close icofont-xs deleteIcon"></i></td>
 															   				</tr>
 															   			</tbody>
 															   		</table>
@@ -172,7 +176,7 @@
 														 </form>
                                                     </div>
                                                     <br>
-                                                    <div style="overflow:auto; height: 600px;" class="card-block projectContent">
+                                                    <div style="overflow:auto; height: 350px;" class="card-block projectContent">
 	                                                   	<h5>진행중인 프로젝트</h5><br>
 															<div class="container">
 															    <div class="row">
@@ -181,7 +185,7 @@
 																			<c:if test="${pro.pEnd eq 'N'}">
 																		        <div class="col-md-3 m-2" style="box-shadow: 2px 2px 1px 1px lightgray; height: 200px; border-radius: 20px; overflow: auto;">
 																		        	<input type="hidden" name="pNo" value="${pro.pNo }"/>
-																		        	<div style="text-align:left">
+																		        	<div style="text-align:left" class="projectName">
 																		        		${pro.pName }
 																		        	</div>
 																		        	<div style="text-align:right;">
@@ -211,7 +215,8 @@
                                                     		진행 중인 프로젝트가 없습니다.
                                                     	</c:if>
                                                     </div>
-                                                    <div style="overflow:auto; height: 600px;" class="card-block  projectContent">
+                                                    <div style="border-bottom:1px solid black; display: inline-block; width:90%; margin:auto;"></div>
+                                                    <div style="overflow:auto; height: 350px;" class="card-block  projectContent">
                                                     	<h5>완료된 프로젝트</h5><br>
 															<div class="container">
 															    <div class="row">
@@ -220,7 +225,7 @@
 																			<c:if test="${pro.pEnd eq 'Y' }">
 																		        <div class="col-md-3 m-2" style="box-shadow: 2px 2px 1px 1px lightgray; height: 200px; border-radius: 20px; overflow: auto;">
 																		        	<input type="hidden" name="pNo" value="${pro.pNo }"/>
-																		        	<div style="text-align:left;">
+																		        	<div style="text-align:left;" class="projectName">
 																		        		${pro.pName }
 																		        	</div>
 																		        	<div style="text-align:right;">
@@ -450,12 +455,12 @@
 	$(document).ready(function(){
 		$(".completeBtn").bind("click", function(){
 			var pNo = $(this).parent().parent().children('input').val();
+			var projectName = $(this).parent().prev().text().trim();
+			
 			var condition = 1;
-			console.log("pNo : ");
-			console.log(pNo);
 			$.ajax({
 				url:"changeProject.pr",
-				data: {pNo: pNo, condition: condition},
+				data: {pNo: pNo, condition: condition, projectName:projectName},
 				success: function(data){
 					console.log(data);
 					if(data == 1){
@@ -468,13 +473,13 @@
 		});
 		
 		$(".progressBtn").bind("click", function(){
-			console.log("진행 버튼");
 			var pNo = $(this).parent().parent().children('input').val();
-			console.log(pNo);
+			var projectName = $(this).parent().prev().text().trim();
+			
 			var condition = 2;
 			$.ajax({
 				url:"changeProject.pr",
-				data: {pNo: pNo, condition:condition},
+				data: {pNo: pNo, condition:condition, projectName:projectName},
 				success: function(data){
 					console.log(data);
 					if(data == 1){
@@ -487,27 +492,38 @@
 		});
 		
 		$(".deleteBtn").bind("click", function(){
-			console.log("삭제 버튼");
+			
 			var pNo = $(this).parent().parent().children('input').val();
-			console.log(pNo);
+			var projectName = $(this).parent().prev().text().trim();
+			
 			var condition = 3;
-			$.ajax({
-				url:"changeProject.pr",
-				data: {pNo: pNo, condition:condition},
-				success: function(data){
-					console.log(data);
-					if(data == 1){
-						location.href="createProjectForm.pr";
-					} else {
-						alert("프로젝트 삭제에 실패하였습니다.");
+			if(confirm(projectName + " 을(를) 삭제하시겠습니까?")){
+				$.ajax({
+					url:"changeProject.pr",
+					data: {pNo: pNo, condition:condition, projectName:projectName},
+					success: function(data){
+						console.log(data);
+						if(data == 1){
+							location.href="createProjectForm.pr";
+						} else {
+							alert("프로젝트 삭제에 실패하였습니다.");
+						}
 					}
-				}
-			});
+				});
+			}
 		});
 		
 		
 	})
 	
+	// 프로젝트 검색으로 연결
+	$(".projectName").bind("click",function(){
+		var category = 'project';
+		var word = $(this).text().trim();
+		
+		location.href="boardSearch.bo?category="+category+"&word="+word;
+				
+	});
 	
 
 

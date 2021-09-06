@@ -102,4 +102,12 @@ public class BoardDAO {
 		return sqlSession.update("boardMapper.deleteBoardAttachFile", bId);
 	}
 
+	public int changeBoard(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.update("boardMapper.changeBoard",map);
+	}
+
+	public int deleteProjectScrap(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.delete("boardMapper.deleteProjectScrap",map);
+	}
+
 }

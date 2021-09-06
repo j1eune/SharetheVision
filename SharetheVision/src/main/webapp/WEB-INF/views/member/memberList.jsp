@@ -262,9 +262,15 @@
 												      </select>
 												    </div>
 											    </div>
-												<div class="form-group">
-												    <label for="inputAddress2">아이디</label>
-												    <input type="text" class="form-control" name="mId" required id="inputAddress2" placeholder="Id">
+												<div class="form-row">
+													<div class="form-group col-md-8">
+													    <label for="inputAddress2">아이디</label>
+													    <input type="text" class="form-control" name="mId" onkeyup="checkId();" required id="inputId" placeholder="Id">
+													</div>
+													<div class="form-group col-md-4">
+														<label for="inputAddress2"></label><br><br>&nbsp;&nbsp;
+													    <div id="checkInputId" style="display:inline-block;"></div>
+													</div>
 												</div>
 												<div class="form-row">
 													<div class="form-group col-md-8">
@@ -306,7 +312,7 @@
 												</div>
 									      </div>
 									      <div class="modal-footer">
-									        <button type="submit" class="btn btn-danger" onclick="insertMember()">사원 추가하기</button>&nbsp;&nbsp;
+									        <button type="submit" class="btn btn-danger">사원 추가하기</button>&nbsp;&nbsp;
 									        <button type="button" class="btn btn-inverse btn-outline-inverse" data-dismiss="modal">취소</button>
 									      </div>
 									    </div>
@@ -408,11 +414,8 @@
 		
 		function checkRandom(){
 			var check = $("#checkRandomInput").val();
-			console.log("check : " + check);
 			var random = $("#randomInput").val();
-			console.log("random : " + random);
 			
-			console.log(random == check);
 			if(count < 6){
 				if(check == random){
 					console.log("일치함");
@@ -424,6 +427,7 @@
 					alert("인증번호가 일치하지 않습니다.[재시도 가능 횟수](" + count + "/6)");
 					$("#checkCount").text("메일 인증에 실패하였습니다.");
 					$("#checkCount").css("color","red");
+					emailCheck = false;
 					count++;
 				}
 			} else {
@@ -433,6 +437,8 @@
 			
 		}
 		
+		inputPhone = false;
+		
 		//전화번호 정규식
 		function checkPhone(){
 			var regExp = /^\d{3}-\d{3,4}-\d{4}$/;
@@ -440,16 +446,25 @@
 			
 			var check = regExp.test(phone);
 			if(!check){
+				inputPhone = false;
 				alert("전화번호 양식을 확인해주세요.");
+			} else {
+				inputPhone = true;
 			}
 			
 		}
 		
 		function insertMember(){
-			if(emailCheck){
+			if(emailCheck && inputId && inputPhone){
 				return true;
-			} else {
-				alert("이메일을 인증해주세요.");
+			} else if(!inputId){
+				alert("아이디가 중복되었습니다.");
+				return false;
+			} else if(!emailCheck){
+				alert("이메일을 인증 해주세요.");
+				return false;
+			} else if(!inputPhone){
+				alert("전화번호 양식을 확인해주세요.");
 				return false;
 			}
 		}
@@ -460,8 +475,32 @@
 			location.href="searchMember.me?search="+search;
 			
 		});
+
+		inputId = false;
 		
-		
+		//아이디 중복체크
+		function checkId(){
+			var mId = $("#inputId").val();
+			
+			$.ajax({
+				url:"checkId.me",
+				data:{mId:mId},
+				success:function(data){
+					if(data.trim() == 'true'){
+						inputId = true;
+						$("#checkInputId").text('아이디 중복 확인');
+						$("#checkInputId").css("color","blue");
+					} else {
+						inputId = false;
+						$("#checkInputId").text('아이디가 중복됩니다.');
+						$("#checkInputId").css("color","red");
+					}
+				},
+				error:function(data){
+					console.log("아이디 중복체크 실패");
+				}
+			})
+		}
 		
 		
 	</script>
