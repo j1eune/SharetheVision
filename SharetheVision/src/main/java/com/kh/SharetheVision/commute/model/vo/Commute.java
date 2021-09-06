@@ -10,6 +10,7 @@ public class Commute {
 	private String commuteStart;
 	private String commuteEnd;
 	private double worktime;
+	private int status;
 	
 	public Commute() {}
 
@@ -60,12 +61,20 @@ public class Commute {
 	public void setWorktime(double worktime) {
 		this.worktime = worktime;
 	}
+	
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
 
 	@Override
 	public String toString() {
 		return "Commute [commuteNo=" + commuteNo + ", memberNo=" + memberNo + ", enrollDate=" + enrollDate
-				+ ", commuteStart=" + commuteStart + ", commuteEnd=" + commuteEnd + ", worktime=" + worktime + "]";
+				+ ", commuteStart=" + commuteStart + ", commuteEnd=" + commuteEnd + ", worktime=" + worktime
+				+ ", status=" + status + "]";
 	}
 
-	
 }

@@ -100,8 +100,8 @@ public class CommuteController {
 		
 		String memberNo = ((Member)session.getAttribute("loginUser")).getmCode();
 		
-		if(!mCode.equals(memberNo)) {
-			System.out.println("로그인 회원이 아님");
+		if(mCode != null && !mCode.equals(memberNo)) {
+//			System.out.println("로그인 회원이 아님");
 			throw new CommuteException("로그인된 회원이 아닙니다.");
 		}
 		
@@ -109,8 +109,8 @@ public class CommuteController {
 		
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
-		String enterTime = sdf.format(date);
-//		String enterTime = "2021-09-03 08:50:52";
+//		String enterTime = sdf.format(date);
+		String enterTime = "2021-09-06 08:50:36";
 		
 		// 지각 여부
 		int status = 0;
@@ -166,7 +166,7 @@ public class CommuteController {
 			java.util.Date six = sdf2.parse("18:01:00");
 			
 			boolean before = check.before(six);
-
+			
 			// worktime 계산
 			java.util.Date startDate = null;
 			java.util.Date endDate = null;
@@ -179,20 +179,31 @@ public class CommuteController {
 				endDate = sdf.parse(endTemp);
 			}
 			
+			// 휴일 출근 여부
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(date);
+			int dayNum = Calendar.DAY_OF_WEEK;
+			
 			// worktime 계산
-			long diffSec = (endDate.getTime() - startDate.getTime()) / 1000;
-			long hour = diffSec/3600;
-			long min = diffSec%3600/60;
+			if(dayNum == 1 || dayNum == 7) {
+				// 일요일이거나 토요일이면 (overwork에 들어감)
+				workTime = 0.00;
+			} else {
+				long diffSec = (endDate.getTime() - startDate.getTime()) / 1000;
+				long hour = diffSec/3600;
+				long min = diffSec%3600/60;
+				
+				String mins = (min < 10) ? "0"+min : Long.toString(min);
+				String fTime = (hour - 1 + "." + mins);
+				
+				workTime = Double.parseDouble(fTime);
+			}
 			
-			String mins = (min < 10) ? "0"+min : Long.toString(min);
-			String fTime = (hour - 1 + "." + mins);
-			
-			workTime = Double.parseDouble(fTime);
 		
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("enterTime", start);
@@ -207,7 +218,6 @@ public class CommuteController {
 		} else {
 			throw new CommuteException("퇴근 등록에 실패하였습니다.");
 		}
-		
 	}
 	
 	@RequestMapping("changeState.co")
@@ -217,7 +227,6 @@ public class CommuteController {
 		m.setmState(state);
 		
 		int result = coService.changeState(m);
-		System.out.println(result + " 결과 ");
 		if(result > 0) {
 			return "redirect: commuteMain.co";
 		} else {
