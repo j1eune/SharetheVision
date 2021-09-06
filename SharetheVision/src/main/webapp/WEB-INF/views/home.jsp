@@ -60,7 +60,7 @@
                                         <div class="card-block-small">
                                             <i class="icofont icofont-warning-alt bg-c-purple card1-icon"></i>
                                             <span class="text-c-purple f-w-600">연차사용</span>
-                                            <h4>3 / 15</h4>
+                                            <h4>${usedTotal}/${total}</h4>
                                             <div>
                                                 <span class="f-left m-t-10 text-muted">
                                                     <i class="text-c-purple f-16 icofont icofont-tag m-r-10"></i>2021년도
@@ -75,10 +75,11 @@
                                         <div class="card-block-small">
                                             <i class="icofont icofont-pie-chart bg-c-blue card1-icon"></i>
                                             <span class="text-c-blue f-w-600">근태현황</span>
-                                            <h4>97/100%</h4>
+                                            <h4 id="main_commute">${coTotal + owTotal}h/52h</h4>
                                             <div>
                                                 <span class="f-left m-t-10 text-muted">
-                                                    <i class="text-c-blue f-16 icofont icofont-warning m-r-10"></i>지각: 3회
+                                                    <i class="text-c-blue f-16 icofont icofont-warning m-r-10"></i>
+                                                    <span id="main_tardy">지각: ${tardy}회</span>
                                                 </span>
                                             </div>
                                         </div>
@@ -419,6 +420,16 @@ function delete_todo(dchNo){
 }
 
 // 클릭 연계 이벤트 vendor.js 에 추가함        
+</script>
+
+<script>
+	// 연차사용, 근태현황
+	$.ajax({
+// 		url: "commuteChart.co",
+// 		success: function(data){
+			
+		}
+	});
 </script>
 </body>
 </html>

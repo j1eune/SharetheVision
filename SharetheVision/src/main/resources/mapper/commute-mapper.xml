@@ -20,6 +20,7 @@
 		<result column="C_END" property="commuteEnd"/>
 		<result column="C_WORKTIME" property="worktime"/>
 		<result column="M_CODE" property="memberNo"/>
+		<result column="C_STATUS" property="status" />
 	</resultMap>
 	
 	<select id="selectOverwork" resultMap="overworkResultMap">

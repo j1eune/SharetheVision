@@ -12,8 +12,8 @@ import com.kh.SharetheVision.leave.model.vo.LeaveUsed;
 @Repository("leDAO")
 public class LeaveDAO {
 
-	public int insertAnnaul(SqlSessionTemplate sqlSession, ArrayList<LeaveAnnual> list) {
-		return sqlSession.insert("leaveMapper.insertAnnaul", list);
+	public int insertAnnual(SqlSessionTemplate sqlSession, LeaveAnnual la) {
+		return sqlSession.insert("leaveMapper.insertAnnual", la);
 	}
 
 	public ArrayList<LeaveAnnual> selectAnnual(SqlSessionTemplate sqlSession, String memberNo) {

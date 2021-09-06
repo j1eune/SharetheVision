@@ -21,8 +21,14 @@ public class LeaveServiceImpl implements LeaveService {
 	private LeaveDAO leDAO;
 
 	@Override
-	public int insertAnnaul(ArrayList<LeaveAnnual> list) {
-		return leDAO.insertAnnaul(sqlSession, list);
+	public int insertAnnual(ArrayList<LeaveAnnual> list) {
+		
+		int result = 0;
+		for(LeaveAnnual la : list) {
+			result += leDAO.insertAnnual(sqlSession, la);
+		}
+		
+		return result;
 	}
 
 	@Override
