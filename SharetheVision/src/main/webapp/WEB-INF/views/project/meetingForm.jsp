@@ -88,7 +88,8 @@
                                                         <span><i class="icofont icofont-check"></i>회의를 생성하면 초대 URL이 출력됩니다.</span>
                                                         <span><i class="icofont icofont-check"></i>회의를 만든 후 호스트가 입장하지 않으면 회의에 참여할 수 없습니다.</span>
                                                         <span><i class="icofont icofont-check"></i>회의를 생성한 후 입장하기 버튼을 눌러 회의를 활성화 시켜주시기 바랍니다.</span>
-                                                        <span><i class="icofont icofont-check"></i>초대 URL이 출력된 박스를 누르면 URL이 복사됩니다.</span>
+                                                        <span><i class="icofont icofont-check"></i>회의 초대 시간이 만료되면 회의 중지를 누르시고 새로운 회의를 생성해 주시기 바랍니다.</span>
+                                                        <span><i class="icofont icofont-check"></i>초대 URL이 출력된 박스를 클릭하면 URL이 복사됩니다.</span>
                                                         
                                                     </div>
                                                     <div class="card-block" id="contentDiv" style="display:none;">

@@ -1,6 +1,7 @@
 package com.kh.SharetheVision.board.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -23,8 +24,8 @@ public class BoardDAO {
 		return sqlSession.selectOne("boardMapper.selectBoardDetail", bId);
 	}
 
-	public int selectListCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("boardMapper.selectListCount");
+	public int selectListCount(SqlSessionTemplate sqlSession, int deptNo) {
+		return sqlSession.selectOne("boardMapper.selectListCount", deptNo);
 	}
 
 	public ArrayList<Board> selectBoardList(SqlSessionTemplate sqlSession, PageInfo pi, int deptNo) {
@@ -79,5 +80,34 @@ public class BoardDAO {
 		return sqlSession.selectOne("boardMapper.selectBoardStatus", bId);
 	}
 
+	public ArrayList<Board> selectSearchBoard(SqlSessionTemplate sqlSession, PageInfo pi, HashMap<String, Object> map) {
+		int offset = pi.getBoardLimit() * (pi.getCurrentPage() - 1);
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("boardMapper.selectSearchBoard", map, rowBounds);
+	}
+
+	public int selectSearchListCount(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.selectOne("boardMapper.selectSearchListCount", map);
+	}
+
+	public Attachment selectAttechedFile(SqlSessionTemplate sqlSession, int bId) {
+		return sqlSession.selectOne("boardMapper.selectAttechedFile", bId);
+	}
+
+	public int deleteBoard(SqlSessionTemplate sqlSession, int bId) {
+		return sqlSession.update("boardMapper.deleteBoard", bId);
+	}
+
+	public int deleteBoardAttachFile(SqlSessionTemplate sqlSession, int bId) {
+		return sqlSession.update("boardMapper.deleteBoardAttachFile", bId);
+	}
+
+	public int changeBoard(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.update("boardMapper.changeBoard",map);
+	}
+
+	public int deleteProjectScrap(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.delete("boardMapper.deleteProjectScrap",map);
+	}
 
 }

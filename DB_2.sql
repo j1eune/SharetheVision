@@ -428,7 +428,7 @@ COMMIT;
 -----------2021-09-01 Approval 강정환 20:57 -----------------------------
 
 
--- 2021.09.01 17:25 임지은 UPDATE
+----------- 2021.09.01 17:25 임지은 UPDATE
 COMMENT ON COLUMN USED.U_TYPE IS '1:연차 2:반차 3:경조사 4:공가 5:병가 6.특별휴가 7.오전반차 8.오후반차';
 COMMENT ON COLUMN OVERWORK.O_APPROVAL IS 'Y:승인 /  N:반려 / W:대기';
 
@@ -437,12 +437,27 @@ ALTER TABLE OVERWORK MODIFY O_APPROVAL DEFAULT 'W';
 DROP TABLE ADJUST CASCADE CONSTRAINTS;
 
 
--- 2021.09.06 16:40 임지은 UPDATE
+----------- 2021.09.06 16:40 임지은 UPDATE
 -- ANNAUL테이블 컬럼 삭제
 ALTER TABLE ANNUAL DROP COLUMN A_YEAR;
 
 -- APPROVAL NULL 조건 변경
 ALTER TABLE APPROVAL MODIFY (APV_AGR NULL);
 ALTER TABLE APPROVAL MODIFY (APV_REF NULL);
+
+
+----------2021-09-06 강정환 UPDATE-----(ATTACHMENTS) 테이블 AT_LEVEL 4번 추가 , APV_FILE DROP----------------
+
+COMMENT ON COLUMN ATTACHMENTS.AT_LEVEL IS '1 = 회원 프로필 / 2 = 게시판 이미지 / 3= 게시판 첨부파일 / 4= 결재 첨부파일';
+
+DROP TABLE APV_FILE CASCADE CONSTRAINTS;
+
+COMMIT;
+
+COMMENT ON COLUMN APPROVAL.APV_TYPE IS '1 = 휴가 / 2 = 기안서 / 3 = 세금 계산서 / 4 = 보고서 / 5 = 품의서 / 6 = 계획서 / 7 = 신청서';
+
+COMMIT;
+
+-------------2021-09-06 강정환 UPDATE---------------------------
 
 

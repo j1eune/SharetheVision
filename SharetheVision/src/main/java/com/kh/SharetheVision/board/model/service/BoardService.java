@@ -1,6 +1,7 @@
 package com.kh.SharetheVision.board.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.SharetheVision.attachments.model.vo.Attachment;
 import com.kh.SharetheVision.board.model.vo.Board;
@@ -14,7 +15,7 @@ public interface BoardService {
 
 	Board selectBoardDetail(int bId);
 
-	int getListCount();
+	int getListCount(int deptNo);
 
 	ArrayList<Board> selectBoardList(PageInfo pi, int deptNo);
 
@@ -40,5 +41,19 @@ public interface BoardService {
 
 	Board selectBoardStatus(int bId);
 
+	int selectSearchListCount(HashMap<String, Object> map);
+
+	ArrayList<Board> selectSearchBoard(PageInfo pi, HashMap<String, Object> map);
+
+	Attachment selectAttachedFile(int bId);
+
+	int deleteBoard(int bId);
+
+	int deleteBoardAttachFile(int bId);
+
+	int changeBoard(HashMap<String, Object> map);
+
+	int deleteProjectScrap(HashMap<String, Object> map);
+	
 
 }

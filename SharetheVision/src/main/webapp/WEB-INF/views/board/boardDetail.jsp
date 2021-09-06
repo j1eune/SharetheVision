@@ -15,18 +15,20 @@
     <meta name="keywords"
         content=" Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
     <meta name="author" content="CodedThemes">
-    <!-- Google font-->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
-    <!-- Required Fremwork -->
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
-    <!-- themify-icons line icon -->
-    <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
-    <!-- ico font -->
-    <link rel="stylesheet" type="text/css" href="assets/icon/icofont/css/icofont.css">
-    <!-- Style.css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
+<!--     Google font -->
+<!--     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet"> -->
+<!--     Required Fremwork -->
+<!--     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css"> -->
+<!--     themify-icons line icon -->
+<!--     <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css"> -->
+<!--     ico font -->
+<!--     <link rel="stylesheet" type="text/css" href="assets/icon/icofont/css/icofont.css"> -->
+<!--     Style.css -->
+<!--     <link rel="stylesheet" type="text/css" href="assets/css/style.css"> -->
+<!--     <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css"> -->
     <jsp:include page="/WEB-INF/views/common/common.jsp" />
+	<jsp:include page="/WEB-INF/views/common/font.jsp"/>
+	<script src="https://unpKg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <style>
         .boardDetail-box {
@@ -55,16 +57,21 @@
         }
 
         .boardDetail-content-box {
-            height: 70%;
+            height: 80%;
             position: relative;
         }
 
         .boardDetail-btn-box {
+        	width: 100%;
             position: absolute;
             bottom: 20px;
             right: 0;
-            margin-right: 20px;
+			padding: 0 20px;
             transform: translate(0, -50%);
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row-reverse;
+            
         }
         
         .boardDetail-btn {
@@ -188,12 +195,13 @@
                                     <div class="card boardDetail-card">
                                         <div class="boardDetail-box">
                                             <div class="boardDetail-title">
+                                            <input type="hidden" name="boardNo" value="${ board.boardNo }">
                                             	<div><span class="boardDetail-project-name">[ ${ board.project } ]</span>${ board.boardTitle }</div>
                                            	</div>
                                            	<div class="boardDetail-boardInfo">
 												<div class="boardDetail-writer-img"><i class="ti-user"></i></div>
                                            		<div class="boardDetail-flex-column">
-	                                           		<p class="board-writer">장원형</p>
+	                                           		<p class="board-writer">${ board.boardWriter }</p>
 	                                           		<p class="board-date">${ board.boardCreateDate }</p>
                                            		</div>
                                       		</div>
@@ -230,8 +238,9 @@
                                                     	</c:url>
                                                     	<c:url var="deleteScrap" value="deleteScrap.bo">
                                                     		<c:param name="mCode" value="${ loginUser.mCode }"/>
-                                                    		<c:param name="boardNo" value="${ board.boardNo }"/>
+                                                    		<c:param name="bId" value="${ board.boardNo }"/>
                                                     	</c:url>
+                                                    	
                                                     	
                                                     	<c:if test="${ scrapState == null }">
 	                                                        <a href="${ addScrap }">
@@ -246,11 +255,28 @@
 	                                                            class="btn boardDetail-btn">스크랩 취소</button>
 	                                                    	</a>
                                                     	</c:if>
+                                                    	<c:if test="${ loginUser.mCode == board.memberCode }">
+	                                                    	<div>
+		                                                       	<button type="button" id="boardDetailFileUploadBtn"
+		                                                           class="btn boardDetail-btn updateBtn">수정</button>
+		                                                           
+	                                                            <c:url var="deleteBoard" value="deleteBoard.bo">
+                                                    				<c:param name="bId" value="${ board.boardNo }"/>
+                                                    			</c:url>
+		                                                       	<button type="button" id="boardDetailFileUploadBtn"
+		                                                           class="btn boardDetail-btn deleteBtn">삭제</button>
+	                                                    	</div>
+                                                    	</c:if>
                                                     	
                                                     </div>
                                                 </div>
                                                 <div class="tab-pane boardDetail-content" id="profile1" role="tabpanel">
-                                                    <p class="m-0">등록된 첨부파일이 없습니다.</p>
+                                                	<c:if test="${ attachedFile eq null }">
+	                                                    <p class="m-0">등록된 첨부파일이 없습니다.</p>
+                                                	</c:if>
+                                                	<c:if test="${ attachedFile ne null }">
+                                                		<a href="${ pageContext.request.contextPath }/resources/archive/${ attachedFile.atChange }" download="${ attachedFile.atOrigin }">${ attachedFile.atOrigin }</a>
+                                                	</c:if>
                                                     <div class="boardDetail-btn-box">
                                                         <button type="button" id="boardDetailFileUploadBtn"
                                                             class="btn boardDetail-btn">첨부파일</button>
@@ -290,26 +316,52 @@
             <i class="fa fa-shopping-cart" aria-hidden="true"></i> Upgrade To Pro
         </a>
     </div>
+    
+    <script>
+    	$(function() {
+    		$('.updateBtn').click(function() {
+    			location.href="";	
+    		});
+    		
+    	});
+		$(function() {
+    		$('.deleteBtn').click(function() {
+    			console.log("dd");
+    			swal({
+    				title: "잠깐!",
+    				text: "게시글을 삭제하시겠습니까?",
+    				icon: "warning",
+    				buttons: ["취소", "삭제"],
+    				dangerMode: true,
+    			})
+    			.then((willDelete) => {
+    				if (willDelete) {
+		    			location.href="${ deleteBoard }";
+    				}
+    			});
+    		});
+		})
+    </script>
 
 
-    <!-- Warning Section Ends -->
-    <!-- Required Jquery -->
-    <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js"></script>
-    <!-- jquery slimscroll js -->
-    <script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
-    <!-- modernizr js -->
-    <script type="text/javascript" src="assets/js/modernizr/modernizr.js"></script>
-    <script type="text/javascript" src="assets/js/modernizr/css-scrollbars.js"></script>
-    <!-- classie js -->
-    <script type="text/javascript" src="assets/js/classie/classie.js"></script>
-    <!-- Custom js -->
-    <script type="text/javascript" src="assets/js/script.js"></script>
-    <script src="assets/js/pcoded.min.js"></script>
-    <script src="assets/js/demo-12.js"></script>
-    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<!--     Warning Section Ends -->
+<!--     Required Jquery -->
+<!--     <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script> -->
+<!--     <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script> -->
+<!--     <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script> -->
+<!--     <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js"></script> -->
+<!--     jquery slimscroll js -->
+<!--     <script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script> -->
+<!--     modernizr js -->
+<!--     <script type="text/javascript" src="assets/js/modernizr/modernizr.js"></script> -->
+<!--     <script type="text/javascript" src="assets/js/modernizr/css-scrollbars.js"></script> -->
+<!--     classie js -->
+<!--     <script type="text/javascript" src="assets/js/classie/classie.js"></script> -->
+<!--     Custom js -->
+<!--     <script type="text/javascript" src="assets/js/script.js"></script> -->
+<!--     <script src="assets/js/pcoded.min.js"></script> -->
+<!--     <script src="assets/js/demo-12.js"></script> -->
+<!--     <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script> -->
 </body>
 
 </html>

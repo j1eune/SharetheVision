@@ -1,6 +1,7 @@
 package com.kh.SharetheVision.board.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +34,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int getListCount() {
-		return DAO.selectListCount(sqlSession);
+	public int getListCount(int deptNo) {
+		return DAO.selectListCount(sqlSession, deptNo);
 	}
 
 	@Override
@@ -95,6 +96,41 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public Board selectBoardStatus(int bId) {
 		return DAO.selectBoardStatus(sqlSession, bId);
+	}
+
+	@Override
+	public int selectSearchListCount(HashMap<String, Object> map) {
+		return DAO.selectSearchListCount(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<Board> selectSearchBoard(PageInfo pi, HashMap<String, Object> map) {
+		return DAO.selectSearchBoard(sqlSession, pi, map);
+	}
+
+	@Override
+	public Attachment selectAttachedFile(int bId) {
+		return DAO.selectAttechedFile(sqlSession, bId);
+	}
+
+	@Override
+	public int deleteBoard(int bId) {
+		return DAO.deleteBoard(sqlSession, bId);
+	}
+
+	@Override
+	public int deleteBoardAttachFile(int bId) {
+		return DAO.deleteBoardAttachFile(sqlSession, bId);
+	}
+
+	@Override
+	public int changeBoard(HashMap<String, Object> map) {
+		return DAO.changeBoard(sqlSession, map);
+	}
+
+	@Override
+	public int deleteProjectScrap(HashMap<String, Object> map) {
+		return DAO.deleteProjectScrap(sqlSession, map);
 	}
 
 	

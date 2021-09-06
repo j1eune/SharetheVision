@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="approvalMapper">
+
+
+	<resultMap type="Member" id="MemberResultMap">
+		<id column="M_CODE" property="mCode"/>
+		<result column="M_NAME" property="name"/>
+		<result column="M_ID" property="mId"/>
+		<result column="DEPT_NO" property="deptNo"/>
+		<result column="DEPT_NAME" property="deptName"/>
+		<result column="J_NAME" property="jobName"/>
+	</resultMap>
+	
+	<select id="apList" resultMap="MemberResultMap">
+	   SELECT M_CODE, M_NAME, M_ID, DEPT_NO, DEPT_NAME, J_NAME, J_NO
+	     FROM MEMBER
+	     JOIN DEPARTMENT USING(DEPT_NO)
+	     JOIN JOB USING(J_NO)
+		WHERE M_STATUS='Y'
+	 ORDER BY DEPT_NO ASC, J_NO DESC
+	</select>
+	
+	
+	<resultMap type="Attachment" id="attachmentResultSet">
+		<id column="AT_NO" property="atNo"/>
+		<result column="AT_LEVEL" property="atLevel"/>
+		<result column="AT_CATEGORY" property="atCategory"/>
+		<result column="AT_PATH" property="atPath"/>
+		<result column="AT_ORIGIN" property="atOrigin"/>
+		<result column="AT_CHANGE" property="atChange"/>
+		<result column="AT_EXTENTION" property="atExtention"/>
+		<result column="AT_STATUS" property="atStatus"/>
+	</resultMap>
+	
+	
+	<select id="selectAttachedFile" resultMap="attachmentResultSet">
+		select *
+		from attachments
+		where at_level = 4 and at_category = #{apv_no}
+	</select>
+	
 	<insert id="insertApproval">
 		INSERT INTO APPROVAL VALUES(SEQ_APV.NEXTVAL, #{apvType}, #{mCode}, #{apvAgr}, #{apvRef}, #{apvApp},
 						   			#{apvTitle}, #{apvCom}, SYSDATE, SYSDATE + 10, #{apvDdate}, 'A')

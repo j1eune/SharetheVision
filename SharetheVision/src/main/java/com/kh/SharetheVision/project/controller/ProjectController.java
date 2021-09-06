@@ -23,8 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kh.SharetheVision.attachments.model.service.AttachmentService;
-import com.kh.SharetheVision.attachments.model.vo.Attachment;
+import com.kh.SharetheVision.board.model.service.BoardService;
 import com.kh.SharetheVision.board.model.vo.PageInfo;
 import com.kh.SharetheVision.member.model.service.MemberService;
 import com.kh.SharetheVision.member.model.vo.Member;
@@ -46,7 +45,7 @@ public class ProjectController {
 	private MemberService mService;
 	
 	@Autowired
-	private AttachmentService aService;
+	private BoardService bService;
 	
 	@RequestMapping("createProjectForm.pr")
 	public String createProjectFrom(Model model, HttpSession session) {
@@ -71,7 +70,9 @@ public class ProjectController {
 	}
 	
 	@RequestMapping("createProject.pr")
-	public String createProject(HttpServletRequest request) throws ProjectException{
+	public String createProject(HttpServletRequest request, HttpSession session) throws ProjectException{
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
 		
 		String pName = request.getParameter("pName");
 		String pIntro = request.getParameter("pIntro");
@@ -80,6 +81,7 @@ public class ProjectController {
 		project.setpName(pName);
 		project.setpIntro(pIntro);
 		project.setmCodeArr(mCodeArr);
+		project.setDeptNo(loginUser.getDeptNo());
 		
 		int result = pService.insertProject(project);
 		
@@ -93,20 +95,71 @@ public class ProjectController {
 	
 	@RequestMapping("changeProject.pr")
 	public void completeProject(@RequestParam("pNo") int pNo, HttpServletResponse response,
-								@RequestParam("condition") int condition) throws ProjectException {
+								@RequestParam("condition") int condition,
+								@RequestParam("projectName") String projectName, HttpSession session) throws ProjectException {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("pNo", pNo);
 		map.put("condition", condition);
+		map.put("projectName", projectName);
+		map.put("word", projectName);
+		map.put("category", "project");
+		map.put("mCode", loginUser.getmCode());
+		map.put("deptNo", loginUser.getDeptNo());
 		
+		System.out.println("word : " + map.get("word"));
+		
+		boolean check = false;
+		
+		// 게시물 있는지 확인
+		int boardCount = bService.selectSearchListCount(map);
+		int scrapCount = bService.getScrapListCount(loginUser.getmCode());
+		System.out.println("boardCount : " + boardCount);
+		System.out.println("scrapCount : " + scrapCount);
+		// 스크랩 있을 경우 스크랩 상태 변경
+		int sResult = 0;
+		
+		if(condition == 3 && scrapCount > 0) {
+			sResult = bService.deleteProjectScrap(map);
+			if(sResult > 0) {
+				check = true;
+				System.out.println("sResult 성공: " + sResult);
+			} else {
+				System.out.println("sResult 실패: " + sResult);
+				check = false;
+			}
+		} else if(condition != 3 || (condition == 3 && scrapCount == 0)) {
+			System.out.println("스크랩 없음 : " + scrapCount);
+			check = true;
+		}
+		
+		// 게시물이 있을 경우 게시물 상태 변경
+		int bResult = 0;
+		
+		if(boardCount > 0) {
+			bResult = bService.changeBoard(map);
+			if(bResult > 0) {
+				System.out.println("bResult 성공 : " + bResult);
+				check = true;
+			} else {
+				System.out.println("bResult 실패 : " + bResult);
+				check = false;
+			}
+		} else {
+			System.out.println("게시물 없음 : " + boardCount);
+			check = true;
+		}		
+		System.out.println("================");
+		// 프로젝트 상태 변경
 		int result = pService.changeProject(map);
 		
-		
 		try {
-			if(result > 0) {
-					response.getWriter().println(1);
+			if(result > 0 && check) {
+				response.getWriter().println(1);
 			} else {
-					response.getWriter().println(0);
+				response.getWriter().println(0);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -118,11 +171,6 @@ public class ProjectController {
 	public HashMap<String,Object> projectMember(@RequestParam(value="search", required=false) String search,
 							  @RequestParam(value="page", required=false) Integer page,
 							  HttpServletResponse response, Model model) {
-		
-		System.out.println("search : " + search);
-		System.out.println("search가 null 인가 : " + search == null);
-		System.out.println("search가 빈칸인가? : " + search.trim().equals(""));
-		System.out.println("page : " + page);
 		
 		HashMap<String,Object> map = new HashMap<String, Object>();
 		if(!search.trim().equals("")) {

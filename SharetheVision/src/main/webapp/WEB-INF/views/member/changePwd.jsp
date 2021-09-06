@@ -78,7 +78,7 @@
                                 <hr/>
                                 <div>
                                 	<input type="hidden" name="mId" value="${ mId }"/>
-                                    <input type="password" class="form-control" id="newPwd" name="pwd" required placeholder="새로운 비밀번호(문자,숫자,특수문자 포함)" onkeyup="newPwdCheck();"/>
+                                    <input type="password" class="form-control" id="newPwd" name="pwd" required placeholder="8자 이상 (문자,숫자,특수문자 포함)" onkeyup="newPwdCheck();"/>
                                     <span class="md-line"></span>
                                 </div>
                                 <div style="color: black; text-align: left; padding-top: 2px;" id="newPwdMessage"></div>

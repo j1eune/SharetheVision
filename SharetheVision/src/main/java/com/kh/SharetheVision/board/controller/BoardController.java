@@ -6,12 +6,14 @@ import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -63,10 +65,13 @@ public class BoardController {
 		
 		Board board = service.selectBoardDetail(bId);
 		Scrap scrapState = service.scrapState(s);
+		Attachment attachedFile = service.selectAttachedFile(bId);
 		
+//		System.out.println(attachedFile);
 		
 		model.addAttribute("scrapState", scrapState);
 		model.addAttribute("board", board);
+		model.addAttribute("attachedFile", attachedFile);
 		
 		return "boardDetail";
 		
@@ -98,7 +103,11 @@ public class BoardController {
 	
 	@RequestMapping("boardList.bo")
 	public ModelAndView boardList(@RequestParam(value="page", required=false) Integer page,
-								  ModelAndView mv, HttpSession session) {
+								  ModelAndView mv, HttpSession session, HttpServletResponse response) {
+		
+		response.setCharacterEncoding("UTF-8");
+		
+		String boardListTitle = "부서별 자료실";
 		
 		int deptNo = ((Member)session.getAttribute("loginUser")).getDeptNo();
 		
@@ -108,7 +117,7 @@ public class BoardController {
 			currentPage = page;
 		}
 		
-		int listCount = service.getListCount();
+		int listCount = service.getListCount(deptNo);
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
@@ -116,7 +125,40 @@ public class BoardController {
 		
 //		System.out.println(list);
 		if (list != null) {
-			mv.addObject("board", list).addObject("pi", pi);
+			mv.addObject("board", list).addObject("pi", pi).addObject("boardListTitle", boardListTitle);
+			mv.setViewName("boardList");
+		} else {
+			mv.setViewName("home");
+		}
+		
+		return mv;
+	}
+	
+	@RequestMapping("boardScrapList.bo")
+	public ModelAndView boardScrapList(@RequestParam(value="page", required=false) Integer page,
+										ModelAndView mv, HttpSession session, HttpServletResponse response) {
+		
+		response.setCharacterEncoding("UTF-8");
+
+		String boardListTitle = "스크랩한 게시물";
+
+		String mCode = ((Member)session.getAttribute("loginUser")).getmCode();
+		
+		int currentPage = 1;
+		
+		if (page != null) {
+			currentPage = page;
+		}
+		
+		int listCount = service.getScrapListCount(mCode);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Scrap> list = service.selectScrapBoardList(pi, mCode);
+		
+//		System.out.println(list);
+		if (list != null) {
+			mv.addObject("board", list).addObject("pi", pi).addObject("boardListTitle", boardListTitle);
 			mv.setViewName("boardList");
 		} else {
 			mv.setViewName("home");
@@ -165,6 +207,23 @@ public class BoardController {
 			throw new BoardException("게시글 작성에 실패했습니다."); 
 		}
 
+	}
+	
+	@RequestMapping("deleteBoard.bo")
+	public String boardDelete(@RequestParam(value="bId") int bId) throws BoardException {
+		
+//		System.out.println(bId);
+		
+		int result = service.deleteBoard(bId);
+		int result2 = service.deleteBoardAttachFile(bId);
+		
+		
+		if (result > 0) {
+			return "redirect:boardList.bo";
+		} else {
+			throw new BoardException("게시글 삭제에 실패했습니다.");
+		}
+		
 	}
 	
 	public Attachment saveFile(MultipartFile file, HttpServletRequest request, int boardNo) {
@@ -242,8 +301,10 @@ public class BoardController {
 	}
 	
 	@RequestMapping("alertDeleteScrap.bo")
-	public String alertDeleteScrap(@RequestParam(value="bId") int bId,
+	public String alertDeleteScrap(@RequestParam(value="bId") int bId, @RequestParam(value="current") String current,
 							  HttpSession session) throws BoardException {
+		
+		String returnLocation = null;
 		
 		String mCode = ((Member)session.getAttribute("loginUser")).getmCode();
 		
@@ -251,21 +312,36 @@ public class BoardController {
 		s.setBoardNo(bId);
 		s.setmCode(mCode);
 		
+//		System.out.println(current);
+		
 		int result = service.deleteScrap(s);
 		
 		if (result > 0) {
-			return "forward:board.bo";
+			if (current.equals("boardScrapList")) {
+				returnLocation = "redirect:boardScrapList.bo";
+			} else if (current.equals("board")){
+				returnLocation = "redirect:board.bo";
+			}
 		} else {
 			throw new BoardException("스크랩 취소에 실패했습니다.");
 		}
 		
+		return returnLocation;
+		
 	}
 	
-	@RequestMapping("boardScrapList.bo")
-	public ModelAndView boardScrapList(@RequestParam(value="page", required=false) Integer page,
-										ModelAndView mv, HttpSession session) {
+	@RequestMapping("boardSearch.bo")
+	public ModelAndView boardSearch(@RequestParam("category") String category, @RequestParam("word") String word,
+									ModelAndView mv, @RequestParam(value="page", required=false) Integer page, HttpSession session) {
 		
-		String mCode = ((Member)session.getAttribute("loginUser")).getmCode();
+		int deptNo = ((Member)session.getAttribute("loginUser")).getDeptNo();
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("category", category);
+		map.put("word", word);
+		map.put("deptNo", deptNo);
+		
+//		System.out.println(map);
 		
 		int currentPage = 1;
 		
@@ -273,20 +349,22 @@ public class BoardController {
 			currentPage = page;
 		}
 		
-		int listCount = service.getScrapListCount(mCode);
+		int searchListCount = service.selectSearchListCount(map);
 		
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+//		System.out.println(searchListCount);
 		
-		ArrayList<Scrap> list = service.selectScrapBoardList(pi, mCode);
+		PageInfo pi = Pagination.getPageInfo(currentPage, searchListCount);
+		
+		ArrayList<Board> list = service.selectSearchBoard(pi, map);
 		
 //		System.out.println(list);
+		
 		if (list != null) {
 			mv.addObject("board", list).addObject("pi", pi);
 			mv.setViewName("boardList");
 		} else {
 			mv.setViewName("home");
 		}
-		
 		return mv;
 	}
 	

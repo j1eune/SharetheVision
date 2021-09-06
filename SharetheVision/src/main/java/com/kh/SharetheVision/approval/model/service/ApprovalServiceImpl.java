@@ -8,27 +8,37 @@ import org.springframework.stereotype.Service;
 
 import com.kh.SharetheVision.approval.model.dao.ApprovalDAO;
 import com.kh.SharetheVision.approval.model.vo.Approval;
+import com.kh.SharetheVision.attachments.model.vo.Attachment;
+import com.kh.SharetheVision.member.model.vo.Member;
 
 @Service("apvService")
 public class ApprovalServiceImpl implements ApprovalService{
-	
-	@Autowired
-	private ApprovalDAO apvDAO;
-	
+
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
+	@Autowired
+	private ApprovalDAO apvdao;
+	
+	@Override
+	public ArrayList<Member> aplist() {
+		return apvdao.apList(sqlSession);
+	}
+	
+	@Override
+	public Attachment selectAttachedFile(int apNo) {
+		return apvdao.selectAttachedFile(sqlSession,apNo);
+	}
+
 	@Override
 	public int insertApproval(Approval apv) {
-		return apvDAO.insertApproval(sqlSession, apv);
+		return apvdao.insertApproval(sqlSession, apv);
 	}
 
 	@Override
 	public ArrayList<Approval> selectApproval(String mCode) {
-		return apvDAO.selectApproval(sqlSession, mCode);
+		return apvdao.selectApproval(sqlSession, mCode);
 	}
-	
-	
 	
 	
 	

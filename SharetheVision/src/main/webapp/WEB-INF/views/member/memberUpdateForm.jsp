@@ -180,7 +180,7 @@
 																			<input type="password" class="form-control mt-1 adressInput" name="pwd" id="userPwd" onkeyup="userPwdCheck();" required placeholder="기존 비밀번호"/>
 																			<div style="color: black; text-align: left; padding-top: 2px;" id="userPwdMessage"></div>
 																			
-																			<input type="password" class="form-control mt-1 adressInput" name="newPwd" onkeyup="newPwdCheck();"id="newPwd" placeholder="새로운 비밀번호(문자,숫자,특수문자 포함)"/>
+																			<input type="password" class="form-control mt-1 adressInput" name="newPwd" onkeyup="newPwdCheck();"id="newPwd" placeholder="8자 이상 (문자,숫자,특수문자 포함)"/>
 																			<div style="color: black; text-align: left; padding-top: 2px;" id="newPwdMessage"></div>
 																			
 																			<input type="password" class="form-control mt-1 adressInput" id="checkPwd" onkeyup="checkPwdForm();" placeholder="비밀번호 확인"/>
@@ -389,25 +389,27 @@
 	function changeEmail(){
 		var email = document.getElementById("email").value;
 		var hiddenEmail = document.getElementById("hiddenEmail").value;
-		
-		if(confirm("이메일을 변경하시겠습니까?")){
-			$.ajax({
-				url:"checkEmail.me",
-				data:{email:email},
-				success:function(data){
-					console.log("이메일 인증 성공");
-					console.log(data);
-					$("#randomCheck").val(data);
-					$("#random").show();
-					checkEmail = false;
-				},
-				error:function(data){
-					console.log("이메일 인증 실패");
-				}
-			});		
-		} else {
-			$("#email").val(hiddenEmail);
-			$("#random").hide();
+
+		if(email.trim() != hiddenEmail.trim()){
+			if(confirm("이메일을 변경하시겠습니까?")){
+				$.ajax({
+					url:"checkEmail.me",
+					data:{email:email},
+					success:function(data){
+						console.log("이메일 인증 성공");
+						console.log(data);
+						$("#randomCheck").val(data);
+						$("#random").show();
+						checkEmail = false;
+					},
+					error:function(data){
+						console.log("이메일 인증 실패");
+					}
+				});		
+			} else {
+				$("#email").val(hiddenEmail);
+				$("#random").hide();
+			}
 		}
 	};
 	
