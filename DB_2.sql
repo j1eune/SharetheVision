@@ -435,3 +435,18 @@ COMMENT ON COLUMN OVERWORK.O_APPROVAL IS 'Y:승인 /  N:반려 / W:대기';
 ALTER TABLE OVERWORK MODIFY O_APPROVAL DEFAULT 'W';
 
 DROP TABLE ADJUST CASCADE CONSTRAINTS;
+
+----------2021-09-06 강정환 UPDATE-----(ATTACHMENTS) 테이블 AT_LEVEL 4번 추가 , APV_FILE DROP----------------
+
+COMMENT ON COLUMN ATTACHMENTS.AT_LEVEL IS '1 = 회원 프로필 / 2 = 게시판 이미지 / 3= 게시판 첨부파일 / 4= 결재 첨부파일';
+
+DROP TABLE APV_FILE CASCADE CONSTRAINTS;
+
+COMMIT;
+
+COMMENT ON COLUMN APPROVAL.APV_TYPE IS '1 = 휴가 / 2 = 기안서 / 3 = 세금 계산서 / 4 = 보고서 / 5 = 품의서 / 6 = 계획서 / 7 = 신청서';
+
+COMMIT;
+
+-------------2021-09-06 강정환 UPDATE---------------------------
+

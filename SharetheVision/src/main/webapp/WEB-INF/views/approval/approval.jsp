@@ -2157,7 +2157,7 @@ border-radius:15px;
                                                       <input type="radio" name="tabs" id="tabone" checked="checked" value="기안서">
                                                       <label for="tabone">기안서</label>
                                                       <div class="tab">
-                                                        <form name="apform1" action="값을 보낼 주소" method="post">
+                                                        <form id="apform1">
                                                         <!--결재 관련 이름 시작-->
                                                        <div id="apwstart">🔍기안자는&nbsp;</div><div id="apw1" name="apd1">${loginUser.deptName}팀&nbsp;</div><div id="apw2" name="apn1">${loginUser.name}&nbsp;</div><div id="apw3" name="apc1">${loginUser.jobName }&nbsp;</div><div>님&nbsp;입니다.</div>
                                                         <br>
@@ -2167,63 +2167,63 @@ border-radius:15px;
                                                         <!--기안서 폼 합의자 선택 시작-->
                                                         <div class="agrselect">
                                                         <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
-                                                          <optgroup label="인사" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="마케팅" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="생산" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="영업" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>      
-                                                             <optgroup label="회계" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                        </select>
+                                                          <c:forEach items="${ aplist }" var= "ap"> 
+															<c:if test="${ ap.name != loginUser.name}">  
+																<optgroup label="${ ap.deptName } 팀 ">
+																<c:if test="${ ap.deptName eq '인사'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '마케팅' }" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '생산'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '영업'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '회계'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																</optgroup>
+														   </c:if>
+														</c:forEach>
+                                                       </select>
                                                       </div>
                                                        <!--기안서 폼 합의자 선택 끝-->
                                                         <div class="referrer">🟣참조자:</div> 
                                                         <!--기안서 폼 참조자 선택 시작-->
                                                         <div class="refselect">
                                                           <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
-                                                            <optgroup label="인사" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="마케팅" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="생산" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="영업" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>      
-                                                             <optgroup label="회계" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
+                                                             <c:forEach items="${ aplist }" var= "ap"> 
+															<c:if test="${ ap.name != loginUser.name}">  
+																<optgroup label="${ ap.deptName } 팀 ">
+																<c:if test="${ ap.deptName eq '인사'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '마케팅' }" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '생산'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '영업'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '회계'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																</optgroup>
+														   </c:if>
+														</c:forEach>
                                                           </select>
                                                         </div>
                                                          <!--기안서 폼 참조자 선택 끝-->
@@ -2231,31 +2231,31 @@ border-radius:15px;
                                                         <!--기안서 폼 결재자 선택 시작-->
                                                         <div class="apselect">
                                                           <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
-                                                            <optgroup label="인사" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="마케팅" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="생산" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="영업" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>      
-                                                             <optgroup label="회계" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
+                                                             <c:forEach items="${ aplist }" var= "ap"> 
+															<c:if test="${ ap.name != loginUser.name}">  
+																<optgroup label="${ ap.deptName } 팀 ">
+																<c:if test="${ ap.deptName eq '인사'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '마케팅' }" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '생산'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '영업'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '회계'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																</optgroup>
+														   </c:if>
+														</c:forEach>
                                                           </select>
                                                         </div>
                                                          <!--기안서 폼 결재자 선택 끝-->
@@ -2331,31 +2331,31 @@ border-radius:15px;
                                                         <!--세금계산서 폼 합의자 선택 시작-->
                                                         <div class="agrselect2">
                                                         <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
-                                                          <optgroup label="인사" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="마케팅" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="생산" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="영업" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>      
-                                                             <optgroup label="회계" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
+                                                          <c:forEach items="${ aplist }" var= "ap"> 
+															<c:if test="${ ap.name != loginUser.name}">  
+																<optgroup label="${ ap.deptName } 팀 ">
+																<c:if test="${ ap.deptName eq '인사'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '마케팅' }" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '생산'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '영업'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '회계'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																</optgroup>
+														   </c:if>
+														</c:forEach>
                                                         </select>
                                                       </div>
                                                        <!--세금계산서 폼 합의자 선택 끝-->
@@ -2365,31 +2365,31 @@ border-radius:15px;
                                                         <!--세금계산서 폼 참조자 선택 시작-->
                                                         <div class="refselect2">
                                                           <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
-                                                            <optgroup label="인사" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="마케팅" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="생산" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="영업" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>      
-                                                             <optgroup label="회계" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
+                                                            <c:forEach items="${ aplist }" var= "ap"> 
+															<c:if test="${ ap.name != loginUser.name}">  
+																<optgroup label="${ ap.deptName } 팀 ">
+																<c:if test="${ ap.deptName eq '인사'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '마케팅' }" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '생산'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '영업'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '회계'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																</optgroup>
+														   </c:if>
+														</c:forEach>
                                                           </select>
                                                         </div>
                                                          <!--세금계산서 폼 참조자 선택 끝-->
@@ -2400,31 +2400,31 @@ border-radius:15px;
                                                         <!--세금계산서 폼 결재자 선택 시작-->
                                                         <div class="apselect2">
                                                           <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
-                                                            <optgroup label="인사" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="마케팅" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="생산" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="영업" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>      
-                                                             <optgroup label="회계" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
+                                                            <c:forEach items="${ aplist }" var= "ap"> 
+															<c:if test="${ ap.name != loginUser.name}">  
+																<optgroup label="${ ap.deptName } 팀 ">
+																<c:if test="${ ap.deptName eq '인사'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '마케팅' }" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '생산'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '영업'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '회계'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																</optgroup>
+														   </c:if>
+														</c:forEach>
                                                           </select>
                                                         </div>
                                                          <!--세금계산서 폼 결재자 선택 끝-->
@@ -2502,31 +2502,31 @@ border-radius:15px;
                                                         <!--보고서 폼 합의자 선택 시작-->
                                                         <div class="agrselect3">
                                                         <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
-                                                          <optgroup label="인사" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="마케팅" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="생산" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="영업" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>      
-                                                             <optgroup label="회계" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
+                                                          <c:forEach items="${ aplist }" var= "ap"> 
+															<c:if test="${ ap.name != loginUser.name}">  
+																<optgroup label="${ ap.deptName } 팀 ">
+																<c:if test="${ ap.deptName eq '인사'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '마케팅' }" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '생산'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '영업'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '회계'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																</optgroup>
+														   </c:if>
+														</c:forEach>
                                                         </select>
                                                       </div>
                                                        <!--보고서 폼 합의자 선택 끝-->
@@ -2536,31 +2536,31 @@ border-radius:15px;
                                                         <!--보고서 폼 참조자 선택 시작-->
                                                         <div class="refselect3">
                                                           <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
-                                                            <optgroup label="인사" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="마케팅" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="생산" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="영업" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>      
-                                                             <optgroup label="회계" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
+                                                            <c:forEach items="${ aplist }" var= "ap"> 
+															<c:if test="${ ap.name != loginUser.name}">  
+																<optgroup label="${ ap.deptName } 팀 ">
+																<c:if test="${ ap.deptName eq '인사'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '마케팅' }" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '생산'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '영업'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '회계'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																</optgroup>
+														   </c:if>
+														</c:forEach>
                                                           </select>
                                                         </div>
                                                          <!--보고서 폼 참조자 선택 끝-->
@@ -2570,31 +2570,31 @@ border-radius:15px;
                                                         <!--보고서 폼 결재자 선택 시작-->
                                                         <div class="apselect3">
                                                           <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
-                                                            <optgroup label="인사" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="마케팅" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="생산" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="영업" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>      
-                                                             <optgroup label="회계" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
+                                                            <c:forEach items="${ aplist }" var= "ap"> 
+															<c:if test="${ ap.name != loginUser.name}">  
+																<optgroup label="${ ap.deptName } 팀 ">
+																<c:if test="${ ap.deptName eq '인사'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '마케팅' }" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '생산'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '영업'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '회계'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																</optgroup>
+														   </c:if>
+														</c:forEach>
                                                           </select>
                                                         </div>
                                                          <!--보고서 폼 결재자 선택 끝-->
@@ -2672,31 +2672,31 @@ border-radius:15px;
                                                        <!--품의서 폼 합의자 선택 시작-->
                                                         <div class="agrselect4">
                                                         <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
-                                                          <optgroup label="인사" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="마케팅" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="생산" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="영업" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>      
-                                                             <optgroup label="회계" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
+                                                          <c:forEach items="${ aplist }" var= "ap"> 
+															<c:if test="${ ap.name != loginUser.name}">  
+																<optgroup label="${ ap.deptName } 팀 ">
+																<c:if test="${ ap.deptName eq '인사'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '마케팅' }" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '생산'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '영업'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '회계'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																</optgroup>
+														   </c:if>
+														</c:forEach>
                                                         </select>
                                                       </div>
                                                        <!--품의서 폼 합의자 선택 끝-->
@@ -2707,31 +2707,31 @@ border-radius:15px;
                                                        <!--품의서 폼 참조자 선택 시작-->
                                                         <div class="refselect4">
                                                           <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
-                                                            <optgroup label="인사" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="마케팅" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="생산" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="영업" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>      
-                                                             <optgroup label="회계" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
+                                                            <c:forEach items="${ aplist }" var= "ap"> 
+															<c:if test="${ ap.name != loginUser.name}">  
+																<optgroup label="${ ap.deptName } 팀 ">
+																<c:if test="${ ap.deptName eq '인사'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '마케팅' }" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '생산'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '영업'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '회계'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																</optgroup>
+														   </c:if>
+														</c:forEach>
                                                           </select>
                                                         </div>
                                                          <!--품의서 폼 참조자 선택 끝-->
@@ -2739,31 +2739,31 @@ border-radius:15px;
                                                        <!--기안서 폼 결재자 선택 시작-->
                                                         <div class="apselect4">
                                                           <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
-                                                            <optgroup label="인사" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="마케팅" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="생산" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="영업" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>      
-                                                             <optgroup label="회계" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
+                                                            <c:forEach items="${ aplist }" var= "ap"> 
+															<c:if test="${ ap.name != loginUser.name}">  
+																<optgroup label="${ ap.deptName } 팀 ">
+																<c:if test="${ ap.deptName eq '인사'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '마케팅' }" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '생산'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '영업'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '회계'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																</optgroup>
+														   </c:if>
+														</c:forEach>
                                                           </select>
                                                         </div>
                                                          <!--기안서 폼 결재자 선택 끝-->
@@ -2843,31 +2843,31 @@ border-radius:15px;
                                                         <!--계획서 폼 합의자 선택 시작-->
                                                         <div class="agrselect5">
                                                         <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
-                                                          <optgroup label="인사" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="마케팅" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="생산" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="영업" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>      
-                                                             <optgroup label="회계" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
+                                                          <c:forEach items="${ aplist }" var= "ap"> 
+															<c:if test="${ ap.name != loginUser.name}">  
+																<optgroup label="${ ap.deptName } 팀 ">
+																<c:if test="${ ap.deptName eq '인사'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '마케팅' }" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '생산'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '영업'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '회계'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																</optgroup>
+														   </c:if>
+														</c:forEach>
                                                         </select>
                                                       </div>
                                                        <!--계획서 폼 합의자 선택 끝-->
@@ -2878,31 +2878,31 @@ border-radius:15px;
                                                         <!--계획서 폼 참조자 선택 시작-->
                                                         <div class="refselect5">
                                                           <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
-                                                            <optgroup label="인사" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="마케팅" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="생산" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="영업" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>      
-                                                             <optgroup label="회계" data-max-options="3">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
+                                                            <c:forEach items="${ aplist }" var= "ap"> 
+															<c:if test="${ ap.name != loginUser.name}">  
+																<optgroup label="${ ap.deptName } 팀 ">
+																<c:if test="${ ap.deptName eq '인사'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '마케팅' }" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '생산'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '영업'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '회계'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																</optgroup>
+														   </c:if>
+														</c:forEach>
                                                           </select>
                                                         </div>
                                                          <!--계획서 폼 참조자 선택 끝-->
@@ -2914,31 +2914,31 @@ border-radius:15px;
                                                         <!--계획서 폼 결재자 선택 시작-->
                                                         <div class="apselect5">
                                                           <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
-                                                            <optgroup label="인사" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="마케팅" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="생산" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
-                                                            <optgroup label="영업" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>      
-                                                             <optgroup label="회계" data-max-options="1">
-                                                              <option>아무개 과장</option>
-                                                              <option>홍길동 사원</option>
-                                                              <option>강정환 사장</option>
-                                                            </optgroup>
+                                                            <c:forEach items="${ aplist }" var= "ap"> 
+															<c:if test="${ ap.name != loginUser.name}">  
+																<optgroup label="${ ap.deptName } 팀 ">
+																<c:if test="${ ap.deptName eq '인사'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '마케팅' }" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '생산'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '영업'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																
+																<c:if test="${ ap.deptName eq '회계'}" >
+																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																</c:if>
+																</optgroup>
+														   </c:if>
+														</c:forEach>
                                                           </select>
                                                         </div>
                                                          <!--계획서 폼 결재자 선택 끝-->
@@ -3021,7 +3021,7 @@ border-radius:15px;
                                           <div class="inbox-container">
                                            <div class="inbox">
                                             <div class="msg msg-department anim-y">
-                                             전체
+                         							                    전체
                                              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 492 492">
                                               <path d="M484.13 124.99l-16.11-16.23a26.72 26.72 0 00-19.04-7.86c-7.2 0-13.96 2.79-19.03 7.86L246.1 292.6 62.06 108.55c-5.07-5.06-11.82-7.85-19.03-7.85s-13.97 2.79-19.04 7.85L7.87 124.68a26.94 26.94 0 000 38.06l219.14 219.93c5.06 5.06 11.81 8.63 19.08 8.63h.09c7.2 0 13.96-3.57 19.02-8.63l218.93-219.33A27.18 27.18 0 00492 144.1c0-7.2-2.8-14.06-7.87-19.12z"></path>
                                              </svg>
@@ -3388,6 +3388,8 @@ function clock() {
   <script>
   $('.selectpicker').selectpicker();
   </script>
+  
+ 
 <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
