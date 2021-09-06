@@ -444,7 +444,7 @@ DROP TABLE APV_FILE CASCADE CONSTRAINTS;
 
 COMMIT;
 
-COMMENT ON COLUMN APPROVAL.APV_TYPE IS '1 = 휴가 / 2 = 기안서 / 3 = 세금 계산서 / 4 = 보고서 / 5 = 품의서 / 6 =계획서';
+COMMENT ON COLUMN APPROVAL.APV_TYPE IS '1 = 휴가 / 2 = 기안서 / 3 = 세금 계산서 / 4 = 보고서 / 5 = 품의서 / 6 = 계획서 / 7 = 신청서';
 
 COMMIT;
 
