@@ -14,7 +14,9 @@
 <meta name="author" content="CodedThemes">
 <link href="resources/assets/css/datePicker/datePicker.css" rel="stylesheet" type="text/css">
 <style>
-	.listTable>thead>tr>th, .listTable>tbody>tr>td, .listTable>tbody>tr>th, .listTable>tbody>tr>td>div {text-align: center}
+	.listTable>thead>tr>th, .listTable>tbody>tr>td, .listTable>tbody>tr>th, .listTable>tbody>tr>td>div {
+		text-align: center;
+	}
        
 	#leaveTime input[type="radio"]{
 		visibility: hidden;
@@ -69,7 +71,21 @@
 		font-family: 'SpoqaHanSansNeo-Regular';
 		color: #660099;
 	}
-    
+	
+	/* 전사휴가설정 */
+/* 	#settingText { */
+/* 		display: inline-block; */
+/* 		vertical-align: middle; */
+		/* 		font-size: 1.2rem; */
+/* 		cursor: pointer; */
+	}
+	
+/* 	.icofont-gear { */
+/* 		display: inline-block; */
+/* 		vertical-align: middle; */
+		/* 		font-size: 1.2rem; */
+/* 	} */
+	
 </style>
 <jsp:include page="../common/common.jsp" />
 <jsp:include page="../common/font.jsp" />
@@ -116,7 +132,7 @@
 		                                        <div class="row">
 		                                            <div class="col-lg my-auto">
 		                                                <h5>${name} ${jobName}</h5>
-		                                            </div>
+						                            </div>
 		                                            <div class="col-lg b-r-default b-l-default">
 		                                                <h5 class="m-b-20">발생 연차</h5>
 		                                                <h3>${annualTotal}</h3>
@@ -246,6 +262,7 @@
 		                                            <li><i class="icofont icofont-maximize full-card"></i></li>
 		                                            <li><i class="icofont icofont-minus minimize-card"></i></li>
 		                                            <li><i class="icofont icofont-refresh reload-card"></i></li>
+		                                            <li><i class="icofont icofont-ui-edit leave-card"></i></li>
 		                                            <!-- <li><i class="icofont icofont-error close-card"></i></li> -->
 		                                        </ul>
 		                                    </div>
@@ -318,6 +335,10 @@
 		                                            <li><i class="icofont icofont-maximize full-card"></i></li>
 		                                            <li><i class="icofont icofont-minus minimize-card"></i></li>
 		                                            <li><i class="icofont icofont-refresh reload-card"></i></li>
+		                                            <!-- [관리자일 경우] 연차 설정 가능 -->
+<%-- 													<c:if test="${loginUser.adminNo > 4}"> --%>
+		                                            <li><i class="icofont icofont-ui-edit" id="setting"></i></li>
+<%-- 													</c:if> --%>
 <!-- 		                                            <li><i class="icofont icofont-error close-card"></i></li> -->
 		                                        </ul>
 		                                    </div>
@@ -362,6 +383,10 @@
 		                        <div class="modal fade" id="leaveModal" tabindex="-1" role="dialog" aria-labelledby="leaveModalLabel" aria-hidden="true">
 		                        	<%@include file="leaveModal.jsp" %>
 		                    	</div>
+		                    	<!-- 연차설정 모달 -->
+                            	<div class="modal fade" id="settingModal" tabindex="-1" role="dialog" aria-labelledby="settingModalLabel" aria-hidden="true">
+                            		<%@include file="leaveSettingModal.jsp" %>
+                            	</div>
 		                    </div>
 		                </div>
 		            </div>
@@ -435,7 +460,15 @@
 		location.href="changeStatus.le?status="+status+"&no="+no;
 	});
 	
-	
+	// 연차 초기 설정
+	$('#setting').on('click', function(){
+		var adminNo = <c:out value="${loginUser.adminNo}"/>;
+		if(adminNo > 4){
+			$('#settingModal').modal('show');
+		} else {
+			alert('부장 직급 이상만 설정 가능합니다. 부장님께 문의하세요.');
+		}
+	});
 	
 </script>
 	

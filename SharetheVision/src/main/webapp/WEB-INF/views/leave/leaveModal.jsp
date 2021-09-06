@@ -38,16 +38,18 @@
                         	사용가능한 휴가 : ${remain} 일 &nbsp;&nbsp;&nbsp;&nbsp; 신청한 휴가 : <span id="requestDays"></span>일
                     </div>
                     <div class="form-row">
+						<label for="leavePeriod" style="padding-left: 5px;">
+							휴가 기간 &nbsp; <i class="icofont icofont-info-circle" style="font-size: 12px;"></i><span style="font-size: 12px;">휴가가 하루일 경우 같은 날을 선택해주세요.</span>
+						</label>
                         <div class="form-group col-md-5">
-                            <label for="leavePeriod">휴가 기간</label>
                             <input type="text" id="startDate" class="form-control datepicker" placeholder="시작일 년/월/일">
                         </div>
                         <div class="form-group col-md-1">
-                            <label>&nbsp;</label>
+<!--                             <label>&nbsp;</label> -->
                             <div class="text-center my-auto">~</div>
                         </div>
                         <div class="form-group col-md-5">
-                            <label>&nbsp;</label>
+<!--                             <label>&nbsp;</label> -->
                             <input type="text" id="endDate" class="form-control datepicker" placeholder="시작일 년/월/일">
                         </div>
                     </div>
@@ -67,10 +69,11 @@
                     <div class="form-row mb-3">
                         <div class="form-group col-md-6">
                             <label for="leaveType">결재자</label>
-                            <select class="form-control">
+                            <select class="form-control" id="approval">
                                 <option>선택해주세요.</option>
-                                <option>팀장</option>
-                                <option>부장</option>
+                                <option value="3">과장</option>
+                                <option value="4">차장</option>
+                                <option value="5">부장</option>
                             </select>
                         </div>
                     </div> 
@@ -129,7 +132,9 @@
 			btDay = 0.5;
 		}
 		
-		var leave = {"type":type, "startDate":startStr, "endDate":endStr, "days":btDay, "content":content};
+		var approval = $('#approval option:selected').val();
+		
+		var leave = {"type":type, "startDate":startStr, "endDate":endStr, "days":btDay, "content":content, "approval":approval};
 		
 		$.ajax({
 			url: 'leaveRequest.le',

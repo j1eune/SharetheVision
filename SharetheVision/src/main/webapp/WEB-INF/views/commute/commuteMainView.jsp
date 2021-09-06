@@ -74,8 +74,8 @@
 	}
 	
 	#stateDiv{
-		margin-top: 10px;
-		margin-bottom: 30px;
+		margin-top: 20px;
+/* 		margin-bottom: 30px; */
 	}
 	
 	#stateDiv button{
@@ -181,41 +181,45 @@
 													</div>
 			                        			</div>
 			                        			<div class="col-md-4 b-l-default text-center">
-													<div class="mt-4 mb-4 text-center">
-														<table id="commuteTable" style="width: 100%;">
+													<div class="mt-4 mb-4">
+														<table id="commuteTable" class="mx-auto">
 															<tr>
-																<td>출근시간</td>
-																<td>
+																<td style="text-align: left">출근시간</td>
+																<td style="text-align: right">
 																	<c:if test="${!empty startTime}">${startTime}</c:if>
 																	<c:if test="${empty startTime}">미등록</c:if>
 																</td>
 															</tr>
 															<tr>
-																<td>퇴근시간</td>
-																<td>
+																<td style="text-align: left">퇴근시간</td>
+																<td style="text-align: right">
 																	<c:if test="${!empty endTime}">${endTime}</c:if>
 																	<c:if test="${empty endTime}">미등록</c:if>
 																</td>
 															</tr>
+															<tr>
+																<td colspan="2">
+																	<div class="" id="stateDiv">
+																		<button class="btn btn-outline btn-sm stateBtn" id="working">
+																			<i class="icofont icofont-user-alt-3"></i>
+																			<span>근무중</span>
+																		</button>
+																		<button class="btn btn-outline btn-sm stateBtn" id="workEnd">
+																			<i class="icofont icofont-user-alt-3"></i>
+																			<span>근무종료</span>
+																		</button>
+																		<button class="btn btn-outline btn-sm stateBtn" id="outside">
+																			<i class="icofont icofont-user-alt-3"></i>
+																			<span>외근</span>
+																		</button>
+																		<button class="btn btn-outline btn-sm stateBtn" id="leave">
+																			<i class="icofont icofont-user-alt-3"></i>
+																			<span>휴가</span>
+																		</button>
+																	</div>
+																</td>
+															</tr>
 														</table>
-													</div>
-													<div class="text-center" id="stateDiv">
-														<button class="btn btn-outline btn-sm stateBtn" id="working">
-															<i class="icofont icofont-user-alt-3"></i>
-															<span>근무중</span>
-														</button>
-														<button class="btn btn-outline btn-sm stateBtn" id="workEnd">
-															<i class="icofont icofont-user-alt-3"></i>
-															<span>근무종료</span>
-														</button>
-														<button class="btn btn-outline btn-sm stateBtn" id="outside">
-															<i class="icofont icofont-user-alt-3"></i>
-															<span>외근</span>
-														</button>
-														<button class="btn btn-outline btn-sm stateBtn" id="leave">
-															<i class="icofont icofont-user-alt-3"></i>
-															<span>휴가</span>
-														</button>
 													</div>
 			                        			</div>
 			                        			<div class="col-md-4 b-l-default">
@@ -237,12 +241,11 @@
 		                        			</div>
 		                        		</div>
 		                        	</div>
-<!-- 		                            <div class="row"> -->
 		                                <!-- 금주근무현황 -->
 		                                <div>
 		                                    <div class="card">
 		                                        <div class="card-header text-center">
-		                                            <h3 style="font-family: Recipekorea">이번 주 근무현황</h3>
+		                                            <h3 style="font-family: TmonMonsori">이번 주 근무현황</h3>
 		                                        </div>
 		                                        <div class="row">
 		                                        	<div class="col-md-8">
@@ -369,12 +372,42 @@
 		                                                </div>
 		                                            </div>
 		                                        </div>
+		                                        <!-- 출근 수정 요청 -->
+<!-- 		                                        <div class="col-lg-4"> -->
+<!-- 		                                            <div class="card project-task"> -->
+<!-- 		                                                <div class="card-header"> -->
+<!-- 		                                                    <div class="card-header-left"> -->
+<!-- 		                                                        <h5>출퇴근 수정 요청</h5> -->
+<!-- 		                                                    </div> -->
+<!-- 		                                                    <div class="card-header-right"> -->
+<!-- 		                                                        <ul class="list-unstyled card-option"> -->
+<!-- 		                                                            <li><i class="icofont icofont-simple-left"></i></li> -->
+<!-- 		                                                            <li><i class="icofont icofont-maximize full-card"></i></li> -->
+<!-- 		                                                            <li><i class="icofont icofont-minus minimize-card"></i></li> -->
+<!-- 		                                                            <li><i class="icofont icofont-refresh reload-card"></i></li> -->
+<!-- 		                                                            <li><i class="icofont icofont-ui-edit leave-card"></i></li> -->
+<!-- 		                                                        </ul> -->
+<!-- 		                                                    </div> -->
+<!-- 		                                                </div> -->
+<!-- 		                                                <div class="card-block p-b-10"> -->
+<!-- 		                                                    <div class="table-responsive"> -->
+<!-- 		                                                        <table class="table listTable"> -->
+<!-- 		                                                            <thead> -->
+<!-- 		                                                                <tr> -->
+<!-- 		                                                                	<th>구분</th> -->
+<!-- 		                                                                    <th>날짜</th> -->
+<!-- 		                                                                    <th>상태</th> -->
+<!-- 		                                                                </tr> -->
+<!-- 		                                                            </thead> -->
+<!-- 		                                                            <tbody> -->
+<!-- 		                                                            </tbody> -->
+<!-- 		                                                        </table> -->
+<!-- 		                                                    </div> -->
+<!-- 		                                                </div> -->
+<!-- 		                                            </div> -->
+<!-- 		                                        </div> -->
 		                                    </div>
 										</div>
-										<div class="col-md-4">
-		                                    
-		                                </div>
-<!-- 		                            </div> -->
 		                        </div>
 		                        <!-- 표준 외 근무 신청 모달 -->
 		                        <div class="modal fade" id="overworkModal" tabindex="-1" role="dialog" aria-labelledby="overworkModalLabel" aria-hidden="true">
@@ -501,7 +534,6 @@
 					console.log('에러');
 				}
 			});
-
 	}
 
 	// GPS출근하기
@@ -669,7 +701,7 @@
 		$.ajax({
 			url : 'commuteChart.co',
 			success : function(map) {
-				console.log('성공');
+				console.log('차트 성공');
 				console.log(map);
 
 				var arrWorkTime = new Array();
@@ -679,8 +711,7 @@
 				if (map.colist.length != 0) {
 					for (var i = 0; i < map.colist.length; i++) {
 						for (var j = 0; j < 7; j++) {
-							if (new Date(map.colist[i].enrollDate)
-									.getDay() == j) {
+							if (new Date(map.colist[i].enrollDate).getDay() == j) {
 								arrWorkTime[j] = map.colist[i].worktime;
 							}
 							if (arrWorkTime[j] == undefined) {
@@ -704,8 +735,7 @@
 				if (map.owlist.length != 0) {
 					for (var i = 0; i < map.owlist.length; i++) {
 						for (var j = 0; j < 7; j++) {
-							if (new Date(map.owlist[i].overworkDate)
-									.getDay() == j) {
+							if (new Date(map.owlist[i].overworkDate).getDay() == j) {
 								arrOverWork[j] = map.owlist[i].overworktime;
 							}
 							if (arrOverWork[j] == undefined) {
