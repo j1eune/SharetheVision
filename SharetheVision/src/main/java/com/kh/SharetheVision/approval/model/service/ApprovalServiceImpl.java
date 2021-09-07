@@ -36,8 +36,8 @@ public class ApprovalServiceImpl implements ApprovalService{
 	}
 
 	@Override
-	public ArrayList<Approval> selectApproval(String mCode) {
-		return apvdao.selectApproval(sqlSession, mCode);
+	public ArrayList<Approval> selectApproval(Approval ap) {
+		return apvdao.selectApproval(sqlSession, ap);
 	}
 	
 	

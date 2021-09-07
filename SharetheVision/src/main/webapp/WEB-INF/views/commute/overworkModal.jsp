@@ -135,11 +135,12 @@
 	                    <div class="form-row mb-3">
 	                        <div class="form-group col-md-6">
 	                            <label>결재자</label>
-	                            <select class="form-control">
+	                            <select class="form-control" id="approval">
 	                                <option>선택해주세요.</option>
-	                                <option>팀장</option>
-	                                <option>부장</option>
-	                            </select>
+	                                <option value="3">과장</option>
+	                                <option value="4">차장</option>
+	                                <option value="5">부장</option>
+                            </select>
 	                        </div>
 	                    </div> 
 	                    <div class="mb-4 text-center">
@@ -214,8 +215,9 @@
 		var date = $('#overworkDate').val();
 		var overworktime = $('#overworkTotal').val();
 		var overworkContent = $('#overworkContent').val();
+		var approval = $('#approval option:selected').val();
 		
-		var overwork = {"type":type, "overworkStart":start, "overworkEnd":end, "overworktime":overworktime, "overworkDate":date, "overworkContent":overworkContent}
+		var overwork = {"type":type, "overworkStart":start, "overworkEnd":end, "overworktime":overworktime, "overworkDate":date, "overworkContent":overworkContent, "approval":approval}
 		
 		$.ajax({
 			url: 'owInsert.co',

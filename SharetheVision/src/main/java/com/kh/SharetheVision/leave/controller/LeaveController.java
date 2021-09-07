@@ -110,12 +110,6 @@ public class LeaveController {
 		return "leaveDetailView";
 	}
 	
-//	@RequestMapping("leaveAll.le")
-//	public String leaveMemberAll() {
-//		
-//		return "leaveMemberAll";
-//	}
-	
 	@RequestMapping("leaveSetting.le")
 	public String leaveSetting(@RequestParam("uploadFile") MultipartFile file, HttpServletRequest request) throws LeaveException {
 		
@@ -219,7 +213,7 @@ public class LeaveController {
 //		String memberNo = "MaCo2";
 		
 		lu.setMemberNo(memberNo);
-		System.out.println(lu);
+//		System.out.println(lu);
 		
 		int result = leService.insertLeave(lu);
 		
@@ -253,7 +247,11 @@ public class LeaveController {
 			} else if(lu.getType() == 8){
 				type="오후반차";
 			}
-			apv.setApvCom("종류 : " + type + "\r\n시작일 : " + lu.getStartDate() + "\r\n종료일 : " + lu.getEndDate() +"\r\n일수  : " + lu.getDays() + "\r\n사유 : " + lu.getContent());
+			apv.setApvCom("휴가종류 : " + type +
+						  "\r\n시작일 : " + lu.getStartDate() +
+						  "\r\n종료일 : " + lu.getEndDate() +
+						  "\r\n일수  : " + lu.getDays() +
+						  "\r\n사유 : " + lu.getContent());
 			
 			apvResult = apvService.insertApproval(apv);
 		}

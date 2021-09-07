@@ -13,12 +13,12 @@
 	</resultMap>
 	
 	<select id="apList" resultMap="MemberResultMap">
-	   SELECT M_CODE, M_NAME, M_ID, DEPT_NO, DEPT_NAME, J_NAME, J_NO
-	     FROM MEMBER
-	     JOIN DEPARTMENT USING(DEPT_NO)
-	     JOIN JOB USING(J_NO)
+		SELECT M_CODE, M_NAME, M_ID, DEPT_NO, DEPT_NAME, J_NAME, J_NO
+		FROM MEMBER
+			JOIN DEPARTMENT USING(DEPT_NO)
+			JOIN JOB USING(J_NO)
 		WHERE M_STATUS='Y'
-	 ORDER BY DEPT_NO ASC, J_NO DESC
+		ORDER BY DEPT_NO ASC, J_NO DESC
 	</select>
 	
 	
@@ -49,11 +49,15 @@
 		SELECT *
 		FROM APPROVAL
 		WHERE M_CODE = #{mCode}
+		<if test="apvType != null">
+			AND APV_TYPE = #{apvType}
+		</if>
+		ORDER BY APV_NO DESC
 	</select>
 	
 	<resultMap type="Approval" id="approvalResultSet">
 		<id column="APV_NO" property="apNo"/>
-		<result column="APV_TYPE" property="apNo"/>
+		<result column="APV_TYPE" property="apvType"/>
 		<result column="APV_AGR" property="apvAgr"/>
 		<result column="APV_REF" property="apvRef"/>
 		<result column="APV_APP" property="apvApp"/>

@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.kh.SharetheVision.approval.model.service.ApprovalService;
+import com.kh.SharetheVision.approval.model.vo.Approval;
 import com.kh.SharetheVision.commute.model.exception.CommuteException;
 import com.kh.SharetheVision.commute.model.service.CommuteService;
 import com.kh.SharetheVision.commute.model.vo.Commute;
@@ -39,9 +41,12 @@ public class CommuteController {
 	@Autowired
 	private LeaveService leService;
 	
+	@Autowired
+	private ApprovalService apvService; 
+	
 	@RequestMapping("commuteMain.co")
 	public String commuteMainView(Model model, HttpSession session) {
-
+		
 		Member loginUser = ((Member)session.getAttribute("loginUser"));
 		
 		String memberNo = loginUser.getmCode();
@@ -96,7 +101,7 @@ public class CommuteController {
 	}
 	
 	@RequestMapping("commuteEnter.co")
-	public String commuteEnter(@RequestParam(value="mCode", required=false) String mCode, HttpSession session) throws CommuteException {
+	public String commuteEnter(@RequestParam(value="mCode", required=false) String mCode, HttpSession session, Model model) throws CommuteException {
 		
 		String memberNo = ((Member)session.getAttribute("loginUser")).getmCode();
 		
@@ -109,8 +114,8 @@ public class CommuteController {
 		
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
-//		String enterTime = sdf.format(date);
-		String enterTime = "2021-09-06 08:50:36";
+		String enterTime = sdf.format(date);
+//		String enterTime = "2021-09-06 09:00:15";
 		
 		// 지각 여부
 		int status = 0;
@@ -134,7 +139,14 @@ public class CommuteController {
 		int result = coService.commuteEnter(map);
 		
 		if(result > 0) {
-			return "redirect: commuteMain.co";			
+			if(mCode != null) {
+				model.addAttribute("qr", "qr");
+			}
+			
+			model.addAttribute("msg", "출근이 인증되었습니다.");
+	        model.addAttribute("url", "commuteMain.co");
+			
+	        return "commuteAlert";		
 		} else {
 			throw new CommuteException("출근 등록에 실패하였습니다.");
 		}
@@ -148,13 +160,13 @@ public class CommuteController {
 
 		Commute co = coService.commuteDay(memberNo);
 		String start = co.getCommuteStart();
-//		String start = "2021-09-01 08:31:50";
+//		String start = "2021-09-06 09:00:15";
 		
 		// 퇴근 시간
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 //		String end = sdf.format(date);
-		String end = "2021-09-01 17:45:52";
+		String end = "2021-09-06 17:30:45";
 		
 		// 18시 이후 여부
 		Double workTime = 0.00;
@@ -182,7 +194,7 @@ public class CommuteController {
 			// 휴일 출근 여부
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(date);
-			int dayNum = Calendar.DAY_OF_WEEK;
+			int dayNum = cal.get(Calendar.DAY_OF_WEEK);
 			
 			// worktime 계산
 			if(dayNum == 1 || dayNum == 7) {
@@ -198,8 +210,6 @@ public class CommuteController {
 				
 				workTime = Double.parseDouble(fTime);
 			}
-			
-		
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -441,19 +451,52 @@ public class CommuteController {
 	
 	@ResponseBody
 	@RequestMapping("owInsert.co")
-	public String overworkInsert(@ModelAttribute Overwork ow, HttpSession session) throws CommuteException {
+	public String overworkInsert(@ModelAttribute Overwork ow, @RequestParam("approval") int approval, HttpSession session) throws CommuteException {
 		Member loginUser = ((Member)session.getAttribute("loginUser"));
 		String memberNo = loginUser.getmCode();
+		String memberName = loginUser.getName();
 //		String memberNo = "MaCo2";
 		
 		ow.setMemberNo(memberNo);
 		
 		int result = coService.insertOverwork(ow);
 		
+		int apvResult = 0;
 		if(result > 0) {
+			Approval apv = new Approval();
+			
+			apv.setApvType(Integer.toString(7));
+			apv.setmCode(memberNo);
+			if(approval == 3) {
+				apv.setApvApp("과장");			
+			} else if(approval == 4) {
+				apv.setApvApp("차장");
+			} else if(approval == 5) {
+				apv.setApvApp("부장");
+			}
+			apv.setApvTitle("["+memberName+"] 연장 근무 신청서");
+			String type = null;
+			if(ow.getType() == 1) {
+				type = "연장근무";
+			} else if(ow.getType() == 2){
+				type = "야간근무";
+			} else if(ow.getType() == 3){
+				type="휴일근무";
+			}
+			apv.setApvCom("근무종류 : " + type +
+						  "\r\n날짜 : " + ow.getOverworkDate() +
+						  "\r\n시작시간 : " + ow.getOverworkStart() +
+						  "\r\n종료시간 : " + ow.getOverworkEnd() +
+						  "\r\n총 시간  : " + ow.getOverworktime() +
+						  "\r\n사유 : " + ow.getOverworkContent());
+			
+			apvResult = apvService.insertApproval(apv);
+		}
+		
+		if(apvResult > 0) {
 			return "success";
 		} else {
-			throw new CommuteException("요청 작성에 실패하였습니다.");
+			throw new CommuteException("연장 근무 신청에 실패하였습니다.");
 		}
 	}
 	
@@ -500,6 +543,60 @@ public class CommuteController {
 	@RequestMapping("qrStart.co")
 	public String qrCommuteEnter() {
 		return "commuteQR";
+	}
+	
+	@ResponseBody
+	@RequestMapping("commuteRequest.co")
+	public String commuteRequest(@ModelAttribute Commute co, @RequestParam("approval") int approval, @RequestParam("commuteContent") String content, HttpSession session) throws CommuteException {
+		Member loginUser = ((Member)session.getAttribute("loginUser"));
+		String memberNo = loginUser.getmCode();
+		String memberName = loginUser.getName();
+//		String memberNo = "MaCo2";
+		
+		System.out.println(co);
+		System.out.println(approval);
+		
+		Approval apv = new Approval();
+		
+		apv.setApvType(Integer.toString(8));
+		apv.setmCode(memberNo);
+		if(approval == 3) {
+			apv.setApvApp("과장");			
+		} else if(approval == 4) {
+			apv.setApvApp("차장");
+		} else if(approval == 5) {
+			apv.setApvApp("부장");
+		}
+		apv.setApvTitle("["+memberName+"] 근태 변경 신청서");
+		String type = null;
+		if(co.getStatus() == 1) {
+			type = "지각";
+		} else if(co.getStatus() == 2){
+			type = "조퇴";
+		} else if(co.getStatus() == 3){
+			type = "결근";
+		}
+		apv.setApvCom("근무종류 : " + type +
+					  "\r\n날짜 : " + co.getEnrollDate() +
+					  "\r\n출근시간 : " + co.getCommuteStart() +
+					  "\r\n퇴근시간 : " + co.getCommuteEnd() +
+					  "\r\n사유 : " + content);
+			
+		int result = apvService.insertApproval(apv);
+		
+		System.out.println(result + " : 인서트 결과");
+		
+		if(result > 0) {
+			return "success";
+		} else {
+			throw new CommuteException("근태 변경 신청에 실패하였습니다.");
+		}
+	}
+	
+	@RequestMapping("coRequestDetailView.co")
+	public String coRequestDetailView() {
+		
+		return "coRequestDetail";
 	}
 	
 	

@@ -26,8 +26,8 @@ public class ApprovalDAO {
 		return sqlSession.insert("approvalMapper.insertApproval", apv);
 	}
 	
-	public ArrayList<Approval> selectApproval(SqlSessionTemplate sqlSession, String memberNo) {
-		return (ArrayList)sqlSession.selectList("approvalMapper.selectApproval", memberNo);
+	public ArrayList<Approval> selectApproval(SqlSessionTemplate sqlSession, Approval ap) {
+		return (ArrayList)sqlSession.selectList("approvalMapper.selectApproval", ap);
 	}
 
 }

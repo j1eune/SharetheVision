@@ -14,8 +14,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.kh.SharetheVision.approval.model.service.ApprovalService;
 import com.kh.SharetheVision.approval.model.vo.Approval;
 import com.kh.SharetheVision.attachments.model.vo.Attachment;
@@ -83,15 +88,22 @@ public class ApprovalController {
 		
 		return att;
 	}
-
-	@RequestMapping("selectApproval.ap")
-	public String selectApproval(HttpSession session) {
+	
+	// 타입에 따라 approval 리스트 가져오기
+	@ResponseBody
+	@RequestMapping(value="selectApproval.ap", produces="application/json; charset=utf-8")
+	public String selectApproval(HttpSession session, @RequestParam(value="type", required=false) String type) {
 		Member loginUser = ((Member)session.getAttribute("loginUser"));
 		String mCode = loginUser.getmCode();
+		
+		Approval ap = new Approval();
+		ap.setmCode(mCode);
+		ap.setApvType(type);
 	
-		ArrayList<Approval> list = apvService.selectApproval(mCode);
-	
-		return "approval";
+		ArrayList<Approval> list = apvService.selectApproval(ap);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		return gson.toJson(list);
 	}
-	
 }
