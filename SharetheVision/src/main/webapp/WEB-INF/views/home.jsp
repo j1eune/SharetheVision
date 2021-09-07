@@ -119,20 +119,18 @@
 
                                 <!-- Data widget start -->
                                 <div class="col-md-12 col-xl-6">
-                                    <div class="card project-task" style="height: 300px;">
+                                    <div class="card project-task" style="height: 300px">
                                         <div class="card-header">
                                             <div class="card-header-left ">
                                                 <h4>프로젝트</h4>
                                             </div>
                                         </div>
                                         <!-- 로그인유저가 속한 프로젝트가 있다면 가져오기-->
-                                        <div class="card-block p-b-10">
+                                        <div class="card-block p-b-10" style="overflow-y:auto">
                                             <div class="table-responsive">
                                                 <table class="table table-hover" id="projectTb">
                                                     <thead></thead>
-                                                    <tbody>
-                                                      
-                                                    </tbody>
+                                                    <tbody></tbody>
                                                 </table>
                                             </div>
                                         </div>
@@ -141,13 +139,13 @@
                                 </div>
                                 <!-- To Do List -->
                                 <div class="col-md-12 col-xl-6" >
-                                    <div class="card add-task-card" style="height: 300px; overflow-y:scroll;">
+                                    <div class="card add-task-card" style="height: 300px;">
                                         <div class="card-header">
                                             <div class="card-header-left">
                                                 <h4>업무 목록</h4>
                                             </div>
                                         </div>
-                                        <div class="card-block">
+                                        <div class="card-block" style="overflow-y:auto">
                                          <!--  체크리스트 시작 -->
                                             <div class="to-do-list"></div>
                                             <div>
