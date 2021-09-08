@@ -105,7 +105,6 @@
 			        </li>
 			    </ul>
 			</li>
-       
         </ul>
         
         <ul class="pcoded-item pcoded-left-item">
@@ -148,13 +147,11 @@
 			    </ul>
 			</li>
         </ul>
-
-        
         <ul class="pcoded-item pcoded-left-item">
             <li>
-                <a style="cursor:pointer" target="_blank" class="chatting">
-                    <span class="pcoded-micon"><i class="ti-layers"></i><b></b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Messenger</span>
+                <a style="cursor:pointer"  target="_blank" class="chatting">
+                    <span class="pcoded-micon" style="background-color:white; border:2px solid purple;"><i class="ti-comment text-c-yellow"></i><b></b></span>
+                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">메신저</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>

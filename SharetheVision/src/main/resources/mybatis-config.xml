@@ -20,6 +20,7 @@
 		<typeAlias alias="Scrap" type="com.kh.SharetheVision.board.model.vo.Scrap"/>
 		<typeAlias alias="Todo" type="com.kh.SharetheVision.firstmain.model.vo.Todo"/>
 		<typeAlias alias="Approval" type="com.kh.SharetheVision.approval.model.vo.Approval"/>
+		<typeAlias alias="Reply" type="com.kh.SharetheVision.board.model.vo.Reply"/>
 	</typeAliases>
 	
 	
