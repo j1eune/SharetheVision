@@ -26,6 +26,19 @@
 		<result column="AT_EXTENTION" property="atExtention"/>
 		<result column="AT_STATUS" property="atStatus"/>
 	</resultMap>
+	
+	<resultMap type="Reply" id="replyResultSet">
+		<id column="R_NO" property="replyNo"/>
+		<result column="R_WRITER" property="replyWriter"/>
+		<result column="R_CONTENT" property="replyContent"/>
+		<result column="R_CREATEDATE" property="replyCreateDate"/>
+		<result column="J_NAME" property="jobName"/>
+		<result column="D_NAME" property="deptName"/>
+		<result column="R_STATUS" property="replyStatus"/>
+		<result column="M_CODE" property="memberCode"/>
+		<result column="B_NO" property="boardNo"/>
+	</resultMap>
+	
 
 	<select id="selectListCount" resultType="_int">
 		select count(*)
@@ -63,7 +76,7 @@
 	<select id="selectProjectList" resultMap="projectResultSet">
 		select p_name
 		from project
-		where dept_no = #{deptNo}
+		where dept_no = #{deptNo} and p_status='Y' and p_end='N'
 	</select>
 	
 	<resultMap type="Project" id="projectResultSet">
@@ -174,7 +187,7 @@
 	<select id="selectAttechedFile" resultMap="attachmentResultSet">
 		select *
 		from attachments
-		where at_level = 3 and at_category = #{bId}
+		where at_level = 3 and at_category = #{bId} and at_status='Y'
 	</select>
 	
 	<update id="deleteBoard">
@@ -204,4 +217,25 @@
 		FROM SCRAP
 		WHERE PROJECT = #{projectName} AND M_CODE = #{mCode}
 	</delete>
+
+	<update id="updateBoard">
+		update board set b_title = #{boardTitle}, b_content = #{boardContent}, project = #{project} where b_no = #{boardNo}
+	</update>
+	
+	<insert id="insertReply">
+		insert into reply values(SEQ_REPLY.NEXTVAL, #{replyWriter}, #{replyContent}, default, #{jobName}, #{deptName}, default, #{memberCode}, #{boardNo})
+	</insert>
+	
+	<select id="selectReplyList" resultMap="replyResultSet">
+		select * from
+		reply
+		where b_no = #{bId} and r_status = 'Y'
+	</select>
+	
+	<update id="deleteReply">
+		update reply
+		set r_status = 'N'
+		where r_no = #{replyNo}
+	</update>
+	
 </mapper>

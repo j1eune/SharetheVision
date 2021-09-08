@@ -185,24 +185,35 @@
 
                                     <!-- 여기부터 작성 -->
                                     <div class="card">
-                                    	<form action="boardInsert.bo" method="post" enctype="Multipart/form-data" class="boardForm">
+                                    	<form action="boardUpdate.bo" method="post" enctype="Multipart/form-data" class="boardForm">
                                     		
                                     		<div class="titleWrap">
 	                                    		<select class="project inputBase" name="project">
 	                                    			<option>프로젝트를 선택하세요</option>
 	                                    			<c:forEach var="p" items="${ project }">
-		                                    			<option value="${ p.pName }">${ p.pName }</option>
+	                                    				<c:if test="${ board.project != p.pName }">
+		                                    				<option value="${ p.pName }">${ p.pName }</option>
+	                                    				</c:if>
+	                                    				<c:if test="${ board.project == p.pName }">
+		                                    				<option value="${ p.pName }" selected>${ p.pName }</option>
+	                                    				</c:if>
 	                                    			</c:forEach>
 	                                    		</select>
-	                                    		<input type="text" size="50" name="boardTitle" class="boardTitle inputBase" placeholder="제목을 입력하세요.">
+	                                    		<input type="text" size="50" name="boardTitle" class="boardTitle inputBase" value="${ board.boardTitle }">
                                     		</div>
-											<textarea rows="15" name="boardContent" class="boardContent inputBase" placeholder="내용을 입력하세요."></textarea>   
+											<textarea rows="15" name="boardContent" class="boardContent inputBase">${ board.boardContent }</textarea>   
 											<div class="fileAndSubmit">
 												<div>
 													<label for="uploadFile" class="uploadFile">업로드</label>
 													<input type="file" id="uploadFile" name="uploadFile" style="display: none;">
-													<input class="uploadFileName" value="파일선택" readonly>
+													<c:if test="${ empty attachFile }">
+														<input class="uploadFileName" value="파일선택" readonly>
+													</c:if>
+													<c:if test="${ !empty attachFile }">
+														<input class="uploadFileName" value="${ attachFile.atOrigin }" readonly>
+													</c:if>
 													
+													<input type="hidden" name="boardNo" value="${ board.boardNo }">
 													<input type="hidden" name="memberCode" value="${ loginUser.mCode }">
 													<input type="hidden" name="deptNo" value="${ loginUser.deptNo }">
 													<input type="hidden" name="boardWriter" value="${ loginUser.name }">

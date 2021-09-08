@@ -11,6 +11,7 @@ import com.kh.SharetheVision.attachments.model.vo.Attachment;
 import com.kh.SharetheVision.board.model.dao.BoardDAO;
 import com.kh.SharetheVision.board.model.vo.Board;
 import com.kh.SharetheVision.board.model.vo.PageInfo;
+import com.kh.SharetheVision.board.model.vo.Reply;
 import com.kh.SharetheVision.board.model.vo.Scrap;
 import com.kh.SharetheVision.project.model.vo.Project;
 
@@ -133,5 +134,24 @@ public class BoardServiceImpl implements BoardService {
 		return DAO.deleteProjectScrap(sqlSession, map);
 	}
 
+	@Override
+	public int updateBoard(Board b) {
+		return DAO.updateBoard(sqlSession, b);
+	}
+
+	@Override
+	public int addReply(Reply r) {
+		return DAO.addReply(sqlSession, r);
+	}
+
+	@Override
+	public ArrayList<Reply> selectReplyList(int bId) {
+		return DAO.selectReplyList(sqlSession, bId);
+	}
+
+	@Override
+	public int deleteReply(int replyNo) {
+		return DAO.deleteReply(sqlSession, replyNo);
+	}
 	
 }

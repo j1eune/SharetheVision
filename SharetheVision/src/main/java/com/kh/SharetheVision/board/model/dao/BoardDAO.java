@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.SharetheVision.attachments.model.vo.Attachment;
 import com.kh.SharetheVision.board.model.vo.Board;
 import com.kh.SharetheVision.board.model.vo.PageInfo;
+import com.kh.SharetheVision.board.model.vo.Reply;
 import com.kh.SharetheVision.board.model.vo.Scrap;
 import com.kh.SharetheVision.project.model.vo.Project;
 
@@ -108,6 +109,22 @@ public class BoardDAO {
 
 	public int deleteProjectScrap(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 		return sqlSession.delete("boardMapper.deleteProjectScrap",map);
+	}
+	
+	public int updateBoard(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.update("boardMapper.updateBoard", b);
+	}
+
+	public int addReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.insert("boardMapper.insertReply", r);
+	}
+
+	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int bId) {
+		return (ArrayList)sqlSession.selectList("boardMapper.selectReplyList", bId);
+	}
+
+	public int deleteReply(SqlSessionTemplate sqlSession, int replyNo) {
+		return sqlSession.update("boardMapper.deleteReply", replyNo);
 	}
 
 }
