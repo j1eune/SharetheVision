@@ -57,4 +57,8 @@ public class MemberDAO {
 		return (ArrayList)sqlSession.selectList("memberMapper.searchMember", map, rowBounds);
 	}
 
+	public ArrayList<Member> selectMemberList(SqlSession sqlSession, Member m) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectMemberList", m);
+	}
+
 }

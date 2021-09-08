@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="approvalMapper">
 
-
 	<resultMap type="Member" id="MemberResultMap">
 		<id column="M_CODE" property="mCode"/>
 		<result column="M_NAME" property="name"/>
@@ -13,12 +12,12 @@
 	</resultMap>
 	
 	<select id="apList" resultMap="MemberResultMap">
-	   SELECT M_CODE, M_NAME, M_ID, DEPT_NO, DEPT_NAME, J_NAME, J_NO
-	     FROM MEMBER
-	     JOIN DEPARTMENT USING(DEPT_NO)
-	     JOIN JOB USING(J_NO)
+		SELECT M_CODE, M_NAME, M_ID, DEPT_NO, DEPT_NAME, J_NAME, J_NO
+		FROM MEMBER
+			JOIN DEPARTMENT USING(DEPT_NO)
+			JOIN JOB USING(J_NO)
 		WHERE M_STATUS='Y'
-	 ORDER BY DEPT_NO ASC, J_NO DESC
+		ORDER BY DEPT_NO ASC, J_NO DESC
 	</select>
 	
 	
@@ -42,18 +41,22 @@
 	
 	<insert id="insertApproval">
 		INSERT INTO APPROVAL VALUES(SEQ_APV.NEXTVAL, #{apvType}, #{mCode}, #{apvAgr}, #{apvRef}, #{apvApp},
-						   			#{apvTitle}, #{apvCom}, SYSDATE, SYSDATE + 10, #{apvDdate}, 'A')
+						   			#{apvTitle}, #{apvCom}, SYSDATE, SYSDATE + 10, #{apvDdate}, 'A', #{apvRefNo})
 	</insert>
 	
 	<select id="selectApproval" resultMap="approvalResultSet">
 		SELECT *
 		FROM APPROVAL
 		WHERE M_CODE = #{mCode}
+		<if test="apvType != null">
+			AND APV_TYPE = #{apvType}
+		</if>
+		ORDER BY APV_NO DESC
 	</select>
 	
 	<resultMap type="Approval" id="approvalResultSet">
 		<id column="APV_NO" property="apNo"/>
-		<result column="APV_TYPE" property="apNo"/>
+		<result column="APV_TYPE" property="apvType"/>
 		<result column="APV_AGR" property="apvAgr"/>
 		<result column="APV_REF" property="apvRef"/>
 		<result column="APV_APP" property="apvApp"/>
@@ -63,6 +66,11 @@
 		<result column="APV_DDATE" property="apvDdate"/>
 		<result column="APV_EDATE" property="apvEdate"/>
 		<result column="APV_STATUS" property="apvStatus"/>
+		<result column="APV_REF_NO" property="apvRefNo"/>
 		<result column="M_CODE" property="mCode"/>
 	</resultMap>
+	
+	<select id="selectOne" resultMap="approvalResultSet">
+		SELECT * FROM APPROVAL WHERE APV_NO = #{apNo}
+	</select>
 </mapper>

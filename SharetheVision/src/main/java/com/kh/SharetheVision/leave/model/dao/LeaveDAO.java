@@ -32,4 +32,8 @@ public class LeaveDAO {
 		return sqlSession.update("leaveMapper.changeStatus", lu);
 	}
 
+	public int leaveUpdate(SqlSessionTemplate sqlSession, int no) {
+		return sqlSession.update("leaveMapper.leaveUpdate", no);
+	}
+
 }

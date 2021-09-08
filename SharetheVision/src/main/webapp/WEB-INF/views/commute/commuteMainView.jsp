@@ -14,12 +14,12 @@
 <meta name="description" content="CodedThemes">
 <meta name="keywords" content=" Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
 <meta name="author" content="CodedThemes">
-<link href="resources/assets/css/datePicker/datePicker.css" rel="stylesheet" type="text/css">
+<link href="resources/assets/css/datePicker/datePicker2.css" rel="stylesheet" type="text/css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script type="text/javascript" src="resources/assets/js/qrcode.js"></script>
 <style>
-	.listTable>thead>tr>th, .listTable>tbody>tr>td, .listTable>tbody>tr>th {
-		text-align: center
+	.listTable>thead>tr>th, .listTable>tbody>tr>td, .listTable>tbody>tr>td>div {
+		text-align: center;
 	}
 	
 	#leaveTime input[type="radio"] {
@@ -373,39 +373,39 @@
 		                                            </div>
 		                                        </div>
 		                                        <!-- 출근 수정 요청 -->
-<!-- 		                                        <div class="col-lg-4"> -->
-<!-- 		                                            <div class="card project-task"> -->
-<!-- 		                                                <div class="card-header"> -->
-<!-- 		                                                    <div class="card-header-left"> -->
-<!-- 		                                                        <h5>출퇴근 수정 요청</h5> -->
-<!-- 		                                                    </div> -->
-<!-- 		                                                    <div class="card-header-right"> -->
-<!-- 		                                                        <ul class="list-unstyled card-option"> -->
-<!-- 		                                                            <li><i class="icofont icofont-simple-left"></i></li> -->
-<!-- 		                                                            <li><i class="icofont icofont-maximize full-card"></i></li> -->
-<!-- 		                                                            <li><i class="icofont icofont-minus minimize-card"></i></li> -->
-<!-- 		                                                            <li><i class="icofont icofont-refresh reload-card"></i></li> -->
-<!-- 		                                                            <li><i class="icofont icofont-ui-edit leave-card"></i></li> -->
-<!-- 		                                                        </ul> -->
-<!-- 		                                                    </div> -->
-<!-- 		                                                </div> -->
-<!-- 		                                                <div class="card-block p-b-10"> -->
-<!-- 		                                                    <div class="table-responsive"> -->
-<!-- 		                                                        <table class="table listTable"> -->
-<!-- 		                                                            <thead> -->
-<!-- 		                                                                <tr> -->
-<!-- 		                                                                	<th>구분</th> -->
-<!-- 		                                                                    <th>날짜</th> -->
-<!-- 		                                                                    <th>상태</th> -->
-<!-- 		                                                                </tr> -->
-<!-- 		                                                            </thead> -->
-<!-- 		                                                            <tbody> -->
-<!-- 		                                                            </tbody> -->
-<!-- 		                                                        </table> -->
-<!-- 		                                                    </div> -->
-<!-- 		                                                </div> -->
-<!-- 		                                            </div> -->
-<!-- 		                                        </div> -->
+		                                        <div class="col-lg-4">
+		                                            <div class="card project-task">
+		                                                <div class="card-header">
+		                                                    <div class="card-header-left">
+		                                                        <h5>근태 수정 요청</h5>
+		                                                    </div>
+		                                                    <div class="card-header-right">
+		                                                        <ul class="list-unstyled card-option">
+		                                                            <li><i class="icofont icofont-simple-left"></i></li>
+		                                                            <li id="coRequestFull"><i class="icofont icofont-maximize full-card"></i></li>
+		                                                            <li><i class="icofont icofont-minus minimize-card"></i></li>
+		                                                            <li id="coRequestReload"><i class="icofont icofont-refresh reload-card"></i></li>
+		                                                            <li><i class="icofont icofont-ui-edit commute-card"></i></li>
+		                                                        </ul>
+		                                                    </div>
+		                                                </div>
+		                                                <div class="card-block p-b-10">
+		                                                    <div class="table-responsive">
+		                                                        <table class="table listTable" id="coRequestTable">
+		                                                            <thead>
+		                                                                <tr>
+		                                                                	<th>구분</th>
+		                                                                    <th>날짜</th>
+		                                                                    <th>상태</th>
+		                                                                </tr>
+		                                                            </thead>
+		                                                            <tbody>
+		                                                            </tbody>
+		                                                        </table>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+		                                        </div>
 		                                    </div>
 										</div>
 		                        </div>
@@ -416,6 +416,10 @@
 		                        <!-- 휴가 신청 모달 -->
 		                        <div class="modal fade" id="leaveModal" tabindex="-1" role="dialog" aria-labelledby="leaveModalLabel" aria-hidden="true">
 		                        	<%@include file="../leave/leaveModal.jsp" %>
+		                    	</div>
+		                        <!-- 근태 수정 신청 모달 -->
+		                        <div class="modal fade" id="commuteModal" tabindex="-1" role="dialog" aria-labelledby="commuteModalLabel" aria-hidden="true">
+		                        	<%@include file="commuteModal.jsp" %>
 		                    	</div>
 		                    </div>
 		                </div>
@@ -495,11 +499,12 @@
 
 						diffSec = (today.getTime() - startDate.getTime()) / 1000;
 						diff = diffSec / (8 * 60 * 60) * 100;
-						hour = Math.floor(diffSec / 3600) - 1;
+						hour = Math.floor(diffSec / 3600);
 						min = Math.floor(diffSec % 3600 / 60);
 						sec = Math.floor(diffSec % 3600 % 60);
 
-						hour = (hour < 10) ? "0" + hour : hour;
+						hour = (hour < 10 && hour > 0) ? "0" + hour : hour;
+						if(hour == 0) hour = "00";
 						min = (min < 10) ? "0" + min : min;
 						sec = (sec < 10) ? "0" + sec : sec;
 
@@ -577,6 +582,7 @@
 			
 		    $("#qrcode > img").css({"margin":"auto"});
 		} else {
+			$('#QRModal').modal('hide');			
 			popupOpen('qrStart.co');
 		}
 	});
@@ -604,9 +610,9 @@
 
 		var text = $(this).find('span').text();
 		var state;
-		if (text == '근무중') {
+		if (text == '근무종료') {
 			state = 1;
-		} else if (text == '근무종료') {
+		} else if (text == '근무중') {
 			state = 2;
 		} else if (text == '외근') {
 			state = 3;
@@ -618,9 +624,24 @@
 	});
 
 	// 날짜 선택
-	$('.datepicker').datepicker();
+	$('.datepicker').datepicker({
+		beforeShow: function(input, inst) {
+			var calendar = inst.dpDiv;
+			console.log(calendar);
+			setTimeout(function(){
+				calendar.position({
+					my: 'right top',
+					at: 'right bottom',
+					collision: 'none',
+					of: input
+				});
+			}, 1);
+		}
+	});
 
 	$.datepicker.setDefaults({
+		
+		showOn: 'button',		
 		dateFormat : 'yy-mm-dd',
 		prevText : '이전 달',
 		nextText : '다음 달',
@@ -654,12 +675,27 @@
 	$('.leave-card').on('click', function() {
 		$('#leaveModal').modal('show');
 	});
-
+	
+	// 근태 변경 신청
+	$('.commute-card').on('click', function(){
+		$('#commuteModal').modal('show');
+	});
+	
 	// overworkFull
 	$('#overworkFull').on('click', function() {
 		location.href = "overworkDetailView.co";
 	});
-
+	
+	// leaveFull
+	$('#leaveFull').on('click', function(){
+		location.href = "leaveDetail.le";
+	});
+	
+	// commuteFull
+	$('#coRequestFull').on('click', function(){
+		location.href = "coRequestDetailView.co";
+	});
+	
 	// reload
 	$('#overworkReload').on('click', function() {
 		getOverworkList();
@@ -669,22 +705,20 @@
 		getLeaveList();
 	});
 	
-	// leaveFull
-	$('#leaveFull').on('click', function(){
-		location.href = "leaveDetail.le";
+	$('#coRequestReload').on('click', function(){
+		getCommuteList();
 	});
-	
 
 	$(function() {
 		var state = <c:out value="${state}" />
 		if (state == 1) {
-			$('#working').css('background-color', '#660099');
-			$('#working').find('i').css('color', 'white');
-			$('#working').find('span').css('color', 'white');
-		} else if (state == 2) {
 			$('#workEnd').css('background-color', '#660099');
 			$('#workEnd').find('i').css('color', 'white');
 			$('#workEnd').find('span').css('color', 'white');
+		} else if (state == 2) {
+			$('#working').css('background-color', '#660099');
+			$('#working').find('i').css('color', 'white');
+			$('#working').find('span').css('color', 'white');
 		} else if (state == 3) {
 			$('#outside').css('background-color', '#660099');
 			$('#outside').find('i').css('color', 'white');

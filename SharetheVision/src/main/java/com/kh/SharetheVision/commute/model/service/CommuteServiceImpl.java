@@ -56,4 +56,19 @@ public class CommuteServiceImpl implements CommuteService{
 		return coDAO.insertOverwork(sqlSession, ow);
 	}
 
+	@Override
+	public int overworkUpdate(int no) {
+		return coDAO.updateOverwork(sqlSession, no);
+	}
+
+	@Override
+	public Commute selectCommuteOne(Commute co) {
+		return coDAO.selectCommuteOne(sqlSession, co);
+	}
+
+	@Override
+	public int updateCommute(Commute co) {
+		return coDAO.updateCommute(sqlSession, co);
+	}
+
 }

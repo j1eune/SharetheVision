@@ -168,18 +168,17 @@
 					// QR코드 메시지 출력
 					outputData.innerHTML = code.data;
 
-					// return을 써서 함수를 빠져나가면 QR코드 프로그램이 종료된다.
-					// return;
-					
 					if(confirm('출근하시겠습니까?') == true){ //확인
+// 						window.close();
+
 						var mCode = '<c:out value="${loginUser.mCode}"/>';
+						
 						location.href="commuteEnter.co?mCode="+mCode;
 						
-						window.close();
-						alert('출근이 인증되었습니다.');
-                     } else{
-                    	  return false;
-                     }
+						return;
+                    } else {
+                    	return false;
+                    }
 				}
 
 				// QR코드 인식에 실패한 경우 

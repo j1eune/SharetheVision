@@ -461,3 +461,11 @@ COMMIT;
 -------------2021-09-06 강정환 UPDATE---------------------------
 
 
+----------- 2021.09.07 17:45 임지은 UPDATE
+COMMENT ON COLUMN COMMUTE.C_STATUS IS '0:정상출근 1:지각 2:조퇴 3:결근';
+COMMENT ON COLUMN APPROVAL.APV_TYPE IS '1 = 휴가 / 2 = 기안서 / 3 = 세금 계산서 / 4 = 보고서 / 5 = 품의서 / 6 = 계획서 / 7 = 연장근무신청서 / 8 = 근태변경신청서';
+
+
+----------- 2021.09.08 13:54 임지은 UPDATE
+ALTER TABLE APPROVAL ADD APV_REF_NO NUMBER;
+COMMENT ON COLUMN APPROVAL.APV_REF_NO IS '휴가, 연장근무, 근태변경 신청서 관리';
