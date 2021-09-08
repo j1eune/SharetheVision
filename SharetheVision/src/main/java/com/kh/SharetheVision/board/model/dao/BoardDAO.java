@@ -91,16 +91,16 @@ public class BoardDAO {
 		return sqlSession.selectOne("boardMapper.selectSearchListCount", map);
 	}
 
-	public Attachment selectAttechedFile(SqlSessionTemplate sqlSession, int bId) {
-		return sqlSession.selectOne("boardMapper.selectAttechedFile", bId);
+	public Attachment selectAttechedFile(SqlSessionTemplate sqlSession, String strbId) {
+		return sqlSession.selectOne("boardMapper.selectAttechedFile", strbId);
 	}
 
 	public int deleteBoard(SqlSessionTemplate sqlSession, int bId) {
 		return sqlSession.update("boardMapper.deleteBoard", bId);
 	}
 
-	public int deleteBoardAttachFile(SqlSessionTemplate sqlSession, int bId) {
-		return sqlSession.update("boardMapper.deleteBoardAttachFile", bId);
+	public int deleteBoardAttachFile(SqlSessionTemplate sqlSession, String strbId) {
+		return sqlSession.update("boardMapper.deleteBoardAttachFile", strbId);
 	}
 
 	public int changeBoard(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {

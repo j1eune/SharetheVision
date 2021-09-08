@@ -67,9 +67,11 @@ public class BoardController {
 		s.setmCode(mCode);
 		s.setBoardNo(bId);
 
+		String strbId = bId+"";
+
 		Board board = service.selectBoardDetail(bId);
 		Scrap scrapState = service.scrapState(s);
-		Attachment attachedFile = service.selectAttachedFile(bId);
+		Attachment attachedFile = service.selectAttachedFile(strbId);
 		ArrayList<Reply> reply = service.selectReplyList(bId);
 
 //		System.out.println(attachedFile);
@@ -220,9 +222,10 @@ public class BoardController {
 	public String boardDelete(@RequestParam(value = "bId") int bId) throws BoardException {
 
 //		System.out.println(bId);
+		String strbId = bId+"";
 
 		int result = service.deleteBoard(bId);
-		int result2 = service.deleteBoardAttachFile(bId);
+		int result2 = service.deleteBoardAttachFile(strbId);
 
 		if (result > 0) {
 			return "redirect:boardList.bo";
@@ -237,8 +240,10 @@ public class BoardController {
 
 		int bId = b.getBoardNo();
 		int deptNo = b.getDeptNo();
+		
+		String strbId = bId+"";
 
-		Attachment attachFile = service.selectAttachedFile(bId);
+		Attachment attachFile = service.selectAttachedFile(strbId);
 		ArrayList<Project> list = service.selectProjectList(deptNo);
 
 //		System.out.println(attachFile);
@@ -253,12 +258,15 @@ public class BoardController {
 			HttpServletRequest request) throws BoardException {
 
 		int bId = b.getBoardNo();
-		Attachment attachFile = service.selectAttachedFile(bId);
+		
+		String strbId = bId+"";
+		
+		Attachment attachFile = service.selectAttachedFile(strbId);
 
 		if (uploadFile != null && !uploadFile.isEmpty()) {
 			if (attachFile != null) {
 				deleteFile(request, attachFile);
-				service.deleteBoardAttachFile(bId);
+				service.deleteBoardAttachFile(strbId);
 				Attachment newAttachFile = saveFile(uploadFile, request, bId);
 				service.insertAttachFile(newAttachFile);
 			} else {

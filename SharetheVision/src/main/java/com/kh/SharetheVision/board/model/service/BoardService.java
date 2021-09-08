@@ -46,11 +46,11 @@ public interface BoardService {
 
 	ArrayList<Board> selectSearchBoard(PageInfo pi, HashMap<String, Object> map);
 
-	Attachment selectAttachedFile(int bId);
+	Attachment selectAttachedFile(String strbId);
 
 	int deleteBoard(int bId);
 
-	int deleteBoardAttachFile(int bId);
+	int deleteBoardAttachFile(String strbId);
 
 	int changeBoard(HashMap<String, Object> map);
 

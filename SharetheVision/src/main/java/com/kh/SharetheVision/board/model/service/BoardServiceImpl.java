@@ -110,8 +110,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public Attachment selectAttachedFile(int bId) {
-		return DAO.selectAttechedFile(sqlSession, bId);
+	public Attachment selectAttachedFile(String strbId) {
+		return DAO.selectAttechedFile(sqlSession, strbId);
 	}
 
 	@Override
@@ -120,8 +120,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int deleteBoardAttachFile(int bId) {
-		return DAO.deleteBoardAttachFile(sqlSession, bId);
+	public int deleteBoardAttachFile(String strbId) {
+		return DAO.deleteBoardAttachFile(sqlSession, strbId);
 	}
 
 	@Override
