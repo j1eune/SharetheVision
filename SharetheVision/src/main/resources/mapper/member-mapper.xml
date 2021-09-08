@@ -22,7 +22,7 @@
 		<if test="condition == 'leave'">
 		WHERE M_STATE = 4
 		</if>
-		ORDER BY J_NO
+		ORDER BY J_NO DESC
 	</select>
 	
 	<resultMap type="Member" id="selectMemberResult">
