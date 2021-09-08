@@ -203,7 +203,7 @@
 			color: #000;
 		}
 		
-		.hideReplyNo {
+		.replyNo {
 			display: none;
 		}
 		
@@ -389,15 +389,10 @@
 		                                                    		<div class="reply-content">${ reply.replyContent }</div>
 		                                                    		<div class="reply-createDate">${ reply.replyCreateDate }</div>
 		                                                    		<c:if test="${ loginUser.mCode == reply.memberCode }">
-		                                                    			<c:url var="deleteReply" value="deleteReply.bo">
-		                                                    				<c:param name="replyNo" value="${ reply.replyNo }"/>
-		                                                    			</c:url>
-		                                                    			<a href="${ deleteReply }">
-				                                                    		<div class="reply-deleteBtn">
-				                                                    			<i class="icofont icofont-ui-close icofont-xs deleteIcon deleteReply"></i>
-			                                                    				<div class="hideReplyNo">${ reply.replyNo }</div>
-			                                                    			</div>
-		                                                    			</a>
+			                                                    		<div class="reply-deleteBtn">
+			                                                    			<i class="icofont icofont-ui-close icofont-xs deleteIcon deleteReply"></i>
+		                                                    				<div class="replyNo">${ reply.replyNo }</div>
+		                                                    			</div>
 		                                                    		</c:if>
 		                                                    		<c:if test="${ loginUser.mCode != reply.memberCode }">
 		                                                    			<div class="reply-deleteBtn"></div>
@@ -447,6 +442,22 @@
     		});
     	});
     	
+    	$(document).on('click', '.reply-deleteBtn', function() {
+   			var rId = $(this).children("div").text();
+    	
+    		swal({
+    			title: "잠깐!",
+    			text: "댓글을 삭제하시겠습니까?",
+  				icon: "warning",
+  				buttons: ["취소", "삭제"],
+  				dangerMode: true,
+    		})
+    		.then((willDelete) => {
+    			if (willDelete) {
+    				location.href="deleteReply.bo?rId="+rId;
+    			}
+    		})
+    	});
     	
 		$(function() {
     		$('.deleteBtn').click(function() {
@@ -504,11 +515,12 @@
 					var $userDept;
 					var $userDeptName;
 					var $userJobName;
-					var content;
-					var createDate;
-					var deleteReply;
-					var deleteBtn;
-					var replyNo;
+					var $content;
+					var $createDate;
+					var $deleteBtn;
+					var $replyNo;
+					var $cparam;
+					var $replyIcon;
 					
 					if (data.length > 0) {
 						for(var i in data) {
@@ -523,18 +535,18 @@
 							$userJobName = $('<span>').text(" " + data[i].jobName);
 							$content = $('<div class="reply-content">').text(data[i].replyContent);
 							$createDate = $('<div class="reply-createDate">').text(data[i].replyCreateDate);
-							$deleteReply = $('<a href="${ deleteReply }">');
+
+							$deleteBtn = $('<div class="reply-deleteBtn">');
+							$replyIcon = $('<i class="icofont icofont-ui-close icofont-xs deleteIcon deleteReply">');
 							
 							if(data[i].memberCode == "${ loginUser.mCode }"){
-								$deleteBtn = $('<div class="reply-deleteBtn">').html('<i class="icofont icofont-ui-close icofont-xs deleteIcon deleteReply">');
-							} else {
-								$deleteBtn = $('<div class="reply-deleteBtn">');
+								$deleteBtn.append($replyIcon);
 							}
 							
-							$replyNo = $('<div class="hideReplyNo">').text(data[i].replyNo);
+							$replyNo = $('<div class="replyNo">').text(data[i].replyNo);
+							
 							
 							$deleteBtn.append($replyNo);							
-							$deleteReply.append($deleteBtn);
 							
 							$userPhoto.append($userImg);
 							$userInfo.append($userPhoto);
@@ -549,7 +561,7 @@
 							$box.append($userInfo);
 							$box.append($content);
 							$box.append($createDate);
-							$box.append($deleteReply);
+							$box.append($deleteBtn);
 							$replyArea.append($box);
 						}
 					} else {
@@ -567,13 +579,13 @@
 			
 		}
 		
-		$(function() {
-			getReplyList();
+// 		$(function() {
+// 			getReplyList();
 			
-			setInterval(function() {
-				getReplyList();
-			}, 10000);
-		})
+// 			setInterval(function() {
+// 				getReplyList();
+// 			}, 10000);
+// 		})
     </script>
 
                                                     

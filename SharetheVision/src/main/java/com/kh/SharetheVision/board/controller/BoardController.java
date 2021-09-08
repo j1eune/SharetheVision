@@ -484,13 +484,12 @@ public class BoardController {
 	}
 	
 	@RequestMapping("deleteReply.bo")
-	public String deleteReply(@RequestParam("replyNo") int replyNo, HttpServletRequest request) throws BoardException {
+	public String deleteReply(@RequestParam("rId") int rId, HttpServletRequest request) throws BoardException {
 		
-		System.out.println("replyNo : " + replyNo);
+		int result = service.deleteReply(rId);
 		
-		int result = service.deleteReply(replyNo);
-		
-		System.out.println(result);
+//		System.out.println("rId : " + rId);
+//		System.out.println(result);
 		
 		String referer = request.getHeader("referer");
 		if(result > 0) {
@@ -498,7 +497,6 @@ public class BoardController {
 		} else {
 			throw new BoardException("댓글 삭제에 실패했습니다.");
 		}
-		
 	}
 	
 }
