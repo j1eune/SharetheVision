@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.kh.SharetheVision.attachments.model.vo.Attachment;
 import com.kh.SharetheVision.board.model.vo.Board;
 import com.kh.SharetheVision.board.model.vo.PageInfo;
+import com.kh.SharetheVision.board.model.vo.Reply;
 import com.kh.SharetheVision.board.model.vo.Scrap;
 import com.kh.SharetheVision.project.model.vo.Project;
 
@@ -45,15 +46,22 @@ public interface BoardService {
 
 	ArrayList<Board> selectSearchBoard(PageInfo pi, HashMap<String, Object> map);
 
-	Attachment selectAttachedFile(int bId);
+	Attachment selectAttachedFile(String strbId);
 
 	int deleteBoard(int bId);
 
-	int deleteBoardAttachFile(int bId);
+	int deleteBoardAttachFile(String strbId);
 
 	int changeBoard(HashMap<String, Object> map);
 
 	int deleteProjectScrap(HashMap<String, Object> map);
 	
+	int updateBoard(Board b);
+
+	int addReply(Reply r);
+
+	ArrayList<Reply> selectReplyList(int bId);
+
+	int deleteReply(int replyNo);
 
 }
