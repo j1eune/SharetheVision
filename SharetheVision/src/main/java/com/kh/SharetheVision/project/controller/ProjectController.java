@@ -109,15 +109,12 @@ public class ProjectController {
 		map.put("mCode", loginUser.getmCode());
 		map.put("deptNo", loginUser.getDeptNo());
 		
-		System.out.println("word : " + map.get("word"));
 		
 		boolean check = false;
 		
 		// 게시물 있는지 확인
 		int boardCount = bService.selectSearchListCount(map);
 		int scrapCount = bService.getScrapListCount(loginUser.getmCode());
-		System.out.println("boardCount : " + boardCount);
-		System.out.println("scrapCount : " + scrapCount);
 		// 스크랩 있을 경우 스크랩 상태 변경
 		int sResult = 0;
 		
@@ -125,13 +122,10 @@ public class ProjectController {
 			sResult = bService.deleteProjectScrap(map);
 			if(sResult > 0) {
 				check = true;
-				System.out.println("sResult 성공: " + sResult);
 			} else {
-				System.out.println("sResult 실패: " + sResult);
 				check = false;
 			}
 		} else if(condition != 3 || (condition == 3 && scrapCount == 0)) {
-			System.out.println("스크랩 없음 : " + scrapCount);
 			check = true;
 		}
 		
@@ -141,17 +135,13 @@ public class ProjectController {
 		if(boardCount > 0) {
 			bResult = bService.changeBoard(map);
 			if(bResult > 0) {
-				System.out.println("bResult 성공 : " + bResult);
 				check = true;
 			} else {
-				System.out.println("bResult 실패 : " + bResult);
 				check = false;
 			}
 		} else {
-			System.out.println("게시물 없음 : " + boardCount);
 			check = true;
 		}		
-		System.out.println("================");
 		// 프로젝트 상태 변경
 		int result = pService.changeProject(map);
 		
