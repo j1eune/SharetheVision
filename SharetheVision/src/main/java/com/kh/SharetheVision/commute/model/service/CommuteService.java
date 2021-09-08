@@ -22,4 +22,10 @@ public interface CommuteService {
 	Commute commuteDay(String memberNo);
 
 	int insertOverwork(Overwork ow);
+
+	int overworkUpdate(int no);
+
+	Commute selectCommuteOne(Commute co);
+
+	int updateCommute(Commute co);
 }

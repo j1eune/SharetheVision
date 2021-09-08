@@ -107,6 +107,16 @@ public class LeaveController {
 //		System.out.println("생성연차 : " + annualList);
 //		System.out.println("신청내역 : " + leaveList);
 		
+		// 멤버 리스트
+		Member m = new Member();
+		m.setmCode(memberNo);
+		
+		ArrayList<Member> mlist = mService.selectMemberList(m);
+		
+		if(mlist != null) {
+			model.addAttribute("mlist", mlist);
+		}
+		
 		return "leaveDetailView";
 	}
 	
@@ -206,29 +216,24 @@ public class LeaveController {
 	
 	@ResponseBody
 	@RequestMapping("leaveRequest.le")
-	public String leaveRequest(@ModelAttribute LeaveUsed lu, @RequestParam("approval") int approval, HttpSession session) throws LeaveException {
+	public String leaveRequest(@ModelAttribute LeaveUsed lu, @RequestParam("approval") String approval, HttpSession session) throws LeaveException {
 		Member loginUser = ((Member)session.getAttribute("loginUser"));
 		String memberNo = loginUser.getmCode();
 		String memberName = loginUser.getName();
 //		String memberNo = "MaCo2";
 		
 		lu.setMemberNo(memberNo);
-//		System.out.println(lu);
 		
 		int result = leService.insertLeave(lu);
+		int no = lu.getLeaveUsedNo();
+//		System.out.println(no + " : 시퀀스 번호");
 		
 		int apvResult = 0;
 		if(result > 0) {
 			Approval apv = new Approval();
 			apv.setApvType(Integer.toString(1));
 			apv.setmCode(memberNo);
-			if(approval == 3) {
-				apv.setApvApp("과장");			
-			} else if(approval == 4) {
-				apv.setApvApp("차장");
-			} else if(approval == 5) {
-				apv.setApvApp("부장");
-			}
+			apv.setApvApp(approval);
 			apv.setApvTitle("["+memberName+"] 휴가 신청서");
 			
 			String type = null;
@@ -252,7 +257,8 @@ public class LeaveController {
 						  "\r\n종료일 : " + lu.getEndDate() +
 						  "\r\n일수  : " + lu.getDays() +
 						  "\r\n사유 : " + lu.getContent());
-			
+			apv.setApvRefNo(no);
+
 			apvResult = apvService.insertApproval(apv);
 		}
 		
@@ -298,7 +304,7 @@ public class LeaveController {
 		if(result > 0) {
 			return "redirect: leaveDetail.le";
 		} else {
-			throw new LeaveException("변경에 실패하였습니다.");
+			throw new LeaveException("상태 변경에 실패하였습니다.");
 		}
 	}
 	

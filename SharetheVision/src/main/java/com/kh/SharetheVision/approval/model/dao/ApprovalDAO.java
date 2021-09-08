@@ -30,4 +30,8 @@ public class ApprovalDAO {
 		return (ArrayList)sqlSession.selectList("approvalMapper.selectApproval", ap);
 	}
 
+	public Approval selectOne(SqlSessionTemplate sqlSession, Approval apv) {
+		return sqlSession.selectOne("approvalMapper.selectOne", apv);
+	}
+
 }

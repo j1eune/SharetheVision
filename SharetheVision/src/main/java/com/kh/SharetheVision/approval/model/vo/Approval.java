@@ -16,6 +16,7 @@ public class Approval {
 	private Date apvDdate;
 	private Date apvEdate;
 	private String apvStatus;
+	private int apvRefNo;
 	
 	public Approval() {}
 
@@ -114,15 +115,23 @@ public class Approval {
 	public void setApvStatus(String apvStatus) {
 		this.apvStatus = apvStatus;
 	}
+	
+	public int getApvRefNo() {
+		return apvRefNo;
+	}
+
+	public void setApvRefNo(int apvRefNo) {
+		this.apvRefNo = apvRefNo;
+	}
 
 	@Override
 	public String toString() {
 		return "Approval [apNo=" + apNo + ", apvType=" + apvType + ", mCode=" + mCode + ", apvAgr=" + apvAgr
 				+ ", apvRef=" + apvRef + ", apvApp=" + apvApp + ", apvTitle=" + apvTitle + ", apvCom=" + apvCom
 				+ ", apvSdate=" + apvSdate + ", apvDdate=" + apvDdate + ", apvEdate=" + apvEdate + ", apvStatus="
-				+ apvStatus + "]";
+				+ apvStatus + ", apvRefNo=" + apvRefNo + "]";
 	}
-	
+
 
 	
 	

@@ -49,13 +49,23 @@
 		<result column="M_CODE" property="memberNo"/>
 	</resultMap>
 	
-	<insert id="insertLeave">
+	<insert id="insertLeave" parameterType="LeaveUsed">
 		INSERT INTO USED VALUES(SEQ_USED.NEXTVAL, #{startDate}, #{endDate}, #{days}, SYSDATE, #{content}, DEFAULT, DEFAULT, #{type}, #{memberNo})
+		
+		<selectKey keyProperty="leaveUsedNo" resultType="_int" order="AFTER">
+			SELECT SEQ_USED.CURRVAL FROM DUAL
+		</selectKey>
 	</insert>
 	
 	<update id="changeStatus">
 		UPDATE USED
 		SET U_STATUS = #{status}
 		WHERE M_CODE = #{memberNo} AND U_NO = #{leaveUsedNo}
+	</update>
+	
+	<update id="leaveUpdate">
+		UPDATE USED
+		SET U_APPROVAL = 'Y'
+		WHERE U_NO = #{no}
 	</update>
 </mapper>

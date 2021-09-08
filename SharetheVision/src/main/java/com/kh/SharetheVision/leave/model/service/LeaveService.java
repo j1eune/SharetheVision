@@ -18,4 +18,6 @@ public interface LeaveService {
 
 	int changeStatus(LeaveUsed lu);
 
+	int leaveUpdate(int no);
+
 }

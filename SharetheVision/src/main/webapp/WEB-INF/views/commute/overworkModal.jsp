@@ -137,9 +137,25 @@
 	                            <label>결재자</label>
 	                            <select class="form-control" id="approval">
 	                                <option>선택해주세요.</option>
-	                                <option value="3">과장</option>
-	                                <option value="4">차장</option>
-	                                <option value="5">부장</option>
+									<c:forEach items="${mlist}" var="m">
+										<optgroup label="${m.deptName} 팀 ">
+											<c:if test="${m.deptName eq '인사'}" >
+												<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+											</c:if>
+											<c:if test="${ m.deptName eq '마케팅' }" >
+												<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+											</c:if>
+											<c:if test="${ m.deptName eq '생산'}" >
+												<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+											</c:if>
+											<c:if test="${ m.deptName eq '영업'}" >
+												<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+											</c:if>
+											<c:if test="${ m.deptName eq '회계'}" >
+												<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+											</c:if>
+										</optgroup>
+									</c:forEach>
                             </select>
 	                        </div>
 	                    </div> 

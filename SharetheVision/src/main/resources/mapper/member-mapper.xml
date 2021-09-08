@@ -113,5 +113,14 @@
 		</if>
 		ORDER BY J_NO
 	</select>
+	
+	<select id="selectMemberList" resultMap="selectMemberResult">
+		SELECT M_CODE, M_NAME, M_ID, DEPT_NO, DEPT_NAME, J_NO, J_NAME
+		FROM MEMBER
+			 JOIN DEPARTMENT USING (DEPT_NO)
+			 JOIN JOB USING (J_NO)
+		WHERE M_STATUS = 'Y'
+		ORDER BY DEPT_NO, J_NO
+	</select>
 
 </mapper>

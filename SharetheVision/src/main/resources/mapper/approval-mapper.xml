@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="approvalMapper">
 
-
 	<resultMap type="Member" id="MemberResultMap">
 		<id column="M_CODE" property="mCode"/>
 		<result column="M_NAME" property="name"/>
@@ -42,7 +41,7 @@
 	
 	<insert id="insertApproval">
 		INSERT INTO APPROVAL VALUES(SEQ_APV.NEXTVAL, #{apvType}, #{mCode}, #{apvAgr}, #{apvRef}, #{apvApp},
-						   			#{apvTitle}, #{apvCom}, SYSDATE, SYSDATE + 10, #{apvDdate}, 'A')
+						   			#{apvTitle}, #{apvCom}, SYSDATE, SYSDATE + 10, #{apvDdate}, 'A', #{apvRefNo})
 	</insert>
 	
 	<select id="selectApproval" resultMap="approvalResultSet">
@@ -67,6 +66,11 @@
 		<result column="APV_DDATE" property="apvDdate"/>
 		<result column="APV_EDATE" property="apvEdate"/>
 		<result column="APV_STATUS" property="apvStatus"/>
+		<result column="APV_REF_NO" property="apvRefNo"/>
 		<result column="M_CODE" property="mCode"/>
 	</resultMap>
+	
+	<select id="selectOne" resultMap="approvalResultSet">
+		SELECT * FROM APPROVAL WHERE APV_NO = #{apNo}
+	</select>
 </mapper>

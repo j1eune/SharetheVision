@@ -27,7 +27,7 @@ public class CommuteDAO {
 	}
 
 	public int commuteOut(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
-		return sqlSession.update("commuteMapper.updateCommute", map);
+		return sqlSession.update("commuteMapper.outCommute", map);
 	}
 
 	public int changeState(SqlSession sqlSession, Member m) {
@@ -40,6 +40,18 @@ public class CommuteDAO {
 
 	public int insertOverwork(SqlSessionTemplate sqlSession, Overwork ow) {
 		return sqlSession.insert("commuteMapper.insertOverwork", ow);
+	}
+
+	public int updateOverwork(SqlSessionTemplate sqlSession, int no) {
+		return sqlSession.update("commuteMapper.updateOverwork", no);
+	}
+
+	public Commute selectCommuteOne(SqlSessionTemplate sqlSession, Commute co) {
+		return sqlSession.selectOne("commuteMapper.selectCommuteOne", co);
+	}
+
+	public int updateCommute(SqlSessionTemplate sqlSession, Commute co) {
+		return sqlSession.update("commuteMapper.updateCommute", co);
 	}
 
 }

@@ -57,8 +57,6 @@
 	                            <label for="late">지각</label>
 	                            <input type="radio" name="commuteType" id="early" value="2"/>
 	                            <label for="early">조퇴</label>
-	                            <input type="radio" name="commuteType" id="absent" value="3"/>
-	                            <label for="absent">결근</label>
                         	</div>
                         </div>
                     </div>
@@ -68,9 +66,12 @@
                             <select class="form-control" id="coStartHour" name="coStartHour">
                            		<c:forEach var="i" begin="1" end="24">
 	                            	<c:if test="${i == 9}">
-	                            		<option value="9" selected>9</option>
+	                            		<option value="09" selected>09</option>
 	                            	</c:if>
-	                            	<c:if test="${i != 9}">
+	                            	<c:if test="${i != 9 && i < 10}">
+		                            	<option value="0${i}">0${i}</option>
+	                            	</c:if>
+	                            	<c:if test="${i != 9 && i >= 10}">
 		                            	<option value="${i}">${i}</option>
 	                            	</c:if>
                            	 	</c:forEach>
@@ -108,13 +109,16 @@
                             <label>퇴근 시간</label>
                             <select class="form-control" id="coEndHour" name="coEndHour">
 	                            <c:forEach var="i" begin="1" end="24">
-	                            	<c:if test="${i == 18}">
-	                            		<option value="18" selected>18</option>
+	                            	<c:if test="${i == 9}">
+	                            		<option value="09" selected>09</option>
 	                            	</c:if>
-	                            	<c:if test="${i != 18}">
+	                            	<c:if test="${i != 9 && i < 10}">
+		                            	<option value="0${i}">0${i}</option>
+	                            	</c:if>
+	                            	<c:if test="${i != 9 && i >= 10}">
 		                            	<option value="${i}">${i}</option>
 	                            	</c:if>
-	                            </c:forEach>
+                           	 	</c:forEach>
                             </select>
                         </div>
                         <div class="form-group col-md-1">
@@ -151,11 +155,33 @@
                     <div class="form-row mb-3">
                         <div class="form-group col-md-6">
                             <label>결재자</label>
+<!--                             <select class="form-control" id="coApproval"> -->
+<!--                                 <option>선택해주세요.</option> -->
+<!--                                 <option value="3">과장</option> -->
+<!--                                 <option value="4">차장</option> -->
+<!--                                 <option value="5">부장</option> -->
+<!--                            </select> -->
                             <select class="form-control" id="coApproval">
-                                <option>선택해주세요.</option>
-                                <option value="3">과장</option>
-                                <option value="4">차장</option>
-                                <option value="5">부장</option>
+                            	<option>선택해주세요.</option>
+								<c:forEach items="${mlist}" var="m">
+									<optgroup label="${m.deptName} 팀 ">
+										<c:if test="${m.deptName eq '인사'}" >
+											<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+										</c:if>
+										<c:if test="${ m.deptName eq '마케팅' }" >
+											<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+										</c:if>
+										<c:if test="${ m.deptName eq '생산'}" >
+											<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+										</c:if>
+										<c:if test="${ m.deptName eq '영업'}" >
+											<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+										</c:if>
+										<c:if test="${ m.deptName eq '회계'}" >
+											<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+										</c:if>
+									</optgroup>
+								</c:forEach>
                            </select>
                         </div>
                     </div> 

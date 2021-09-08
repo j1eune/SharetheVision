@@ -9,7 +9,7 @@
 			  <if test="start != null and end != null">
 				  AND C_DATE BETWEEN TO_CHAR(TO_DATE(#{start}, 'YY/MM/DD'), 'YY/MM/DD') AND TO_CHAR(TO_DATE(#{end}, 'YY/MM/DD'), 'YY/MM/DD')
 			  </if>
-		ORDER BY CMT_NO
+		ORDER BY C_DATE
 <!-- 		WHERE M_CODE=#{memberNo} AND (C_DATE BETWEEN TO_DATE('21/08/09') AND TO_DATE('21/08/18')) -->
 	</select>
 	
@@ -62,7 +62,7 @@
 <!-- 		WHERE M_CODE = #{memberNo} AND (TO_CHAR(C_DATE, 'yyyy-mm-dd') = TO_CHAR(SYSDATE, 'yyyy-mm-dd')) -->
 <!-- 	</update> -->
 	
-	<update id="updateCommute">
+	<update id="outCommute">
 		UPDATE COMMUTE
 		SET C_WORKTIME = #{workTime}, C_END = #{outTime}
 		WHERE M_CODE = #{memberNo} AND C_START = #{enterTime}
@@ -81,12 +81,34 @@
 <!-- 		WHERE M_CODE = #{memberNo} AND TO_CHAR(TO_DATE('2021-08-18', 'YY/MM/DD')) = TO_CHAR(C_DATE) -->
 	</select>
 	
-	<insert id="insertOverwork">
+	<insert id="insertOverwork" parameterType="Overwork">
 		INSERT INTO OVERWORK VALUES(SEQ_OW.NEXTVAL, TO_DATE(#{overworkDate}, 'YY/MM/DD'), #{overworkStart}, #{overworkEnd},
 									#{overworktime}, #{type}, SYSDATE, DEFAULT, #{overworkContent}, #{memberNo})
+		
+		<selectKey keyProperty="overworkNo" resultType="_int" order="AFTER">
+			SELECT SEQ_OW.CURRVAL FROM DUAL
+		</selectKey>
 	</insert>
 	
+	<update id="updateOverwork">
+		UPDATE OVERWORK
+		SET O_APPROVAL = 'Y'
+		WHERE O_NO = #{no}
+	</update>
 	
+	<select id="selectCommuteOne" resultMap="commuteResultMap">
+		SELECT *
+		FROM COMMUTE
+		WHERE TO_CHAR(C_DATE, 'YY/MM/DD') = TO_CHAR(TO_DATE(#{enrollDate}, 'YY/MM/DD'), 'YY/MM/DD')
+	</select>
 	
+	<update id="updateCommute">
+		UPDATE COMMUTE
+		SET C_START = TO_CHAR(TO_DATE(#{commuteStart}, 'yyyy-mm-dd hh24:mi:ss'), 'yyyy-mm-dd hh24:mi:ss'),
+			C_END = TO_CHAR(TO_DATE(#{commuteEnd}, 'yyyy-mm-dd hh24:mi:ss'), 'yyyy-mm-dd hh24:mi:ss'),
+			C_WORKTIME = #{worktime},
+			C_STATUS = #{status}
+		WHERE CMT_NO = #{commuteNo}
+	</update>
 	
 </mapper>
