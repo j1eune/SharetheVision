@@ -129,12 +129,16 @@ public class CommuteController {
 			throw new CommuteException("로그인된 회원이 아닙니다.");
 		}
 		
+		if(coService.commuteDay(memberNo) != null) {
+			throw new CommuteException("이미 출근 인증이 완료됐습니다.");
+		}
+			
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
-		String enterTime = sdf.format(date);
-//		String enterTime = "2021-09-06 09:00:15";
+//		String enterTime = sdf.format(date);
+		String enterTime = "2021-09-09 08:50:43";
 		
 		// 지각 여부
 		int status = 0;
@@ -151,11 +155,16 @@ public class CommuteController {
 			e.printStackTrace();
 		}
 		
-		map.put("status", status);
-		map.put("enterTime", enterTime);
-		map.put("memberNo", memberNo);
+		Commute co = new Commute();
+		co.setMemberNo(memberNo);
+		co.setCommuteStart(enterTime);
+		co.setStatus(status);
 		
-		int result = coService.commuteEnter(map);
+//		map.put("status", status);
+//		map.put("enterTime", enterTime);
+//		map.put("memberNo", memberNo);
+		
+		int result = coService.commuteEnter(co);
 		
 		if(result > 0) {
 			if(mCode != null) {
@@ -178,14 +187,14 @@ public class CommuteController {
 //		String memberNo = "MaCo2";
 
 		Commute co = coService.commuteDay(memberNo);
-		String start = co.getCommuteStart();
-//		String start = "2021-09-06 09:00:15";
+//		String start = co.getCommuteStart();
+		String start = "2021-09-08 08:59:28";
 		
 		// 퇴근 시간
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 //		String end = sdf.format(date);
-		String end = "2021-09-06 17:30:45";
+		String end = "2021-09-08 12:50:51";
 		
 		// 18시 이후 여부
 		Double workTime = 0.00;

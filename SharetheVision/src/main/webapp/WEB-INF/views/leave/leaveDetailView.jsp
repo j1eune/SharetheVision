@@ -122,13 +122,9 @@
 		                        <!-- Page-header start -->
 		                        <div class="page-header card">
 		                            <div class="text-center">
-		                                <label id="prev"><i class="icofont icofont-rounded-left icofont-2x"></i></label>
-		                                &nbsp;
 		                                <div class="page-header-title m-b-20">
 		                                    <h2 id="currentMonth"></h2>
 		                                </div>
-		                                &nbsp;
-		                                <label id="next"><i class="icofont icofont-rounded-right icofont-2x"></i></label>
 		                                <div class="">
 		                                    <div class="card-block" id="title">
 		                                        <div class="row">

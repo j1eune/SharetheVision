@@ -51,7 +51,7 @@
 	</resultMap>
 	
 	<insert id="insertCommute">
-		INSERT INTO COMMUTE VALUES(SEQ_CO.NEXTVAL, SYSDATE, TO_CHAR(TO_DATE(#{enterTime}, 'yyyy-mm-dd hh24:mi:ss'), 'yyyy-mm-dd hh24:mi:ss'), NULL, 0, #{memberNo}, #{status})
+		INSERT INTO COMMUTE VALUES(SEQ_CO.NEXTVAL, SYSDATE, TO_CHAR(TO_DATE(#{commuteStart}, 'yyyy-mm-dd hh24:mi:ss'), 'yyyy-mm-dd hh24:mi:ss'), NULL, 0, #{memberNo}, #{status})
 	</insert>
 	
 <!-- 	<update id="updateCommute"> -->

@@ -22,8 +22,8 @@ public class CommuteDAO {
 		return (ArrayList)sqlSession.selectList("commuteMapper.selectOverwork", map);
 	}
 
-	public int commuteEnter(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
-		return sqlSession.insert("commuteMapper.insertCommute", map);
+	public int commuteEnter(SqlSessionTemplate sqlSession, Commute co) {
+		return sqlSession.insert("commuteMapper.insertCommute", co);
 	}
 
 	public int commuteOut(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {

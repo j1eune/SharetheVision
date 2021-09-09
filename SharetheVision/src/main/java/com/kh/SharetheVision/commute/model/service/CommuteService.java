@@ -13,7 +13,7 @@ public interface CommuteService {
 
 	ArrayList<Overwork> overworkList(HashMap<String, String> map);
 
-	int commuteEnter(HashMap<String, Object> map);
+	int commuteEnter(Commute co);
 
 	int commuteOut(HashMap<String, Object> map);
 

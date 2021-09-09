@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
+<title>근태현황</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -23,6 +23,20 @@
 	#title h3 {
 		font-family : 'SpoqaHanSansNeo-Regular';
 		color: #660099;
+	}
+	
+	#content::-webkit-scrollbar{
+ 			background-color: white;
+ 			width: 8px;
+ 	}
+ 	
+	#content::-webkit-scrollbar-thumb{
+		background-color: lightgray;
+		border-radius: 30px;
+	}
+	
+	#content::-webkit-scrollbar-track{
+		background-color: white;
 	}
 
 </style>
@@ -118,7 +132,7 @@
 			                                           </div>
 			                                           <div id="collapse${i}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading${i}">
 			                                               <div class="accordion-content accordion-desc">
-			                                                   <div class="table-border-style">
+			                                                   <div class="table-border-style"  id="content">
 			                                                       <div class="table-responsive">
 			                                                           <table class="table table-hover" id="${i}WeekTable">
 			                                                               <thead>
@@ -128,7 +142,7 @@
 			                                                                       <th>업무종료</th>
 			                                                                       <th>총 근무시간</th>
 			                                                                       <th>근무시간 상세</th>
-			                                                                       <th>승인요청내역</th>
+			                                                                       <th></th>
 			                                                                   </tr>
 			                                                               </thead>
 			                                                               <tbody>
