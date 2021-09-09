@@ -5,7 +5,7 @@
 <html lang="en">
 
 <head>
-    <title>Welcome SV Company!</title>
+    <title>SV Company</title>
 
     <!-- Meta -->
     <meta charset="utf-8">
