@@ -8,19 +8,19 @@ public class Scrap {
 	private String project;
 	private String boardTitle;
 	private String boardWriter;
-	private Date scrapDate;
+	private int scrapNo;
 	private String boardState;
 	
 	public Scrap() {}
 
-	public Scrap(String mCode, int boardNo, String project, String boardTitle, String boardWriter, Date scrapDate, String boardState) {
+	public Scrap(String mCode, int boardNo, String project, String boardTitle, String boardWriter, int scrapNo, String boardState) {
 		super();
 		this.mCode = mCode;
 		this.boardNo = boardNo;
 		this.project = project;
 		this.boardTitle = boardTitle;
 		this.boardWriter = boardWriter;
-		this.scrapDate = scrapDate;
+		this.scrapNo = scrapNo;
 		this.boardState = boardState;
 	}
 
@@ -64,12 +64,12 @@ public class Scrap {
 		this.boardWriter = boardWriter;
 	}
 	
-	public Date getScrapDate() {
-		return scrapDate;
+	public int getScrapNo() {
+		return scrapNo;
 	}
 
-	public void setScrapDate(Date scrapDate) {
-		this.scrapDate = scrapDate;
+	public void setScrapNo(int scrapNo) {
+		this.scrapNo = scrapNo;
 	}
 
 	public String getBoardState() {
@@ -83,7 +83,7 @@ public class Scrap {
 	@Override
 	public String toString() {
 		return "Scrap [mCode=" + mCode + ", boardNo=" + boardNo + ", project=" + project + ", boardTitle=" + boardTitle
-				+ ", boardWriter=" + boardWriter + ", scrapDate=" + scrapDate + ", boardState=" + boardState + "]";
+				+ ", boardWriter=" + boardWriter + ", scrapNo=" + scrapNo + ", boardState=" + boardState + "]";
 	}
 
 }
