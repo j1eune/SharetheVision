@@ -9,11 +9,12 @@ public class Notice {
 	private String noticeContent;
 	private String noticeState;
 	private Date noticeDate;
+	private String mCode;
 	
 	public Notice() {}
 
 	public Notice(int noticeNo, String noticeCategory, int noticeNumber, String noticeContent, String noticeState,
-			Date noticeDate) {
+			Date noticeDate, String mCode) {
 		super();
 		this.noticeNo = noticeNo;
 		this.noticeCategory = noticeCategory;
@@ -21,6 +22,7 @@ public class Notice {
 		this.noticeContent = noticeContent;
 		this.noticeState = noticeState;
 		this.noticeDate = noticeDate;
+		this.mCode = mCode;
 	}
 
 	public int getNoticeNo() {
@@ -71,12 +73,19 @@ public class Notice {
 		this.noticeDate = noticeDate;
 	}
 
+	public String getmCode() {
+		return mCode;
+	}
+
+	public void setmCode(String mCode) {
+		this.mCode = mCode;
+	}
+
 	@Override
 	public String toString() {
 		return "Notice [noticeNo=" + noticeNo + ", noticeCategory=" + noticeCategory + ", noticeNumber=" + noticeNumber
 				+ ", noticeContent=" + noticeContent + ", noticeState=" + noticeState + ", noticeDate=" + noticeDate
-				+ "]";
+				+ ", mCode=" + mCode + "]";
 	}
-	
 	
 }

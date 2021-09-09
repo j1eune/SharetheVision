@@ -35,6 +35,7 @@
 		<mapper resource="mapper/messenger-mapper.xml"/>
 		<mapper resource="mapper/leave-mapper.xml"/>
 		<mapper resource="mapper/approval-mapper.xml"/>
+		<mapper resource="mapper/notice-mapper.xml"/>
 	</mappers>
 
 
