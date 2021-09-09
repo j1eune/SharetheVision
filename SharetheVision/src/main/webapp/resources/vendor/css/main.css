@@ -346,8 +346,12 @@ select{
 	color: #fff;
 	background-color: #660099;
 }
-#saveBtn:hover{
+#saveBtn{
 	border: 1px solid #660099 !important;
 	color: #660099;
 	background-color: #fff;
+}
+#saveBtn:hover{
+	color: #fff;
+	background-color: #660099;
 }

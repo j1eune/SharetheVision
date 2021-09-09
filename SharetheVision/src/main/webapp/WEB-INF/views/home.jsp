@@ -155,7 +155,7 @@
                                                      </span>
                                                      <div>
                                                      	 <input type="text" id="addTodo" placeholder="( Todo 작성하시고 꼭 Save 하세요 )">
-	                                                     <span class="f-right"><button class="btn btn-mini bg-c-purple text-c-white" id="saveBtn"> SAVE</button></span><hr>
+	                                                     <span class="f-right"><button class="btn btn-mini" id="saveBtn"> SAVE</button></span><hr>
                                                      </div>
                                                 </div>
                                              </div>

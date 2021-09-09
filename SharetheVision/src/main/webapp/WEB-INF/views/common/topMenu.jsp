@@ -77,11 +77,11 @@ pageEncoding="UTF-8"%>
                                 <i class="ti-user"></i> View Profile
                             </a>
                         </li>
-                        <li> 
+<!--                    <li> 
                             <a style="cursor:pointer" target="_blank" class="chatting">
                                 <i class="ti-email"></i> My Messages
                             </a>
-                        </li>
+                        </li> -->
                         <c:if test="${loginUser.adminNo > 4}">
 	                        <li>
 	                            <a href="meetingForm.pr">
@@ -114,7 +114,8 @@ if( loginUser !=null){
 				var $span; 
 				if(data == '0'){
 					$('#msbadge').addClass('bg-c-purple');
-					$('#msLabel').addClass('label-purple');
+					$('#msLabel').addClass('label-purple').text('Empty');
+					$('.ti-email').css('color','gray');
 					$span=$('<span>').text("새 메세지가 없습니다.");
 				}else{
 					$('#msbadge').addClass('bg-c-yellow');
