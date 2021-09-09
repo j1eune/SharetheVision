@@ -426,7 +426,7 @@ public class BoardController {
 //		System.out.println(list);
 
 		if (list != null) {
-			mv.addObject("board", list).addObject("pi", pi);
+			mv.addObject("board", list).addObject("pi", pi).addObject("category", category).addObject("word", word);
 			mv.setViewName("boardList");
 		} else {
 			mv.setViewName("home");

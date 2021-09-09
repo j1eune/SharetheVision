@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kh.SharetheVision.approval.model.service.ApprovalService;
-import com.kh.SharetheVision.approval.model.vo.Approval;
+import com.kh.SharetheVision.approval.model.vo.ApprovalVO;
 import com.kh.SharetheVision.commute.model.exception.CommuteException;
 import com.kh.SharetheVision.commute.model.service.CommuteService;
 import com.kh.SharetheVision.commute.model.vo.Commute;
@@ -495,7 +495,7 @@ public class CommuteController {
 		
 		int apvResult = 0;
 		if(result > 0) {
-			Approval apv = new Approval();
+			ApprovalVO apv = new ApprovalVO();
 			
 			apv.setApvType(Integer.toString(7));
 			apv.setmCode(memberNo);
@@ -580,7 +580,7 @@ public class CommuteController {
 		String memberName = loginUser.getName();
 //		String memberNo = "MaCo2";
 		
-		Approval apv = new Approval();
+		ApprovalVO apv = new ApprovalVO();
 		
 		apv.setApvType(Integer.toString(8));
 		apv.setmCode(memberNo);
@@ -623,10 +623,10 @@ public class CommuteController {
 		// 마지막 C또는 D가 끝나면
 		int apNo = 18;
 		
-		Approval apv = new Approval();
+		ApprovalVO apv = new ApprovalVO();
 		apv.setApNo(apNo);
 		
-		Approval ap = apvService.selectOne(apv);
+		ApprovalVO ap = apvService.selectOne(apv);
 		int no = ap.getApvRefNo();
 		
 		// 연장근무 update

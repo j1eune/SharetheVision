@@ -1,51 +1,53 @@
 package com.kh.SharetheVision.approval.model.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.SharetheVision.approval.model.dao.ApprovalDAO;
-import com.kh.SharetheVision.approval.model.vo.Approval;
+import com.kh.SharetheVision.approval.model.vo.ApprovalAttachDTO;
+import com.kh.SharetheVision.approval.model.vo.ApprovalVO;
 import com.kh.SharetheVision.attachments.model.vo.Attachment;
 import com.kh.SharetheVision.member.model.vo.Member;
 
 @Service("apvService")
-public class ApprovalServiceImpl implements ApprovalService{
+public class ApprovalServiceImpl implements ApprovalService {
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
 	@Autowired
 	private ApprovalDAO apvdao;
-	
+
 	@Override
-	public ArrayList<Member> aplist() {
+	public List<Member> aplist() {
 		return apvdao.apList(sqlSession);
-	}
-	
-	@Override
-	public Attachment selectAttachedFile(int apNo) {
-		return apvdao.selectAttachedFile(sqlSession,apNo);
 	}
 
 	@Override
-	public int insertApproval(Approval apv) {
+	public Attachment selectAttachedFile(int apNo) {
+		return apvdao.selectAttachedFile(sqlSession, apNo);
+	}
+
+	@Override
+	public int insertApproval(ApprovalVO apv) {
 		return apvdao.insertApproval(sqlSession, apv);
 	}
 
 	@Override
-	public ArrayList<Approval> selectApproval(Approval ap) {
+	public List<ApprovalVO> selectApproval(ApprovalVO ap) {
 		return apvdao.selectApproval(sqlSession, ap);
 	}
 
 	@Override
-	public Approval selectOne(Approval apv) {
+	public ApprovalVO selectOne(ApprovalVO apv) {
 		return apvdao.selectOne(sqlSession, apv);
 	}
-	
-	
-	
 
+	@Override
+	public int insertApprovalAttach(ApprovalAttachDTO dto) {
+		return apvdao.insertApprovalAttach(sqlSession, dto);
+	}
 }

@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -2149,15 +2149,16 @@ border-radius:15px;
                                                 </div>
                                                 <!--헤더 끝-->
                                               
-                                                <!-- 모달 창 내용 -->  
+                                                <!-- 모달 창 내용 -->
+                                                
                                                 <div class="modal-body">
                                                   <div class="body-message">
                                                     <div class="tabs">
+                                                    <form id="apform1" method="post">
                                                       <!--결재폼 1 : 기안서 폼 시작 -->
-                                                      <input type="radio" name="tabs" id="tabone" checked="checked" value="기안서">
+                                                      <input type="radio" name="apvType" id="tabone" checked value="기안서" />
                                                       <label for="tabone">기안서</label>
                                                       <div class="tab">
-                                                        <form id="apform1">
                                                         <!--결재 관련 이름 시작-->
                                                        <div id="apwstart">🔍기안자는&nbsp;</div><div id="apw1" name="apd1">${loginUser.deptName}팀&nbsp;</div><div id="apw2" name="apn1">${loginUser.name}&nbsp;</div><div id="apw3" name="apc1">${loginUser.jobName }&nbsp;</div><div>님&nbsp;입니다.</div>
                                                         <br>
@@ -2166,7 +2167,7 @@ border-radius:15px;
                                                          <div class="agreeer">🔵합의자:</div>
                                                         <!--기안서 폼 합의자 선택 시작-->
                                                         <div class="agrselect">
-                                                        <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                        <select name="apvAgr" class="selectpicker col-md-10" multiple data-style="btn-primary" required>
                                                           <c:forEach items="${ aplist }" var= "ap"> 
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
@@ -2198,7 +2199,7 @@ border-radius:15px;
                                                         <div class="referrer">🟣참조자:</div> 
                                                         <!--기안서 폼 참조자 선택 시작-->
                                                         <div class="refselect">
-                                                          <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                          <select name="apvRef" class="selectpicker col-md-10" multiple data-style="btn-primary" required>
                                                              <c:forEach items="${ aplist }" var= "ap"> 
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
@@ -2230,7 +2231,7 @@ border-radius:15px;
                                                         <div class="approver">🟢결재자:</div>
                                                         <!--기안서 폼 결재자 선택 시작-->
                                                         <div class="apselect">
-                                                          <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                          <select name="apvApp" class="selectpicker col-md-10" data-style="btn-primary" required>
                                                              <c:forEach items="${ aplist }" var= "ap"> 
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
@@ -2263,7 +2264,7 @@ border-radius:15px;
                                                         <div class="apside">
                                                           <div id="wlwjd2">📜기안서 작성</div>
                                                           <br>
-                                                        <div id="aptitle" name="apt1">제목:</div><input class="form-styling" type="text" name="apt1" placeholder="결재 제목" required/>
+                                                        <div id="aptitle" name="apt1">제목:</div><input class="form-styling" type="text" name="apt" placeholder="결재 제목" required/>
                                                         <br>
                                                       </div>
                                                       <br>         
@@ -2271,12 +2272,12 @@ border-radius:15px;
                                                       <!--기안서 날짜 시작-->
                                                       <div id="rlgks">📆기한:</div>
                                                         <div class="controls">
-                                                          <input type="date" id="arrive" class="floatLabel" name="arrive1" value="<?php echo date('Y-m-d'); ?>" required>
+                                                          <input type="date" id="arrive" class="floatLabel" name="arrive" value="<?php echo date('Y-m-d'); ?>" required>
                                                          <i class="fa fa-calendar"></i>
                                                         </div>      
                                                         <div class="controls3">~</div>
                                                         <div class="controls2">
-                                                          <input type="date" id="depart" class="floatLabel" name="depart1" value="<?php echo date('Y-m-d'); ?>" required/>
+                                                          <input type="date" id="depart" class="floatLabel" name="depart" value="<?php echo date('Y-m-d'); ?>" required/>
                                                           <i class="fa fa-calendar"></i>
                                                         </div>      
                                                       <!--기안서 날짜 끝-->
@@ -2286,7 +2287,7 @@ border-radius:15px;
                                                       <!--기안서 코멘트 시작-->
                                                       <div id="apcomment" >❗코멘트:</div>
                                                       <div class="controls4">
-                                                        <textarea name="comments1" class="floatLabel" id="comments" required></textarea>
+                                                        <textarea name="comment" class="floatLabel" id="comments" required></textarea>
                                                       </div>
                                                       <br>
                                                       <br>
@@ -2306,13 +2307,40 @@ border-radius:15px;
 
                                                       <!--기안서 상신 버튼 시작-->
                                                       <div class="modal-footer">
-                                                          <button type="text" class="submit" id="aps1">기안서 상신</button>
-                                                          <button type="text" class="apwcancle"  data-dismiss="modal" aria-label="Close" >취소</button>
+                                                          <button class="submit" id="aps1">기안서 상신</button>
+                                                          <button class="apwcancle"  data-dismiss="modal" aria-label="Close" >취소</button>
                                                       </div>
                                                       <!--기안서 상신 버튼 끝-->
                                                     </div>
                                                   </form>
+													<script type="text/javascript">
+													$(document).on("click", "#aps1", function(e) {
+														let form = $("#apform1")[0];
+														let formData = new FormData(form);
+														formData.append("fileObj", $("#file-upload-input")[0].files[0]);
+														$.ajax({
+															url : "${contextPath}/approval.ap",
+															type : "post",
+															processData : false,
+															contentType : false,
+															data : formData,
+															dataType : "json",
+															success : function(data) {
+																alert("정상적으로 처리되었습니다.");
+																$("div.filter-option-inner-inner").text("Nothing selected");
+																$("#apform1")[0].reset();
+																$("div.modal").modal("hide");
+															},
+															error : function(xhr, status, res) {
+																console.log(xhr.responseText, status, res);
+															}
+														});
+														return false;
+													});
 
+													
+													
+													</script>
                                                     <!--결재폼1 : 기안서 끝-->
                                                       
 

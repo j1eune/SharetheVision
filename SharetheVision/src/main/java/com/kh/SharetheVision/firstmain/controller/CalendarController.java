@@ -157,7 +157,6 @@ public class CalendarController {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		String mCode = loginUser.getmCode();
 		ArrayList<Project> pList = pService.selectProject(mCode);
-		//pList
 		if(!pList.isEmpty()) {
 			return pList;
 		}else {

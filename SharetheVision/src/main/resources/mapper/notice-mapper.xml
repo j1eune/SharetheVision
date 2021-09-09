@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="noticeMapper">
+	<resultMap type="Notice" id="selectNoticeResult">
+		<id column="N_NO" property="noticeNo"/>
+		<result column="N_CATEGORY" property="noticeCategory"/>
+		<result column="N_NUM" property="noticeNumber"/>
+		<result column="N_CONTENT" property="noticeContent"/>
+		<result column="N_STATE" property="noticeState"/>
+		<result column="N_DATE" property="noticeDate"/>
+		<result column="M_CODE" property="mCode"/>
+	</resultMap>
+	
+	<insert id="noticeProject">
+		INSERT INTO NOTICE
+		VALUES(SEQ_NOTICE.NEXTVAL, '프로젝트', #{pNo}, #{pName}, DEFAULT, SYSDATE, #{mCode})
+	</insert>
+	
+	<select id="selectNotice" resultMap="selectNoticeResult">
+		SELECT *
+		FROM NOTICE
+		WHERE M_CODE = #{value} AND N_STATE = 'N'
+	</select>
+</mapper>

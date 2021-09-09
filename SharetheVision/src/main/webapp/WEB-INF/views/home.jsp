@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title> Welcome SV Company! </title>
+<title>SV Company</title>
  <!-- Meta -->
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -345,6 +345,7 @@ $( document ).ready(function() {
 			success: function(data){
 				$tbody = $('#projectTb tbody');
 				$tbody.html('');
+				
 				if(data.length>0){
 					for(var i in data){
 						$tr= $([
@@ -356,13 +357,19 @@ $( document ).ready(function() {
 							,'		 </div>'
 							,'	 </td>'
 							,'	 <th>'
-							,'	 	 <p id="pMember">MemberName</p>'
+							,'	 	 <button class="btn btn-outline btn-sm" id="pStatus">ProjectStatus</button>'
 							,'	 </th>'
 							,'</tr>'  
 						].join(''));
 						$tr.find('#pNo').text('P'+data[i].pNo);
 						$tr.find('#pName').text(data[i].pName);
-						$tr.find('#pMember').text(data[i].mCode);
+						
+						if(data[i].pEnd=='N'){
+							$tr.find('#pStatus').addClass('btnpurple').attr('onclick','location.href="createProjectForm.pr"').text('진행중인 프로젝트');
+						}else{
+							$tr.find('#pStatus').attr('disabled',true).text('완료된 프로젝트');
+							$tr.find('#pNo').css('background-color','#cccccc');
+						}
 						$tbody.append($tr);
 					}
 				}else{
@@ -421,13 +428,13 @@ function delete_todo(dchNo){
 </script>
 
 <script>
-	// 연차사용, 근태현황
+/* 	// 연차사용, 근태현황
 	$.ajax({
 // 		url: "commuteChart.co",
 // 		success: function(data){
 			
 		}
-	});
+	}); */
 </script>
 </body>
 </html>
