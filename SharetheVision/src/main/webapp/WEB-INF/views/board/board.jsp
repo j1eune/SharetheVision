@@ -57,9 +57,32 @@
 		color: blue;
 		font-weight: 600;
 	}
-	
+
 	.project-title {
-		width: 550px;
+		width: 525px;
+	}
+	
+	.project-writer {
+		width: 140px;
+	}
+	
+	.project-state {
+		width: 150px;
+		text-align: center;
+	}
+	
+	.project-ongoing {
+		color: blue;
+	}
+	
+	.project-end {
+		color: #888;
+	}
+	
+	.project-ongoing,
+	.project-end {
+		text-align: center;
+		font-weight: bold;
 	}
 	
 	.project-no {
@@ -181,7 +204,8 @@
                                                             <th class="project-no"></th>
                                                             <th class="project-name">프로젝트 명</th>
                                                             <th class="project-title">제목</th>
-                                                            <th>작성자</th>
+                                                            <th class="project-writer">작성자</th>
+                                                            <th class="project-state">상태</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -194,6 +218,12 @@
 		                                                            <td class="project-name-color">[ ${ board.project } ]</td>
 		                                                            <td>${ board.boardTitle }</td>
 		                                                            <td>${ board.boardWriter }</td>
+		                                                            <c:if test="${ board.boardState == 1 }">
+			                                                            <td class="project-ongoing">진행중</td>
+		                                                            </c:if>
+		                                                            <c:if test="${ board.boardState == 2 }">
+			                                                            <td class="project-end">종료</td>
+		                                                            </c:if>
 		                                                        </tr>
 	                                                        </c:forEach>
                                                         </c:if>
@@ -227,7 +257,8 @@
                                                             <th class="project-no"></th>
                                                             <th class="project-name">프로젝트 명</th>
                                                             <th class="project-title">제목</th>
-                                                            <th>작성자</th>
+                                                            <th class="project-writer">작성자</th>
+                                                            <th class="project-state">상태</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -240,6 +271,12 @@
 		                                                            <td class="project-name-color">[ ${ scrap.project } ]</td>
 		                                                            <td>${ scrap.boardTitle }</td>
 		                                                            <td>${ scrap.boardWriter }</td>
+		                                                            <c:if test="${ scrap.boardState == 1 }">
+			                                                            <td class="project-ongoing">진행중</td>
+		                                                            </c:if>
+		                                                            <c:if test="${ scrap.boardState == 2 }">
+			                                                            <td class="project-end">종료</td>
+		                                                            </c:if>
 		                                                        </tr>
 	                                                        </c:forEach>
                                                         </c:if>

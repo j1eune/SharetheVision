@@ -70,16 +70,22 @@ public class BoardController {
 		String strbId = bId+"";
 
 		Board board = service.selectBoardDetail(bId);
+		
+		String writermCode = board.getMemberCode();
+		
 		Scrap scrapState = service.scrapState(s);
 		Attachment attachedFile = service.selectAttachedFile(strbId);
 		ArrayList<Reply> reply = service.selectReplyList(bId);
+		Attachment userProfile = service.selectUserProfileImage(writermCode);
 
 //		System.out.println(attachedFile);
 //		System.out.println(reply);
+//		System.out.println(userProfile);
 		
 		model.addAttribute("scrapState", scrapState);
 		model.addAttribute("board", board);
 		model.addAttribute("attachedFile", attachedFile);
+		model.addAttribute("profileImage", userProfile);
 		model.addAttribute("reply", reply);
 		
 		return "boardDetail";

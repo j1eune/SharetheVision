@@ -211,6 +211,30 @@
 			border: none;
 			background: none;
 		}
+
+		.project-ongoing,
+		.project-end {
+			font-size: 16px;
+			font-weight: bold;
+		}
+		
+		.project-ongoing {
+			color: blue;
+		}
+
+		.project-end {
+			color: #888;
+		}
+		
+		.boardDetail-head {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		
+		.profileImg {
+			border-radius: 50%;
+		}
 		
     </style>
 
@@ -279,10 +303,25 @@
                                         <div class="boardDetail-box">
                                             <div class="boardDetail-title">
                                             <input type="hidden" name="boardNo" value="${ board.boardNo }">
-                                            	<div><span class="boardDetail-project-name">[ ${ board.project } ]</span>${ board.boardTitle }</div>
+                                            	<div class="boardDetail-head">
+                                            		<div><span class="boardDetail-project-name">[ ${ board.project } ]</span>${ board.boardTitle }</div>
+                                            		<c:if test="${ board.boardState == 1 }">
+	                                            		<div class="project-ongoing">진행중</div>
+                                            		</c:if>
+                                            		<c:if test="${ board.boardState == 2 }">
+	                                            		<div class="project-end">종료</div>
+                                            		</c:if>
+                                           		</div>
                                            	</div>
                                            	<div class="boardDetail-boardInfo">
-												<div class="boardDetail-writer-img"><img class="profileImg" src="resources/assets/images/defaultProfile.png"></div>
+												<div class="boardDetail-writer-img">
+													<c:if test="${ empty profileImage }">
+														<img class="profileImg" src="resources/assets/images/defaultProfile.png">
+													</c:if>
+													<c:if test="${ !empty profileImage }">
+														<img class="profileImg" src="resources/muploadFile/${ profileImage.atChange }"/>
+													</c:if>
+												</div>
                                            		<div class="boardDetail-flex-column">
 	                                           		<p class="board-writer">${ board.boardWriter }</p>
 	                                           		<p class="board-date">${ board.boardCreateDate }</p>
@@ -380,7 +419,12 @@
                                                     		<c:forEach var="reply" items="${ reply }">
 		                                                    	<div class="reply-box">
 		                                                    		<div class="userInfo">
-		                                                    			<div class="userPhoto"><img class="profileImg" src="resources/assets/images/defaultProfile.png"></div>
+		                                                    			<c:if test="${ empty profileImage }">
+			                                                    			<div class="userPhoto"><img class="profileImg" src="resources/assets/images/defaultProfile.png"></div>
+		                                                    			</c:if>
+		                                                    			<c:if test="${ !empty profileImage }">
+			                                                    			<div class="userPhoto"><img class="profileImg" src="resources/muploadFile/${ profileImage.atChange }"></div>
+		                                                    			</c:if>
 		                                                    			<div class="userNameAndDept">
 		                                                    				<p class="userName">${ reply.replyWriter }</p>
 		                                                    				<p class="userDept"><span>${ reply.deptName }팀</span> <span>${ reply.jobName }</span></p>
@@ -438,7 +482,15 @@
     	
     	$(function() {
     		$('.updateBtn').click(function() {
-    			location.href="${ updateBoardForm }";
+    			if (${ board.boardState == 2 }) {
+    				swal({
+    					title: "잠깐!",
+    					text: "종료된 프로젝트는 수정할 수 없습니다.",
+    					icon: "warning"
+    				})
+    			} else {
+	    			location.href="${ updateBoardForm }";
+    			}
     		});
     	});
     	
@@ -579,14 +631,14 @@
 			
 		}
 		
-// 		$(function() {
-// 			getReplyList();
+ 		$(function() {
+ 			getReplyList();
 			
-// 			setInterval(function() {
-// 				getReplyList();
-// 			}, 10000);
-// 		})
-    </script>
+ 			setInterval(function() {
+ 				getReplyList();
+ 			}, 10000);
+ 		})
+     </script>
 
                                                     
 <!--     Warning Section Ends -->

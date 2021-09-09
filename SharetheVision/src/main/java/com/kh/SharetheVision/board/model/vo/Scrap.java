@@ -9,10 +9,11 @@ public class Scrap {
 	private String boardTitle;
 	private String boardWriter;
 	private Date scrapDate;
+	private String boardState;
 	
 	public Scrap() {}
 
-	public Scrap(String mCode, int boardNo, String project, String boardTitle, String boardWriter, Date scrapDate) {
+	public Scrap(String mCode, int boardNo, String project, String boardTitle, String boardWriter, Date scrapDate, String boardState) {
 		super();
 		this.mCode = mCode;
 		this.boardNo = boardNo;
@@ -20,6 +21,7 @@ public class Scrap {
 		this.boardTitle = boardTitle;
 		this.boardWriter = boardWriter;
 		this.scrapDate = scrapDate;
+		this.boardState = boardState;
 	}
 
 	public String getmCode() {
@@ -70,10 +72,18 @@ public class Scrap {
 		this.scrapDate = scrapDate;
 	}
 
+	public String getBoardState() {
+		return boardState;
+	}
+
+	public void setBoardState(String boardState) {
+		this.boardState = boardState;
+	}
+
 	@Override
 	public String toString() {
 		return "Scrap [mCode=" + mCode + ", boardNo=" + boardNo + ", project=" + project + ", boardTitle=" + boardTitle
-				+ ", boardWriter=" + boardWriter + ", scrapDate=" + scrapDate + "]";
+				+ ", boardWriter=" + boardWriter + ", scrapDate=" + scrapDate + ", boardState=" + boardState + "]";
 	}
 
 }

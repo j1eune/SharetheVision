@@ -119,6 +119,7 @@
 		<result column="PROJECT" property="project"/>
 		<result column="B_TITLE" property="boardTitle"/>
 		<result column="B_WRITER" property="boardWriter"/>
+		<result column="B_STATE" property="boardState"/>
 	</resultMap>
 	
 	<delete id="deleteScrap">
@@ -129,7 +130,7 @@
 	
 	<select id="scrapList" resultMap="scrapResultSet">
 		select *
-		from scrap
+		from v_scrap
 		where m_code=#{mCode}
 		order by scrap_date desc
 	</select>
@@ -237,5 +238,11 @@
 		set r_status = 'N'
 		where r_no = #{replyNo}
 	</update>
+	
+	<select id="selectUserProfileImage" resultMap="attachmentResultSet">
+		select * from
+		attachments
+		where at_level = 1 and at_status = 'Y' and at_category = #{writermCode}
+	</select>
 	
 </mapper>
