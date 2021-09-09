@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>근태현황</title>
+<title>SV Company</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -25,20 +25,6 @@
 		color: #660099;
 	}
 	
-	#content::-webkit-scrollbar{
- 			background-color: white;
- 			width: 8px;
- 	}
- 	
-	#content::-webkit-scrollbar-thumb{
-		background-color: lightgray;
-		border-radius: 30px;
-	}
-	
-	#content::-webkit-scrollbar-track{
-		background-color: white;
-	}
-
 </style>
 <jsp:include page="../common/common.jsp" />
 <jsp:include page="../common/font.jsp" />
@@ -134,7 +120,7 @@
 			                                               <div class="accordion-content accordion-desc">
 			                                                   <div class="table-border-style"  id="content">
 			                                                       <div class="table-responsive">
-			                                                           <table class="table table-hover" id="${i}WeekTable">
+			                                                           <table class="table table-hover" id="${i}WeekTable" style="overflow: hidden;">
 			                                                               <thead>
 			                                                                   <tr>
 			                                                                       <th>일자</th>
@@ -271,7 +257,7 @@
 			                    $dailyTr.append($td6);
 			                    
 			                    // 일일 시간
-			                    var $timeTr = $('<tr id="'+cnt+'daily" class="timeTr">').css({'display':'none'});
+			                    var $timeTr = $('<tr id="'+cnt+'daily" class="timeTr">').css({'display':'none', 'overflow':'hidden'});
 			                    var $timeTh = $('<th class="small font-weight-bold" colspan="6">').css({'background-color':'rgba(222, 199, 254, 0.1)'});
 			                    var $timeDiv = $('<div class="row" id="'+cnt+'timeDiv">');
 			                    for(var k = 00; k < 24; k++){

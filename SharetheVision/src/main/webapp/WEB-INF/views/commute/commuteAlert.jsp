@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>알림창</title>
+<title>SV Company</title>
 </head>
 <body>
 	<script>

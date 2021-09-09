@@ -130,7 +130,9 @@ public class CommuteController {
 		}
 		
 		if(coService.commuteDay(memberNo) != null) {
-			throw new CommuteException("이미 출근 인증이 완료됐습니다.");
+			model.addAttribute("msg", "이미 출근 인증이 완료됐습니다.");
+			model.addAttribute("url", "commuteMain.co");
+			return "commuteAlert";
 		}
 			
 		HashMap<String, Object> map = new HashMap<String, Object>();
