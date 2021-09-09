@@ -354,7 +354,6 @@ public class MemberController {
 		}
 		
 		int listCount = mService.searchListCount(search);
-		System.out.println("멤버 listCount : " + listCount);
 		PageInfo pi = MemberPagination.getPageInfo(currentPage, listCount);
 		
 		HashMap<String,Object> map = new HashMap<String, Object>();

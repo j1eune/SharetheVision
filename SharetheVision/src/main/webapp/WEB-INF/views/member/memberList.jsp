@@ -103,6 +103,13 @@
                                                         <li class="breadcrumb-item">
                                                         	<a href="${ leaveMember }"><i class="icofont icofont-travelling icofont-lg"></i>&nbsp;휴가 중</a>
                                                         </li>
+                                                        <!-- 외근 중 사원보기 -->
+                                                    	<c:url var="outsideMember" value="memberList.me">
+															<c:param name="condition" value="outside"/>                                                    	
+                                                    	</c:url>
+                                                        <li class="breadcrumb-item">
+                                                        	<a href="${ outsideMember }"><i class="icofont icofont-runner-alt-1 icofont-lg"></i>&nbsp;외근 중</a>
+                                                        </li>
                                                         
                                                         <!-- [관리자일 경우] 사원 추가 -->
                                                         <c:if test="${loginUser.adminNo > 4}">
@@ -124,7 +131,7 @@
                                                 	<div class="pcoded-search" style="text-align:right;">
 											            <span class="searchbar-toggle">  </span>
 											            <div class="pcoded-search-box" style="display:inline-block; text-align:right; margin-right:20px;">
-											                <input type="text" id="searchMember" size="20" placeholder="이름, 직급으로 검색" value="${search }">
+											                <input type="text" id="searchMember" size="25" placeholder="이름, 직급 및 부서명으로 검색" value="${search }">
 											                <span class="search-icon" id="searchBtn"><i class="ti-search" aria-hidden="true"></i></span>
 											            </div>
 											        </div>
@@ -134,6 +141,7 @@
 	                                                        	<tr>
 	                                                        		<th style="width:10%; text-align:center;">이름</th>
 	                                                        		<th style="width:10%; text-align:center;">직급</th>
+	                                                        		<th style="width:10%; text-align:center;">부서</th>
 	                                                        		<th style="width:20%; text-align:center;">전화번호</th>
 	                                                        		<th style="width:40%; text-align:center;">주소</th>
 	                                                        		<th style="width:10%; text-align:center;">근무상태</th>
@@ -145,6 +153,7 @@
 		                                                        		<tr>
 		                                                        			<td>${ b.name }</td>
 		                                                        			<td>${ b.jobName }</td>
+		                                                        			<td>${ b.deptName }</td>
 		                                                        			<td>${ b.phone }</td>
 		                                                        			<td>${ b.address }</td>
 		                                                        			<td>

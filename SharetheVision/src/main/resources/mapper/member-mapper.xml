@@ -19,6 +19,9 @@
 		<if test="condition == 'attendence'">
 		WHERE M_STATE = 2
 		</if>
+		<if test="condition == 'outside'">
+		WHERE M_STATE = 3
+		</if>
 		<if test="condition == 'leave'">
 		WHERE M_STATE = 4
 		</if>
@@ -80,6 +83,9 @@
 		<if test="condition == 'attendence'">
 		AND M_STATE = 2
 		</if>
+		<if test="condition == 'outside'">
+		AND M_STATE = 3
+		</if>
 		<if test="condition == 'leave'">
 		AND M_STATE = 4
 		</if>
@@ -92,7 +98,7 @@
 			LEFT JOIN ADMIN USING(ADMIN_NO)
 			LEFT JOIN DEPARTMENT USING(DEPT_NO)
 		<if test="value != null">
-		WHERE M_STATUS = 'Y' AND (M_NAME = #{value} OR J_NAME = #{value})
+		WHERE M_STATUS = 'Y' AND (M_NAME = #{value} OR J_NAME = #{value} OR DEPT_NAME = #{value})
 		</if>
 		<if test="value == null">
 		WHERE M_STATUS = 'Y'
@@ -106,7 +112,7 @@
 			LEFT JOIN ADMIN USING(ADMIN_NO)
 			LEFT JOIN DEPARTMENT USING(DEPT_NO)
 		<if test="search != null">
-		WHERE M_STATUS = 'Y' AND (M_NAME = #{search} OR J_NAME = #{search})
+		WHERE M_STATUS = 'Y' AND (M_NAME = #{search} OR J_NAME = #{search} OR DEPT_NAME = #{search})
 		</if>
 		<if test="search == null">
 		WHERE M_STATUS = 'Y'

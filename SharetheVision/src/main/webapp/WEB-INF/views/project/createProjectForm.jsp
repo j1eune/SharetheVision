@@ -5,7 +5,7 @@
 <html lang="en">
 
 <head>
-    <title>GURU Able - Free Lite Admin Template </title>
+    <title>프로젝트 관리</title>
     <!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -276,7 +276,7 @@
 								      <div class="pcoded-search" style="text-align:right;">
 							              <span class="searchbar-toggle">  </span>
 							              <div class="pcoded-search-box" style="display:inline-block; text-align:right; margin-right:20px;">
-							                  <input type="text" id="searchMember" size="20" placeholder="이름, 직급으로 검색" value="${search }">
+							                  <input type="text" id="searchMember" size="25" placeholder="이름, 직급 및 부서명으로 검색" value="${search }">
 							                  <span class="search-icon" id="searchBtn"><i class="ti-search" aria-hidden="true"></i></span>
 							              </div>
 							          </div>

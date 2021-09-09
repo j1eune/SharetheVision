@@ -128,7 +128,90 @@
 			height: 46.6px;
 			line-height: 46.6px;
 		}
-		        
+		
+		.reply-area {
+			height: 290px;
+			overflow: scroll;
+		}
+		
+		.reply-box {
+			display: flex;
+			align-items: center;
+			padding: 7px 0;
+		}
+		
+		.userInfo {
+			display: flex;
+			align-items: center;
+			width: 140px;
+		}
+		
+		.userPhoto {
+			width: 35px;
+			height: 35px;
+			margin: 0 15px;
+			border-radius: 50%;
+		}
+		
+		.userName {
+			font-size: 14px;
+			font-wieght: 600;
+			height: 20px;
+			margin: 0;
+		}
+		
+		.userDept {
+			font-size: 10px;
+			color: #888;
+			height: 20px;
+			margin: 0;
+		}
+		
+		.reply-content {
+			width: 815px;
+		}
+		
+		.reply-createDate {
+			width: 100px;
+			text-align: center;
+			font-size: 12px;
+		}
+		
+		.reply-deleteBtn {
+			width: 32px;
+			text-align: center;
+		}
+		
+		.replyInputBox {
+			flex-direction: row;
+		}
+		
+		.replyInput {
+			border: none;
+			border-bottom: 1px solid #609;
+			width: calc(100% - 67.3px);
+			padding-left: 10px;
+		}
+		
+		.deleteIcon {
+			color: #999;
+			transition: .3s;
+			cursor: pointer;
+		}
+		
+		.deleteIcon:hover {
+			color: #000;
+		}
+		
+		.replyNo {
+			display: none;
+		}
+		
+		.reply-deleteBtn {
+			border: none;
+			background: none;
+		}
+		
     </style>
 
 </head>
@@ -199,7 +282,7 @@
                                             	<div><span class="boardDetail-project-name">[ ${ board.project } ]</span>${ board.boardTitle }</div>
                                            	</div>
                                            	<div class="boardDetail-boardInfo">
-												<div class="boardDetail-writer-img"><i class="ti-user"></i></div>
+												<div class="boardDetail-writer-img"><img class="profileImg" src="resources/assets/images/defaultProfile.png"></div>
                                            		<div class="boardDetail-flex-column">
 	                                           		<p class="board-writer">${ board.boardWriter }</p>
 	                                           		<p class="board-date">${ board.boardCreateDate }</p>
@@ -217,7 +300,7 @@
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" data-toggle="tab" href="#messages1"
-                                                        role="tab">수정기록</a>
+                                                        role="tab">댓글</a>
                                                 </li>
                                                 <!-- <li class="nav-item">
                                                     <a class="nav-link" data-toggle="tab" href="#settings1" role="tab">Settings</a>
@@ -257,6 +340,13 @@
                                                     	</c:if>
                                                     	<c:if test="${ loginUser.mCode == board.memberCode }">
 	                                                    	<div>
+	                                                    		<c:url var="updateBoardForm" value="updateBoardForm.bo">
+	                                                    			<c:param name="boardNo" value="${ board.boardNo }"/>
+	                                                    			<c:param name="boardTitle" value="${ board.boardTitle }"/>
+	                                                    			<c:param name="boardContent" value="${ board.boardContent }"/>
+	                                                    			<c:param name="project" value="${ board.project }"/>
+	                                                    			<c:param name="deptNo" value="${ board.deptNo }"/>
+	                                                    		</c:url>
 		                                                       	<button type="button" id="boardDetailFileUploadBtn"
 		                                                           class="btn boardDetail-btn updateBtn">수정</button>
 		                                                           
@@ -277,22 +367,49 @@
                                                 	<c:if test="${ attachedFile ne null }">
                                                 		<a href="${ pageContext.request.contextPath }/resources/archive/${ attachedFile.atChange }" download="${ attachedFile.atOrigin }">${ attachedFile.atOrigin }</a>
                                                 	</c:if>
-                                                    <div class="boardDetail-btn-box">
-                                                        <button type="button" id="boardDetailFileUploadBtn"
-                                                            class="btn boardDetail-btn">첨부파일</button>
-                                                    </div>
+                                                	<a  href="${ pageContext.request.contextPath }/resources/archive/${ attachedFile.atChange }"  download="${ attachedFile.atOrigin }">
+	                                                    <div class="boardDetail-btn-box">
+	                                                        <button type="button" id="boardDetailFileUploadBtn" class="btn boardDetail-btn">다운로드</button>
+	                                                    </div>
+                                                	</a>
                                                 </div>
                                                 <div class="tab-pane boardDetail-content" id="messages1"
                                                     role="tabpanel">
-                                                    <p class="m-0">수정기록이 없습니다.</p>
-                                                    <div class="boardDetail-btn-box">
-                                                        <button type="button" id="boardDetailUpdateBtn"
-                                                            class="btn btn-primary boardDetail-btn">수정하기</button>
+                                                    <div class="reply-area">
+                                                    	<c:if test="${ !empty reply }">
+                                                    		<c:forEach var="reply" items="${ reply }">
+		                                                    	<div class="reply-box">
+		                                                    		<div class="userInfo">
+		                                                    			<div class="userPhoto"><img class="profileImg" src="resources/assets/images/defaultProfile.png"></div>
+		                                                    			<div class="userNameAndDept">
+		                                                    				<p class="userName">${ reply.replyWriter }</p>
+		                                                    				<p class="userDept"><span>${ reply.deptName }팀</span> <span>${ reply.jobName }</span></p>
+		                                                    			</div>
+		                                                    		</div>
+		                                                    		<div class="reply-content">${ reply.replyContent }</div>
+		                                                    		<div class="reply-createDate">${ reply.replyCreateDate }</div>
+		                                                    		<c:if test="${ loginUser.mCode == reply.memberCode }">
+			                                                    		<div class="reply-deleteBtn">
+			                                                    			<i class="icofont icofont-ui-close icofont-xs deleteIcon deleteReply"></i>
+		                                                    				<div class="replyNo">${ reply.replyNo }</div>
+		                                                    			</div>
+		                                                    		</c:if>
+		                                                    		<c:if test="${ loginUser.mCode != reply.memberCode }">
+		                                                    			<div class="reply-deleteBtn"></div>
+		                                                    		</c:if>
+		                                                    	</div>
+	                                                    	</c:forEach>
+                                                    	</c:if>
+                                                    	<c:if test="${ empty reply }">
+	                                                    	<p class="m-0">댓글이 없습니다.</p>
+                                                    	</c:if>
+                                                    </div>
+                                                    <div class="boardDetail-btn-box replyInputBox">
+                                                    	<input type="text" placeholder="댓글을 입력하세요" id="replyContent" class="replyInput">
+                                                        <button type="button" id="boardDetailReplyBtn"
+                                                            class="btn btn-primary boardDetail-btn">작성</button>
                                                     </div>
                                                 </div>
-                                                <!-- <div class="tab-pane" id="settings1" role="tabpanel">
-                                                    <p class="m-0">4.Cras consequat in enim ut efficitur. Nulla posuere elit quis auctor interdum praesent sit amet nulla vel enim amet. Donec convallis tellus neque, et imperdiet felis amet.</p>
-                                                </div> -->
                                             </div>
                                         </div>
                                     </div>
@@ -318,15 +435,32 @@
     </div>
     
     <script>
+    	
     	$(function() {
     		$('.updateBtn').click(function() {
-    			location.href="";	
+    			location.href="${ updateBoardForm }";
     		});
-    		
     	});
+    	
+    	$(document).on('click', '.reply-deleteBtn', function() {
+   			var rId = $(this).children("div").text();
+    	
+    		swal({
+    			title: "잠깐!",
+    			text: "댓글을 삭제하시겠습니까?",
+  				icon: "warning",
+  				buttons: ["취소", "삭제"],
+  				dangerMode: true,
+    		})
+    		.then((willDelete) => {
+    			if (willDelete) {
+    				location.href="deleteReply.bo?rId="+rId;
+    			}
+    		})
+    	});
+    	
 		$(function() {
     		$('.deleteBtn').click(function() {
-    			console.log("dd");
     			swal({
     				title: "잠깐!",
     				text: "게시글을 삭제하시겠습니까?",
@@ -341,9 +475,120 @@
     			});
     		});
 		})
+		
+		$(function() {
+			$('#boardDetailReplyBtn').click(function() {
+				var replyContent = $('#replyContent').val();
+				var bId = ${ board.boardNo };
+				
+				$.ajax({
+					url: 'addReply.bo',
+					data: {bId: bId, replyContent: replyContent},
+					success: function(data) {
+						if(data == "success") {
+							$('#replyContent').val('');
+							getReplyList();
+						}
+					}
+				})
+			});
+		});
+		
+		function getReplyList() {
+			var bId = ${board.boardNo};
+			
+			$.ajax({
+				url: 'replyList.bo',
+				data: {bId: bId},
+				success: function(data) {
+					console.log(data);
+					
+					$replyArea = $('.reply-area');
+					$replyArea.html('');
+					
+					var $box;
+					var $userInfo;
+					var $userPhoto;
+					var $userImg;
+					var $userNAD;
+					var $userName;
+					var $userDept;
+					var $userDeptName;
+					var $userJobName;
+					var $content;
+					var $createDate;
+					var $deleteBtn;
+					var $replyNo;
+					var $cparam;
+					var $replyIcon;
+					
+					if (data.length > 0) {
+						for(var i in data) {
+							$box = $('<div class="reply-box">');
+							$userInfo = $('<div class="userInfo">');
+							$userPhoto = $('<div class="userPhoto">');
+							$userImg = $('<img class="profileImg" src="resources/assets/images/defaultProfile.png">');
+							$userNAD = $('<div class="userNameAndDept">');
+							$userName = $('<p class="userName">').text(data[i].replyWriter);
+							$userDept = $('<p class="userDept">');
+							$userDeptName = $('<span>').text(data[i].deptName + "팀");
+							$userJobName = $('<span>').text(" " + data[i].jobName);
+							$content = $('<div class="reply-content">').text(data[i].replyContent);
+							$createDate = $('<div class="reply-createDate">').text(data[i].replyCreateDate);
+
+							$deleteBtn = $('<div class="reply-deleteBtn">');
+							$replyIcon = $('<i class="icofont icofont-ui-close icofont-xs deleteIcon deleteReply">');
+							
+							if(data[i].memberCode == "${ loginUser.mCode }"){
+								$deleteBtn.append($replyIcon);
+							}
+							
+							$replyNo = $('<div class="replyNo">').text(data[i].replyNo);
+							
+							
+							$deleteBtn.append($replyNo);							
+							
+							$userPhoto.append($userImg);
+							$userInfo.append($userPhoto);
+							
+							$userDept.append($userDeptName);
+							$userDept.append($userJobName);
+							
+							$userNAD.append($userName);
+							$userNAD.append($userDept);
+							$userInfo.append($userNAD);
+							
+							$box.append($userInfo);
+							$box.append($content);
+							$box.append($createDate);
+							$box.append($deleteBtn);
+							$replyArea.append($box);
+						}
+					} else {
+						$box = $('<div class="reply-box">');
+						$content = $('<div class="reply-content">').text("등록된 댓글이 없습니다.");
+						
+						$box.append($content);
+						$replyArea.append($box);
+					}
+				},
+				error: function(data) {
+					console.log('error');
+				}
+			})
+			
+		}
+		
+// 		$(function() {
+// 			getReplyList();
+			
+// 			setInterval(function() {
+// 				getReplyList();
+// 			}, 10000);
+// 		})
     </script>
 
-
+                                                    
 <!--     Warning Section Ends -->
 <!--     Required Jquery -->
 <!--     <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script> -->

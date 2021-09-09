@@ -95,11 +95,6 @@
                                     </div>
                                 </div>
                                 <div class="row m-t-30">
-                                	<c:url var="home" value="home.me">
-                                    </c:url>
-                                    <div class="col-md-12">
-                                        <a href="${home }" class="text-right f-w-600 text-inverse"> home.jsp로 가기</a>
-                                    </div>
                                     <div class="col-md-12">
                                         <button type="submit" onclick="login();" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">로그인</button>
                                     </div>

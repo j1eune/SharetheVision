@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.SharetheVision.attachments.model.vo.Attachment;
 import com.kh.SharetheVision.board.model.vo.Board;
 import com.kh.SharetheVision.board.model.vo.PageInfo;
+import com.kh.SharetheVision.board.model.vo.Reply;
 import com.kh.SharetheVision.board.model.vo.Scrap;
 import com.kh.SharetheVision.project.model.vo.Project;
 
@@ -90,16 +91,16 @@ public class BoardDAO {
 		return sqlSession.selectOne("boardMapper.selectSearchListCount", map);
 	}
 
-	public Attachment selectAttechedFile(SqlSessionTemplate sqlSession, int bId) {
-		return sqlSession.selectOne("boardMapper.selectAttechedFile", bId);
+	public Attachment selectAttechedFile(SqlSessionTemplate sqlSession, String strbId) {
+		return sqlSession.selectOne("boardMapper.selectAttechedFile", strbId);
 	}
 
 	public int deleteBoard(SqlSessionTemplate sqlSession, int bId) {
 		return sqlSession.update("boardMapper.deleteBoard", bId);
 	}
 
-	public int deleteBoardAttachFile(SqlSessionTemplate sqlSession, int bId) {
-		return sqlSession.update("boardMapper.deleteBoardAttachFile", bId);
+	public int deleteBoardAttachFile(SqlSessionTemplate sqlSession, String strbId) {
+		return sqlSession.update("boardMapper.deleteBoardAttachFile", strbId);
 	}
 
 	public int changeBoard(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
@@ -108,6 +109,22 @@ public class BoardDAO {
 
 	public int deleteProjectScrap(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 		return sqlSession.delete("boardMapper.deleteProjectScrap",map);
+	}
+	
+	public int updateBoard(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.update("boardMapper.updateBoard", b);
+	}
+
+	public int addReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.insert("boardMapper.insertReply", r);
+	}
+
+	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int bId) {
+		return (ArrayList)sqlSession.selectList("boardMapper.selectReplyList", bId);
+	}
+
+	public int deleteReply(SqlSessionTemplate sqlSession, int replyNo) {
+		return sqlSession.update("boardMapper.deleteReply", replyNo);
 	}
 
 }
