@@ -200,7 +200,20 @@ $(document).ready(function(){
 	});
 });
 
+$(document).on('click', '.media', function() {
+	var category = $(this).find('.notification-user').text();
+	var content = $(this).find('.notification-msg').text();
 
+	$.ajax({
+		url: 'selectNotice.no',
+		data: {category: category, content: content},
+		success: function(data) {
+			if (data != 'error') {
+				location.href=data;
+			}
+		}
+	})
+})
 
 
 </script>
