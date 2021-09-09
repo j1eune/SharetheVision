@@ -38,12 +38,12 @@
 		from attachments
 		where at_level = 4 and at_category = #{apv_no}
 	</select>
-	
+	<!-- 
 	<insert id="insertApproval">
 		INSERT INTO APPROVAL VALUES(SEQ_APV.NEXTVAL, #{apvType}, #{mCode}, #{apvAgr}, #{apvRef}, #{apvApp},
 						   			#{apvTitle}, #{apvCom}, SYSDATE, SYSDATE + 10, #{apvDdate}, 'A', #{apvRefNo})
 	</insert>
-	
+	-->
 	<select id="selectApproval" resultMap="approvalResultSet">
 		SELECT *
 		FROM APPROVAL
@@ -73,4 +73,52 @@
 	<select id="selectOne" resultMap="approvalResultSet">
 		SELECT * FROM APPROVAL WHERE APV_NO = #{apNo}
 	</select>
+
+	<insert id="insertApproval" parameterType="com.kh.SharetheVision.approval.model.vo.ApprovalVO">
+		INSERT INTO APPROVAL (APV_NO
+							, APV_TYPE
+							, M_CODE
+							, APV_AGR
+							, APV_REF
+							, APV_APP
+							, APT
+							, "COMMENT"
+							, ARRIVE
+							, DEPART
+							 ) VALUES (
+							  SEQ_APV.NEXTVAL
+							, #{apvType}
+							, #{mCode}
+							, #{apvAgr}
+							, #{apvRef}
+							, #{apvApp}
+							, #{apt}
+							, #{comment}
+							, #{arrive}
+							, #{depart}
+							 )
+		<selectKey keyProperty="apvNo" resultType="int" order="AFTER">
+			SELECT SEQ_APV.CURRVAL FROM DUAL
+		</selectKey>
+	</insert>
+	<insert id="insertApprovalAttach" parameterType="com.kh.SharetheVision.approval.model.vo.ApprovalAttachDTO">
+		INSERT INTO APPROVAL_ATTACH (ATTACH_NO
+								  , APV_NO
+								  , APT_ORIGIN_NAME
+								  , APT_SAVE_NAME
+								  , APT_PATH
+								  , APT_FILE_SIZE
+								  , DEL_YN
+								  , REG_DATE
+								   ) VALUES (
+								    SEQ_APV_ATTACH.NEXTVAL
+								  , #{apvNo}
+								  , #{aptOriginName}
+								  , #{aptSaveName}
+								  , #{aptPath}
+								  , #{aptFileSize}
+								  , 'N'
+								  , SYSDATE
+								   )
+	</insert>
 </mapper>

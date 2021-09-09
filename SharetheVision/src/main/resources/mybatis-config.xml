@@ -3,6 +3,7 @@
 <configuration>
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL"/>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
 	</settings>
 	
 	<typeAliases>
@@ -19,7 +20,7 @@
 		<typeAlias alias="LeaveUsed" type="com.kh.SharetheVision.leave.model.vo.LeaveUsed"/>
 		<typeAlias alias="Scrap" type="com.kh.SharetheVision.board.model.vo.Scrap"/>
 		<typeAlias alias="Todo" type="com.kh.SharetheVision.firstmain.model.vo.Todo"/>
-		<typeAlias alias="Approval" type="com.kh.SharetheVision.approval.model.vo.Approval"/>
+		<typeAlias alias="Approval" type="com.kh.SharetheVision.approval.model.vo.ApprovalVO"/>
 		<typeAlias alias="Reply" type="com.kh.SharetheVision.board.model.vo.Reply"/>
 	</typeAliases>
 	

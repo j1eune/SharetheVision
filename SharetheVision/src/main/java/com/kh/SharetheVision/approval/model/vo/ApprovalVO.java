@@ -2,30 +2,34 @@ package com.kh.SharetheVision.approval.model.vo;
 
 import java.sql.Date;
 
-public class Approval {
-	
-	private int apNo;
+import org.springframework.web.multipart.MultipartFile;
+
+public class ApprovalVO {
+
+	private int apvNo;
 	private String apvType;
 	private String mCode;
 	private String apvAgr;
 	private String apvRef;
 	private String apvApp;
-	private String apvTitle;
-	private String apvCom;
-	private Date apvSdate;
-	private Date apvDdate;
+	private String apt;
+	private String comment;
+	private Date arrive;
+	private Date depart;
 	private Date apvEdate;
 	private String apvStatus;
 	private int apvRefNo;
-	
-	public Approval() {}
+	private MultipartFile fileObj;
 
-	public int getApNo() {
-		return apNo;
+	public ApprovalVO() {
 	}
 
-	public void setApNo(int apNo) {
-		this.apNo = apNo;
+	public int getApvNo() {
+		return apvNo;
+	}
+
+	public void setApvNo(int apNo) {
+		this.apvNo = apNo;
 	}
 
 	public String getApvType() {
@@ -68,36 +72,36 @@ public class Approval {
 		this.apvApp = apvApp;
 	}
 
-	public String getApvTitle() {
-		return apvTitle;
+	public String getApt() {
+		return apt;
 	}
 
-	public void setApvTitle(String apvTitle) {
-		this.apvTitle = apvTitle;
+	public void setApt(String apt) {
+		this.apt = apt;
 	}
 
-	public String getApvCom() {
-		return apvCom;
+	public String getComment() {
+		return comment;
 	}
 
-	public void setApvCom(String apvCom) {
-		this.apvCom = apvCom;
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
-	public Date getApvSdate() {
-		return apvSdate;
+	public Date getArrive() {
+		return arrive;
 	}
 
-	public void setApvSdate(Date apvSdate) {
-		this.apvSdate = apvSdate;
+	public void setArrive(Date arrive) {
+		this.arrive = arrive;
 	}
 
-	public Date getApvDdate() {
-		return apvDdate;
+	public Date getDepart() {
+		return depart;
 	}
 
-	public void setApvDdate(Date apvDdate) {
-		this.apvDdate = apvDdate;
+	public void setDepart(Date depart) {
+		this.depart = depart;
 	}
 
 	public Date getApvEdate() {
@@ -115,7 +119,7 @@ public class Approval {
 	public void setApvStatus(String apvStatus) {
 		this.apvStatus = apvStatus;
 	}
-	
+
 	public int getApvRefNo() {
 		return apvRefNo;
 	}
@@ -124,15 +128,20 @@ public class Approval {
 		this.apvRefNo = apvRefNo;
 	}
 
-	@Override
-	public String toString() {
-		return "Approval [apNo=" + apNo + ", apvType=" + apvType + ", mCode=" + mCode + ", apvAgr=" + apvAgr
-				+ ", apvRef=" + apvRef + ", apvApp=" + apvApp + ", apvTitle=" + apvTitle + ", apvCom=" + apvCom
-				+ ", apvSdate=" + apvSdate + ", apvDdate=" + apvDdate + ", apvEdate=" + apvEdate + ", apvStatus="
-				+ apvStatus + ", apvRefNo=" + apvRefNo + "]";
+	public MultipartFile getFileObj() {
+		return fileObj;
 	}
 
+	public void setFileObj(MultipartFile fileObj) {
+		this.fileObj = fileObj;
+	}
 
-	
-	
+	@Override
+	public String toString() {
+		return "Approval [apNo=" + apvNo + ", apvType=" + apvType + ", mCode=" + mCode + ", apvAgr=" + apvAgr
+				+ ", apvRef=" + apvRef + ", apvApp=" + apvApp + ", apt=" + apt + ", comment=" + comment + ", arrive="
+				+ arrive + ", depart=" + depart + ", apvEdate=" + apvEdate + ", apvStatus=" + apvStatus + ", apvRefNo="
+				+ apvRefNo + "]";
+	}
+
 }

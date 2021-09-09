@@ -1,20 +1,23 @@
 package com.kh.SharetheVision.approval.model.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import com.kh.SharetheVision.approval.model.vo.Approval;
+import com.kh.SharetheVision.approval.model.vo.ApprovalAttachDTO;
+import com.kh.SharetheVision.approval.model.vo.ApprovalVO;
 import com.kh.SharetheVision.attachments.model.vo.Attachment;
 import com.kh.SharetheVision.member.model.vo.Member;
 
 public interface ApprovalService {
 
-	ArrayList<Member> aplist();
-	
+	List<Member> aplist();
+
 	Attachment selectAttachedFile(int apNo);
 
-	int insertApproval(Approval apv);
-	
-	ArrayList<Approval> selectApproval(Approval ap);
+	int insertApproval(ApprovalVO apv);
 
-	Approval selectOne(Approval apv);
+	int insertApprovalAttach(ApprovalAttachDTO dto);
+
+	List<ApprovalVO> selectApproval(ApprovalVO ap);
+
+	ApprovalVO selectOne(ApprovalVO apv);
 }

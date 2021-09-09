@@ -28,7 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kh.SharetheVision.approval.model.service.ApprovalService;
-import com.kh.SharetheVision.approval.model.vo.Approval;
+import com.kh.SharetheVision.approval.model.vo.ApprovalVO;
 import com.kh.SharetheVision.leave.model.exception.LeaveException;
 import com.kh.SharetheVision.leave.model.service.LeaveService;
 import com.kh.SharetheVision.leave.model.vo.LeaveAnnual;
@@ -230,7 +230,7 @@ public class LeaveController {
 		
 		int apvResult = 0;
 		if(result > 0) {
-			Approval apv = new Approval();
+			ApprovalVO apv = new ApprovalVO();
 			apv.setApvType(Integer.toString(1));
 			apv.setmCode(memberNo);
 			apv.setApvApp(approval);
