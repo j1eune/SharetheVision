@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="projectMapper">
-	<insert id="insertProject">
+	<insert id="insertProject" parameterType="Project">
 		INSERT INTO PROJECT
 		VALUES(SEQ_PRO.NEXTVAL, #{pName}, #{pIntro}, DEFAULT, DEFAULT, #{deptNo})
+		<selectKey keyProperty="pNo" resultType="_int" order="AFTER">
+			SELECT SEQ_PRO.CURRVAL FROM DUAL
+		</selectKey>
 	</insert>
 	
 	<insert id="insertProjectMember">
@@ -26,7 +29,7 @@
 		FROM PROJECT
 			JOIN M_PROJECT USING(P_NO)
 		WHERE P_STATUS = 'Y' AND M_CODE=#{mCode}
-		ORDER BY P_NO DESC
+		ORDER BY P_END, P_NO DESC
 	</select>
 	
 	<select id="selectProjectMember" resultMap="selectProjectMemberResult" parameterType="list">

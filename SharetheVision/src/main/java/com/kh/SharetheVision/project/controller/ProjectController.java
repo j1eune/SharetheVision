@@ -28,6 +28,7 @@ import com.kh.SharetheVision.board.model.vo.PageInfo;
 import com.kh.SharetheVision.member.model.service.MemberService;
 import com.kh.SharetheVision.member.model.vo.Member;
 import com.kh.SharetheVision.member.model.vo.MemberPagination;
+import com.kh.SharetheVision.notice.model.service.NoticeService;
 import com.kh.SharetheVision.project.model.exception.ProjectException;
 import com.kh.SharetheVision.project.model.service.ProjectService;
 import com.kh.SharetheVision.project.model.vo.Project;
@@ -46,6 +47,9 @@ public class ProjectController {
 	
 	@Autowired
 	private BoardService bService;
+	
+	@Autowired
+	private NoticeService nService;
 	
 	@RequestMapping("createProjectForm.pr")
 	public String createProjectFrom(Model model, HttpSession session) {
@@ -84,8 +88,9 @@ public class ProjectController {
 		project.setDeptNo(loginUser.getDeptNo());
 		
 		int result = pService.insertProject(project);
+		int noResult = nService.noticeProject(project);
 		
-		if(result > 0) {
+		if(result > 0 && noResult > 0) {
 			return "redirect:createProjectForm.pr";
 		} else {
 			throw new ProjectException("프로젝트 추가에 실패하였습니다."); 

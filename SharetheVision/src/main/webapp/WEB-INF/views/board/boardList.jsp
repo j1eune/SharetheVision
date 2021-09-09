@@ -5,7 +5,7 @@
 <html lang="en">
 
 <head>
-    <title>Welcome SV Company!</title>
+    <title>SV Company</title>
 
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -283,12 +283,38 @@
                                             <div class="boardList-search-position">
                                                 <div class="pcoded-search-box boardList-search-box">
 	                                                <form action="boardSearch.bo" method="post">
-	                                                	<select class="searchOption" name="category">
-	                                                		<option value="title">제목</option>
-	                                                		<option value="project">프로젝트</option>
-	                                                		<option value="writer">작성자</option>
-	                                                	</select>
-	                                                    <input type="text" placeholder="Search" name="word" class="boardList-search">
+	                                                	<c:if test="${ category != null }">
+		                                                	<select class="searchOption" name="category">
+		                                                		<c:if test="${ category == 'title' }">
+			                                                		<option value="title" selected>제목</option>
+			                                                		<option value="project">프로젝트</option>
+			                                                		<option value="writer">작성자</option>
+		                                                		</c:if>
+		                                                		<c:if test="${ category == 'project' }">
+			                                                		<option value="title">제목</option>
+			                                                		<option value="project" selected>프로젝트</option>
+			                                                		<option value="writer">작성자</option>
+		                                                		</c:if>
+																<c:if test="${ category == 'writer' }">
+			                                                		<option value="title">제목</option>
+			                                                		<option value="project">프로젝트</option>
+			                                                		<option value="writer" selected>작성자</option>
+																</c:if>
+		                                                	</select>
+	                                                	</c:if>
+	                                                	<c:if test="${ category == null }">
+		                                                	<select class="searchOption" name="category">
+		                                                		<option value="title">제목</option>
+		                                                		<option value="project">프로젝트</option>
+		                                                		<option value="writer">작성자</option>
+		                                                	</select>
+	                                                	</c:if>
+	                                                	<c:if test="${ word != null }">
+		                                                    <input type="text" placeholder="Search" name="word" class="boardList-search" value="${ word }">
+	                                                	</c:if>
+	                                                	<c:if test="${ word == null }">
+		                                                    <input type="text" placeholder="Search" name="word" class="boardList-search">
+	                                                	</c:if>
 	                                                    <button class="search-icon board-search"><i class="ti-search" aria-hidden="true"></i></span></button>
 	                                                </form>
                                                 </div>

@@ -5,7 +5,7 @@
 <html lang="en">
 
 <head>
-    <title>프로젝트 관리</title>
+    <title>SV Company</title>
     <!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

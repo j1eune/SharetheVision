@@ -141,5 +141,20 @@
 		<url-pattern>*.ap</url-pattern>
 	</servlet-mapping>
 
+	<!-- 알림 관련 -->
+	<servlet>
+		<servlet-name>noticeServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/notice-context.xml
+			</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>noticeServlet</servlet-name>
+		<url-pattern>*.no</url-pattern>
+	</servlet-mapping>
+	
 	
 </web-app>

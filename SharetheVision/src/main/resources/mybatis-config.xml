@@ -22,6 +22,7 @@
 		<typeAlias alias="Todo" type="com.kh.SharetheVision.firstmain.model.vo.Todo"/>
 		<typeAlias alias="Approval" type="com.kh.SharetheVision.approval.model.vo.ApprovalVO"/>
 		<typeAlias alias="Reply" type="com.kh.SharetheVision.board.model.vo.Reply"/>
+		<typeAlias alias="Notice" type="com.kh.SharetheVision.notice.model.vo.Notice"/>
 	</typeAliases>
 	
 	
@@ -35,6 +36,7 @@
 		<mapper resource="mapper/messenger-mapper.xml"/>
 		<mapper resource="mapper/leave-mapper.xml"/>
 		<mapper resource="mapper/approval-mapper.xml"/>
+		<mapper resource="mapper/notice-mapper.xml"/>
 	</mappers>
 
 

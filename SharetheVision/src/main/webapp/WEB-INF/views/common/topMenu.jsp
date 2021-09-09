@@ -27,41 +27,10 @@ pageEncoding="UTF-8"%>
                 </li>            
                 <li class="header-notification">
                     <a href="#!">
-                        <i class="ti-bell text-c-yellow" ></i>
-                        <span class="badge bg-c-yellow"></span>
+                        <i class="ti-bell text-c-yellow"></i>
+                        <span class="badge bg-c-yellow" id="noticePoint"></span>
                     </a>
-                    <ul class="show-notification">
-                        <li>
-                            <h6 class="text-c-purple" >Notifications</h6>
-                            <label class="label label-warning">New</label>
-                        </li>
-                        <li>
-                            <div class="media">
-                                <div class="media-body">
-                                    <h5 class="notification-user">결재 승인 </h5>
-                                    <p class="notification-msg"> Complete / Reject </p>
-                                    <span class="notification-time">time hh:mm:ss</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="media">
-                                <div class="media-body">
-                                    <h5 class="notification-user">New Project </h5>
-                                    <p class="notification-msg"> (소속팀) UI 설계 프로젝트 </p>
-                                    <span class="notification-time">time hh:mm:ss</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="media">
-                                <div class="media-body">
-                                    <h5 class="notification-user">내 게시글 댓글 알림</h5>
-                                    <p class="notification-msg"> 게시글 : (게시글 제목) </p>
-                                    <span class="notification-time">time hh:mm:ss</span>
-                                </div>
-                            </div>
-                        </li>
+                    <ul class="show-notification" id="notification">
                     </ul>
                 </li>
 
@@ -181,4 +150,56 @@ $(".chatting").click(function () {
 	 });
 	window.open('msStart','MS','top=auto,left=auto,width=383,height=600');
 });		
+
+// 프로젝트 알림 AJax
+$(document).ready(function(){
+	var mCode = "${loginUser.mCode}";
+	var badge = $("#noticePoint");
+	$.ajax({
+		url:'notice.no',
+		data:{mCode:mCode},
+		success:function(data){
+			var $ul = $("#notification");
+
+			var $noti = '<h6 class="text-c-purple" style="display: inline-block;"><b>Notifications</b></h6>';
+			var $newLabel = '<label style="float: right;" class="label label-warning">New</label>';
+			
+			var $Emptynoti = '<h6 class="text-c-purple" style="display: inline-block;"><b>No Notifications</b></h6>';
+			var $EmptyLabel = '<label style="float: right;" class="label label-warning">Empty</label>';
+			
+			var $noDiv1 = '<div class="media">';
+			var $noDiv2 = '<div class="media-body">'; 
+			
+			var $noCategory;
+			var $noContent;
+			var $noDate;
+			
+			var $result;
+			
+			if(data.length != 0){
+				badge.css('visibility', 'visible');
+				$ul.append("<li>"+$noti+$newLabel+"</li>");
+				
+				for(var i = 0; i < data.length; i++){
+					$noCategory = '<h5 class="notification-user">'+data[i].noticeCategory+'</h5>';
+					$noContent = '<p class="notification-msg">'+ data[i].noticeContent +'</p>';
+					$noDate = '<span class="notification-time">'+data[i].noticeDate + ' </span>';
+					
+					$result = $noDiv1 + $noDiv2 + $noCategory + $noContent + $noDate;
+					$ul.append("<li>"+$result+"</li>");
+				}
+			} else {
+				badge.css('visibility', 'hidden');
+				$ul.append("<li>"+$Emptynoti+$EmptyLabel+"</li>");
+			}
+		},
+		error:function(data){
+			console.log("실패함");
+		}
+	});
+});
+
+
+
+
 </script>
