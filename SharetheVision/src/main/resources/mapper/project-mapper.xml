@@ -29,7 +29,7 @@
 		FROM PROJECT
 			JOIN M_PROJECT USING(P_NO)
 		WHERE P_STATUS = 'Y' AND M_CODE=#{mCode}
-		ORDER BY P_NO DESC
+		ORDER BY P_END, P_NO DESC
 	</select>
 	
 	<select id="selectProjectMember" resultMap="selectProjectMemberResult" parameterType="list">

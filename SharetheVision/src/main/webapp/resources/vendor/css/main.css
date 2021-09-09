@@ -335,3 +335,19 @@ input.inputModal{
 select{
   text-align-last: center;
 }
+.btnpurple{
+	border: 1px solid #660099 !important;
+	border-radius: 10px;
+	color: #660099;
+	background-color: #fff;
+	background-color: transparent;
+}
+.btnpurple:hover{
+	color: #fff;
+	background-color: #660099;
+}
+#saveBtn:hover{
+	border: 1px solid #660099 !important;
+	color: #660099;
+	background-color: #fff;
+}
