@@ -37,46 +37,47 @@
 		<result column="R_STATUS" property="replyStatus"/>
 		<result column="M_CODE" property="memberCode"/>
 		<result column="B_NO" property="boardNo"/>
+		<result column="AT_CHANGE" property="replyWriterImage"/>
 	</resultMap>
 	
 
 	<select id="selectListCount" resultType="_int">
-		select count(*)
-		from board
-		where b_status = 'Y' and dept_no = #{deptNo}
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE B_STATUS = 'Y' AND DEPT_NO = #{deptNo}
 	</select>
 	
 	<select id="selectBoardList" resultMap="boardResultSet">
 		<!-- v -->
-		select *
-		from board
-		where b_status = 'Y' and dept_no = #{deptNo}
-		order by b_no desc
+		SELECT *
+		FROM BOARD
+		WHERE B_STATUS = 'Y' AND DEPT_NO = #{deptNo}
+		ORDER BY B_NO DESC
 	</select>
 
 	<select id="selectNewBoard" resultMap="boardResultSet">
 		<!-- v -->
 		<![CDATA[
-			select *
-			from (select *
-				  from board
-				  where b_type=2 and dept_no=#{deptNo} and b_status='Y'
-				  order by b_no desc)
-			where rownum <= 3
+			SELECT *
+			FROM (SELECT *
+				  FROM BOARD
+				  WHERE B_TYPE=2 AND DEPT_NO=#{deptNo} AND B_STATUS='Y'
+				  ORDER BY B_NO DESC)
+			WHERE ROWNUM <= 3
 		]]>
 	</select>
 	
 	<select id="selectBoardDetail" resultMap="boardResultSet">
 		<!-- v -->
-		select *
-		from board
-		where b_status='Y' and b_no=#{bId}
+		SELECT *
+		FROM BOARD
+		WHERE B_STATUS='Y' AND B_NO=#{bId}
 	</select>
 	
 	<select id="selectProjectList" resultMap="projectResultSet">
-		select p_name
-		from project
-		where dept_no = #{deptNo} and p_status='Y' and p_end='N'
+		SELECT P_NAME
+		FROM PROJECT
+		WHERE DEPT_NO = #{deptNo} AND P_STATUS='Y' AND P_END='N'
 	</select>
 	
 	<resultMap type="Project" id="projectResultSet">
@@ -90,27 +91,31 @@
 	</resultMap>
 	
 	<insert id="insertBoard">
-		insert into
-		board values(seq_bno.nextval, 2, #{boardTitle}, #{boardContent}, default, default, default, #{memberCode}, #{deptNo}, #{boardWriter}, #{project})
+		INSERT INTO
+		BOARD VALUES(SEQ_BNO.NEXTVAL, 2, #{boardTitle}, #{boardContent}, default, default, default, #{memberCode}, #{deptNo}, #{boardWriter}, #{project})
 	</insert>
 
 	<select id="selectLastBoard" resultMap="boardResultSet">
-		select * from (select * from board order by b_no desc) where rownum = 1
+		SELECT *
+		FROM (SELECT *
+			  FROM BOARD
+			  ORDER BY B_NO DESC)
+	  	WHERE ROWNUM = 1
 	</select>
 	
 	<insert id="insertAttachFile">
-		insert into
-		attachments values(seq_at.nextval, #{atLevel}, #{atCategory}, #{atPath}, #{atOrigin}, #{atChange}, null, default)
+		INSERT INTO
+		ATTACHMENTS VALUES(SEQ_AT.NEXTVAL, #{atLevel}, #{atCategory}, #{atPath}, #{atOrigin}, #{atChange}, null, default)
 	</insert>
 	
 	<insert id="insertScrap">
-		insert into
-		scrap values(#{mCode}, #{boardNo}, #{project}, #{boardTitle}, #{boardWriter}, seq_scrap.nextval)
+		INSERT INTO
+		SCRAP VALUES(#{mCode}, #{boardNo}, #{project}, #{boardTitle}, #{boardWriter}, SEQ_SCRAP.NEXTVAL)
 	</insert>
 
 	<select id="scrapState" resultMap="scrapResultSet">
-		select *
-		from scrap where b_no=#{boardNo} and m_code=#{mCode}
+		SELECT *
+		FROM SCRAP WHERE B_NO = #{boardNo} AND M_CODE = #{mCode}
 	</select>
 
 	<resultMap type="Scrap" id="scrapResultSet">
@@ -124,79 +129,84 @@
 	</resultMap>
 	
 	<delete id="deleteScrap">
-		delete
-		from scrap
-		where b_no=#{boardNo} and m_code=#{mCode}
+		DELETE
+		FROM SCRAP
+		WHERE B_NO = #{boardNo} AND M_CODE = #{mCode}
 	</delete>
 	
 	<select id="scrapList" resultMap="scrapResultSet">
-		select *
-		from v_scrap
-		where m_code=#{mCode}
+	<![CDATA[
+		SELECT *
+		FROM (SELECT *
+			  FROM V_SCRAP
+			  WHERE M_CODE = #{mCode}
+			  ORDER BY S_NO DESC)
+	  	WHERE ROWNUM <= 3
+		]]>
 	</select>
 	
 	<select id="selectScrapListCount" resultType="_int">
-		select count(*)
-		from scrap
-		where m_code=#{mCode}
+		SELECT COUNT(*)
+		FROM SCRAP
+		WHERE M_CODE = #{mCode}
 	</select>
 	
 	<select id="selectScrapBoardList" resultMap="scrapResultSet">
-		select *
-		from scrap
-		where m_code = #{mCode}
-		order by s_no desc
+		SELECT *
+		FROM V_SCRAP
+		WHERE M_CODE = #{mCode}
+		ORDER BY S_NO DESC
 	</select>
 	
 	<select id="selectBoardStatus" resultMap="boardResultSet">
-		select *
-		from board
-		where b_status='N' and b_no=#{bId}
+		SELECT *
+		FROM BOARD
+		WHERE B_STATUS='N' AND B_NO=#{bId}
 	</select>
 	
 	<select id="selectSearchBoard" resultMap="boardResultSet">
-		select *
-		from board
+		SELECT *
+		FROM BOARD
 		<if test="category == 'title'">
-		where b_title like '%'||#{word}||'%'
+		WHERE B_TITLE LIKE '%'||#{word}||'%'
 		</if>
 		<if test="category == 'project'">
-		where project like '%'||#{word}||'%'
+		WHERE PROJECT LIKE '%'||#{word}||'%'
 		</if>
 		<if test="category == 'writer'">
-		where b_writer like '%'||#{word}||'%'
+		WHERE B_WRITER LIKE '%'||#{word}||'%'
 		</if>
-		and dept_no = #{deptNo} and b_status = 'Y'
-		order by b_no desc
+		AND DEPT_NO = #{deptNo} AND B_STATUS = 'Y'
+		ORDER BY B_NO DESC
 	</select>
 	
 	<select id="selectSearchListCount" resultType="_int">
-		select count(*)
-		from board
+		SELECT COUNT(*)
+		FROM BOARD
 		<if test="category == 'title'">
-		where b_title like '%'||#{word}||'%'
+		WHERE B_TITLE LIKE '%'||#{word}||'%'
 		</if>
 		<if test="category == 'project'">
-		where project like '%'||#{word}||'%'
+		WHERE PROJECT LIKE '%'||#{word}||'%'
 		</if>
 		<if test="category == 'writer'">
-		where b_writer like '%'||#{word}||'%'
+		WHERE B_WRITER LIKE '%'||#{word}||'%'
 		</if>
-		and dept_no = #{deptNo} and b_status = 'Y'
+		AND DEPT_NO = #{deptNo} AND B_STATUS = 'Y'
 	</select>
 	
 	<select id="selectAttechedFile" resultMap="attachmentResultSet">
-		select *
-		from attachments
-		where at_level = 3 and at_category = #{bId} and at_status='Y'
+		SELECT *
+		FROM ATTACHMENTS
+		WHERE AT_LEVEL = 3 AND AT_CATEGORY = #{bId} AND AT_STATUS='Y'
 	</select>
 	
 	<update id="deleteBoard">
-		update board set b_status = 'N' where b_no = #{bId}
+		UPDATE BOARD SET B_STATUS = 'N' WHERE B_NO = #{bId}
 	</update>
 	
 	<update id="deleteBoardAttachFile">
-		update attachments set at_status = 'N' where at_level = 3 and at_category = #{bId}
+		UPDATE ATTACHMENTS SET AT_STATUS = 'N' WHERE AT_LEVEL = 3 AND AT_CATEGORY = #{bId}
 	</update>
 	
 	<update id="changeBoard">
@@ -220,29 +230,30 @@
 	</delete>
 
 	<update id="updateBoard">
-		update board set b_title = #{boardTitle}, b_content = #{boardContent}, project = #{project} where b_no = #{boardNo}
+		UPDATE BOARD SET B_TITLE = #{boardTitle}, B_CONTENT = #{boardContent}, PROJECT = #{project} WHERE B_NO = #{boardNo}
 	</update>
 	
 	<insert id="insertReply">
-		insert into reply values(SEQ_REPLY.NEXTVAL, #{replyWriter}, #{replyContent}, default, #{jobName}, #{deptName}, default, #{memberCode}, #{boardNo})
+		INSERT INTO REPLY VALUES(SEQ_REPLY.NEXTVAL, #{replyWriter}, #{replyContent}, default, #{jobName}, #{deptName}, default, #{memberCode}, #{boardNo})
 	</insert>
 	
 	<select id="selectReplyList" resultMap="replyResultSet">
-		select * from
-		reply
-		where b_no = #{bId} and r_status = 'Y'
+		SELECT R.R_NO, R.R_WRITER, R.R_CONTENT, R.R_CREATEDATE, R.J_NAME, R.D_NAME, R.R_STATUS, R.M_CODE, R.B_NO, A.AT_CHANGE
+		FROM REPLY R
+		LEFT JOIN ATTACHMENTS A ON (R.M_CODE = A.AT_CATEGORY)
+		WHERE R.B_NO = 57 AND R.R_STATUS = 'Y'
 	</select>
 	
 	<update id="deleteReply">
-		update reply
-		set r_status = 'N'
-		where r_no = #{replyNo}
+		UPDATE REPLY
+		SET R_STATUS = 'N'
+		WHERE R_NO = #{replyNo}
 	</update>
 	
 	<select id="selectUserProfileImage" resultMap="attachmentResultSet">
-		select * from
-		attachments
-		where at_level = 1 and at_status = 'Y' and at_category = #{writermCode}
+		SELECT *
+		FROM ATTACHMENTS
+		WHERE AT_LEVEL = 1 AND AT_STATUS = 'Y' AND AT_CATEGORY = #{writermCode}
 	</select>
 	
 </mapper>

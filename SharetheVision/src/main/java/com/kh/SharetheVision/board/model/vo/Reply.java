@@ -12,11 +12,12 @@ public class Reply {
 	private String replyStatus;
 	private String memberCode;
 	private int boardNo;
+	private String replyWriterImage;
 	
 	public Reply() {}
 
 	public Reply(int replyNo, String jobName, String deptName, String replyWriter, String replyContent,
-			Date replyCreateDate, String replyStatus, String memberCode, int boardNo) {
+			Date replyCreateDate, String replyStatus, String memberCode, int boardNo, String replyWriterImage) {
 		super();
 		this.replyNo = replyNo;
 		this.jobName = jobName;
@@ -27,6 +28,7 @@ public class Reply {
 		this.replyStatus = replyStatus;
 		this.memberCode = memberCode;
 		this.boardNo = boardNo;
+		this.replyWriterImage = replyWriterImage;
 	}
 
 	public int getReplyNo() {
@@ -101,11 +103,20 @@ public class Reply {
 		this.boardNo = boardNo;
 	}
 
+	public String getReplyWriterImage() {
+		return replyWriterImage;
+	}
+
+	public void setReplyWriterImage(String replyWriterImage) {
+		this.replyWriterImage = replyWriterImage;
+	}
+
 	@Override
 	public String toString() {
-		return "Reply [replyNo=" + replyNo + ", jobName=" + jobName + ", deptName=" + deptName + ", replyWriter="
-				+ replyWriter + ", replyContent=" + replyContent + ", replyCreateDate=" + replyCreateDate
-				+ ", replyStatus=" + replyStatus + ", memberCode=" + memberCode + ", boardNo=" + boardNo + "]";
+		return "Reply [replyNo=" + replyNo + ", replyWriter=" + replyWriter + ", replyContent=" + replyContent
+				+ ", replyCreateDate=" + replyCreateDate + ", jobName=" + jobName + ", deptName=" + deptName
+				+ ", replyStatus=" + replyStatus + ", memberCode=" + memberCode + ", boardNo=" + boardNo
+				+ ", replyWriterImage=" + replyWriterImage + "]";
 	}
 
 	
