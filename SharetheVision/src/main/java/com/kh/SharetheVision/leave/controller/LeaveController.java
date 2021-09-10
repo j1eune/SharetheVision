@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -234,7 +235,7 @@ public class LeaveController {
 			apv.setApvType(Integer.toString(1));
 			apv.setmCode(memberNo);
 			apv.setApvApp(approval);
-			apv.setApvTitle("["+memberName+"] 휴가 신청서");
+			apv.setApt("["+memberName+"] 휴가 신청서");
 			
 			String type = null;
 			if(lu.getType() == 1) {
@@ -252,12 +253,18 @@ public class LeaveController {
 			} else if(lu.getType() == 8){
 				type="오후반차";
 			}
-			apv.setApvCom("휴가종류 : " + type +
+			apv.setComment("휴가종류 : " + type +
 						  "\r\n시작일 : " + lu.getStartDate() +
 						  "\r\n종료일 : " + lu.getEndDate() +
 						  "\r\n일수  : " + lu.getDays() +
 						  "\r\n사유 : " + lu.getContent());
 			apv.setApvRefNo(no);
+			
+			long miliseconds = System.currentTimeMillis();
+			Date arrive = new Date(miliseconds);
+			Date depart = Date.valueOf(lu.getStartDate());
+			apv.setArrive(arrive);
+			apv.setDepart(depart);
 
 			apvResult = apvService.insertApproval(apv);
 		}

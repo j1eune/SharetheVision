@@ -38,12 +38,14 @@
 		from attachments
 		where at_level = 4 and at_category = #{apv_no}
 	</select>
+	
 	<!-- 
 	<insert id="insertApproval">
 		INSERT INTO APPROVAL VALUES(SEQ_APV.NEXTVAL, #{apvType}, #{mCode}, #{apvAgr}, #{apvRef}, #{apvApp},
 						   			#{apvTitle}, #{apvCom}, SYSDATE, SYSDATE + 10, #{apvDdate}, 'A', #{apvRefNo})
 	</insert>
 	-->
+	
 	<select id="selectApproval" resultMap="approvalResultSet">
 		SELECT *
 		FROM APPROVAL
@@ -55,7 +57,7 @@
 	</select>
 	
 	<resultMap type="Approval" id="approvalResultSet">
-		<id column="APV_NO" property="apNo"/>
+		<id column="APV_NO" property="apvNo"/>
 		<result column="APV_TYPE" property="apvType"/>
 		<result column="APV_AGR" property="apvAgr"/>
 		<result column="APV_REF" property="apvRef"/>
