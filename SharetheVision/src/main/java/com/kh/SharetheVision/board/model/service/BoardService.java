@@ -64,4 +64,6 @@ public interface BoardService {
 
 	int deleteReply(int replyNo);
 
+	Attachment selectUserProfileImage(String writermCode);
+
 }

@@ -127,4 +127,8 @@ public class BoardDAO {
 		return sqlSession.update("boardMapper.deleteReply", replyNo);
 	}
 
+	public Attachment selectUserProfileImage(SqlSessionTemplate sqlSession, String writermCode) {
+		return sqlSession.selectOne("boardMapper.selectUserProfileImage", writermCode);
+	}
+
 }

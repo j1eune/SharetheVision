@@ -1,6 +1,7 @@
 package com.kh.SharetheVision.notice.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,11 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public ArrayList<Notice> selectNotice(String mCode) {
 		return noticeDAO.selectNotice(sqlSession, mCode);
+	}
+
+	@Override
+	public int readNotice(HashMap<String, String> map) {
+		return noticeDAO.readNotice(sqlSession, map);
 	}
 
 }

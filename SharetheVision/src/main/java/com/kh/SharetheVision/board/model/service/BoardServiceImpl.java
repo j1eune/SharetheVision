@@ -153,5 +153,10 @@ public class BoardServiceImpl implements BoardService {
 	public int deleteReply(int replyNo) {
 		return DAO.deleteReply(sqlSession, replyNo);
 	}
+
+	@Override
+	public Attachment selectUserProfileImage(String writermCode) {
+		return DAO.selectUserProfileImage(sqlSession, writermCode);
+	}
 	
 }

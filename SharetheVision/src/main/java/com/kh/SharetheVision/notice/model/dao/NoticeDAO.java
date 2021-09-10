@@ -1,6 +1,7 @@
 package com.kh.SharetheVision.notice.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -17,6 +18,10 @@ public class NoticeDAO {
 
 	public ArrayList<Notice> selectNotice(SqlSessionTemplate sqlSession, String mCode) {
 		return (ArrayList)sqlSession.selectList("noticeMapper.selectNotice",mCode);
+	}
+
+	public int readNotice(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return sqlSession.update("noticeMapper.readNotice", map);
 	}
 
 }

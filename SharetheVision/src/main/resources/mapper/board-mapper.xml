@@ -105,7 +105,7 @@
 	
 	<insert id="insertScrap">
 		insert into
-		scrap values(#{mCode}, #{boardNo}, #{project}, #{boardTitle}, #{boardWriter}, default)
+		scrap values(#{mCode}, #{boardNo}, #{project}, #{boardTitle}, #{boardWriter}, seq_scrap.nextval)
 	</insert>
 
 	<select id="scrapState" resultMap="scrapResultSet">
@@ -119,6 +119,8 @@
 		<result column="PROJECT" property="project"/>
 		<result column="B_TITLE" property="boardTitle"/>
 		<result column="B_WRITER" property="boardWriter"/>
+		<result column="S_NO" property="scrapNo"/>
+		<result column="B_STATE" property="boardState"/>
 	</resultMap>
 	
 	<delete id="deleteScrap">
@@ -129,9 +131,8 @@
 	
 	<select id="scrapList" resultMap="scrapResultSet">
 		select *
-		from scrap
+		from v_scrap
 		where m_code=#{mCode}
-		order by scrap_date desc
 	</select>
 	
 	<select id="selectScrapListCount" resultType="_int">
@@ -144,7 +145,7 @@
 		select *
 		from scrap
 		where m_code = #{mCode}
-		order by scrap_date desc
+		order by s_no desc
 	</select>
 	
 	<select id="selectBoardStatus" resultMap="boardResultSet">
@@ -237,5 +238,11 @@
 		set r_status = 'N'
 		where r_no = #{replyNo}
 	</update>
+	
+	<select id="selectUserProfileImage" resultMap="attachmentResultSet">
+		select * from
+		attachments
+		where at_level = 1 and at_status = 'Y' and at_category = #{writermCode}
+	</select>
 	
 </mapper>

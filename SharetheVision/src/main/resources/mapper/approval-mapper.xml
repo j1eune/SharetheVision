@@ -62,10 +62,10 @@
 		<result column="APV_AGR" property="apvAgr"/>
 		<result column="APV_REF" property="apvRef"/>
 		<result column="APV_APP" property="apvApp"/>
-		<result column="APV_TITLE" property="apvTitle"/>
-		<result column="APV_COM" property="apvCom"/>
-		<result column="APV_SDATE" property="apvSdate"/>
-		<result column="APV_DDATE" property="apvDdate"/>
+		<result column="APT" property="apt"/>
+		<result column="COMMENT" property="comment"/>
+		<result column="ARRIVE" property="arrive"/>
+		<result column="DEPART" property="depart"/>
 		<result column="APV_EDATE" property="apvEdate"/>
 		<result column="APV_STATUS" property="apvStatus"/>
 		<result column="APV_REF_NO" property="apvRefNo"/>

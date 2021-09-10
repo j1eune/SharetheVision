@@ -21,4 +21,11 @@
 		FROM NOTICE
 		WHERE M_CODE = #{value} AND N_STATE = 'N'
 	</select>
+	
+	<update id="readNotice">
+		UPDATE NOTICE
+		SET N_STATE = 'Y'
+		WHERE N_CATEGORY = #{category} AND N_CONTENT = #{content} AND M_CODE = #{mCode}
+	</update>
+	
 </mapper>
