@@ -246,7 +246,7 @@
 					
 					$tr = $('<tr>');
 					
-					var arr = data[i].apvCom.split("\r\n");
+					var arr = data[i].comment.split("\r\n");
 					
 					$type = $('<td>').text(afterSubstring(arr[0]));
 					$date = $('<td>').text(afterSubstring(arr[1]));

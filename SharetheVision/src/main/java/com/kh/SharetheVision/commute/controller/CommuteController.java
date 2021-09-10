@@ -500,7 +500,7 @@ public class CommuteController {
 			apv.setApvType(Integer.toString(7));
 			apv.setmCode(memberNo);
 			apv.setApvApp(approval);			
-			apv.setApvTitle("["+memberName+"] 연장 근무 신청서");
+			apv.setApt("["+memberName+"] 연장 근무 신청서");
 			String type = null;
 			if(ow.getType() == 1) {
 				type = "연장근무";
@@ -509,14 +509,22 @@ public class CommuteController {
 			} else if(ow.getType() == 3){
 				type="휴일근무";
 			}
-			apv.setApvCom("근무종류 : " + type +
+			apv.setComment("근무종류 : " + type +
 						  "\r\n날짜 : " + ow.getOverworkDate() +
 						  "\r\n시작시간 : " + ow.getOverworkStart() +
 						  "\r\n종료시간 : " + ow.getOverworkEnd() +
 						  "\r\n총 시간  : " + ow.getOverworktime() +
 						  "\r\n사유 : " + ow.getOverworkContent());
+			
 			apv.setApvRefNo(no);
 			
+			long miliseconds = System.currentTimeMillis();
+			Date arrive = new Date(miliseconds);
+			apv.setArrive(arrive);
+			Date depart = ow.getOverworkDate();
+			apv.setDepart(depart);
+			
+					
 			apvResult = apvService.insertApproval(apv);
 		}
 		
@@ -585,7 +593,7 @@ public class CommuteController {
 		apv.setApvType(Integer.toString(8));
 		apv.setmCode(memberNo);
 		apv.setApvApp(approval);
-		apv.setApvTitle("["+memberName+"] 근태 변경 신청서");
+		apv.setApt("["+memberName+"] 근태 변경 신청서");
 		String type = null;
 		if(co.getStatus() == 1) {
 			type = "지각";
@@ -594,7 +602,7 @@ public class CommuteController {
 		} else if(co.getStatus() == 3){
 			type = "결근";
 		}
-		apv.setApvCom("근무종류 : " + type +
+		apv.setComment("근무종류 : " + type +
 					  "\r\n날짜 : " + co.getEnrollDate() +
 					  "\r\n출근시간 : " + co.getCommuteStart() +
 					  "\r\n퇴근시간 : " + co.getCommuteEnd() +
@@ -602,6 +610,11 @@ public class CommuteController {
 		
 		int no = coService.selectCommuteOne(co).getCommuteNo();
 		apv.setApvRefNo(no);			
+		
+		long miliseconds = System.currentTimeMillis();
+		Date arrive = new Date(miliseconds);
+		apv.setArrive(arrive);
+		apv.setDepart(arrive);
 		
 		int result = apvService.insertApproval(apv);
 		
@@ -624,7 +637,7 @@ public class CommuteController {
 		int apNo = 18;
 		
 		ApprovalVO apv = new ApprovalVO();
-		apv.setApNo(apNo);
+		apv.setApvNo(apNo);
 		
 		ApprovalVO ap = apvService.selectOne(apv);
 		int no = ap.getApvRefNo();
@@ -638,7 +651,7 @@ public class CommuteController {
 //		System.out.println(result + " : 결과");
 		
 		// 근태변경 update
-		String[] comArr = ap.getApvCom().split("\r\n");
+		String[] comArr = ap.getComment().split("\r\n");
 		String typeStr = comArr[0].substring(7);
 		String date = comArr[1].substring(5);
 		String start = comArr[2].substring(7);

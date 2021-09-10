@@ -59,7 +59,9 @@ public class BoardController {
 	}
 
 	@RequestMapping("boardDetail.bo")
-	public String boardDetail(@RequestParam("bId") int bId, Model model, HttpSession session, RedirectAttributes rttr) {
+	public String boardDetail(@RequestParam("bId") int bId, Model model, HttpSession session,
+							  @RequestParam(value="currentPage", required=false) Integer currentPage,
+							  @RequestParam(value="currentList", required=false) String currentList) {
 
 		String mCode = ((Member) session.getAttribute("loginUser")).getmCode();
 
@@ -81,12 +83,15 @@ public class BoardController {
 //		System.out.println(attachedFile);
 //		System.out.println(reply);
 //		System.out.println(userProfile);
+//		System.out.println("boardDetail.bo : " + currentPage);
 		
 		model.addAttribute("scrapState", scrapState);
 		model.addAttribute("board", board);
 		model.addAttribute("attachedFile", attachedFile);
 		model.addAttribute("profileImage", userProfile);
 		model.addAttribute("reply", reply);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("currentList", currentList);
 		
 		return "boardDetail";
 
@@ -115,6 +120,25 @@ public class BoardController {
 		}
 
 	}
+	
+	@RequestMapping("returnList.bo")
+	public String returnList(@RequestParam(value="currentPage", required=false) Integer currentPage,
+							 @RequestParam(value="currentList") String currentList) {
+		
+//		System.out.println("returnList / currentPage : " + currentPage);
+//		System.out.println("returnList / currentList : " + currentList);
+		
+		if (currentPage == null) {
+			return "redirect:board.bo";
+		} else {
+			if (currentList.equals("boardList")) {
+				return "redirect:boardList.bo?page=" + currentPage;
+			} else {
+				return "redirect:boardScrapList.bo?page=" + currentPage;
+			}
+		}
+		
+	}
 
 	@RequestMapping("boardList.bo")
 	public ModelAndView boardList(@RequestParam(value = "page", required = false) Integer page, ModelAndView mv,
@@ -123,6 +147,7 @@ public class BoardController {
 		response.setCharacterEncoding("UTF-8");
 
 		String boardListTitle = "부서별 자료실";
+		String currentList = "boardList";
 
 		int deptNo = ((Member) session.getAttribute("loginUser")).getDeptNo();
 
@@ -138,9 +163,9 @@ public class BoardController {
 
 		ArrayList<Board> list = service.selectBoardList(pi, deptNo);
 
-//		System.out.println(list);
+//		System.out.println("baordList.bo : " + currentPage);
 		if (list != null) {
-			mv.addObject("board", list).addObject("pi", pi).addObject("boardListTitle", boardListTitle);
+			mv.addObject("board", list).addObject("pi", pi).addObject("boardListTitle", boardListTitle).addObject("currentPage", currentPage).addObject("currentList", currentList);
 			mv.setViewName("boardList");
 		} else {
 			mv.setViewName("home");
@@ -154,6 +179,7 @@ public class BoardController {
 			HttpSession session, HttpServletResponse response) {
 
 		response.setCharacterEncoding("UTF-8");
+		String currentList = "scrapList";
 
 		String boardListTitle = "스크랩한 게시물";
 
@@ -171,9 +197,9 @@ public class BoardController {
 
 		ArrayList<Scrap> list = service.selectScrapBoardList(pi, mCode);
 
-//		System.out.println(list);
+//		System.out.println("boardScrapList : " + currentPage);
 		if (list != null) {
-			mv.addObject("board", list).addObject("pi", pi).addObject("boardListTitle", boardListTitle);
+			mv.addObject("board", list).addObject("pi", pi).addObject("boardListTitle", boardListTitle).addObject("currentPage", currentPage).addObject("currentList", currentList);
 			mv.setViewName("boardList");
 		} else {
 			mv.setViewName("home");

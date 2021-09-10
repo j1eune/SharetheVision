@@ -223,11 +223,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="fixed-button">
-                    <a href="https://codedthemes.com/item/guru-able-admin-template/" target="_blank" class="btn btn-md btn-primary">
-                      <i class="fa fa-shopping-cart" aria-hidden="true"></i> Upgrade To Pro
-                    </a>
-                </div>
             </div>
         </div>
      </div>
@@ -258,18 +253,6 @@
 <!-- <script src="assets/js/pcoded.min.js"></script> -->
 <!-- <script src="assets/js/demo-12.js"></script> -->
 <!-- <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script> -->
-<script>
-var $window = $(window);
-var nav = $('.fixed-button');
-    $window.scroll(function(){
-        if ($window.scrollTop() >= 200) {
-         nav.addClass('active');
-     }
-     else {
-         nav.removeClass('active');
-     }
- });
-</script>
 </body>
 
 </html>

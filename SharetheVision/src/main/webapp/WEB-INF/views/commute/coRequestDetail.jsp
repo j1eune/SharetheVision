@@ -152,7 +152,7 @@
 				for(var i = 0; i < data.length; i++) {
 					$tr = $('<tr>');
 					
-					var arr = data[i].apvCom.split("\r\n");
+					var arr = data[i].comment.split("\r\n");
 					console.log(arr);
 					
 					$type = $('<td>').text(afterSubstring(arr[0]));
