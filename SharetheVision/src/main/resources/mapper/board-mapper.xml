@@ -39,7 +39,10 @@
 		<result column="B_NO" property="boardNo"/>
 		<result column="AT_CHANGE" property="replyWriterImage"/>
 	</resultMap>
-	
+	<resultMap type="com.kh.SharetheVision.board.model.vo.MemberProject" id="mProjectResultSet">
+		<id column="M_CODE" property="mCode"/>
+		<result column="P_NO" property="pNo"/>
+	</resultMap>	
 
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*)
@@ -81,8 +84,8 @@
 	</select>
 	
 	<resultMap type="Project" id="projectResultSet">
-		<id column="pNo" property="pNo"/>
-		<result column="P_NO" property="mCode"/>
+		<id column="P_NO" property="pNo"/>
+		<result column="M_CODE" property="mCode"/>
 		<result column="P_NAME" property="pName"/>
 		<result column="P_INTRO" property="pIntro"/>
 		<result column="P_STATUS" property="pStatus"/>
@@ -241,7 +244,7 @@
 		SELECT R.R_NO, R.R_WRITER, R.R_CONTENT, R.R_CREATEDATE, R.J_NAME, R.D_NAME, R.R_STATUS, R.M_CODE, R.B_NO, A.AT_CHANGE
 		FROM REPLY R
 		LEFT JOIN ATTACHMENTS A ON (R.M_CODE = A.AT_CATEGORY)
-		WHERE R.B_NO = 57 AND R.R_STATUS = 'Y'
+		WHERE R.B_NO = #{bId} AND R.R_STATUS = 'Y'
 	</select>
 	
 	<update id="deleteReply">
@@ -254,6 +257,18 @@
 		SELECT *
 		FROM ATTACHMENTS
 		WHERE AT_LEVEL = 1 AND AT_STATUS = 'Y' AND AT_CATEGORY = #{writermCode}
+	</select>
+	
+	<select id="findPno" resultMap="projectResultSet">
+		SELECT *
+		FROM PROJECT
+		WHERE P_NAME = #{project}
+	</select>
+	
+	<select id="getmCodeList" resultMap="mProjectResultSet">
+		SELECT *
+		FROM M_PROJECT
+		WHERE P_NO = #{pNo}
 	</select>
 	
 </mapper>

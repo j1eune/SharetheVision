@@ -1,6 +1,7 @@
 package com.kh.SharetheVision.board.model.vo;
 
 import java.sql.Date;
+import java.util.Arrays;
 
 public class Board {
 	private int boardNo;
@@ -14,11 +15,12 @@ public class Board {
 	private int deptNo;
 	private String boardWriter; // member 테이블 m_name
 	private String project; // project 테이블 p_name
+	private String[] mCodeArr;
 	
 	public Board() {}
 
 	public Board(int boardNo, int boardType, String boardTitle, String boardContent, Date boardCreateDate,
-			String boardState, String boardStatus, String memberCode, int deptNo, String boardWriter, String project) {
+			String boardState, String boardStatus, String memberCode, int deptNo, String boardWriter, String project, String[] mCodeArr) {
 		super();
 		this.boardNo = boardNo;
 		this.boardType = boardType;
@@ -31,6 +33,7 @@ public class Board {
 		this.deptNo = deptNo;
 		this.boardWriter = boardWriter;
 		this.project = project;
+		this.mCodeArr = mCodeArr;
 	}
 
 
@@ -123,16 +126,22 @@ public class Board {
 		this.project = project;
 	}
 
+	public String[] getmCodeArr() {
+		return mCodeArr;
+	}
+
+	public void setmCodeArr(String[] mCodeArr) {
+		this.mCodeArr = mCodeArr;
+	}
+
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", boardType=" + boardType + ", boardTitle=" + boardTitle
 				+ ", boardContent=" + boardContent + ", boardCreateDate=" + boardCreateDate + ", boardState="
 				+ boardState + ", boardStatus=" + boardStatus + ", memberCode=" + memberCode + ", deptNo=" + deptNo
-				+ ", boardWriter=" + boardWriter + ", project=" + project + "]";
+				+ ", boardWriter=" + boardWriter + ", project=" + project + ", mCodeArr=" + Arrays.toString(mCodeArr)
+				+ "]";
 	}
-	
-	
-	
-	
+
 	
 }

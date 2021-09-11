@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -30,11 +29,13 @@ import com.kh.SharetheVision.attachments.model.vo.Attachment;
 import com.kh.SharetheVision.board.model.exception.BoardException;
 import com.kh.SharetheVision.board.model.service.BoardService;
 import com.kh.SharetheVision.board.model.vo.Board;
+import com.kh.SharetheVision.board.model.vo.MemberProject;
 import com.kh.SharetheVision.board.model.vo.PageInfo;
 import com.kh.SharetheVision.board.model.vo.Pagination;
 import com.kh.SharetheVision.board.model.vo.Reply;
 import com.kh.SharetheVision.board.model.vo.Scrap;
 import com.kh.SharetheVision.member.model.vo.Member;
+import com.kh.SharetheVision.notice.model.service.NoticeService;
 import com.kh.SharetheVision.project.model.vo.Project;
 
 @Controller
@@ -42,6 +43,9 @@ public class BoardController {
 
 	@Autowired
 	private BoardService service;
+	
+	@Autowired
+	private NoticeService noticeService;
 
 	@RequestMapping("board.bo")
 	public String board(Model model, HttpSession session) {
@@ -223,10 +227,30 @@ public class BoardController {
 	public String boardInsert(@ModelAttribute Board b, @RequestParam(value = "uploadFile") MultipartFile uploadFile,
 			HttpServletRequest request) throws BoardException {
 
-//		System.out.println(b);
 		boolean fileUpload = false;
 
-		int result = service.insertBoard(b);
+		int boardResult = service.insertBoard(b);
+		int noticeResult = 0;
+		
+		if (boardResult > 0) {
+			String project = b.getProject();
+			Project p = service.findPno(project);
+			int pNo = p.getpNo();
+			ArrayList<MemberProject> mCodeList = service.getmCodeList(pNo);
+			String[] mCodeArr = new String[mCodeList.size()];
+			if (mCodeList != null) {
+				for(int i = 0; i < mCodeList.size(); i++) {
+					mCodeArr[i] = mCodeList.get(i).getmCode();
+				}
+			}
+			Board board = new Board();
+			Board lastBoard = service.selectLastBoard();
+			board.setBoardNo(lastBoard.getBoardNo());
+			board.setBoardTitle(lastBoard.getBoardTitle());
+			board.setmCodeArr(mCodeArr);
+			
+			noticeResult = noticeService.insertBoardNotice(board);
+		};
 
 		Board lastBoard = service.selectLastBoard();
 		int lastBoardNo = lastBoard.getBoardNo();
@@ -242,7 +266,7 @@ public class BoardController {
 			}
 		}
 
-		if (result > 0) {
+		if (boardResult > 0 && noticeResult > 0) {
 			return "redirect:boardList.bo";
 		} else {
 			throw new BoardException("게시글 작성에 실패했습니다.");

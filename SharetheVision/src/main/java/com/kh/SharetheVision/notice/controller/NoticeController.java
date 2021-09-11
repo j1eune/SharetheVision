@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.kh.SharetheVision.board.model.vo.Board;
 import com.kh.SharetheVision.member.model.vo.Member;
 import com.kh.SharetheVision.notice.model.service.NoticeService;
 import com.kh.SharetheVision.notice.model.vo.Notice;
@@ -47,9 +48,19 @@ public class NoticeController {
 		map.put("mCode", mCode);
 		
 		int result = service.readNotice(map);
+		Notice notice = service.selectedBoardInfo(map);
+		
+		int bId = notice.getNoticeNumber();
 		
 		if (result > 0) {
-			return "createProjectForm.pr";
+			if (category.equals("자료실")) {
+				return "boardDetail.bo?bId=" + bId;
+			} else if (category.equals("프로젝트")) {
+				return "createProjectForm.pr";
+			} else {
+//				결재
+				return "";
+			}
 		} else {
 			return "error";
 		}
