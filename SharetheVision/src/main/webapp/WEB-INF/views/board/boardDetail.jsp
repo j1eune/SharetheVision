@@ -121,10 +121,7 @@
 		.boardDetail-writer-img {
 			width: 46.6px;
 			height: 46.6px;
-			border: 1px solid #ccc;
-			border-radius: 50%;
 			margin-right: 10px;
-			text-align: center;
 		}
 		
 		.boardDetail-writer-img i {

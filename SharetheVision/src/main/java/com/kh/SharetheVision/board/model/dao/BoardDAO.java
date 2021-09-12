@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.SharetheVision.attachments.model.vo.Attachment;
 import com.kh.SharetheVision.board.model.vo.Board;
+import com.kh.SharetheVision.board.model.vo.MemberProject;
 import com.kh.SharetheVision.board.model.vo.PageInfo;
 import com.kh.SharetheVision.board.model.vo.Reply;
 import com.kh.SharetheVision.board.model.vo.Scrap;
@@ -129,6 +130,14 @@ public class BoardDAO {
 
 	public Attachment selectUserProfileImage(SqlSessionTemplate sqlSession, String writermCode) {
 		return sqlSession.selectOne("boardMapper.selectUserProfileImage", writermCode);
+	}
+
+	public Project findPno(SqlSessionTemplate sqlSession, String project) {
+		return sqlSession.selectOne("boardMapper.findPno", project);
+	}
+
+	public ArrayList<MemberProject> getmCodeList(SqlSessionTemplate sqlSession, int pNo) {
+		return (ArrayList)sqlSession.selectList("boardMapper.getmCodeList", pNo);
 	}
 
 }

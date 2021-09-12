@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.SharetheVision.attachments.model.vo.Attachment;
 import com.kh.SharetheVision.board.model.dao.BoardDAO;
 import com.kh.SharetheVision.board.model.vo.Board;
+import com.kh.SharetheVision.board.model.vo.MemberProject;
 import com.kh.SharetheVision.board.model.vo.PageInfo;
 import com.kh.SharetheVision.board.model.vo.Reply;
 import com.kh.SharetheVision.board.model.vo.Scrap;
@@ -157,6 +158,16 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public Attachment selectUserProfileImage(String writermCode) {
 		return DAO.selectUserProfileImage(sqlSession, writermCode);
+	}
+
+	@Override
+	public Project findPno(String project) {
+		return DAO.findPno(sqlSession, project);
+	}
+
+	@Override
+	public ArrayList<MemberProject> getmCodeList(int pNo) {
+		return DAO.getmCodeList(sqlSession, pNo);
 	}
 	
 }
