@@ -52,12 +52,14 @@ public class BoardController {
 
 		int deptNo = ((Member) session.getAttribute("loginUser")).getDeptNo();
 		String mCode = ((Member) session.getAttribute("loginUser")).getmCode();
-
+		String currentList = "board";
+		
 		ArrayList<Board> list = service.newBoard(deptNo);
 		ArrayList<Scrap> list2 = service.scrapList(mCode);
 //		System.out.println(list2);
 		model.addAttribute("board", list);
 		model.addAttribute("scrap", list2);
+		model.addAttribute("currentList", currentList);
 
 		return "board";
 	}
@@ -68,7 +70,7 @@ public class BoardController {
 							  @RequestParam(value="currentList", required=false) String currentList) {
 
 		String mCode = ((Member) session.getAttribute("loginUser")).getmCode();
-
+		
 		Scrap s = new Scrap();
 		s.setmCode(mCode);
 		s.setBoardNo(bId);
@@ -127,18 +129,28 @@ public class BoardController {
 	
 	@RequestMapping("returnList.bo")
 	public String returnList(@RequestParam(value="currentPage", required=false) Integer currentPage,
-							 @RequestParam(value="currentList") String currentList) {
+							 @RequestParam(value="currentList") String currentList) throws BoardException {
 		
 //		System.out.println("returnList / currentPage : " + currentPage);
 //		System.out.println("returnList / currentList : " + currentList);
 		
 		if (currentPage == null) {
-			return "redirect:board.bo";
+			if (currentList.equals("notice")) {
+				return "redirect:notice.bo";
+			} else if (currentList.equals("board")) {
+				return "redirect:board.bo";
+			} else {
+				throw new BoardException("오류");
+			}
 		} else {
 			if (currentList.equals("boardList")) {
 				return "redirect:boardList.bo?page=" + currentPage;
-			} else {
+			} else if (currentList.equals("scrapList")) {
 				return "redirect:boardScrapList.bo?page=" + currentPage;
+			} else if (currentList.equals("noticeList")) {
+				return "redirect:noticeList.bo?page=" + currentPage;
+			} else {
+				throw new BoardException("오류");
 			}
 		}
 		
@@ -390,21 +402,21 @@ public class BoardController {
 	}
 
 	@RequestMapping("addScrap.bo")
-	public String addScrap(@ModelAttribute Scrap s) throws BoardException {
+	public String addScrap(@ModelAttribute Scrap s,@RequestParam(value="currentList") String currentList) throws BoardException {
 
 		int bId = s.getBoardNo();
-
+		
 		int result = service.insertScrap(s);
 
 		if (result > 0) {
-			return "redirect:boardDetail.bo?bId=" + bId;
+			return "redirect:boardDetail.bo?bId=" + bId + "&currentList=" + currentList;
 		} else {
 			throw new BoardException("게시물 스크랩에 실패했습니다.");
 		}
 	}
 
 	@RequestMapping("deleteScrap.bo")
-	public String deleteScrap(@RequestParam(value = "bId") int bId, HttpSession session) throws BoardException {
+	public String deleteScrap(@RequestParam(value = "bId") int bId, HttpSession session, @RequestParam(value="currentList") String currentList) throws BoardException {
 
 		String mCode = ((Member) session.getAttribute("loginUser")).getmCode();
 
@@ -415,7 +427,7 @@ public class BoardController {
 		int result = service.deleteScrap(s);
 
 		if (result > 0) {
-			return "redirect:boardDetail.bo?bId=" + bId;
+			return "redirect:boardDetail.bo?bId=" + bId + "&currentList=" + currentList;
 		} else {
 			throw new BoardException("스크랩 취소에 실패했습니다.");
 		}
@@ -552,6 +564,167 @@ public class BoardController {
 			return "redirect:" + referer;
 		} else {
 			throw new BoardException("댓글 삭제에 실패했습니다.");
+		}
+	}
+	
+	@RequestMapping("notice.bo")
+	public String notice(Model model, HttpSession session) {
+		
+		int deptNo = ((Member) session.getAttribute("loginUser")).getDeptNo();
+		String currentList = "notice";
+		
+		ArrayList<Board> list = service.newNotice(deptNo);
+		
+		model.addAttribute("notice", list);
+		model.addAttribute("currentList", currentList);
+		
+		return "notice";
+	}
+	
+	@RequestMapping("noticeDetail.bo")
+	public String noticeDetail(@RequestParam("bId") int bId, Model model, HttpSession session,
+							   @RequestParam(value="currentPage", required=false) Integer currentPage,
+							   @RequestParam(value="currentList", required=false) String currentList) {
+		
+		String strbId = bId+"";
+
+		Board notice = service.selectBoardDetail(bId);
+		
+		
+		String writermCode = notice.getMemberCode();
+
+		Attachment attachedFile = service.selectAttachedFile(strbId);
+		Attachment userProfile = service.selectUserProfileImage(writermCode);
+		
+		model.addAttribute("notice", notice);
+		model.addAttribute("attachedFile", attachedFile);
+		model.addAttribute("profileImage", userProfile);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("currentList", currentList);
+		
+		return "noticeDetail";
+	}
+	
+	@RequestMapping("noticeList.bo")
+	public String noticeList(@RequestParam(value = "page", required = false) Integer page, Model model,
+							 HttpSession session, HttpServletResponse response) {
+		
+		response.setCharacterEncoding("UTF-8");
+
+		String currentList = "noticeList";
+
+		int deptNo = ((Member) session.getAttribute("loginUser")).getDeptNo();
+		String mCode = ((Member) session.getAttribute("loginUser")).getmCode();
+		int currentPage = 1;
+
+		if (page != null) {
+			currentPage = page;
+		}
+
+		int listCount = service.getNoticeListCount(deptNo);
+
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+
+		ArrayList<Board> list = service.selectNoticeList(pi, deptNo);
+		
+		if (list != null) {
+			model.addAttribute("notice", list);
+			model.addAttribute("pi", pi);
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("currentList", currentList);
+			model.addAttribute("mCode", mCode);
+			return "noticeList";
+		} else {
+			return "home";
+		}
+	}
+	
+	@RequestMapping("noticeInsertForm.bo")
+	public String noticeInsertForm(@RequestParam(value = "deptNo") int deptNo, Model model) {
+
+		return "noticeInsert";
+	}
+
+	@RequestMapping("noticeInsert.bo")
+	public String noticeInsert(@ModelAttribute Board b, @RequestParam(value = "uploadFile") MultipartFile uploadFile,
+							   HttpServletRequest request) throws BoardException {
+
+		int noticeResult = service.insertNotice(b);
+		
+		System.out.println(noticeResult);
+
+		Board lastBoard = service.selectLastBoard();
+		int lastBoardNo = lastBoard.getBoardNo();
+
+		if (uploadFile != null && !uploadFile.isEmpty()) {
+			Attachment attachFile = saveFile(uploadFile, request, lastBoardNo);
+			service.insertAttachFile(attachFile);
+		}
+
+		if (noticeResult > 0) {
+			return "redirect:noticeList.bo";
+		} else {
+			throw new BoardException("공지사항 작성에 실패했습니다.");
+		}
+
+	}
+	
+	@RequestMapping("deleteNotice.bo")
+	public String noticeDelete(@RequestParam(value = "bId") int bId) throws BoardException {
+
+		String strbId = bId+"";
+
+		int result = service.deleteBoard(bId);
+		service.deleteBoardAttachFile(strbId);
+
+		if (result > 0) {
+			return "redirect:noticeList.bo";
+		} else {
+			throw new BoardException("게시글 삭제에 실패했습니다.");
+		}
+
+	}
+	
+	@RequestMapping("updateNoticeForm.bo")
+	public String updateNotice(@ModelAttribute Board b, Model model) {
+
+		int bId = b.getBoardNo();
+		String strbId = bId+"";
+
+		Attachment attachFile = service.selectAttachedFile(strbId);
+
+		model.addAttribute("notice", b).addAttribute("attachFile", attachFile);
+
+		return "noticeUpdate";
+	}
+
+	@RequestMapping("noticeUpdate.bo")
+	public String updateNotice(@ModelAttribute Board b, @RequestParam(value = "uploadFile") MultipartFile uploadFile,
+							   HttpServletRequest request) throws BoardException {
+
+		int bId = b.getBoardNo();
+		String strbId = bId+"";
+		
+		Attachment attachFile = service.selectAttachedFile(strbId);
+
+		if (uploadFile != null && !uploadFile.isEmpty()) {
+			if (attachFile != null) {
+				deleteFile(request, attachFile);
+				service.deleteBoardAttachFile(strbId);
+				Attachment newAttachFile = saveFile(uploadFile, request, bId);
+				service.insertAttachFile(newAttachFile);
+			} else {
+				Attachment newAttachFile = saveFile(uploadFile, request, bId);
+				service.insertAttachFile(newAttachFile);
+			}
+		}
+
+		int result = service.updateBoard(b);
+
+		if (result > 0) {
+			return "redirect:noticeList.bo";
+		} else {
+			throw new BoardException("게시글 수정에 실패했습니다.");
 		}
 	}
 	

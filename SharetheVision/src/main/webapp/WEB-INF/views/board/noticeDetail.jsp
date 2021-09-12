@@ -57,10 +57,23 @@
             justify-content: flex-end;
         }
 
-        .boardDetail-project-name {
-            color: blue;
-            margin-right: 10px;
+        .boardDetail-notice-type {
+            background: #fff;
+            padding: 3px 15px;
+            border-radius: 20px;
+            margin-right: 15px;
+            font-size: 20px;
+            font-weight: bold;
         }
+        
+        .notice-all {
+        	border: 2px solid #888;
+        }
+        
+        .notice-dept {
+        	color: blue;
+        	border: 2px solid blue;
+       	}
 
         .boardDetail-content-box {
             height: 80%;
@@ -76,7 +89,7 @@
             transform: translate(0, -50%);
             display: flex;
             justify-content: space-between;
-            flex-direction: row-reverse;
+            flex-direction: row;
             
         }
         
@@ -248,6 +261,10 @@
 			font-size: 14px;
 		}
 		
+		.reverse {
+			flex-direction: row-reverse;
+		}
+		
     </style>
 
 </head>
@@ -315,17 +332,16 @@
                                         <div class="boardDetail-box">
                                             <div class="boardDetail-title">
                                             
-                                            <input type="hidden" name="boardNo" value="${ board.boardNo }">
+                                            <input type="hidden" name="boardNo" value="${ notice.boardNo }">
                                             	<div class="boardDetail-head">
                                             		<div class="boardDetail-title-wrap">
-                                            			<span class="boardDetail-project-name">[ ${ board.project } ]</span>
-                                            			<span>${ board.boardTitle }</span>
-			                                       		<c:if test="${ board.boardState == 1 }">
-			                                        		<span class="project-ongoing">진행중</span>
-			                                       		</c:if>
-			                                       		<c:if test="${ board.boardState == 2 }">
-			                                        		<span class="project-end">종료</span>
-			                                       		</c:if>
+                                            			<c:if test="${ notice.noticeType == 1 }">
+	                                           			 	<span class="boardDetail-notice-type notice-all">전체</span>
+                                            			</c:if>
+                                            			<c:if test="${ notice.noticeType == 2 }">
+	                                           			 	<span class="boardDetail-notice-type notice-dept">부서</span>
+                                            			</c:if>
+                                            			<span>${ notice.boardTitle }</span>
                                             		</div>
                                             		<c:url var="returnList" value="returnList.bo">
                                             			<c:param name="currentPage" value="${ currentPage }"/>
@@ -346,8 +362,8 @@
 													</c:if>
 												</div>
                                            		<div class="boardDetail-flex-column">
-	                                           		<p class="board-writer">${ board.boardWriter }</p>
-	                                           		<p class="board-date">${ board.boardCreateDate }</p>
+	                                           		<p class="board-writer">${ notice.boardWriter }</p>
+	                                           		<p class="board-date">${ notice.boardCreateDate }</p>
                                            		</div>
                                       		</div>
                                             <!-- Nav tabs -->
@@ -360,62 +376,28 @@
                                                     <a class="nav-link" data-toggle="tab" href="#profile1"
                                                         role="tab">첨부파일</a>
                                                 </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" data-toggle="tab" href="#messages1"
-                                                        role="tab">댓글</a>
-                                                </li>
-                                                <!-- <li class="nav-item">
-                                                    <a class="nav-link" data-toggle="tab" href="#settings1" role="tab">Settings</a>
-                                                </li> -->
                                             </ul>
                                             <!-- Tab panes -->
                                             <div class="tab-content tabs card-block boardDetail-content-box">
                                                 <div class="tab-pane boardDetail-content active" id="home1"
                                                     role="tabpanel">
-                                                    <p class="m-0">${ board.boardContent }</p>
+                                                    <p class="m-0">${ notice.boardContent }</p>
                                                     <div class="boardDetail-btn-box">
-                                                    	<c:url var="addScrap" value="addScrap.bo">
-                                                    		<c:param name="mCode" value="${ loginUser.mCode }"/>
-                                                    		<c:param name="boardNo" value="${ board.boardNo }"/>
-                                                    		<c:param name="project" value="${ board.project }"/>
-                                                    		<c:param name="boardTitle" value="${ board.boardTitle }"/>
-                                                    		<c:param name="boardWriter" value="${ board.boardWriter }"/>
-                                                    		<c:param name="currentList" value="${ currentList }"/>
-                                                    	</c:url>
-                                                    	<c:url var="deleteScrap" value="deleteScrap.bo">
-                                                    		<c:param name="mCode" value="${ loginUser.mCode }"/>
-                                                    		<c:param name="bId" value="${ board.boardNo }"/>
-                                                    		<c:param name="currentList" value="${ currentList }"/>
-                                                    	</c:url>
                                                     	
-                                                    	
-                                                    	<c:if test="${ scrapState == null }">
-	                                                        <a href="${ addScrap }">
-	                                                        	<button type="button" id="boardDetailAddScrapBtn"
-	                                                            class="btn boardDetail-btn">스크랩 하기</button>
-	                                                    	</a>
-                                                    	</c:if>
-                                                    	
-                                                    	<c:if test="${ scrapState != null }">
-	                                                        <a href="${ deleteScrap }">
-	                                                        	<button type="button" id="boardDetailRemoveScrapBtn"
-	                                                            class="btn boardDetail-btn">스크랩 취소</button>
-	                                                    	</a>
-                                                    	</c:if>
-                                                    	<c:if test="${ loginUser.mCode == board.memberCode }">
+                                                    	<c:if test="${ loginUser.mCode == notice.memberCode }">
 	                                                    	<div>
-	                                                    		<c:url var="updateBoardForm" value="updateBoardForm.bo">
-	                                                    			<c:param name="boardNo" value="${ board.boardNo }"/>
-	                                                    			<c:param name="boardTitle" value="${ board.boardTitle }"/>
-	                                                    			<c:param name="boardContent" value="${ board.boardContent }"/>
-	                                                    			<c:param name="project" value="${ board.project }"/>
-	                                                    			<c:param name="deptNo" value="${ board.deptNo }"/>
+	                                                    		<c:url var="updateNoticeForm" value="updateNoticeForm.bo">
+	                                                    			<c:param name="boardNo" value="${ notice.boardNo }"/>
+	                                                    			<c:param name="boardTitle" value="${ notice.boardTitle }"/>
+	                                                    			<c:param name="boardContent" value="${ notice.boardContent }"/>
+	                                                    			<c:param name="deptNo" value="${ notice.deptNo }"/>
+	                                                    			<c:param name="noticeType" value="${ notice.noticeType }"/>
 	                                                    		</c:url>
 		                                                       	<button type="button" id="boardDetailUpdateBtn"
 		                                                           class="btn boardDetail-btn updateBtn">수정</button>
 		                                                           
-	                                                            <c:url var="deleteBoard" value="deleteBoard.bo">
-                                                    				<c:param name="bId" value="${ board.boardNo }"/>
+	                                                            <c:url var="deleteNotice" value="deleteNotice.bo">
+                                                    				<c:param name="bId" value="${ notice.boardNo }"/>
                                                     			</c:url>
 		                                                       	<button type="button" id="boardDetailDeleteBtn"
 		                                                           class="btn boardDetail-btn deleteBtn">삭제</button>
@@ -438,53 +420,11 @@
                                                 	</c:if>
                                                 	<c:if test="${ attachedFile ne null }">
 	                                                	<a  href="${ pageContext.request.contextPath }/resources/archive/${ attachedFile.atChange }"  download="${ attachedFile.atOrigin }">
-		                                                    <div class="boardDetail-btn-box">
+		                                                    <div class="boardDetail-btn-box reverse">
 		                                                        <button type="button" id="boardDetailDownloadBtn" class="btn boardDetail-btn">다운로드</button>
 		                                                    </div>
 	                                                	</a>
                                                 	</c:if>
-                                                </div>
-                                                <div class="tab-pane boardDetail-content" id="messages1"
-                                                    role="tabpanel">
-                                                    <div class="reply-area">
-                                                    	<c:if test="${ !empty reply }">
-                                                    		<c:forEach var="reply" items="${ reply }">
-		                                                    	<div class="reply-box">
-		                                                    		<div class="userInfo">
-		                                                    			<c:if test="${ reply.replyWriterImage == null }">
-			                                                    			<div class="userPhoto"><img class="profileImg" src="resources/assets/images/defaultProfile.png"></div>
-		                                                    			</c:if>
-		                                                    			<c:if test="${ reply.replyWriterImage != null }">
-			                                                    			<div class="userPhoto"><img class="profileImg" src="resources/muploadFile/${ reply.replyWriterImage }"></div>
-		                                                    			</c:if>
-		                                                    			<div class="userNameAndDept">
-		                                                    				<p class="userName">${ reply.replyWriter }</p>
-		                                                    				<p class="userDept"><span>${ reply.deptName }팀</span> <span>${ reply.jobName }</span></p>
-		                                                    			</div>
-		                                                    		</div>
-		                                                    		<div class="reply-content">${ reply.replyContent }</div>
-		                                                    		<div class="reply-createDate">${ reply.replyCreateDate }</div>
-		                                                    		<c:if test="${ loginUser.mCode == reply.memberCode }">
-			                                                    		<div class="reply-deleteBtn">
-			                                                    			<i class="icofont icofont-ui-close icofont-xs deleteIcon deleteReply"></i>
-		                                                    				<div class="replyNo">${ reply.replyNo }</div>
-		                                                    			</div>
-		                                                    		</c:if>
-		                                                    		<c:if test="${ loginUser.mCode != reply.memberCode }">
-		                                                    			<div class="reply-deleteBtn"></div>
-		                                                    		</c:if>
-		                                                    	</div>
-	                                                    	</c:forEach>
-                                                    	</c:if>
-                                                    	<c:if test="${ empty reply }">
-	                                                    	<p class="m-0">댓글이 없습니다.</p>
-                                                    	</c:if>
-                                                    </div>
-                                                    <div class="boardDetail-btn-box replyInputBox">
-                                                    	<input type="text" placeholder="댓글을 입력하세요" id="replyContent" class="replyInput">
-                                                        <button type="button" id="boardDetailReplyBtn"
-                                                            class="btn btn-primary boardDetail-btn">작성</button>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -509,33 +449,8 @@
     	
     	$(function() {
     		$('.updateBtn').click(function() {
-    			if (${ board.boardState == 2 }) {
-    				swal({
-    					title: "잠깐!",
-    					text: "종료된 프로젝트는 수정할 수 없습니다.",
-    					icon: "warning"
-    				})
-    			} else {
-	    			location.href="${ updateBoardForm }";
-    			}
+    			location.href="${ updateNoticeForm }";
     		});
-    	});
-    	
-    	$(document).on('click', '.reply-deleteBtn', function() {
-   			var rId = $(this).children("div").text();
-    	
-    		swal({
-    			title: "잠깐!",
-    			text: "댓글을 삭제하시겠습니까?",
-  				icon: "warning",
-  				buttons: ["취소", "삭제"],
-  				dangerMode: true,
-    		})
-    		.then((willDelete) => {
-    			if (willDelete) {
-    				location.href="deleteReply.bo?rId="+rId;
-    			}
-    		})
     	});
     	
 		$(function() {
@@ -549,126 +464,12 @@
     			})
     			.then((willDelete) => {
     				if (willDelete) {
-		    			location.href="${ deleteBoard }";
+		    			location.href="${ deleteNotice }";
     				}
     			});
     		});
 		})
 		
-		$(function() {
-			$('#boardDetailReplyBtn').click(function() {
-				var replyContent = $('#replyContent').val();
-				var bId = ${ board.boardNo };
-				
-				$.ajax({
-					url: 'addReply.bo',
-					data: {bId: bId, replyContent: replyContent},
-					success: function(data) {
-						if(data == "success") {
-							$('#replyContent').val('');
-							getReplyList();
-						}
-					}
-				})
-			});
-		});
-		
-		function getReplyList() {
-			var bId = ${board.boardNo};
-			
-			$.ajax({
-				url: 'replyList.bo',
-				data: {bId: bId},
-				success: function(data) {
-					console.log(data);
-					
-					$replyArea = $('.reply-area');
-					$replyArea.html('');
-					
-					var $box;
-					var $userInfo;
-					var $userPhoto;
-					var $userImg;
-					var $userNAD;
-					var $userName;
-					var $userDept;
-					var $userDeptName;
-					var $userJobName;
-					var $content;
-					var $createDate;
-					var $deleteBtn;
-					var $replyNo;
-					var $cparam;
-					var $replyIcon;
-					
-					if (data.length > 0) {
-						for(var i in data) {
-							$box = $('<div class="reply-box">');
-							$userInfo = $('<div class="userInfo">');
-							$userPhoto = $('<div class="userPhoto">');
-							if(data[i].replyWriterImage != null) {
-								$userImg = $('<img class="profileImg" src="resources/muploadFile/'+data[i].replyWriterImage+'">');
-							} else {
-								$userImg = $('<img class="profileImg" src="resources/assets/images/defaultProfile.png">');
-							}
-							$userNAD = $('<div class="userNameAndDept">');
-							$userName = $('<p class="userName">').text(data[i].replyWriter);
-							$userDept = $('<p class="userDept">');
-							$userDeptName = $('<span>').text(data[i].deptName + "팀");
-							$userJobName = $('<span>').text(" " + data[i].jobName);
-							$content = $('<div class="reply-content">').text(data[i].replyContent);
-							$createDate = $('<div class="reply-createDate">').text(data[i].replyCreateDate);
-
-							$deleteBtn = $('<div class="reply-deleteBtn">');
-							$replyIcon = $('<i class="icofont icofont-ui-close icofont-xs deleteIcon deleteReply">');
-							
-							if(data[i].memberCode == "${ loginUser.mCode }"){
-								$deleteBtn.append($replyIcon);
-							}
-							
-							$replyNo = $('<div class="replyNo">').text(data[i].replyNo);
-							
-							
-							$deleteBtn.append($replyNo);							
-							
-							$userPhoto.append($userImg);
-							$userInfo.append($userPhoto);
-							
-							$userDept.append($userDeptName);
-							$userDept.append($userJobName);
-							
-							$userNAD.append($userName);
-							$userNAD.append($userDept);
-							$userInfo.append($userNAD);
-							
-							$box.append($userInfo);
-							$box.append($content);
-							$box.append($createDate);
-							$box.append($deleteBtn);
-							$replyArea.append($box);
-						}
-					} else {
-						$box = $('<div class="reply-box">');
-						$content = $('<div class="reply-content">').text("등록된 댓글이 없습니다.");
-						
-						$box.append($content);
-						$replyArea.append($box);
-					}
-				},
-				error: function(data) {
-					console.log('error');
-				}
-			})
-			
-		}
-		
- 		$(function() {
- 			getReplyList();
-			
- 			setInterval(function() {
- 				getReplyList();
- 			}, 10000);
- 		})
      </script>
 
                                                     

@@ -49,46 +49,31 @@
 		margin: 0 5px;
 	}
 	
-	.project-name {
-		width: 240px;
-	}
-	
-	.project-name-color {
-		color: blue;
-		font-weight: 600;
-	}
-
-	.project-title {
-		width: 525px;
-	}
-	
-	.project-writer {
-		width: 140px;
-	}
-	
-	.project-state {
-		width: 150px;
+	.notice-title {
+		width: 650px;
 		text-align: center;
 	}
 	
-	.project-ongoing {
-		color: blue;
-	}
-	
-	.project-end {
-		color: #888;
-	}
-	
-	.project-ongoing,
-	.project-end {
-		text-align: center;
+	span.notice-title {
+		text-align: left;
 		font-weight: bold;
 	}
 	
-	.project-no {
+	.notice-writer {
+		width: 180px;
+		text-align: center;
+	}
+	
+	.notice-no {
 		text-align: center;
 		width: 100px;
 	}
+	
+	.notice-createdate {
+		width: 180px;
+		text-align: center;
+	}
+	
 	
 	tbody td {
 		cursor: pointer;
@@ -104,6 +89,20 @@
 	
 	.board-no-align {
 		text-align: center;
+	}
+	
+	.notice-badge {
+		padding: 7px 20px;
+		background: #fff;
+		border: 1px solid #888;
+		font-weight: bold;
+		border-radius: 15px;
+		margin-right: 15px;
+	}
+	
+	.badge-dept {
+		color: blue;
+		border: 1px solid blue;
 	}
 
 </style>
@@ -173,8 +172,8 @@
                                                 <div class="page-header-title">
                                                     <i class="icofont icofont icofont icofont-save bg-c-pink"></i>
                                                     <div class="d-inline">
-                                                        <h4>자료실</h4>
-                                                        <span>진행중인 프로젝트 정보를 공유하는 곳입니다.</span>
+                                                        <h4>공지사항</h4>
+                                                        <span>사내 공지사항이나 부서 공지사항을 확인하는 공간입니다.</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -189,9 +188,9 @@
                                     <!-- 여기부터 작성 -->
                                     <div class="card">
                                         <div class="card-header">
-                                            <h5>프로젝트 자료실</h5>
+                                            <h5>공지사항</h5>
                                             <div class="card-header-right more-btn-box">
-                                            	<a href="boardList.bo">
+                                            	<a href="noticeList.bo">
 	                                                <span class="more-btn">더보기<i class="ti-angle-double-right"></i></span>
                                             	</a>
                                             </div>
@@ -201,35 +200,35 @@
                                                 <table class="table table-hover board-table">
                                                     <thead>
                                                         <tr>
-                                                            <th class="project-no"></th>
-                                                            <th class="project-name">프로젝트 명</th>
-                                                            <th class="project-title">제목</th>
-                                                            <th class="project-writer">작성자</th>
-                                                            <th class="project-state">상태</th>
+                                                            <th class="notice-no"><input type="hidden" id="currentList" value="${ currentList }"></th>
+                                                            <th class="notice-title">제목</th>
+                                                            <th class="notice-writer">작성자</th>
+                                                            <th class="notice-createdate">작성일</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                    	<c:if test="${ !empty board }">
-	                                                    	<c:forEach var="board" items="${ board }">
+                                                    	<c:if test="${ !empty notice }">
+	                                                    	<c:forEach var="notice" items="${ notice }">
 		                                                        <tr>
 			                                                        <c:url var="boardDetail" value="boardDetail.bo">
 			                                                        </c:url>
-		                                                            <td scope="row" class="board-no-align">${ board.boardNo }</td>
-		                                                            <td class="project-name-color">[ ${ board.project } ]</td>
-		                                                            <td>${ board.boardTitle }</td>
-		                                                            <td>${ board.boardWriter }</td>
-		                                                            <c:if test="${ board.boardState == 1 }">
-			                                                            <td class="project-ongoing">진행중</td>
-		                                                            </c:if>
-		                                                            <c:if test="${ board.boardState == 2 }">
-			                                                            <td class="project-end">종료</td>
-		                                                            </c:if>
+		                                                            <td scope="row" class="board-no-align">${ notice.boardNo }</td>
+		                                                            <td>
+		                                                            	<c:if test="${ notice.noticeType == 1 }">
+			                                                            	<span class="notice-badge badge-all">전체</span><span class="notice-title">${ notice.boardTitle }</span>
+		                                                            	</c:if>
+		                                                            	<c:if test="${ notice.noticeType == 2 }">
+			                                                            	<span class="notice-badge badge-dept">부서</span><span class="notice-title">${ notice.boardTitle }</span>
+		                                                            	</c:if>
+	                                                            	</td>
+		                                                            <td class="notice-writer">${ notice.boardWriter }</td>
+		                                                            <td class="notice-createdate">${ notice.boardCreateDate }</td>
 		                                                        </tr>
 	                                                        </c:forEach>
                                                         </c:if>
-                                                        <c:if test="${ empty board }">
+                                                        <c:if test="${ empty notice }">
                                                         	<tr>
-                                                        		<td colspan="4" class="emptyList">등록된 게시물이 없습니다.</td>
+                                                        		<td colspan="4" class="emptyList">등록된 공지사항이 없습니다.</td>
                                                         	</tr>
                                                         </c:if>
                                                     </tbody>
@@ -237,60 +236,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="card">
-	                                    <div class="card-header">
-	                                        <h5>스크랩한 게시물</h5>
-	                                        <div class="card-header-right more-btn-box">
-												<c:url var="boardScrapList" value="boardScrapList.bo">
-												</c:url>
-			                                    <a href="${ boardScrapList }">
-			                                        <span class="more-btn">더보기<i class="ti-angle-double-right"></i></span>
-			                                    </a>
-	                                        </div>
-	                                    </div>
-                                        <div class="card-block table-border-style">
-                                            <div class="table-responsive">
-                                                <table class="table table-hover board-table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="project-no"></th>
-                                                            <th class="project-name">프로젝트 명</th>
-                                                            <th class="project-title">제목</th>
-                                                            <th class="project-writer">작성자</th>
-                                                            <th class="project-state">상태</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    	<c:if test="${ !empty scrap }">
-	                                                    	<c:forEach var="scrap" items="${ scrap }">
-		                                                        <tr>
-			                                                        <c:url var="boardDetail" value="boardDetail.bo">
-			                                                        </c:url>
-		                                                            <td scope="row" class="board-no-align">${ scrap.boardNo }</td>
-		                                                            <td class="project-name-color">[ ${ scrap.project } ]</td>
-		                                                            <td>${ scrap.boardTitle }</td>
-		                                                            <td>${ scrap.boardWriter }</td>
-		                                                            <c:if test="${ scrap.boardState == 1 }">
-			                                                            <td class="project-ongoing">진행중</td>
-		                                                            </c:if>
-		                                                            <c:if test="${ scrap.boardState == 2 }">
-			                                                            <td class="project-end">종료</td>
-		                                                            </c:if>
-		                                                        </tr>
-	                                                        </c:forEach>
-                                                        </c:if>
-                                                        <c:if test="${ empty scrap }">
-                                                        	<tr>
-                                                        		<td colspan="4" class="emptyList">스크랩한 게시물이 없습니다.</td>
-                                                        	</tr>
-                                                        </c:if>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
                                     <!-- 여기까지 작성 -->
 
                                     <div id="styleSelector">
@@ -329,30 +274,9 @@
  	$(function(){
  		$('.board-table').find("td").click(function() {
  			var bId = $(this).parents().children("td").eq(0).text();
- 			var currentList = "${ currentList }";
- 			
-			$.ajax({
-	 			url: 'boardStatus.bo',
-	 			data: {bId: bId, current: 'board'},
-	 			success: function(data) {
-	 				var data1 = $.trim(data);
-	 				if (data1 == '삭제') {
-	 					swal({
-	 						title: "잠깐!",
-	 						text: "삭제된 게시글입니다. 스크랩 목록에서 삭제됩니다.",
-	 						icon: "error",
-	 						dangerMode: true,
-	 					})
-	 					.then((willDelete) => {
-	 						if (willDelete) {
-								location.href="alertDeleteScrap.bo?bId="+bId+"&current=board";
-	 						}
-	 					})
-	 				} else if (data1 == '존재') {
-						location.href="boardDetail.bo?bId="+bId+"&currentList="+currentList;
-	 				}
-	 			}
-	 		})
+ 			var currentList = $('#currentList').val();
+
+			location.href="noticeDetail.bo?bId="+bId+"&currentList="+currentList;
  		});
  	});
 	

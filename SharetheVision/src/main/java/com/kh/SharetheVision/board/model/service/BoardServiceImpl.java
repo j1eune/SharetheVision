@@ -169,5 +169,25 @@ public class BoardServiceImpl implements BoardService {
 	public ArrayList<MemberProject> getmCodeList(int pNo) {
 		return DAO.getmCodeList(sqlSession, pNo);
 	}
+
+	@Override
+	public ArrayList<Board> newNotice(int deptNo) {
+		return DAO.newNotice(sqlSession, deptNo);
+	}
+
+	@Override
+	public int getNoticeListCount(int deptNo) {
+		return DAO.getNoticeListCount(sqlSession, deptNo);
+	}
+
+	@Override
+	public ArrayList<Board> selectNoticeList(PageInfo pi, int deptNo) {
+		return DAO.selectNoticeList(sqlSession, pi, deptNo);
+	}
+
+	@Override
+	public int insertNotice(Board b) {
+		return DAO.insertNotice(sqlSession, b);
+	}
 	
 }

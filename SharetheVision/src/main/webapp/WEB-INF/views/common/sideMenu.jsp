@@ -118,6 +118,15 @@
                 </a>
             </li>
             
+			<c:url var="notice" value="notice.bo"></c:url>
+            <li>
+                <a href="${ notice }">
+                    <span class="pcoded-micon"><i class="ti-clipboard"></i><b>FC</b></span>
+                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">공지사항</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+            
             <li class="pcoded-hasmenu">
 				<c:url var="board" value="board.bo">
 					<c:param name="loginUserDeptNo" value="${ loginUser.deptNo }"></c:param>	

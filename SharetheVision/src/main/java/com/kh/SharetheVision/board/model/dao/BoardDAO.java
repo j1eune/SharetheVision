@@ -140,4 +140,22 @@ public class BoardDAO {
 		return (ArrayList)sqlSession.selectList("boardMapper.getmCodeList", pNo);
 	}
 
+	public ArrayList<Board> newNotice(SqlSessionTemplate sqlSession, int deptNo) {
+		return (ArrayList)sqlSession.selectList("boardMapper.selectNewNotice", deptNo);
+	}
+
+	public int getNoticeListCount(SqlSessionTemplate sqlSession, int deptNo) {
+		return sqlSession.selectOne("boardMapper.selectNoticeListCount", deptNo);
+	}
+	
+	public ArrayList<Board> selectNoticeList(SqlSessionTemplate sqlSession, PageInfo pi, int deptNo) {
+		int offset = pi.getBoardLimit() * (pi.getCurrentPage() - 1);
+		RowBounds rowBounds = 	new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("boardMapper.selectNoticeList", deptNo, rowBounds);
+	}
+
+	public int insertNotice(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.insert("boardMapper.insertNotice", b);
+	}
+
 }

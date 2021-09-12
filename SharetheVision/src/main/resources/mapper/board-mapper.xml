@@ -14,6 +14,7 @@
 		<result column="DEPT_NO" property="deptNo"/>
 		<result column="B_WRITER" property="boardWriter"/>
 		<result column="PROJECT" property="project"/>
+		<result column="NOTICE_TYPE" property="noticeType"/>
 	</resultMap>
 	
 	<resultMap type="Attachment" id="attachmentResultSet">
@@ -54,7 +55,7 @@
 		<!-- v -->
 		SELECT *
 		FROM BOARD
-		WHERE B_STATUS = 'Y' AND DEPT_NO = #{deptNo}
+		WHERE B_TYPE=2 AND B_STATUS = 'Y' AND DEPT_NO = #{deptNo}
 		ORDER BY B_NO DESC
 	</select>
 
@@ -95,7 +96,7 @@
 	
 	<insert id="insertBoard">
 		INSERT INTO
-		BOARD VALUES(SEQ_BNO.NEXTVAL, 2, #{boardTitle}, #{boardContent}, default, default, default, #{memberCode}, #{deptNo}, #{boardWriter}, #{project})
+		BOARD VALUES(SEQ_BNO.NEXTVAL, 2, #{boardTitle}, #{boardContent}, default, default, default, #{memberCode}, #{deptNo}, #{boardWriter}, #{project}, null)
 	</insert>
 
 	<select id="selectLastBoard" resultMap="boardResultSet">
@@ -271,4 +272,37 @@
 		WHERE P_NO = #{pNo}
 	</select>
 	
+	<select id="selectNewNotice" resultMap="boardResultSet">
+		<![CDATA[
+			SELECT *
+			FROM (
+				SELECT B_NO, B_TITLE, B_CONTENT, B_CREATEDATE, M_CODE, DEPT_NO, B_WRITER, NOTICE_TYPE FROM BOARD WHERE B_TYPE=1 AND NOTICE_TYPE=2 AND DEPT_NO=#{deptNo} AND B_STATUS = 'Y'
+				UNION
+				SELECT B_NO, B_TITLE, B_CONTENT, B_CREATEDATE, M_CODE, DEPT_NO, B_WRITER, NOTICE_TYPE FROM BOARD WHERE B_TYPE=1 AND NOTICE_TYPE=1 AND B_STATUS = 'Y'
+				ORDER BY B_NO DESC
+			) WHERE ROWNUM <= 5
+		]]>
+	</select>
+	
+	<select id="selectNoticeListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM (
+			SELECT B_NO, B_TITLE, B_CONTENT, B_CREATEDATE, M_CODE, DEPT_NO, B_WRITER, NOTICE_TYPE FROM BOARD WHERE B_TYPE=1 AND NOTICE_TYPE=2 AND DEPT_NO=#{deptNo} AND B_STATUS='Y'
+			UNION
+			SELECT B_NO, B_TITLE, B_CONTENT, B_CREATEDATE, M_CODE, DEPT_NO, B_WRITER, NOTICE_TYPE FROM BOARD WHERE B_TYPE=1 AND NOTICE_TYPE=1 AND B_STATUS='Y'
+		)
+	</select>
+	
+	<select id="selectNoticeList" resultMap="boardResultSet">
+		SELECT B_NO, B_TITLE, B_CONTENT, B_CREATEDATE, M_CODE, DEPT_NO, B_WRITER, NOTICE_TYPE FROM BOARD WHERE B_TYPE=1 AND NOTICE_TYPE=2 AND DEPT_NO=#{deptNo} AND B_STATUS = 'Y'
+		UNION
+		SELECT B_NO, B_TITLE, B_CONTENT, B_CREATEDATE, M_CODE, DEPT_NO, B_WRITER, NOTICE_TYPE FROM BOARD WHERE B_TYPE=1 AND NOTICE_TYPE=1 AND B_STATUS = 'Y'
+		ORDER BY B_NO DESC
+	</select>
+	
+	<insert id="insertNotice">
+		INSERT INTO
+		BOARD VALUES(SEQ_BNO.NEXTVAL, 1, #{boardTitle}, #{boardContent}, DEFAULT, NULL, DEFAULT, #{memberCode}, #{deptNo}, #{boardWriter}, NULL, #{noticeType})
+	</insert>
+				
 </mapper>
