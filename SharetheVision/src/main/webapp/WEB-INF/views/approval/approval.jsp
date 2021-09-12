@@ -2178,7 +2178,11 @@ border-radius:15px;
   } 
  
  .approvalbuttonlist{
+ margin-top:80px;
  width:400px;
+ height:50px;
+ justify-content: space-between;
+
  }
  #apform1,#apform2,#apform3,#apform4,#apform5{
 
