@@ -39,7 +39,7 @@
 		<result column="B_NO" property="boardNo"/>
 		<result column="AT_CHANGE" property="replyWriterImage"/>
 	</resultMap>
-	<resultMap type="com.kh.SharetheVision.board.model.vo.MemberProject" id="mProjectResultSet">
+	<resultMap type="MemberProject" id="mProjectResultSet">
 		<id column="M_CODE" property="mCode"/>
 		<result column="P_NO" property="pNo"/>
 	</resultMap>	

@@ -23,6 +23,7 @@
 		<typeAlias alias="Approval" type="com.kh.SharetheVision.approval.model.vo.ApprovalVO"/>
 		<typeAlias alias="Reply" type="com.kh.SharetheVision.board.model.vo.Reply"/>
 		<typeAlias alias="Notice" type="com.kh.SharetheVision.notice.model.vo.Notice"/>
+		<typeAlias alias="MemberProject" type="com.kh.SharetheVision.board.model.vo.MemberProject"/>
 	</typeAliases>
 	
 	
