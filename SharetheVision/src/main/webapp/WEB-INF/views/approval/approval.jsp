@@ -102,7 +102,7 @@ font-size: 18px;
 color: black;
 font-weight: 800;
 text-align: center;
-height: 70px;
+height: 84px;
 letter-spacing: 0.7px;
 line-height: 70px;
 position: sticky;
@@ -636,10 +636,11 @@ position: sticky;
 top: 0;
 left: 0;
 z-index: 3;
-font-weight: 700;
+font-weight: bold;
 letter-spacing: 0.8px;
 background-color: var(--theme-bg-color);
 border-left: 4px solid #4d76fd;
+width:100%;
 }
 .msg-department svg {
 width: 12px;
@@ -2057,11 +2058,17 @@ border-radius:15px;
 }
 
 
-.inner::-webkit-scrollbar-thumb {
+.inner::-webkit-scrollbar-thumb  {
     -webkit-border-radius: 10px;
     border-radius: 10px;
     background-color:grey; 
 }
+.user-profile-area::-webkit-scrollbar-thumb,
+.inbox::-webkit-scrollbar-thumb {
+	display:none;
+}
+
+
 
 
 .button1 {
@@ -2224,7 +2231,7 @@ border-radius:15px;
                             <div class="main-body">                               
                                     <div class="container">
                                         <div class="user-profile-area">
-                                         <div class="task-manager">Sv Company</div>
+                                         <div class="task-manager">${loginUser.deptName}팀</div>
                                           <div class="side-wrapper">
                                            <div class="user-profile">
                                             <div class="profileBox">
@@ -2244,11 +2251,9 @@ border-radius:15px;
                                             <div class="user-class">${loginUser.jobName }</div>
                                            <!--결재 대쉬보드 로그인세션 이름-->
                                             <div class="user-name">${loginUser.name}</div>
-                                           </div>
-                                           <!--결재 대쉬보드 로그인세션 부서-->
-                                           <div class="user-dept">${loginUser.deptName}팀</div>
+                                           </div>                   
                                            <!--결재 대쉬보드 로그인세션 이메일-->
-                                           <div class="user-mail">k0102065@gmail.com</div>
+                                           <div class="user-mail">${loginUser.email}</div>
                                           </div>
                                           
                                           <!--결재 대쉬보드 프로필 끝-->
@@ -3553,19 +3558,15 @@ border-radius:15px;
                                          </div>              
                                         </div>
                                         <div class="main-area">
-                                         <div class="header">
-                                          <div class="search-bar">
-                                           <input type="text" placeholder="Search...">
-                                          </div>
-                                         </div>
+                                         
                                          <div class="main-container">
                                           <div class="inbox-container">
                                            <div class="inbox">
                                             <div class="msg msg-department anim-y">
-                         							                    전체
-                                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 492 492">
-                                              <path d="M484.13 124.99l-16.11-16.23a26.72 26.72 0 00-19.04-7.86c-7.2 0-13.96 2.79-19.03 7.86L246.1 292.6 62.06 108.55c-5.07-5.06-11.82-7.85-19.03-7.85s-13.97 2.79-19.04 7.85L7.87 124.68a26.94 26.94 0 000 38.06l219.14 219.93c5.06 5.06 11.81 8.63 19.08 8.63h.09c7.2 0 13.96-3.57 19.02-8.63l218.93-219.33A27.18 27.18 0 00492 144.1c0-7.2-2.8-14.06-7.87-19.12z"></path>
-                                             </svg>
+                         					결재 리스트
+                                             
+                                             
+                                             
                                              
                                             </div>
 
@@ -3574,12 +3575,12 @@ border-radius:15px;
                                              <input type="checkbox" name="msg" id="mail1" class="mail-choice" checked>
                                              <label for="mail1"></label>
                                              <div class="msg-content">
-                                              <a href=""><div class="msg-title">휴가 건의 (휴가원 문서 첨부)</div></a>
+                                              <a href=""><div class="msg-title">결재 제목(apt)</div></a>
                                               <!--결재 목록 기한-->
                                               <div class="msg-date">기한:</div>
-                                              <div class="msg-startday">&nbsp;2021.08.20&nbsp;</div>
+                                              <div class="msg-startday">&nbsp;2021.08.20(arrive)&nbsp;</div>
                                               <div class="msg-date2">~</div>
-                                              <div class="msg-endday">&nbsp;2021.09.15</div>
+                                              <div class="msg-endday">&nbsp;2021.09.15(depart)</div>
                                                <!--결재 목록 기안자-->
                                               <div class="msg-sender">기안자:</div>
                                               <div class="msg-sender2">&nbsp;강정환</div>
@@ -3590,13 +3591,95 @@ border-radius:15px;
                                               <div class="msg-approve3">&nbsp;사장</div>
                                               <!--결재 목록 문서종류-->
                                               <div class="msg-doctype">문서종류:</div>
-                                              <div class="msg-doctype2">&nbsp;기안서</div>
+                                              <div class="msg-doctype2">&nbsp;기안서(apvType)</div>
+                                             </div>
+                                             <img src="https://assets.codepen.io/3364143/Screen+Shot+2020-08-01+at+12.24.16.png" alt="" class="members mail-members">
+                                            </div>
+                                            <!--테스트 결재리스트 1 끝-->
+                                            
+                                            <!--테스트 결재리스트 1 시작-->
+                                            <div class="msg selected-bg anim-y">
+                                             <input type="checkbox" name="msg" id="mail1" class="mail-choice" checked>
+                                             <label for="mail1"></label>
+                                             <div class="msg-content">
+                                              <a href=""><div class="msg-title">결재 제목(apt)</div></a>
+                                              <!--결재 목록 기한-->
+                                              <div class="msg-date">기한:</div>
+                                              <div class="msg-startday">&nbsp;2021.08.20(arrive)&nbsp;</div>
+                                              <div class="msg-date2">~</div>
+                                              <div class="msg-endday">&nbsp;2021.09.15(depart)</div>
+                                               <!--결재 목록 기안자-->
+                                              <div class="msg-sender">기안자:</div>
+                                              <div class="msg-sender2">&nbsp;강정환</div>
+                                              <div class="msg-sender3">&nbsp;사원</div>
+                                               <!--결재 목록 결재권자--> 
+                                              <div class="msg-approve">결재권자:</div>
+                                              <div class="msg-approve2">&nbsp;아무개</div>
+                                              <div class="msg-approve3">&nbsp;사장</div>
+                                              <!--결재 목록 문서종류-->
+                                              <div class="msg-doctype">문서종류:</div>
+                                              <div class="msg-doctype2">&nbsp;기안서(apvType)</div>
+                                             </div>
+                                             <img src="https://assets.codepen.io/3364143/Screen+Shot+2020-08-01+at+12.24.16.png" alt="" class="members mail-members">
+                                            </div>
+                                            <!--테스트 결재리스트 1 끝-->
+                                            
+                                            
+                                            <!--테스트 결재리스트 1 시작-->
+                                            <div class="msg selected-bg anim-y">
+                                             <input type="checkbox" name="msg" id="mail1" class="mail-choice" checked>
+                                             <label for="mail1"></label>
+                                             <div class="msg-content">
+                                              <a href=""><div class="msg-title">결재 제목(apt)</div></a>
+                                              <!--결재 목록 기한-->
+                                              <div class="msg-date">기한:</div>
+                                              <div class="msg-startday">&nbsp;2021.08.20(arrive)&nbsp;</div>
+                                              <div class="msg-date2">~</div>
+                                              <div class="msg-endday">&nbsp;2021.09.15(depart)</div>
+                                               <!--결재 목록 기안자-->
+                                              <div class="msg-sender">기안자:</div>
+                                              <div class="msg-sender2">&nbsp;강정환</div>
+                                              <div class="msg-sender3">&nbsp;사원</div>
+                                               <!--결재 목록 결재권자--> 
+                                              <div class="msg-approve">결재권자:</div>
+                                              <div class="msg-approve2">&nbsp;아무개</div>
+                                              <div class="msg-approve3">&nbsp;사장</div>
+                                              <!--결재 목록 문서종류-->
+                                              <div class="msg-doctype">문서종류:</div>
+                                              <div class="msg-doctype2">&nbsp;기안서(apvType)</div>
+                                             </div>
+                                             <img src="https://assets.codepen.io/3364143/Screen+Shot+2020-08-01+at+12.24.16.png" alt="" class="members mail-members">
+                                            </div>
+                                            <!--테스트 결재리스트 1 끝-->
+                                            
+                                            <!--테스트 결재리스트 1 시작-->
+                                            <div class="msg selected-bg anim-y">
+                                             <input type="checkbox" name="msg" id="mail1" class="mail-choice" checked>
+                                             <label for="mail1"></label>
+                                             <div class="msg-content">
+                                              <a href=""><div class="msg-title">결재 제목(apt)</div></a>
+                                              <!--결재 목록 기한-->
+                                              <div class="msg-date">기한:</div>
+                                              <div class="msg-startday">&nbsp;2021.08.20(arrive)&nbsp;</div>
+                                              <div class="msg-date2">~</div>
+                                              <div class="msg-endday">&nbsp;2021.09.15(depart)</div>
+                                               <!--결재 목록 기안자-->
+                                              <div class="msg-sender">기안자:</div>
+                                              <div class="msg-sender2">&nbsp;강정환</div>
+                                              <div class="msg-sender3">&nbsp;사원</div>
+                                               <!--결재 목록 결재권자--> 
+                                              <div class="msg-approve">결재권자:</div>
+                                              <div class="msg-approve2">&nbsp;아무개</div>
+                                              <div class="msg-approve3">&nbsp;사장</div>
+                                              <!--결재 목록 문서종류-->
+                                              <div class="msg-doctype">문서종류:</div>
+                                              <div class="msg-doctype2">&nbsp;기안서(apvType)</div>
                                              </div>
                                              <img src="https://assets.codepen.io/3364143/Screen+Shot+2020-08-01+at+12.24.16.png" alt="" class="members mail-members">
                                             </div>
                                             <!--테스트 결재리스트 1 끝-->
 
-                                               <!--테스트 결재리스트 1 시작-->
+                                               <!--테스트 결재리스트 2 시작-->
                                                <div class="msg selected-bg anim-y">
                                                 <input type="checkbox" name="msg" id="mail1" class="mail-choice2" checked>
                                                 <label for="mail1"></label>
@@ -3621,9 +3704,9 @@ border-radius:15px;
                                                 </div>
                                                 <img src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=60" alt="" class="members mail-members">
                                                </div>
-                                               <!--테스트 결재리스트 1 끝-->
+                                               <!--테스트 결재리스트 2 끝-->
 
-                                                 <!--테스트 결재리스트 1 시작-->
+                                                 <!--테스트 결재리스트 3 시작-->
                                             <div class="msg selected-bg anim-y">
                                               <input type="checkbox" name="msg" id="mail1" class="mail-choice3" checked>
                                               <label for="mail1"></label>
@@ -3648,7 +3731,7 @@ border-radius:15px;
                                               </div>
                                               <img src="https://images.unsplash.com/photo-1541647376583-8934aaf3448a?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=934&amp;q=80" alt="" class="members mail-members">
                                              </div>
-                                             <!--테스트 결재리스트 1 끝-->
+                                             <!--테스트 결재리스트 3 끝-->
                                            </div>                                
                                           </div>
                                           <div class="mail-detail">
@@ -3690,7 +3773,8 @@ border-radius:15px;
                                             <div class="af">결재권자:</div><div></div>
                                             </div>
                                             
-                                            <div class="mail-inside">결재 내용 결재 내용 결재 내용 결재 내용 결재 내용 결재 내용결재 내용결재 내용결재 내용결재 내용결재 내용</div>
+                                            <div class="mail-inside">결재 코멘트(comment) 결재 코멘트(comment) 결재 코멘트(comment) 결재 코멘트(comment) 결재 코멘트(comment) 결재 코멘트(comment) 
+                                            결재 코멘트(comment) 결재 코멘트(comment) 결재 코멘트(comment) 결재 코멘트(comment)결재 코멘트(comment)결재 코멘트(comment)</div>
                                             
                                             <div class="mail-assign">
                                               <!--결재 대쉬보드 상세보기 진행로그 결재승인-->
@@ -3725,6 +3809,13 @@ border-radius:15px;
                                               <span class="assign-date">&nbsp;&nbsp;- 2021.06.50</span>
                                              </div>
                                              
+                                             <br>
+                                             <br>
+                                             <br>
+                                             <br>
+                                             <br>
+                                             <br>
+                                             <br>
                                              <!--결재 대쉬보드 상세보기 첨부파일 문서-->
                                              <div class="mail-doc">
                                               <div class="mail-doc-wrapper">
@@ -3745,19 +3836,7 @@ border-radius:15px;
                                              </div>
                                             </div>
                                            </div>
-                                           <div class="mail-textarea">
-                                            <input type="text" placeholder="Comment">
-                                            <div class="textarea-icons">
-                                             <div class="attach">
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-paperclip">
-                                               <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48" /></svg>
-                                             </div>
-                                             <div class="send">
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send">
-                                               <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" /></svg>
-                                             </div>
-                                            </div>
-                                           </div>
+                                           
                                           </div>
                                          </div>
                                         </div>
