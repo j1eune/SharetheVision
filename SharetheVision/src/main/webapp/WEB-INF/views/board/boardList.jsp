@@ -414,9 +414,16 @@
                                     	</c:if>
                                     	
                                     	<c:if test="${ pi.currentPage > 1 }">
-                                    		<c:url value="boardList.bo" var="firstList">
-                                    			<c:param name="page" value="1"/>
-                                    		</c:url>
+                                    		<c:if test="${ currentList == 'boardList' }">
+	                                    		<c:url value="boardList.bo" var="firstList">
+	                                    			<c:param name="page" value="1"/>
+	                                    		</c:url>
+                                    		</c:if>
+                                    		<c:if test="${ currentList == 'scrapList' }">
+	                                    		<c:url value="boardScrapList.bo" var="firstList">
+	                                    			<c:param name="page" value="1"/>
+	                                    		</c:url>
+                                    		</c:if>
                                         	<a href="${ firstList }"><i class="ti-angle-double-left paging-btn"></i></a>
                                     	</c:if>
                                     	
@@ -426,9 +433,16 @@
 										</c:if>      
 										                                  
 										<c:if test="${ pi.currentPage > 1 }">
-											<c:url value="boardList.bo" var="beforeList">
-												<c:param name="page" value="${ pi.currentPage - 1 }"></c:param>
-											</c:url>
+											<c:if test="${ currentList == 'boardList' }">
+												<c:url value="boardList.bo" var="beforeList">
+													<c:param name="page" value="${ pi.currentPage - 1 }"></c:param>
+												</c:url>
+											</c:if>
+											<c:if test="${ currentList == 'scrapList' }">
+												<c:url value="boardScrapList.bo" var="beforeList">
+													<c:param name="page" value="${ pi.currentPage - 1 }"></c:param>
+												</c:url>
+											</c:if>
 											<a href="${ beforeList }"><i class="ti-angle-left"></i></a>
     									</c:if>                                    
                                         
@@ -439,9 +453,16 @@
                                         	</c:if>
                                         	
                                         	<c:if test="${ p ne pi.currentPage }">
-	                                        	<c:url var="pagination" value="boardList.bo">
-	                                        		<c:param name="page" value="${ p }"/>
-	                                        	</c:url>
+                                        		<c:if test="${ currentList == 'boardList' }">
+		                                        	<c:url var="pagination" value="boardList.bo">
+		                                        		<c:param name="page" value="${ p }"/>
+		                                        	</c:url>
+                                        		</c:if>
+                                        		<c:if test="${ currentList == 'scrapList' }">
+		                                        	<c:url var="pagination" value="boardScrapList.bo">
+		                                        		<c:param name="page" value="${ p }"/>
+		                                        	</c:url>
+                                        		</c:if>
 		                                      	<a href="${ pagination }"><span>${ p }</span></a>
 	                                      	</c:if>
                                         </c:forEach>
@@ -451,9 +472,16 @@
 	                                        <a><i class="ti-angle-right"></i></a>
                                       	</c:if>
                                       	<c:if test="${ pi.currentPage != pi.maxPage }">
-                                      		<c:url value="boardList.bo" var="nextList">
-                                      			<c:param name="page" value="${ pi.currentPage + 1 }"></c:param>
-                                      		</c:url>
+                                      		<c:if test="${ currentList == 'boardList' }">
+	                                      		<c:url value="boardList.bo" var="nextList">
+	                                      			<c:param name="page" value="${ pi.currentPage + 1 }"></c:param>
+	                                      		</c:url>
+                                      		</c:if>
+                                      		<c:if test="${ currentList == 'ScrapList' }">
+	                                      		<c:url value="boardScrapList.bo" var="nextList">
+	                                      			<c:param name="page" value="${ pi.currentPage + 1 }"></c:param>
+	                                      		</c:url>
+                                      		</c:if>
                                       		<a href="${ nextList }"><i class="ti-angle-right"></i></a>
                                       	</c:if>
                                       	
@@ -462,9 +490,16 @@
                                         	<a><i class="ti-angle-double-right"></i></a>
 										</c:if>
 										<c:if test="${ pi.currentPage != pi.maxPage }">
-											<c:url value="boardList.bo" var="lastList">
-												<c:param name="page" value="${ pi.maxPage }"></c:param>
-											</c:url>
+											<c:if test="${ currentList == 'boardList' }">
+												<c:url value="boardList.bo" var="lastList">
+													<c:param name="page" value="${ pi.maxPage }"></c:param>
+												</c:url>
+											</c:if>
+											<c:if test="${ currentList == 'scrapList' }">
+												<c:url value="boardScrapList.bo" var="lastList">
+													<c:param name="page" value="${ pi.maxPage }"></c:param>
+												</c:url>
+											</c:if>
 											<a href="${ lastList }"><i class="ti-angle-double-right"></i></a>
 										</c:if>                                        
                                     </div>
@@ -478,11 +513,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="fixed-button">
-                    <a href="https://codedthemes.com/item/guru-able-admin-template/" target="_blank" class="btn btn-md btn-primary">
-                      <i class="fa fa-shopping-cart" aria-hidden="true"></i> Upgrade To Pro
-                    </a>
                 </div>
             </div>
         </div>
@@ -511,21 +541,10 @@
 <!-- <script src="assets/js/demo-12.js"></script> -->
 <!-- <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script> -->
 <script>
-	var $window = $(window);
-	var nav = $('.fixed-button');
-	    $window.scroll(function(){
-	        if ($window.scrollTop() >= 200) {
-	         nav.addClass('active');
-	     }
-	     else {
-	         nav.removeClass('active');
-	     }
-	 });
-</script>
-<script>
  	$(function(){
  		$('.board-table').find("td").click(function() {
-			var bId = $(this).parents().children("td").eq(0).text(); 		
+			var bId = $(this).parents().children("td").eq(0).text();
+			var currentList = "${ currentList }";
 			
 			$.ajax({
 	 			url: 'boardStatus.bo',
@@ -545,7 +564,7 @@
 	 						}
 	 					})
 	 				} else if (data1 == '존재') {
-						location.href="boardDetail.bo?bId="+bId;
+						location.href="boardDetail.bo?bId="+bId+"&currentPage="+${ currentPage }+"&currentList="+currentList;
 	 				}
 	 			}
 	 		})

@@ -33,4 +33,18 @@
 	    font-weight: normal;
 	    font-style: normal;
 	}
+	
+	@font-face {
+	    font-family: 'Wemakeprice-Regular';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Wemakeprice-Regular.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;
+	}
+	
+	@font-face {
+	    font-family: 'ELAND_Choice_B';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Choice_B.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;
+	}
 </style>

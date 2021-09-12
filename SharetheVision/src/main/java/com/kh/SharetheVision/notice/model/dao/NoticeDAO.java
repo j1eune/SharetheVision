@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.SharetheVision.board.model.vo.Board;
 import com.kh.SharetheVision.notice.model.vo.Notice;
 import com.kh.SharetheVision.project.model.vo.Project;
 
@@ -22,6 +23,18 @@ public class NoticeDAO {
 
 	public int readNotice(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
 		return sqlSession.update("noticeMapper.readNotice", map);
+	}
+
+	public int noticeBoard(SqlSessionTemplate sqlSession, Board board) {
+		return sqlSession.insert("noticeMapper.noticeBoard", board);
+	}
+
+	public Notice selectMoveLocation(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return sqlSession.selectOne("noticeMapper.selectMoveLocation", map);
+	}
+
+	public Notice selectedBoardInfo(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return sqlSession.selectOne("noticeMapper.selectedBoardInfo", map);
 	}
 
 }

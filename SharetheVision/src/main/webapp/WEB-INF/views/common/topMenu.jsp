@@ -201,6 +201,7 @@ $(document).ready(function(){
 });
 
 $(document).on('click', '.media', function() {
+	$(this).css("cursor","pointer");	
 	var category = $(this).find('.notification-user').text();
 	var content = $(this).find('.notification-msg').text();
 

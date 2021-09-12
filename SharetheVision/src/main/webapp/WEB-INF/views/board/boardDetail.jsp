@@ -40,8 +40,14 @@
 
         .boardDetail-title {
             font-size: 32px;
-            padding: 35px 15px;
+            padding: 20px 15px 35px;
         }
+
+		.boardDetail-title-wrap {
+		    display: flex;
+		    flex-direction: row;
+		    align-items: center;
+		}
 
         .boardDetail-card {
             margin-bottom: 0;
@@ -93,7 +99,7 @@
         	flex-direction: row;
        	    position: absolute;
 		    transform: translate(-50%, -50%);
-		    top: 26.5%;
+		    top: 23%;
 		    left: 7%;
         }
         
@@ -115,10 +121,7 @@
 		.boardDetail-writer-img {
 			width: 46.6px;
 			height: 46.6px;
-			border: 1px solid #ccc;
-			border-radius: 50%;
 			margin-right: 10px;
-			text-align: center;
 		}
 		
 		.boardDetail-writer-img i {
@@ -216,14 +219,18 @@
 		.project-end {
 			font-size: 16px;
 			font-weight: bold;
+			color: #fff;
+		    padding: 2px 10px;
+		    border-radius: 5px;
+		    margin-left: 10px;
 		}
 		
 		.project-ongoing {
-			color: blue;
+			background: #00c;
 		}
 
 		.project-end {
-			color: #888;
+		    background: #888;
 		}
 		
 		.boardDetail-head {
@@ -234,6 +241,11 @@
 		
 		.profileImg {
 			border-radius: 50%;
+		}
+		
+		.backBtn {
+			padding: 5px 18px;
+			font-size: 14px;
 		}
 		
     </style>
@@ -302,15 +314,27 @@
                                     <div class="card boardDetail-card">
                                         <div class="boardDetail-box">
                                             <div class="boardDetail-title">
+                                            
                                             <input type="hidden" name="boardNo" value="${ board.boardNo }">
                                             	<div class="boardDetail-head">
-                                            		<div><span class="boardDetail-project-name">[ ${ board.project } ]</span>${ board.boardTitle }</div>
-                                            		<c:if test="${ board.boardState == 1 }">
-	                                            		<div class="project-ongoing">진행중</div>
-                                            		</c:if>
-                                            		<c:if test="${ board.boardState == 2 }">
-	                                            		<div class="project-end">종료</div>
-                                            		</c:if>
+                                            		<div class="boardDetail-title-wrap">
+                                            			<span class="boardDetail-project-name">[ ${ board.project } ]</span>
+                                            			<span>${ board.boardTitle }</span>
+				                                       		<c:if test="${ board.boardState == 1 }">
+				                                        		<span class="project-ongoing">진행중</span>
+				                                       		</c:if>
+				                                       		<c:if test="${ board.boardState == 2 }">
+				                                        		<span class="project-end">종료</span>
+				                                       		</c:if>
+                                            			</span>
+                                            		</div>
+                                            		<c:url var="returnList" value="returnList.bo">
+                                            			<c:param name="currentPage" value="${ currentPage }"/>
+                                            			<c:param name="currentList" value="${ currentList }"/>
+                                            		</c:url>
+                                            		<a href="${ returnList }">
+	                                            		<button type="button" id="boardDetailListBtn" class="btn boardDetail-btn backBtn">이전</button>
+                                            		</a>
                                            		</div>
                                            	</div>
                                            	<div class="boardDetail-boardInfo">
@@ -366,14 +390,14 @@
                                                     	
                                                     	<c:if test="${ scrapState == null }">
 	                                                        <a href="${ addScrap }">
-	                                                        	<button type="button" id="boardDetailFileUploadBtn"
+	                                                        	<button type="button" id="boardDetailAddScrapBtn"
 	                                                            class="btn boardDetail-btn">스크랩 하기</button>
 	                                                    	</a>
                                                     	</c:if>
                                                     	
                                                     	<c:if test="${ scrapState != null }">
 	                                                        <a href="${ deleteScrap }">
-	                                                        	<button type="button" id="boardDetailFileUploadBtn"
+	                                                        	<button type="button" id="boardDetailRemoveScrapBtn"
 	                                                            class="btn boardDetail-btn">스크랩 취소</button>
 	                                                    	</a>
                                                     	</c:if>
@@ -386,13 +410,13 @@
 	                                                    			<c:param name="project" value="${ board.project }"/>
 	                                                    			<c:param name="deptNo" value="${ board.deptNo }"/>
 	                                                    		</c:url>
-		                                                       	<button type="button" id="boardDetailFileUploadBtn"
+		                                                       	<button type="button" id="boardDetailUpdateBtn"
 		                                                           class="btn boardDetail-btn updateBtn">수정</button>
 		                                                           
 	                                                            <c:url var="deleteBoard" value="deleteBoard.bo">
                                                     				<c:param name="bId" value="${ board.boardNo }"/>
                                                     			</c:url>
-		                                                       	<button type="button" id="boardDetailFileUploadBtn"
+		                                                       	<button type="button" id="boardDetailDeleteBtn"
 		                                                           class="btn boardDetail-btn deleteBtn">삭제</button>
 	                                                    	</div>
                                                     	</c:if>
@@ -408,7 +432,7 @@
                                                 	</c:if>
                                                 	<a  href="${ pageContext.request.contextPath }/resources/archive/${ attachedFile.atChange }"  download="${ attachedFile.atOrigin }">
 	                                                    <div class="boardDetail-btn-box">
-	                                                        <button type="button" id="boardDetailFileUploadBtn" class="btn boardDetail-btn">다운로드</button>
+	                                                        <button type="button" id="boardDetailDownloadBtn" class="btn boardDetail-btn">다운로드</button>
 	                                                    </div>
                                                 	</a>
                                                 </div>
@@ -419,11 +443,11 @@
                                                     		<c:forEach var="reply" items="${ reply }">
 		                                                    	<div class="reply-box">
 		                                                    		<div class="userInfo">
-		                                                    			<c:if test="${ empty profileImage }">
+		                                                    			<c:if test="${ reply.replyWriterImage == null }">
 			                                                    			<div class="userPhoto"><img class="profileImg" src="resources/assets/images/defaultProfile.png"></div>
 		                                                    			</c:if>
-		                                                    			<c:if test="${ !empty profileImage }">
-			                                                    			<div class="userPhoto"><img class="profileImg" src="resources/muploadFile/${ profileImage.atChange }"></div>
+		                                                    			<c:if test="${ reply.replyWriterImage != null }">
+			                                                    			<div class="userPhoto"><img class="profileImg" src="resources/muploadFile/${ reply.replyWriterImage }"></div>
 		                                                    			</c:if>
 		                                                    			<div class="userNameAndDept">
 		                                                    				<p class="userName">${ reply.replyWriter }</p>
@@ -471,11 +495,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="fixed-button">
-        <a href="https://codedthemes.com/item/guru-able-admin-template/" target="_blank" class="btn btn-md btn-primary">
-            <i class="fa fa-shopping-cart" aria-hidden="true"></i> Upgrade To Pro
-        </a>
     </div>
     
     <script>
@@ -579,7 +598,11 @@
 							$box = $('<div class="reply-box">');
 							$userInfo = $('<div class="userInfo">');
 							$userPhoto = $('<div class="userPhoto">');
-							$userImg = $('<img class="profileImg" src="resources/assets/images/defaultProfile.png">');
+							if(data[i].replyWriterImage != null) {
+								$userImg = $('<img class="profileImg" src="resources/muploadFile/'+data[i].replyWriterImage+'">');
+							} else {
+								$userImg = $('<img class="profileImg" src="resources/assets/images/defaultProfile.png">');
+							}
 							$userNAD = $('<div class="userNameAndDept">');
 							$userName = $('<p class="userName">').text(data[i].replyWriter);
 							$userDept = $('<p class="userDept">');

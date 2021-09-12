@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.kh.SharetheVision.attachments.model.vo.Attachment;
 import com.kh.SharetheVision.board.model.vo.Board;
+import com.kh.SharetheVision.board.model.vo.MemberProject;
 import com.kh.SharetheVision.board.model.vo.PageInfo;
 import com.kh.SharetheVision.board.model.vo.Reply;
 import com.kh.SharetheVision.board.model.vo.Scrap;
@@ -65,5 +66,9 @@ public interface BoardService {
 	int deleteReply(int replyNo);
 
 	Attachment selectUserProfileImage(String writermCode);
+
+	Project findPno(String project);
+
+	ArrayList<MemberProject> getmCodeList(int pNo);
 
 }

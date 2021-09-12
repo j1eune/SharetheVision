@@ -21,6 +21,7 @@
     <meta name="author" content="CodedThemes">
 	
 	<jsp:include page="/WEB-INF/views/common/common.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/font.jsp"/>
 	
 	<style>
 		#addProjectMemberDiv{
@@ -56,7 +57,7 @@
  		} 
  		.projectContent::-webkit-scrollbar{
  			background-color: white;
- 			width: 8px;
+ 			width: 4px;
  		}
  		.projectContent::-webkit-scrollbar-thumb{
  			background-color: lightgray;
@@ -65,9 +66,18 @@
  		.projectContent::-webkit-scrollbar-track{
  			background-color: white;
  		}
+ 		.projectDiv::-webkit-scrollbar{
+ 			display:none;
+ 		}
+ 		.projectDiv::-webkit-scrollbar-thumb{
+ 			display:none;
+ 		}
+ 		.projectDiv::-webkit-scrollbar-track{
+ 			display:none;
+ 		}
  		.projectName:hover{
  			cursor:pointer;
-			color: blue;
+			color: black;
 			font-weight: bold; 			
  		}
 	</style>
@@ -181,29 +191,54 @@
 															<div class="container">
 															    <div class="row">
 			                                                   		<c:if test="${ !empty pList }">
-																		<c:forEach var="pro" items="${pList }">
+																		<c:forEach var="pro" items="${pList }" varStatus="vs">
 																			<c:if test="${pro.pEnd eq 'N'}">
-																		        <div class="col-md-3 m-2" style="box-shadow: 2px 2px 1px 1px lightgray; height: 200px; border-radius: 20px; overflow: auto;">
+																				<c:choose>
+																					<c:when test="${vs.count % 5 == 1 }">
+																						<c:set var="backColor" value="#EFAF97"/>
+																					</c:when>
+																					<c:when test="${vs.count % 5 == 2 }">
+																						<c:set var="backColor" value="#EA9086"/>
+																					</c:when>
+																					<c:when test="${vs.count % 5 == 3 }">
+																						<c:set var="backColor" value="#CB8D99"/>
+																					</c:when>
+																					<c:when test="${vs.count % 5 == 4 }">
+																						<c:set var="backColor" value="#9D98AE"/>
+																					</c:when>
+																					<c:when test="${vs.count % 5 == 0 }">
+																						<c:set var="backColor" value="#8498B6"/>
+																					</c:when>
+																				</c:choose>
+																		        <div class="col-md-3 m-2 projectDiv" style="background-color:${backColor}; color:white; box-shadow: 2px 2px 1px 1px lightgray; height: 200px; border-radius: 20px; overflow: auto;">
 																		        	<input type="hidden" name="pNo" value="${pro.pNo }"/>
-																		        	<div style="text-align:left" class="projectName">
+																		        	<div style="text-align:left; padding-top:15px; padding-left:10px; font-family:SpoqaHanSansNeo-Bold; font-size:20px;" class="projectName">
 																		        		${pro.pName }
 																		        	</div>
 																		        	<div style="text-align:right;">
-																			        	<button class="completeBtn">완료</button>&nbsp;<button class="deleteBtn" >삭제</button>
+																			        	<button class="completeBtn" style="background:none; font-family:SpoqaHanSansNeo-Bold; color:white;">완료</button>&nbsp;
+																			        	<button class="deleteBtn" style="background:none; font-family:SpoqaHanSansNeo-Bold; color:white;">삭제</button>
 																		        	</div>
-																		        	<hr style="border: solid 1px black;">
-																		        	${pro.pIntro }<br><br><br>
-																		        	<c:forEach var="mPro" items="${ pmList }">
-																			        	<c:if test="${pro.pNo eq mPro.pNo}">
-																		        			<c:if test="${ mPro.pName != null }">
-																		        				<img src="resources/muploadFile/${mPro.pName }" style="width:30px; height:30px; border-radius: 65%;"/>
-																		        			</c:if>
-																		        			<c:if test="${ mPro.pName == null }">
-																		        				<img src="resources/assets/images/defaultProfile.png" width="30px" height="30px;" />
-																		        			</c:if>
-																			        	</c:if>
-																		        	</c:forEach>
+																		        	<br>
 																		        	
+																		        	<div style="padding-left:10px; font-family:ELAND_Choice_B;">
+																			        	${pro.pIntro }
+																		        	</div>
+																		        	
+																		        	<br><br>
+																		        	
+																		        	<div style="padding-left:10px;">
+																			        	<c:forEach var="mPro" items="${ pmList }">
+																				        	<c:if test="${pro.pNo eq mPro.pNo}">
+																			        			<c:if test="${ mPro.pName != null }">
+																			        				<img src="resources/muploadFile/${mPro.pName }" style="width:30px; height:30px; border-radius: 65%;"/>
+																			        			</c:if>
+																			        			<c:if test="${ mPro.pName == null }">
+																			        				<img src="resources/assets/images/defaultProfile.png" width="30px" height="30px;" />
+																			        			</c:if>
+																				        	</c:if>
+																			        	</c:forEach>
+																		        	</div>
 																		        </div>
 																			</c:if>
 																		</c:forEach>
@@ -221,29 +256,55 @@
 															<div class="container">
 															    <div class="row">
 			                                                   		<c:if test="${ !empty pList }">
-																		<c:forEach var="pro" items="${pList }">
+																		<c:forEach var="pro" items="${pList }" varStatus="vs">
+																			<c:choose>
+																				<c:when test="${vs.count % 5 == 1 }">
+																					<c:set var="backColor" value="#EFAF97"/>
+																				</c:when>
+																				<c:when test="${vs.count % 5 == 2 }">
+																					<c:set var="backColor" value="#EA9086"/>
+																				</c:when>
+																				<c:when test="${vs.count % 5 == 3 }">
+																					<c:set var="backColor" value="#CB8D99"/>
+																				</c:when>
+																				<c:when test="${vs.count % 5 == 4 }">
+																					<c:set var="backColor" value="#9D98AE"/>
+																				</c:when>
+																				<c:when test="${vs.count % 5 == 0 }">
+																					<c:set var="backColor" value="#8498B6"/>
+																				</c:when>
+																			</c:choose>
+																			
 																			<c:if test="${pro.pEnd eq 'Y' }">
-																		        <div class="col-md-3 m-2" style="box-shadow: 2px 2px 1px 1px lightgray; height: 200px; border-radius: 20px; overflow: auto;">
+																		        <div class="col-md-3 m-2 projectDiv" style="background-color:${backColor}; color:white; box-shadow: 2px 2px 1px 1px lightgray; height: 200px; border-radius: 20px; overflow: auto;">
 																		        	<input type="hidden" name="pNo" value="${pro.pNo }"/>
-																		        	<div style="text-align:left;" class="projectName">
+																		        	<div style="text-align:left; padding-top:15px; padding-left:10px; font-family:SpoqaHanSansNeo-Bold; font-size:20px;"  class="projectName">
 																		        		${pro.pName }
 																		        	</div>
 																		        	<div style="text-align:right;">
-																		        		<button class="progressBtn">진행</button>&nbsp;<button class="deleteBtn" >삭제</button>
+																		        		<button class="progressBtn" style="background:none; font-family:SpoqaHanSansNeo-Bold; color:white;">진행</button>&nbsp;
+																		        		<button class="deleteBtn" style="background:none; font-family:SpoqaHanSansNeo-Bold; color:white;">삭제</button>
 																		        	</div>
-																		        	<hr style="border: solid 1px black;">
-																		        	${pro.pIntro }<br><br><br>
-																		        	<c:forEach var="mPro" items="${ pmList }">
-																			        	<c:if test="${pro.pNo eq mPro.pNo}">
-																		        			<c:if test="${ mPro.pName != null }">
-																		        				<img src="resources/muploadFile/${mPro.pName }" style="width:30px; height:30px; border-radius: 65%;"/>
-																		        			</c:if>
-																		        			<c:if test="${ mPro.pName == null }">
-																		        				<img src="resources/assets/images/defaultProfile.png" width="30px" height="30px;" />
-																		        			</c:if>
-																			        	</c:if>
-																		        	</c:forEach>
+																		        	<br>
 																		        	
+																		        	<div style="padding-left:10px; font-family:ELAND_Choice_B;">
+																			        	${pro.pIntro }
+																		        	</div>
+																		        	
+																		        	<br><br>
+																		        	
+																		        	<div style="padding-left:10px;">
+																			        	<c:forEach var="mPro" items="${ pmList }">
+																				        	<c:if test="${pro.pNo eq mPro.pNo}">
+																			        			<c:if test="${ mPro.pName != null }">
+																			        				<img src="resources/muploadFile/${mPro.pName }" style="width:30px; height:30px; border-radius: 65%;"/>
+																			        			</c:if>
+																			        			<c:if test="${ mPro.pName == null }">
+																			        				<img src="resources/assets/images/defaultProfile.png" width="30px" height="30px;" />
+																			        			</c:if>
+																				        	</c:if>
+																			        	</c:forEach>
+																		        	</div>
 																		        </div>
 																			</c:if>
 																		</c:forEach>

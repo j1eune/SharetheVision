@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -30,11 +29,13 @@ import com.kh.SharetheVision.attachments.model.vo.Attachment;
 import com.kh.SharetheVision.board.model.exception.BoardException;
 import com.kh.SharetheVision.board.model.service.BoardService;
 import com.kh.SharetheVision.board.model.vo.Board;
+import com.kh.SharetheVision.board.model.vo.MemberProject;
 import com.kh.SharetheVision.board.model.vo.PageInfo;
 import com.kh.SharetheVision.board.model.vo.Pagination;
 import com.kh.SharetheVision.board.model.vo.Reply;
 import com.kh.SharetheVision.board.model.vo.Scrap;
 import com.kh.SharetheVision.member.model.vo.Member;
+import com.kh.SharetheVision.notice.model.service.NoticeService;
 import com.kh.SharetheVision.project.model.vo.Project;
 
 @Controller
@@ -42,6 +43,9 @@ public class BoardController {
 
 	@Autowired
 	private BoardService service;
+	
+	@Autowired
+	private NoticeService noticeService;
 
 	@RequestMapping("board.bo")
 	public String board(Model model, HttpSession session) {
@@ -59,7 +63,9 @@ public class BoardController {
 	}
 
 	@RequestMapping("boardDetail.bo")
-	public String boardDetail(@RequestParam("bId") int bId, Model model, HttpSession session, RedirectAttributes rttr) {
+	public String boardDetail(@RequestParam("bId") int bId, Model model, HttpSession session,
+							  @RequestParam(value="currentPage", required=false) Integer currentPage,
+							  @RequestParam(value="currentList", required=false) String currentList) {
 
 		String mCode = ((Member) session.getAttribute("loginUser")).getmCode();
 
@@ -81,12 +87,15 @@ public class BoardController {
 //		System.out.println(attachedFile);
 //		System.out.println(reply);
 //		System.out.println(userProfile);
+//		System.out.println("boardDetail.bo : " + currentPage);
 		
 		model.addAttribute("scrapState", scrapState);
 		model.addAttribute("board", board);
 		model.addAttribute("attachedFile", attachedFile);
 		model.addAttribute("profileImage", userProfile);
 		model.addAttribute("reply", reply);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("currentList", currentList);
 		
 		return "boardDetail";
 
@@ -115,6 +124,25 @@ public class BoardController {
 		}
 
 	}
+	
+	@RequestMapping("returnList.bo")
+	public String returnList(@RequestParam(value="currentPage", required=false) Integer currentPage,
+							 @RequestParam(value="currentList") String currentList) {
+		
+//		System.out.println("returnList / currentPage : " + currentPage);
+//		System.out.println("returnList / currentList : " + currentList);
+		
+		if (currentPage == null) {
+			return "redirect:board.bo";
+		} else {
+			if (currentList.equals("boardList")) {
+				return "redirect:boardList.bo?page=" + currentPage;
+			} else {
+				return "redirect:boardScrapList.bo?page=" + currentPage;
+			}
+		}
+		
+	}
 
 	@RequestMapping("boardList.bo")
 	public ModelAndView boardList(@RequestParam(value = "page", required = false) Integer page, ModelAndView mv,
@@ -123,6 +151,7 @@ public class BoardController {
 		response.setCharacterEncoding("UTF-8");
 
 		String boardListTitle = "부서별 자료실";
+		String currentList = "boardList";
 
 		int deptNo = ((Member) session.getAttribute("loginUser")).getDeptNo();
 
@@ -138,9 +167,9 @@ public class BoardController {
 
 		ArrayList<Board> list = service.selectBoardList(pi, deptNo);
 
-//		System.out.println(list);
+//		System.out.println("baordList.bo : " + currentPage);
 		if (list != null) {
-			mv.addObject("board", list).addObject("pi", pi).addObject("boardListTitle", boardListTitle);
+			mv.addObject("board", list).addObject("pi", pi).addObject("boardListTitle", boardListTitle).addObject("currentPage", currentPage).addObject("currentList", currentList);
 			mv.setViewName("boardList");
 		} else {
 			mv.setViewName("home");
@@ -154,6 +183,7 @@ public class BoardController {
 			HttpSession session, HttpServletResponse response) {
 
 		response.setCharacterEncoding("UTF-8");
+		String currentList = "scrapList";
 
 		String boardListTitle = "스크랩한 게시물";
 
@@ -171,9 +201,9 @@ public class BoardController {
 
 		ArrayList<Scrap> list = service.selectScrapBoardList(pi, mCode);
 
-//		System.out.println(list);
+//		System.out.println("boardScrapList : " + currentPage);
 		if (list != null) {
-			mv.addObject("board", list).addObject("pi", pi).addObject("boardListTitle", boardListTitle);
+			mv.addObject("board", list).addObject("pi", pi).addObject("boardListTitle", boardListTitle).addObject("currentPage", currentPage).addObject("currentList", currentList);
 			mv.setViewName("boardList");
 		} else {
 			mv.setViewName("home");
@@ -197,10 +227,30 @@ public class BoardController {
 	public String boardInsert(@ModelAttribute Board b, @RequestParam(value = "uploadFile") MultipartFile uploadFile,
 			HttpServletRequest request) throws BoardException {
 
-//		System.out.println(b);
 		boolean fileUpload = false;
 
-		int result = service.insertBoard(b);
+		int boardResult = service.insertBoard(b);
+		int noticeResult = 0;
+		
+		if (boardResult > 0) {
+			String project = b.getProject();
+			Project p = service.findPno(project);
+			int pNo = p.getpNo();
+			ArrayList<MemberProject> mCodeList = service.getmCodeList(pNo);
+			String[] mCodeArr = new String[mCodeList.size()];
+			if (mCodeList != null) {
+				for(int i = 0; i < mCodeList.size(); i++) {
+					mCodeArr[i] = mCodeList.get(i).getmCode();
+				}
+			}
+			Board board = new Board();
+			Board lastBoard = service.selectLastBoard();
+			board.setBoardNo(lastBoard.getBoardNo());
+			board.setBoardTitle(lastBoard.getBoardTitle());
+			board.setmCodeArr(mCodeArr);
+			
+			noticeResult = noticeService.insertBoardNotice(board);
+		};
 
 		Board lastBoard = service.selectLastBoard();
 		int lastBoardNo = lastBoard.getBoardNo();
@@ -216,7 +266,7 @@ public class BoardController {
 			}
 		}
 
-		if (result > 0) {
+		if (boardResult > 0 && noticeResult > 0) {
 			return "redirect:boardList.bo";
 		} else {
 			throw new BoardException("게시글 작성에 실패했습니다.");

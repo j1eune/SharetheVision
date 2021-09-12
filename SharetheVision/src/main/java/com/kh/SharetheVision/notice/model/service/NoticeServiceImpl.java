@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.SharetheVision.board.model.vo.Board;
 import com.kh.SharetheVision.notice.model.dao.NoticeDAO;
 import com.kh.SharetheVision.notice.model.vo.Notice;
 import com.kh.SharetheVision.project.model.vo.Project;
@@ -40,6 +41,27 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public int readNotice(HashMap<String, String> map) {
 		return noticeDAO.readNotice(sqlSession, map);
+	}
+
+	@Override
+	public int insertBoardNotice(Board board) {
+		int result = 0;
+		String[] mCodeArr = board.getmCodeArr();
+		for (int i = 0; i < mCodeArr.length; i++) {
+			board.setMemberCode(mCodeArr[i]);
+			result += noticeDAO.noticeBoard(sqlSession, board);
+		}
+		return result;
+	}
+
+	@Override
+	public Notice selectMoveLocation(HashMap<String, String> map) {
+		return noticeDAO.selectMoveLocation(sqlSession, map);
+	}
+
+	@Override
+	public Notice selectedBoardInfo(HashMap<String, String> map) {
+		return noticeDAO.selectedBoardInfo(sqlSession, map);
 	}
 
 }
