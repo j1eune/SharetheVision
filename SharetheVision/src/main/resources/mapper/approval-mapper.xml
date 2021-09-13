@@ -48,33 +48,51 @@
 	-->
 	
 	<select id="selectApproval" resultMap="approvalResultSet">
-		SELECT *
-		FROM APPROVAL
-		WHERE M_CODE = #{mCode}
-		<if test="apvType != null">
-			AND APV_TYPE = #{apvType}
-		</if>
+		SELECT A.*, AT.AT_CHANGE, M.M_NAME
+		FROM APPROVAL A
+			 LEFT JOIN ATTACHMENTS AT ON (A.M_CODE = AT_CATEGORY)
+			 LEFT JOIN MEMBER M ON (M.M_CODE = A.M_CODE) 
+		<where>
+			<if test="mCode != null">
+				A.M_CODE = #{mCode}
+			</if>
+			<if test="apvType != null">
+				OR APV_TYPE = #{apvType}
+			</if>
+			<if test="apvAgr != null">
+				OR APV_AGR LIKE '%'||#{apvAgr}||'%'
+			</if>
+			<if test="apvRef != null">
+				OR APV_REF LIKE '%'||#{apvRef}||'%'
+			</if>
+			<if test="apvApp != null">
+				OR APV_APP LIKE '%'||#{apvApp}||'%'
+			</if>
+		</where>
 		ORDER BY APV_NO DESC
 	</select>
 	
 	<resultMap type="Approval" id="approvalResultSet">
-		<id column="APV_NO" property="apvNo"/>
-		<result column="APV_TYPE" property="apvType"/>
-		<result column="APV_AGR" property="apvAgr"/>
-		<result column="APV_REF" property="apvRef"/>
-		<result column="APV_APP" property="apvApp"/>
-		<result column="APT" property="apt"/>
-		<result column="COMMENT" property="comment"/>
-		<result column="ARRIVE" property="arrive"/>
-		<result column="DEPART" property="depart"/>
-		<result column="APV_EDATE" property="apvEdate"/>
-		<result column="APV_STATUS" property="apvStatus"/>
-		<result column="APV_REF_NO" property="apvRefNo"/>
-		<result column="M_CODE" property="mCode"/>
-	</resultMap>
+      <id column="APV_NO" property="apvNo"/>
+      <result column="APV_TYPE" property="apvType"/>
+      <result column="APV_AGR" property="apvAgr"/>
+      <result column="APV_REF" property="apvRef"/>
+      <result column="APV_APP" property="apvApp"/>
+      <result column="APT" property="apt"/>
+      <result column="COMMENT" property="comment"/>
+      <result column="ARRIVE" property="arrive"/>
+      <result column="DEPART" property="depart"/>
+      <result column="APV_EDATE" property="apvEdate"/>
+      <result column="APV_STATUS" property="apvStatus"/>
+      <result column="APV_REF_NO" property="apvRefNo"/>
+      <result column="M_CODE" property="mCode"/>
+      <result column="AT_CHANGE" property="atChange"/>
+      <result column="M_NAME" property="mName"/>
+   </resultMap>
+
 	
 	<select id="selectOne" resultMap="approvalResultSet">
-		SELECT * FROM APPROVAL WHERE APV_NO = #{apNo}
+		SELECT * FROM APPROVAL WHERE APV_NO = #{apvNo}
 	</select>
 
 	<insert id="insertApproval" parameterType="com.kh.SharetheVision.approval.model.vo.ApprovalVO">
