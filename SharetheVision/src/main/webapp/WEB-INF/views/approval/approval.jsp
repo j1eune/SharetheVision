@@ -13,20 +13,20 @@
     <meta name="description" content="CodedThemes">
     <meta name="keywords" content=" Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
     <meta name="author" content="CodedThemes">
-    <!-- 아이콘 -->
+<!--     아이콘
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-    <!-- 구글 폰트-->
+    구글 폰트
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
-    <!-- 프레임워크 -->
+    프레임워크
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
-    <!-- 아이콘2 -->
+    아이콘2
     <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
-    <!-- 아이콘3 -->
+    아이콘3
     <link rel="stylesheet" type="text/css" href="assets/icon/icofont/css/icofont.css">
-    <!-- 공통css -->
+    공통css
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <!-- jquery-->
-    <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
+    jquery
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css"> -->
     
     <!--버튼 alert css-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -86,6 +86,7 @@ max-width: 1600px;
 height: 100vh;
 overflow: hidden;
 margin: 0 auto;
+
 }
 
 .user-profile-area {
@@ -259,35 +260,37 @@ justify-content: space-between;
 text-align: center;
 }
 .task-number {
-font-size: 17px;
-font-weight: 700;
-margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 900;
+    margin-bottom: 10px;
 }
 .task-condition {
-font-size: 12px;
-color: var(--main-color);
-font-weight: 700;
+    font-size: 13px;
+    color: var(--main-color);
+    font-weight: 800;
 }
 .task-tasks {
-margin-top: 4px;
-font-size: 10px;
-font-weight: 600;
-color: var(--main-light-color);
+    margin-top: 4px;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--main-light-color);
 }
 
+
+
 .project-title {
-text-transform: uppercase;
-font-weight: 700;
-margin-bottom: 18px;
+    text-transform: uppercase;
+    font-weight: 900;
+    margin-bottom: 18px;
 }
 .project-department {
-position: relative;
-vertical-align: middle;
-padding: 0 30px;
-color: var(--main-color);
-font-size: 13px;
-font-weight: 600;
-margin-top: 14px;
+    position: relative;
+    vertical-align: middle;
+    padding: 0 30px;
+    color: var(--main-color);
+    font-size: 14px;
+    font-weight: 900;
+    margin-top: 14px;
 }
 .project-department:before {
 position: absolute;
@@ -384,9 +387,34 @@ align-items: center;
 transition: 0.4s ease;
 }
 .msg-title {
-font-weight: 600;
+font-weight: 800;
 font-size: 14px;
+cursor:pointer;
 }
+
+.msg-title {
+  -webkit-transition: 0.5s ease-in-out;
+  -moz-transition: 0.5s ease-in-out;
+  -ms-transition: 0.5s ease-in-out;
+  -o-transition: 0.5s ease-in-out;
+  transition: 0.5s ease-in-out;
+  -webkit-text-shadow: 0 0 50px transparent;
+  -moz-text-shadow: 0 0 50px transparent;
+  -ms-text-shadow: 0 0 50px transparent;
+  -o-text-shadow: 0 0 50px transparent;
+  text-shadow: 0 0 50px transparent;
+  color: rgba(0, 0, 0, 0.5);
+  overflow: visible;
+}
+.msg-title:hover {
+  -webkit-text-shadow: 0 0 0px black;
+  -moz-text-shadow: 0 0 0px black;
+  -ms-text-shadow: 0 0 0px black;
+  -o-text-shadow: 0 0 0px black;
+  text-shadow: 0 0 0px black;
+}
+
+
 .msg-date {
 font-size: 11px;
 color: var(--main-light-color);
@@ -495,24 +523,24 @@ margin-top: 5px;
 color: black;
 margin-top: 5px;
 float:left;
-font-size: 13px;
-font-weight: 600;
+font-size: 14px;
+font-weight: 900;
 }
 
 .msg-apvclass{
 
-font-size: 13px;
+font-size: 14px;
 color: black;
-font-weight: 600;
+font-weight: 900;
 margin-top: 5px;
 float:left;
 }
 
 .msg-apvmsg {
 
-font-size: 13px;
+font-size: 14px;
 color: var(--main-light-color);
-font-weight: 600;
+font-weight: 900;
 margin-top: 5px;
 float:left;
 color:green;
@@ -520,16 +548,16 @@ color:green;
 
 .msg-apvmsg2 {
 
-font-size: 15px;
+font-size: 19px;
 color: var(--main-light-color);
-font-weight: bold;
+font-weight: 900;
 margin-top: 5px;
 float:left;
 color:blue;
 }
 
 .assign-date{
-font-size: 13px;
+font-size: 14px;
 color: var(--main-light-color);
 font-weight: 600;
 margin-top: 5px;
@@ -554,31 +582,31 @@ float:left;
 color: black;
 margin-top: 5px;
 float:left;
-font-size: 13px;
-font-weight: 600;
+font-size: 14px;
+font-weight: 900;
 }
 
 .msg-cancleclass{
 
-font-size: 13px;
+font-size: 14px;
 color: black;
-font-weight: 600;
+font-weight: 900;
 margin-top: 5px;
 float:left;
 }
 
 .msg-canclemsg {
 
-font-size: 13px;
+font-size: 14px;
 color: var(--main-light-color);
-font-weight: bold;
+font-weight: 900;
 margin-top: 5px;
 float:left;
 color:rgb(238, 41, 41);
 }
 
 .cancle-date{
-font-size: 13px;
+font-size: 14px;
 color: var(--main-light-color);
 font-weight: 600;
 margin-top: 5px;
@@ -592,31 +620,31 @@ float:left;
 float:left;
 color: black;
 margin-top: 5px;
-font-size: 13px;
-font-weight: 600;
+font-size: 14px;
+font-weight: 900;
 }
 
 .msg-returnclass{
 
-font-size: 13px;
+font-size: 14px;
 color: black;
-font-weight: 600;
+font-weight:900;
 margin-top: 5px;
 float:left;
 }
 
 .msg-returnmsg {
 
-font-size: 13px;
+font-size: 14px;
 color: var(--main-light-color);
-font-weight: bold;
+font-weight: 900;
 margin-top: 5px;
 float:left;
 color:rgb(139, 151, 32);
 }
 
 .return-date{
-font-size: 13px;
+font-size: 14px;
 color: var(--main-light-color);
 font-weight: 600;
 margin-top: 5px;
@@ -627,8 +655,9 @@ float:left;
 
 .selected-bg {
 background-color: var(--theme-bg-color);
-
+scroll-behavior: smooth;
 }
+
 
 .msg-department {
 display: flex;
@@ -660,6 +689,7 @@ display: flex;
 flex-direction: column;
 overflow: auto;
 flex-shrink: 0;
+scroll-behavior: smooth;
 }
 
 .main-container {
@@ -812,6 +842,14 @@ flex-direction: column;
 overflow: auto;
 background-color: var(--theme-bg-color);
 }
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+     }
+}
 .mail-detail-profile {
 display: flex;
 align-items: center;
@@ -824,10 +862,9 @@ align-items: center;
 justify-content: space-between;
 }
 .mail-detail-name {
-font-size: 14px;
-font-weight: 600;
-margin-left: -50px;
-
+    font-size: 16px;
+    font-weight: 900;
+    margin-left: -270px;
 }
 
 @keyframes slideX {
@@ -862,6 +899,7 @@ margin-left: 0;
 .mail-contents {
 padding: 30px;
 }
+
 .mail-contents-subject {
 display: flex;
 align-items: center;
@@ -2237,6 +2275,7 @@ color:black;}
 		overflow:hidden;
 		border-radius: 65%;
 }
+
 </style>
 
 
@@ -4242,7 +4281,7 @@ function clock5() {
   
   <!-- 멀티 셀렉 스크립트 -->
   <script>
-  $('.selectpicker').selectpicker();
+  /* $('.selectpicker').selectpicker(); */
   </script>
   
   <!-- detail 출력 -->
@@ -4295,30 +4334,33 @@ function clock5() {
   		})
   	})
   </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
  
-<script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
 <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js"></script>
-<!-- jquery slimscroll js -->
-<script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+jquery slimscroll js
+<script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script> -->
 <!--멀티 셀렉 bootstrap-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+
 <!-- modernizr js -->
-<script type="text/javascript" src="assets/js/modernizr/modernizr.js"></script>
+<!-- <script type="text/javascript" src="assets/js/modernizr/modernizr.js"></script>
 <script type="text/javascript" src="assets/js/modernizr/css-scrollbars.js"></script>
-<!-- classie js -->
+classie js
 <script type="text/javascript" src="assets/js/classie/classie.js"></script>
-<!-- Morris Chart js -->
+Morris Chart js
 <script src="assets/js/raphael/raphael.min.js"></script>
 <script src="assets/js/morris.js/morris.js"></script>
-<!-- Custom js -->
+Custom js
 <script src="assets/pages/chart/morris/morris-custom-chart.js"></script>
 <script type="text/javascript" src="assets/js/script.js"></script>
 <script src="assets/js/pcoded.min.js"></script>
 <script src="assets/js/demo-12.js"></script>
-<script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script> -->
 
 </body>
 </html>
