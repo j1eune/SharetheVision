@@ -71,4 +71,12 @@ public interface BoardService {
 
 	ArrayList<MemberProject> getmCodeList(int pNo);
 
+	ArrayList<Board> newNotice(int deptNo);
+
+	int getNoticeListCount(int deptNo);
+
+	ArrayList<Board> selectNoticeList(PageInfo pi, int deptNo);
+
+	int insertNotice(Board b);
+
 }

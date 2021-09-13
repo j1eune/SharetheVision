@@ -23,12 +23,6 @@ public class ProjectDAO {
 		return (ArrayList)sqlSession.selectList("projectMapper.selectProject",mCode);
 	}
 
-//	public Project selectProjectMember(SqlSession sqlSession, int proCode) {
-//		return sqlSession.selectList("projectMapper.selectProjectMember", proCode);
-//	}
-//	public ArrayList<Project> selectProjectMember(SqlSession sqlSession, ArrayList<String> testArr) {
-//		return (ArrayList)sqlSession.selectList("projectMapper.selectProjectMember", testArr);
-//	}
 	public ArrayList<Project> selectProjectMember(SqlSession sqlSession, ArrayList<Project> pList) {
 		return (ArrayList)sqlSession.selectList("projectMapper.selectProjectMember", pList);
 	}

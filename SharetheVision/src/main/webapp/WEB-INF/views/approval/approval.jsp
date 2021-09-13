@@ -5,7 +5,7 @@
 <html lang="ko">
 
 <head>
-<title>Welcome SV Company!</title> 
+<title>SV Company</title> 
 <meta charset="UTF-8">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -102,7 +102,7 @@ font-size: 18px;
 color: black;
 font-weight: 800;
 text-align: center;
-height: 70px;
+height: 84px;
 letter-spacing: 0.7px;
 line-height: 70px;
 position: sticky;
@@ -636,10 +636,11 @@ position: sticky;
 top: 0;
 left: 0;
 z-index: 3;
-font-weight: 700;
+font-weight: bold;
 letter-spacing: 0.8px;
 background-color: var(--theme-bg-color);
 border-left: 4px solid #4d76fd;
+width:100%;
 }
 .msg-department svg {
 width: 12px;
@@ -1552,8 +1553,8 @@ border-radius: 12px;
 }
 .modal-content{
 width:100%; 
-width:600px;
-height:990px;
+width:560px;
+height:950px;
 margin-left:-270px;
 margin-top:-10px;
 background-color:#15172b;
@@ -1562,6 +1563,10 @@ overflow:hidden;
 box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.3); 
 
 
+}
+
+.modal-footer{
+margin-left:17px;
 }
 
 .submit {
@@ -1676,12 +1681,22 @@ transition: all 0.5s ease-in-out;
 }
 
 
-.submit3:hover{
+.submit4:hover{
 background-color:rgb(104, 19, 143);
 transition: all 0.5s ease-in-out;
 -moz-transition: all 0.5s ease-in-out;
 -webkit-transition: all 0.5s ease-in-out;
 -o-transition: all 0.5s ease-in-out;
+
+}
+
+.submit5:hover{
+background-color:black;
+transition: all 0.5s ease-in-out;
+-moz-transition: all 0.5s ease-in-out;
+-webkit-transition: all 0.5s ease-in-out;
+-o-transition: all 0.5s ease-in-out;
+color:white;
 
 }
 .apwcancle {
@@ -1714,7 +1729,7 @@ transition: all 0.5s ease-in-out;
 color:white;
 }
 
-.clock {
+.clock, .clock2 , .clock3 , .clock4 , .clock5 {
 width: 360px;
 height: 70px;
 margin-right:80px;
@@ -1726,17 +1741,28 @@ font-weight: 600;
 
 
 }
-.date {
+
+
+.date , .date2 , .date3 , .date4 , .date5 {
 width: 100%;
 text-align: center;
 font-size: 1.5rem;
 }
-.date, .hr, .min, .sec, .colon {
+  .date, .hr, .min, .sec, .colon 
+, .date2, .hr2, .min2, .sec2, .colon2
+, .date3, .hr3, .min3, .sec3, .colon3
+, .date4, .hr4, .min4, .sec4, .colon4
+, .date5, .hr5, .min5, .sec5, .colon5{
 color: var(--text);
 text-shadow: 0 0 10px var(--shadow-1), 0 0 15px var(--shadow-2), 0 0 20px var(--shadow-2);
 
 }
-.hr, .min, .sec, .colon {
+.hr, .min, .sec, .colon,
+.hr2, .min2, .sec2, .colon2,
+.hr3, .min3, .sec3, .colon3,
+.hr4, .min4, .sec4, .colon4,
+.hr5, .min5, .sec5, .colon5
+ {
 width: 20%;
 float: left;
 text-align: center;
@@ -1811,7 +1837,7 @@ margin-top: 0.2rem;
 float:left;
 display:inline;
 }
-#aptitle,#apcomment,.apfile{
+#aptitle,#apcomment,.apfile , .apfile2 , .apfile3 , .apfile4 , .apfile5{
 float:left;
 font-weight: bold;
 }
@@ -1905,16 +1931,36 @@ text-align: center;
 }
 .controls4 textarea {
 resize: none;
-height: 150px;
-width:450px;
+height: 130px;
+width:420px;
 background-color: #303245;
 border-radius: 12px;
 border: 0;
 color:white;
+float:left;
+}
+.controls5 textarea,
+.controls6 textarea,
+.controls7 textarea,
+.controls8 textarea{
+
+resize: none;
+height: 130px;
+width:400px;
+background-color: #303245;
+border-radius: 12px;
+border: 0;
+color:white;
+float:left;
+
 }
 
 
-.file-upload .file-upload-select {
+.file-upload ,.file-upload-select ,
+.file-upload2, .file-upload-selct2 ,
+.file-upload3, .file-upload-selct3 ,
+.file-upload4, .file-upload-selct4 ,
+.file-upload5, .file-upload-selct5 {
 display: block;
 color: rgb(226, 224, 224);
 cursor: pointer;
@@ -1928,17 +1974,29 @@ font-size: 13px;
 width: 370px;
 
 }
-.file-upload .file-upload-select .file-select-button {
+.file-upload .file-upload-select .file-select-button,
+.file-upload2 .file-upload-select2 .file-select-button2 ,
+.file-upload3 .file-upload-select3 .file-select-button3 ,
+.file-upload4 .file-upload-select4 .file-select-button4 ,
+.file-upload5 .file-upload-select5 .file-select-button5  {
 background:green;
 color:white;
 padding: 10px;
 display: inline-block;
 }
-.file-upload .file-upload-select .file-select-name {
+.file-upload .file-upload-select .file-select-name,
+.file-upload2 .file-upload-select2 .file-select-name2,
+.file-upload3 .file-upload-select3 .file-select-name3,
+.file-upload4 .file-upload-select4 .file-select-name4,
+.file-upload5 .file-upload-select5 .file-select-name5 {
 display: inline-block;
 padding: 10px;
 }
-.file-upload .file-upload-select:hover .file-select-button {
+.file-upload .file-upload-select:hover .file-select-button,
+.file-upload2 .file-upload-select:hover2 .file-select-button2 ,
+.file-upload3 .file-upload-select:hover3 .file-select-button3 ,
+.file-upload4 .file-upload-select:hover4 .file-select-button4 ,
+.file-upload5 .file-upload-select:hover5 .file-select-button5 {
 background: #16db58;
 color: #ffffff;
 transition: all 0.5s ease-in-out;
@@ -1946,7 +2004,11 @@ transition: all 0.5s ease-in-out;
 -webkit-transition: all 0.5s ease-in-out;
 -o-transition: all 0.5s ease-in-out;
 }
-.file-upload .file-upload-select input[type="file"] {
+.file-upload .file-upload-select input[type="file"],
+.file-upload2 .file-upload-select2 input[type="file"],
+.file-upload3 .file-upload-select3 input[type="file"],
+.file-upload4 .file-upload-select4 input[type="file"],
+.file-upload5 .file-upload-select5 input[type="file"] {
 display: none;
 }
 
@@ -1996,11 +2058,142 @@ border-radius:15px;
 }
 
 
-.inner::-webkit-scrollbar-thumb {
+.inner::-webkit-scrollbar-thumb  {
     -webkit-border-radius: 10px;
     border-radius: 10px;
     background-color:grey; 
 }
+.user-profile-area::-webkit-scrollbar-thumb,
+.inbox::-webkit-scrollbar-thumb {
+	display:none;
+}
+
+
+
+
+.button1 {
+    text-decoration: none;
+    background-color: rgb(20, 72, 168);
+    color: #FFFFFF;
+    padding: 10px 5px;
+    margin: 5px;
+    font-size: 15px;
+    font-family: Arial;  
+    border-radius: 25px;
+    transition: 0.5s;  
+    font-weight: bold;
+  }
+  
+  .button1:hover {
+    transition: 0.3s;
+    color: black;
+    font-weight: bold;
+    background-color: rgb(88, 137, 230);
+    padding: 10px 20px;
+  }
+
+/* B2 */
+
+  .button2 {
+    text-decoration: none;
+    background-color: rgb(255, 142, 36);
+    color: #FFFFFF;
+    padding: 10px 5px;
+    margin: 5px;
+    font-size: 15px;
+    font-family: Arial;  
+    border-radius: 25px;
+    transition: 0.5s;  
+    font-weight: bold;
+  }
+  
+  .button2:hover {
+    transition: 0.3s;
+    color: black;
+    font-weight: bold;
+    background-color: rgba(252, 174, 101, 0.877);
+    padding: 10px 20px;
+  }
+
+/* B3 */
+
+  .button3 {
+    text-decoration: none;
+    background-color: rgb(42, 151, 39);
+    color: #FFFFFF;
+    padding: 10px 5px;
+    margin: 5px;
+    font-size: 15px;
+    font-family: Arial;  
+    border-radius: 25px;
+    transition: 0.5s;  
+    font-weight: bold;
+  }
+  
+  .button3:hover {
+    transition: 0.3s;
+    color: black;
+    font-weight: bold;
+    background-color: rgba(92, 180, 89, 0.884);
+    padding: 10px 20px;
+  }
+
+/* B4 */
+
+.button4 {
+    text-decoration: none;
+    background-color: rgb(146, 21, 177);
+    color: #FFFFFF;
+    padding: 10px 5px;
+    margin: 5px;
+    font-size: 15px;
+    font-family: Arial;  
+    border-radius: 25px;
+    transition: 0.5s;  
+    font-weight: bold;
+  }
+  
+  .button4:hover {
+    transition: 0.3s;
+    color: black;
+    font-weight: bold;
+    background-color: rgba(213, 101, 241, 0.801);
+    padding: 10px 20px;
+  }
+
+  /* B5 */
+
+.button5 {
+    text-decoration: none;
+    background-color: rgb(255, 0, 0);
+    color: #FFFFFF;
+    padding: 10px 5px;
+    margin: 5px;
+    font-size: 15px;
+    font-family: Arial;  
+    border-radius: 25px;
+    transition: 0.5s;
+    font-weight: bold;
+  }
+  
+  .button5:hover {
+    transition: 0.3s;
+    color: black;
+    font-weight: bold;
+    background-color: rgb(243, 111, 111);
+    padding: 10px 20px;
+  } 
+ 
+ .approvalbuttonlist{
+ margin-top:80px;
+ width:400px;
+ height:50px;
+ justify-content: space-between;
+
+ }
+ #apform1,#apform2,#apform3,#apform4,#apform5{
+
+ }
     </style>
 </head>
 
@@ -2038,7 +2231,7 @@ border-radius:15px;
                             <div class="main-body">                               
                                     <div class="container">
                                         <div class="user-profile-area">
-                                         <div class="task-manager">Sv Company</div>
+                                         <div class="task-manager">${loginUser.deptName}팀</div>
                                           <div class="side-wrapper">
                                            <div class="user-profile">
                                             <div class="profileBox">
@@ -2058,11 +2251,9 @@ border-radius:15px;
                                             <div class="user-class">${loginUser.jobName }</div>
                                            <!--결재 대쉬보드 로그인세션 이름-->
                                             <div class="user-name">${loginUser.name}</div>
-                                           </div>
-                                           <!--결재 대쉬보드 로그인세션 부서-->
-                                           <div class="user-dept">${loginUser.deptName}팀</div>
+                                           </div>                   
                                            <!--결재 대쉬보드 로그인세션 이메일-->
-                                           <div class="user-mail">k0102065@gmail.com</div>
+                                           <div class="user-mail">${loginUser.email}</div>
                                           </div>
                                           
                                           <!--결재 대쉬보드 프로필 끝-->
@@ -2120,11 +2311,16 @@ border-radius:15px;
                                           <br>
 
                                           <!--대쉬보드 결재작성 버튼 시작-->
-                                          <div class="wrap" id="writebtn">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-new">
-                                              결재 작성
-                                            </button>
-                                          </div>
+                                          
+                                          	<div class="approvalbuttonlist">
+    											<a class="button1" href="#" data-toggle="modal" data-target=".bs-example-modal-new">기안</a>
+   												<a class="button2" href="#" data-toggle="modal" data-target=".bs-example-modal-new2">세금</a>
+   												<a class="button3" href="#" data-toggle="modal" data-target=".bs-example-modal-new3">보고</a>
+   												<a class="button4" href="#" data-toggle="modal" data-target=".bs-example-modal-new4">품의</a>
+      											<a class="button5" href="#" data-toggle="modal" data-target=".bs-example-modal-new5">계획</a>
+											</div>
+    									
+										 	
                                            
                                           <div class="modal fade bs-example-modal-new" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                             
@@ -2156,7 +2352,7 @@ border-radius:15px;
                                                     <div class="tabs">
                                                     <form id="apform1" method="post">
                                                       <!--결재폼 1 : 기안서 폼 시작 -->
-                                                      <input type="radio" name="apvType" id="tabone" checked value="기안서" />
+                                                      <input type="radio" name="apvType" id="tabone" checked value="기안서1" />
                                                       <label for="tabone">기안서</label>
                                                       <div class="tab">
                                                         <!--결재 관련 이름 시작-->
@@ -2292,7 +2488,13 @@ border-radius:15px;
                                                       <br>
                                                       <br>
                                                        <!--기안서 코멘트 끝-->   
-
+														
+														<br>
+														<br>
+														<br>
+														<br>
+														<br>
+												
                                                        <!--기안서 파일첨부 시작-->
                                                       <div class="apfile">📎파일첨부:</div>
                                                       <div class="file-upload">
@@ -2304,7 +2506,7 @@ border-radius:15px;
                                                       </div>
                                                       <br>
                                                       <!--기안서 파일첨부 끝-->
-
+														<br>	
                                                       <!--기안서 상신 버튼 시작-->
                                                       <div class="modal-footer">
                                                           <button class="submit" id="aps1">기안서 상신</button>
@@ -2326,7 +2528,13 @@ border-radius:15px;
 															data : formData,
 															dataType : "json",
 															success : function(data) {
-																alert("정상적으로 처리되었습니다.");
+																Swal.fire({
+																	  position: 'bottom-end',
+																	  icon: 'success',
+																	  title: '결재가 상신되었습니다!',
+																	  showConfirmButton: false,
+																	  timer: 1600
+																	})
 																$("div.filter-option-inner-inner").text("Nothing selected");
 																$("#apform1")[0].reset();
 																$("div.modal").modal("hide");
@@ -2342,13 +2550,52 @@ border-radius:15px;
 													
 													</script>
                                                     <!--결재폼1 : 기안서 끝-->
-                                                      
-
-                                                      <!--결재폼2 : 세금계산서 시작-->
-                                                      <input type="radio" name="tabs" id="tabtwo" value="세금계산서">
+                                                    </div>
+                                                  </div>
+                                                </div>                                        
+                                                <!--모달 footer -->                                       
+                                              </div>
+                                              <!-- 모달 창 컨텐츠 끝 -->
+                                            </div>
+                                          </div>
+                                          <!-- 결재폼1 모달 끝 -->
+                                          
+                                          
+                                          
+                                          <!-- 결재폼2 모달 시작 -->
+                                          <div class="modal fade bs-example-modal-new2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                            
+                                            <div class="modal-dialog">
+                                              
+                                              <!-- 모달 창 시작 -->
+                                              <div class="modal-content">
+                                                
+                                                <!-- 모달 창 헤더 -->
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closebtn"><span aria-hidden="true">&times;</span></button>
+                                                   <!--모달 창 시계 시작-->
+                                                    <div class='clock2'>
+                                                      <div class='date2'></div>
+                                                      <div class='hr2'></div>
+                                                      <div class='colon2'>:</div>
+                                                      <div class='min2'></div>
+                                                      <div class='colon2'>:</div>
+                                                      <div class='sec2'></div>
+                                                    </div>
+                                                     <!--모달 창 시계 끝-->
+                                                </div>
+                                                <!--헤더 끝-->
+                                              
+                                                <!-- 모달 창 내용 -->
+                                                
+                                                <div class="modal-body">
+                                                  <div class="body-message">
+                                                    <div class="tabs">
+                                                    <form id="apform2" method="post">
+                                                      <!--결재폼2 : 세금 폼 시작 -->
+                                                      <input type="radio" name="apvType" id="tabtwo" checked value="세금 계산서" />
                                                       <label for="tabtwo">세금계산서</label>
                                                       <div class="tab">
-                                                        <form name="apform2" action="값을 보낼 주소" method="post">
                                                         <!--결재 관련 이름 시작--> <!--로그인세션 부서,이름,직급 보낸 후 뿌려주기 -->
                                                        <div id="apwstart">🧾기안자는&nbsp;</div><div id="apw1" name="apd2">${loginUser.deptName}팀&nbsp;</div><div id="apw2" name="apn2" >${loginUser.name}&nbsp;</div><div id="apw3" name="apc2">${loginUser.jobName }&nbsp;</div><div>님&nbsp;입니다.</div>
                                                         <br>
@@ -2358,7 +2605,7 @@ border-radius:15px;
                                                         
                                                         <!--세금계산서 폼 합의자 선택 시작-->
                                                         <div class="agrselect2">
-                                                        <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                        <select name="apvAgr" class="selectpicker col-md-10" multiple data-style="btn-primary" required>
                                                           <c:forEach items="${ aplist }" var= "ap"> 
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
@@ -2392,7 +2639,7 @@ border-radius:15px;
                                                         
                                                         <!--세금계산서 폼 참조자 선택 시작-->
                                                         <div class="refselect2">
-                                                          <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                          <select name="apvRef" class="selectpicker col-md-10" multiple data-style="btn-primary" required>
                                                             <c:forEach items="${ aplist }" var= "ap"> 
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
@@ -2427,7 +2674,7 @@ border-radius:15px;
                                                         
                                                         <!--세금계산서 폼 결재자 선택 시작-->
                                                         <div class="apselect2">
-                                                          <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                          <select  name="apvApp" class="selectpicker col-md-10" multiple data-style="btn-primary" required>
                                                             <c:forEach items="${ aplist }" var= "ap"> 
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
@@ -2461,7 +2708,7 @@ border-radius:15px;
                                                         <div class="apside">
                                                           <div id="wlwjd2">💰세금계산서 작성</div>
                                                           <br>
-                                                        <div id="aptitle" name="apt2">제목:</div><input class="form-styling" type="text" name="apt2" placeholder="결재 제목" required/>
+                                                        <div id="aptitle" name="apt1">제목:</div><input class="form-styling" type="text" name="apt" placeholder="결재 제목" required/>
                                                         
                                                         <br>
                                                        
@@ -2471,12 +2718,12 @@ border-radius:15px;
                                                       <!--세금계산서 날짜 시작-->
                                                       <div id="rlgks">📆기한:</div>
                                                         <div class="controls">
-                                                          <input type="date" id="arrive2" class="floatLabel" name="arrive2" value="<?php echo date('Y-m-d'); ?>" required>
+                                                          <input type="date" id="arrive" class="floatLabel" name="arrive" value="<?php echo date('Y-m-d'); ?>" required>
                                                          <i class="fa fa-calendar"></i>
                                                         </div>      
                                                         <div class="controls3">~</div>
                                                         <div class="controls2">
-                                                          <input type="date" id="depart2" class="floatLabel" name="depart2" value="<?php echo date('Y-m-d'); ?>" required/>
+                                                          <input type="date" id="depart" class="floatLabel" name="depart" value="<?php echo date('Y-m-d'); ?>" required/>
                                                           <i class="fa fa-calendar"></i>
                                                         </div>      
                                                       <!--세금계산서 날짜 끝-->
@@ -2485,41 +2732,118 @@ border-radius:15px;
 
                                                       <!--세금계산서 코멘트 시작-->
                                                       <div id="apcomment">📋코멘트:</div>
-                                                      <div class="controls4">
-                                                        <textarea name="comments2" class="floatLabel" id="comments" required></textarea>
+                                                      <div class="controls5">
+                                                        <textarea name="comment" class="floatLabel" id="comments" required></textarea>
                                                       </div>
                                                       <br>
                                                       <br>
                                                        <!--세금계산서 코멘트 끝-->   
-
+														<br>
+														<br>
+														<br>
+														<br>
+														<br>
                                                        <!--세금계산서 파일첨부 시작-->
-                                                      <div class="apfile">📎파일첨부:</div>
-                                                      <div class="file-upload">
-                                                        <div class="file-upload-select">
-                                                          <div class="file-select-button" >Add File</div>
-                                                          <div class="file-select-name">결재 상신시 양식에 맞는 문서 필수 첨부</div> 
-                                                          <input type="file" name="file-upload-input2" id="file-upload-input">
+                                                      <div class="apfile2">📎파일첨부:</div>
+                                                      <div class="file-upload2">
+                                                        <div class="file-upload-select2">
+                                                          <div class="file-select-button2">Add File</div>
+                                                          <div class="file-select-name2">결재 상신시 양식에 맞는 문서 필수 첨부</div> 
+                                                          <input type="file" name="file-upload-input2" id="file-upload-input2">
                                                         </div>
                                                       </div>
                                                       <br>
                                                       <!--세금계산서 파일첨부 끝-->
-
+														<br>
                                                       <!--세금계산서 상신 버튼 시작-->
                                                       <div class="modal-footer">
-                                                          <button type="text" class="submit2" id="aps2">세금계산서 상신</button>
+                                                          <button class="submit2" id="aps2">계산서 상신</button>
                                                           <button type="text" class="apwcancle"  data-dismiss="modal" aria-label="Close">취소</button>
                                                       </div>
                                                       <!--세금계산서 상신 버튼 끝-->
                                                     </div>
-                                                  </form>
-                                                    <!--세금계산서 폼 끝-->
-                                                      
+                                                    </form>
+                                                    
+                                                    <script type="text/javascript">
+													$(document).on("click", "#aps2", function(e) {
+														let form = $("#apform2")[0];
+														let formData = new FormData(form);
+														formData.append("fileObj", $("#file-upload-input2")[0].files[0]);
+														$.ajax({
+															url : "${contextPath}/approval.ap",
+															type : "post",
+															processData : false,
+															contentType : false,
+															data : formData,
+															dataType : "json",
+															success : function(data) {
+																Swal.fire({
+																	  position: 'bottom-end',
+																	  icon: 'success',
+																	  title: '결재가 상신되었습니다!',
+																	  showConfirmButton: false,
+																	  timer: 1600
+																	})
+																$("div.filter-option-inner-inner").text("Nothing selected");
+																$("#apform2")[0].reset();
+																$("div.modal").modal("hide");
+															},
+															error : function(xhr, status, res) {
+																console.log(xhr.responseText, status, res);
+															}
+														});
+														return false;
+													});
 
-                                                    <!-- 결재폼3: 보고서 폼 시작 -->
-                                                      <input type="radio" name="tabs" id="tabthree" value="보고서">
+													
+													
+													</script>
+                                                    <!--세금계산서 폼 끝-->
+                                                    </div>
+                                                  </div>
+                                                </div>                                        
+                                                <!--모달 footer -->                                       
+                                              </div>
+                                              <!-- 모달 창 컨텐츠 끝 -->
+                                            </div>
+                                          </div>
+                                          <!-- 결재폼2 모달 끝 -->
+                                          
+                                          <!-- 결재폼3 모달 시작 -->
+                                            <div class="modal fade bs-example-modal-new3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                            
+                                            <div class="modal-dialog">
+                                              
+                                              <!-- 모달 창 시작 -->
+                                              <div class="modal-content">
+                                                
+                                                <!-- 모달 창 헤더 -->
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closebtn"><span aria-hidden="true">&times;</span></button>
+                                                   <!--모달 창 시계 시작-->
+                                                    <div class='clock3'>
+                                                      <div class='date3'></div>
+                                                      <div class='hr3'></div>
+                                                      <div class='colon3'>:</div>
+                                                      <div class='min3'></div>
+                                                      <div class='colon3'>:</div>
+                                                      <div class='sec3'></div>
+                                                    </div>
+                                                     <!--모달 창 시계 끝-->
+                                                </div>
+                                                <!--헤더 끝-->
+                                              
+                                                <!-- 모달 창 내용 -->
+                                                
+                                                <div class="modal-body">
+                                                  <div class="body-message">
+                                                    <div class="tabs">
+                                                    <form id="apform3" method="post">
+                                                         <!-- 결재폼3: 보고서 폼 시작 -->
+                                                       <input type="radio" name="apvType" id="tabthree" checked value="보고서" />
                                                       <label for="tabthree">보고서</label>
                                                       <div class="tab">
-                                                        <form name="apform3" action="값을 보낼 주소" method="post">
+                                                        
                                                         <!--결재 관련 이름 시작-->
                                                        <div id="apwstart">📁기안자는&nbsp;</div><div id="apw1" name="apd3">${loginUser.deptName}팀&nbsp;</div><div id="apw2" name="apn3">${loginUser.name}&nbsp;</div><div id="apw3" name="apc3">${loginUser.jobName }&nbsp;</div><div>님&nbsp;입니다.</div>
                                                         <br>
@@ -2529,7 +2853,7 @@ border-radius:15px;
                                                         
                                                         <!--보고서 폼 합의자 선택 시작-->
                                                         <div class="agrselect3">
-                                                        <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                        <select name="apvAgr" class="selectpicker col-md-10" multiple data-style="btn-primary" required>
                                                           <c:forEach items="${ aplist }" var= "ap"> 
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
@@ -2563,7 +2887,7 @@ border-radius:15px;
                                                         
                                                         <!--보고서 폼 참조자 선택 시작-->
                                                         <div class="refselect3">
-                                                          <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                          <select name="apvRef" class="selectpicker col-md-10" multiple data-style="btn-primary" required>
                                                             <c:forEach items="${ aplist }" var= "ap"> 
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
@@ -2597,7 +2921,7 @@ border-radius:15px;
                                                         
                                                         <!--보고서 폼 결재자 선택 시작-->
                                                         <div class="apselect3">
-                                                          <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                          <select name="apvApp" class="selectpicker col-md-10" multiple data-style="btn-primary" required>
                                                             <c:forEach items="${ aplist }" var= "ap"> 
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
@@ -2631,7 +2955,7 @@ border-radius:15px;
                                                         <div class="apside">
                                                           <div id="wlwjd2">📈보고서 작성</div>
                                                           <br>
-                                                        <div id="aptitle" name="apt3">제목:</div><input class="form-styling" type="text" name="apt3" placeholder="결재 제목" required/>
+                                                        <div id="aptitle" name="apt1">제목:</div><input class="form-styling" type="text" name="apt" placeholder="결재 제목" required/>
                                                         
                                                         <br>
                                                        
@@ -2641,12 +2965,12 @@ border-radius:15px;
                                                       <!--보고서 날짜 시작-->
                                                       <div id="rlgks">📆기한:</div>
                                                         <div class="controls">
-                                                          <input type="date" id="arrive" class="floatLabel" name="arrive3" value="<?php echo date('Y-m-d'); ?>" required >
+                                                          <input type="date" id="arrive" class="floatLabel" name="arrive" value="<?php echo date('Y-m-d'); ?>" required >
                                                          <i class="fa fa-calendar"></i>
                                                         </div>      
                                                         <div class="controls3">~</div>
                                                         <div class="controls2">
-                                                          <input type="date" id="depart" class="floatLabel" name="depart3" value="<?php echo date('Y-m-d'); ?>" required/>
+                                                          <input type="date" id="depart" class="floatLabel" name="depart" value="<?php echo date('Y-m-d'); ?>" required/>
                                                           <i class="fa fa-calendar"></i>
                                                         </div>      
                                                       <!--보고서 날짜 끝-->
@@ -2655,41 +2979,117 @@ border-radius:15px;
 
                                                       <!--보고서 코멘트 시작-->
                                                       <div id="apcomment">✍코멘트:</div>
-                                                      <div class="controls4">
-                                                        <textarea name="comments3" class="floatLabel" id="comments" required></textarea>
+                                                      <div class="controls6">
+                                                        <textarea name="comment" class="floatLabel" id="comments" required></textarea>
                                                       </div>
                                                       <br>
                                                       <br>
                                                        <!--보고서 코멘트 끝-->   
-
+														<br>
+														<br>
+														<br>
+														<br>
+														<br>
                                                        <!--보고서 파일첨부 시작-->
-                                                      <div class="apfile">📎파일첨부:</div>
-                                                      <div class="file-upload">
-                                                        <div class="file-upload-select">
-                                                          <div class="file-select-button" >Add File</div>
-                                                          <div class="file-select-name">결재 상신시 양식에 맞는 문서 필수 첨부</div> 
-                                                          <input type="file" name="file-upload-input3" id="file-upload-input">
+                                                      <div class="apfile3">📎파일첨부:</div>
+                                                      <div class="file-upload3">
+                                                        <div class="file-upload-select3">
+                                                          <div class="file-select-button3" >Add File</div>
+                                                          <div class="file-select-name3">결재 상신시 양식에 맞는 문서 필수 첨부</div> 
+                                                          <input type="file" name="file-upload-input3" id="file-upload-input3">
                                                         </div>
                                                       </div>
                                                       <br>
                                                       <!--보고서 파일첨부 끝-->
-
+														<br>
                                                       <!--보고서 상신 버튼 시작-->
                                                       <div class="modal-footer">
-                                                          <button type="text" class="submit3" id="aps3">보고서 상신</button>
-                                                          <button type="text" class="apwcancle"  data-dismiss="modal" aria-label="Close" >취소</button>
+                                                          <button  class="submit3" id="aps3">보고서 상신</button>
+                                                          <button  class="apwcancle"  data-dismiss="modal" aria-label="Close" >취소</button>
                                                       </div>
                                                       <!--보고서 상신 버튼 끝-->
                                                     </div>
-                                                  </form>
-                                                    <!--결재폼 3: 보고서 폼 끝-->
+                                                    </form>
+                                                    <script type="text/javascript">
+													$(document).on("click", "#aps3", function(e) {
+														let form = $("#apform3")[0];
+														let formData = new FormData(form);
+														formData.append("fileObj", $("#file-upload-input3")[0].files[0]);
+														$.ajax({
+															url : "${contextPath}/approval.ap",
+															type : "post",
+															processData : false,
+															contentType : false,
+															data : formData,
+															dataType : "json",
+															success : function(data) {
+																Swal.fire({
+																	  position: 'bottom-end',
+																	  icon: 'success',
+																	  title: '결재가 상신되었습니다!',
+																	  showConfirmButton: false,
+																	  timer: 1600
+																	})
+																$("div.filter-option-inner-inner").text("Nothing selected");
+																$("#apform3")[0].reset();
+																$("div.modal").modal("hide");
+															},
+															error : function(xhr, status, res) {
+																console.log(xhr.responseText, status, res);
+															}
+														});
+														return false;
+													});
 
-                                                      
+													
+													
+													</script>
+                                                 
+                                                    <!--결재폼 3: 보고서 폼 끝-->
+                                                    </div>
+                                                  </div>
+                                                </div>                                        
+                                                <!--모달 footer -->                                       
+                                              </div>
+                                              <!-- 모달 창 컨텐츠 끝 -->
+                                            </div>
+                                          </div>
+                                                 
+                                                    <!--결재폼 3: 보고서 폼 끝-->
+                                          
+                                          <!-- 결재폼3 모달 끝 -->
+                                          
+                                          <!-- 결재폼4 모달 시작 -->
+                                          <div class="modal fade bs-example-modal-new4" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">                    
+                                            <div class="modal-dialog">
+                                              <!-- 모달 창 시작 -->
+                                              <div class="modal-content">
+                                                <!-- 모달 창 헤더 -->
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closebtn"><span aria-hidden="true">&times;</span></button>
+                                                   <!--모달 창 시계 시작-->
+                                                    <div class='clock4'>
+                                                      <div class='date4'></div>
+                                                      <div class='hr4'></div>
+                                                      <div class='colon4'>:</div>
+                                                      <div class='min4'></div>
+                                                      <div class='colon4'>:</div>
+                                                      <div class='sec4'></div>
+                                                    </div>
+                                                     <!--모달 창 시계 끝-->
+                                                </div>
+                                                <!--헤더 끝-->
+                                              
+                                                <!-- 모달 창 내용 -->
+                                                
+                                                <div class="modal-body">
+                                                  <div class="body-message">
+                                                    <div class="tabs">
+                                                    <form id="apform4" method="post">                                      
                                                     <!--결재폼4: 품의서 시작-->
-                                                      <input type="radio" name="tabs" id="tabfour">
+                                                      <input type="radio" name="apvType" id="tabfour" checked value="품의서" />
                                                       <label for="tabfour">품의서</label>
                                                       <div class="tab">
-                                                        <form name="apform4" action="값을 보낼 주소" method="post">
                                                          <!--결재 관련 이름 시작-->
                                                        <div id="apwstart">📦기안자는&nbsp;</div><div id="apw1" name="apd4">${loginUser.deptName}팀&nbsp;</div><div id="apw2" name="apn4">${loginUser.name}&nbsp;</div><div id="apw3" name="apc4">${loginUser.jobName }&nbsp;</div><div>님&nbsp;입니다.</div>
                                                        <br>
@@ -2699,7 +3099,7 @@ border-radius:15px;
                                                        
                                                        <!--품의서 폼 합의자 선택 시작-->
                                                         <div class="agrselect4">
-                                                        <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                        <select name="apvAgr" class="selectpicker col-md-10" multiple data-style="btn-primary" required>
                                                           <c:forEach items="${ aplist }" var= "ap"> 
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
@@ -2734,7 +3134,7 @@ border-radius:15px;
                                                        
                                                        <!--품의서 폼 참조자 선택 시작-->
                                                         <div class="refselect4">
-                                                          <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                          <select name="apvRef" class="selectpicker col-md-10" multiple data-style="btn-primary" required>
                                                             <c:forEach items="${ aplist }" var= "ap"> 
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
@@ -2766,7 +3166,7 @@ border-radius:15px;
                                                        <div class="approver">👩결재자:</div>
                                                        <!--기안서 폼 결재자 선택 시작-->
                                                         <div class="apselect4">
-                                                          <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                          <select name="apvApp" class="selectpicker col-md-10" multiple data-style="btn-primary" required>
                                                             <c:forEach items="${ aplist }" var= "ap"> 
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
@@ -2802,7 +3202,7 @@ border-radius:15px;
                                                        <div class="apside">
                                                          <div id="wlwjd2">📄품의서 작성</div>
                                                          <br>
-                                                       <div id="aptitle" name="apt4">제목:</div><input class="form-styling" type="text" name="apt4" placeholder="결재 제목" required/>
+                                                       <div id="aptitle" name="apt1">제목:</div><input class="form-styling" type="text" name="apt" placeholder="결재 제목" required/>
                                                        
                                                        <br>
                                                       
@@ -2812,12 +3212,12 @@ border-radius:15px;
                                                      <!--품의서 날짜 시작-->
                                                      <div id="rlgks">📆기한:</div>
                                                        <div class="controls">
-                                                         <input type="date" id="arrive" class="floatLabel" name="arrive4" value="<?php echo date('Y-m-d'); ?>" required>
+                                                         <input type="date" id="arrive" class="floatLabel" name="arrive" value="<?php echo date('Y-m-d'); ?>" required>
                                                         <i class="fa fa-calendar"></i>
                                                        </div>      
                                                        <div class="controls3">~</div>
                                                        <div class="controls2">
-                                                         <input type="date" id="depart" class="floatLabel" name="depart4" value="<?php echo date('Y-m-d'); ?>" required/>
+                                                         <input type="date" id="depart" class="floatLabel" name="depart" value="<?php echo date('Y-m-d'); ?>" required/>
                                                          <i class="fa fa-calendar"></i>
                                                        </div>      
                                                      <!--품의서 날짜 끝-->
@@ -2826,41 +3226,114 @@ border-radius:15px;
 
                                                      <!--품의서 코멘트 시작-->
                                                      <div id="apcomment">👨‍🏫코멘트:</div>
-                                                     <div class="controls4">
-                                                       <textarea name="comments4" class="floatLabel" id="comments" required></textarea>
+                                                     <div class="controls7">
+                                                       <textarea name="comment" class="floatLabel" id="comments" required></textarea>
                                                      </div>
                                                      <br>
                                                      <br>
                                                       <!--품의서 코멘트 끝-->   
+                                                      <br>
+                                                      <br>
+                                                      <br>
+                                                      <br>
+                                                      <br>
 
                                                       <!--품의서 파일첨부 시작-->
-                                                     <div class="apfile">📎파일첨부:</div>
-                                                     <div class="file-upload">
-                                                       <div class="file-upload-select">
-                                                         <div class="file-select-button" >Add File</div>
-                                                         <div class="file-select-name">결재 상신시 양식에 맞는 문서 필수 첨부</div> 
-                                                         <input type="file" name="file-upload-input4" id="file-upload-input">
+                                                     <div class="apfile4">📎파일첨부:</div>
+                                                     <div class="file-upload4">
+                                                       <div class="file-upload-select4">
+                                                         <div class="file-select-button4" >Add File</div>
+                                                         <div class="file-select-name4">결재 상신시 양식에 맞는 문서 필수 첨부</div> 
+                                                         <input type="file" name="file-upload-input4" id="file-upload-input4">
                                                        </div>
                                                      </div>
                                                      <br>
                                                      <!--품의서 파일첨부 끝-->
-
+													 <br>
                                                      <!--품의서 상신 버튼 시작-->
                                                      <div class="modal-footer">
-                                                         <button type="text" class="submit4" id="aps4">품의서 상신</button>
-                                                         <button type="text" class="apwcancle"  data-dismiss="modal" aria-label="Close" >취소</button>
+                                                         <button  class="submit4" id="aps4">품의서 상신</button>
+                                                         <button  class="apwcancle"  data-dismiss="modal" aria-label="Close" >취소</button>
                                                      </div>
                                                      <!--품의서 상신 버튼 끝-->
                                                       </div>
-                                                    </form>
-                                                      <!--결재폼4: 품의서 끝-->
+ 													</form>
+ 													 <script type="text/javascript">
+													$(document).on("click", "#aps4", function(e) {
+														let form = $("#apform4")[0];
+														let formData = new FormData(form);
+														formData.append("fileObj", $("#file-upload-input4")[0].files[0]);
+														$.ajax({
+															url : "${contextPath}/approval.ap",
+															type : "post",
+															processData : false,
+															contentType : false,
+															data : formData,
+															dataType : "json",
+															success : function(data) {
+																Swal.fire({
+																	  position: 'bottom-end',
+																	  icon: 'success',
+																	  title: '결재가 상신되었습니다!',
+																	  showConfirmButton: false,
+																	  timer: 1600
+																	})
+																$("div.filter-option-inner-inner").text("Nothing selected");
+																$("#apform4")[0].reset();
+																$("div.modal").modal("hide");
+															},
+															error : function(xhr, status, res) {
+																console.log(xhr.responseText, status, res);
+															}
+														});
+														return false;
+													});
 
-                                                      
-                                                      <!--결재폼5: 계획서 시작-->
-                                                      <input type="radio" name="tabs" id="tabfive">
+													
+													
+													</script>
+                                                      <!--결재폼4: 품의서 끝-->
+                                                    </div>
+                                                  </div>
+                                                </div>                                        
+                                                <!--모달 footer -->                                       
+                                              </div>
+                                              <!-- 모달 창 컨텐츠 끝 -->
+                                            </div>
+                                          </div>
+                                          <!-- 결재폼4 모달 끝 -->
+                                          
+                                          <!-- 결재폼5 모달 시작 -->
+                                           <div class="modal fade bs-example-modal-new5" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">                    
+                                            <div class="modal-dialog">
+                                              <!-- 모달 창 시작 -->
+                                              <div class="modal-content">
+                                                <!-- 모달 창 헤더 -->
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closebtn"><span aria-hidden="true">&times;</span></button>
+                                                   <!--모달 창 시계 시작-->
+                                                    <div class='clock5'>
+                                                      <div class='date5'></div>
+                                                      <div class='hr5'></div>
+                                                      <div class='colon5'>:</div>
+                                                      <div class='min5'></div>
+                                                      <div class='colon5'>:</div>
+                                                      <div class='sec5'></div>
+                                                    </div>
+                                                     <!--모달 창 시계 끝-->
+                                                </div>
+                                                <!--헤더 끝-->
+                                              
+                                                <!-- 모달 창 내용 -->
+                                                
+                                                <div class="modal-body">
+                                                  <div class="body-message">
+                                                    <div class="tabs">
+                                                    <form id="apform5" method="post">                                      
+                                                     <!--결재폼5: 계획서 시작-->
+                                                      <input type="radio" name="apvType" id="tabfive" checked value="계획서" />
                                                       <label for="tabfive">계획서</label>
                                                       <div class="tab">
-                                                        <form name="apform5" action="값을 보낼 주소" method="post">
                                                         <!--결재 관련 이름 시작-->
                                                         <div id="apwstart">🧾기안자는&nbsp;</div><div id="apw1" name="apd5">${loginUser.deptName}팀&nbsp;</div><div id="apw2" name="apn5">${loginUser.name}&nbsp;</div><div id="apw3" name="apc5">${loginUser.jobName }&nbsp;</div><div>님&nbsp;입니다.</div>
                                                         <br>
@@ -2870,7 +3343,7 @@ border-radius:15px;
                                                         
                                                         <!--계획서 폼 합의자 선택 시작-->
                                                         <div class="agrselect5">
-                                                        <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                        <select name="apvAgr" class="selectpicker col-md-10" multiple data-style="btn-primary" required>
                                                           <c:forEach items="${ aplist }" var= "ap"> 
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
@@ -2905,7 +3378,7 @@ border-radius:15px;
                                                         
                                                         <!--계획서 폼 참조자 선택 시작-->
                                                         <div class="refselect5">
-                                                          <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                          <select name="apvRef" class="selectpicker col-md-10" multiple data-style="btn-primary" required>
                                                             <c:forEach items="${ aplist }" var= "ap"> 
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
@@ -2941,7 +3414,7 @@ border-radius:15px;
                                                         
                                                         <!--계획서 폼 결재자 선택 시작-->
                                                         <div class="apselect5">
-                                                          <select class="selectpicker col-md-10" multiple data-style="btn-primary" required>
+                                                          <select name="apvApp" class="selectpicker col-md-10" multiple data-style="btn-primary" required>
                                                             <c:forEach items="${ aplist }" var= "ap"> 
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
@@ -2976,22 +3449,20 @@ border-radius:15px;
                                                         <div class="apside">
                                                           <div id="wlwjd2">📚계획서 작성</div>
                                                           <br>
-                                                        <div id="aptitle" name="apt5">제목:</div><input class="form-styling" type="text" name="apt5" placeholder="결재 제목" required/>
-                                                        
+                                                        <div id="aptitle" name="apt1">제목:</div><input class="form-styling" type="text" name="apt" placeholder="결재 제목" required/>
                                                         <br>
-                                                       
                                                       </div>
                                                       <br>         
 
                                                       <!--계획서 날짜 시작-->
                                                       <div id="rlgks">📆기한:</div>
                                                         <div class="controls">
-                                                          <input type="date" id="arrive" class="floatLabel" name="arrive5" value="<?php echo date('Y-m-d'); ?>" required>
+                                                          <input type="date" id="arrive" class="floatLabel" name="arrive" value="<?php echo date('Y-m-d'); ?>" required>
                                                          <i class="fa fa-calendar"></i>
                                                         </div>      
                                                         <div class="controls3">~</div>
                                                         <div class="controls2">
-                                                          <input type="date" id="depart" class="floatLabel" name="depart5" value="<?php echo date('Y-m-d'); ?>" required/>
+                                                          <input type="date" id="depart" class="floatLabel" name="depart" value="<?php echo date('Y-m-d'); ?>" required/>
                                                           <i class="fa fa-calendar"></i>
                                                         </div>      
                                                       <!--계획서 날짜 끝-->
@@ -3000,33 +3471,71 @@ border-radius:15px;
 
                                                       <!--계획서 코멘트 시작-->
                                                       <div id="apcomment">📒코멘트:</div>
-                                                      <div class="controls4">
-                                                        <textarea name="comments5" class="floatLabel" id="comments" required></textarea>
+                                                      <div class="controls8">
+                                                        <textarea name="comment" class="floatLabel" id="comments" required></textarea>
                                                       </div>
                                                       <br>
                                                       <br>
                                                        <!--계획서 코멘트 끝-->   
-
+														<br>
+														<br>
+														<br>
+														<br>
+														<br>
                                                        <!--계획서 파일첨부 시작-->
-                                                      <div class="apfile">📎파일첨부:</div>
-                                                      <div class="file-upload">
-                                                        <div class="file-upload-select">
-                                                          <div class="file-select-button" >Add File</div>
-                                                          <div class="file-select-name">결재 상신시 양식에 맞는 문서 필수 첨부</div> 
-                                                          <input type="file" name="file-upload-input5" id="file-upload-input">
+                                                      <div class="apfile5">📎파일첨부:</div>
+                                                      <div class="file-upload5">
+                                                        <div class="file-upload-select5">
+                                                          <div class="file-select-button5" >Add File</div>
+                                                          <div class="file-select-name5">결재 상신시 양식에 맞는 문서 필수 첨부</div> 
+                                                          <input type="file" name="file-upload-input5" id="file-upload-input5">
                                                         </div>
                                                       </div>
                                                       <br>
                                                       <!--계획서 파일첨부 끝-->
-
+														<br>
                                                       <!--계획서 상신 버튼 시작-->
                                                       <div class="modal-footer">
-                                                          <button type="text" class="submit5" id="aps5">계획서 상신</button>
-                                                          <button type="text" class="apwcancle"  data-dismiss="modal" aria-label="Close" >취소</button>
+                                                          <button  class="submit5" id="aps5">계획서 상신</button>
+                                                          <button  class="apwcancle"  data-dismiss="modal" aria-label="Close" >취소</button>
                                                       </div>
                                                       <!--계획서 상신 버튼 끝-->
                                                       </div>
-                                                    </form>
+                                                   </form>
+                                                   <script type="text/javascript">
+													$(document).on("click", "#aps5", function(e) {
+														let form = $("#apform5")[0];
+														let formData = new FormData(form);
+														formData.append("fileObj", $("#file-upload-input5")[0].files[0]);
+														$.ajax({
+															url : "${contextPath}/approval.ap",
+															type : "post",
+															processData : false,
+															contentType : false,
+															data : formData,
+															dataType : "json",
+															success : function(data) {
+																Swal.fire({
+																	  position: 'bottom-end',
+																	  icon: 'success',
+																	  title: '결재가 상신되었습니다!',
+																	  showConfirmButton: false,
+																	  timer: 1600
+																	})
+																$("div.filter-option-inner-inner").text("Nothing selected");
+																$("#apform5")[0].reset();
+																$("div.modal").modal("hide");
+															},
+															error : function(xhr, status, res) {
+																console.log(xhr.responseText, status, res);
+															}
+														});
+														return false;
+													});
+
+													
+													
+													</script>
                                                       <!--결재폼5: 계획서 끝-->
                                                     </div>
                                                   </div>
@@ -3036,23 +3545,28 @@ border-radius:15px;
                                               <!-- 모달 창 컨텐츠 끝 -->
                                             </div>
                                           </div>
+                                          <!-- 결재폼5 모달 끝 -->
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
                                            <!--대쉬보드 결재작성 버튼 끝-->                                    
                                          </div>              
                                         </div>
                                         <div class="main-area">
-                                         <div class="header">
-                                          <div class="search-bar">
-                                           <input type="text" placeholder="Search...">
-                                          </div>
-                                         </div>
+                                         
                                          <div class="main-container">
                                           <div class="inbox-container">
                                            <div class="inbox">
                                             <div class="msg msg-department anim-y">
-                         							                    전체
-                                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 492 492">
-                                              <path d="M484.13 124.99l-16.11-16.23a26.72 26.72 0 00-19.04-7.86c-7.2 0-13.96 2.79-19.03 7.86L246.1 292.6 62.06 108.55c-5.07-5.06-11.82-7.85-19.03-7.85s-13.97 2.79-19.04 7.85L7.87 124.68a26.94 26.94 0 000 38.06l219.14 219.93c5.06 5.06 11.81 8.63 19.08 8.63h.09c7.2 0 13.96-3.57 19.02-8.63l218.93-219.33A27.18 27.18 0 00492 144.1c0-7.2-2.8-14.06-7.87-19.12z"></path>
-                                             </svg>
+                         					결재 리스트
+                                             
+                                             
+                                             
                                              
                                             </div>
 
@@ -3061,12 +3575,12 @@ border-radius:15px;
                                              <input type="checkbox" name="msg" id="mail1" class="mail-choice" checked>
                                              <label for="mail1"></label>
                                              <div class="msg-content">
-                                              <a href=""><div class="msg-title">휴가 건의 (휴가원 문서 첨부)</div></a>
+                                              <a href=""><div class="msg-title">결재 제목(apt)</div></a>
                                               <!--결재 목록 기한-->
                                               <div class="msg-date">기한:</div>
-                                              <div class="msg-startday">&nbsp;2021.08.20&nbsp;</div>
+                                              <div class="msg-startday">&nbsp;2021.08.20(arrive)&nbsp;</div>
                                               <div class="msg-date2">~</div>
-                                              <div class="msg-endday">&nbsp;2021.09.15</div>
+                                              <div class="msg-endday">&nbsp;2021.09.15(depart)</div>
                                                <!--결재 목록 기안자-->
                                               <div class="msg-sender">기안자:</div>
                                               <div class="msg-sender2">&nbsp;강정환</div>
@@ -3077,13 +3591,95 @@ border-radius:15px;
                                               <div class="msg-approve3">&nbsp;사장</div>
                                               <!--결재 목록 문서종류-->
                                               <div class="msg-doctype">문서종류:</div>
-                                              <div class="msg-doctype2">&nbsp;기안서</div>
+                                              <div class="msg-doctype2">&nbsp;기안서(apvType)</div>
+                                             </div>
+                                             <img src="https://assets.codepen.io/3364143/Screen+Shot+2020-08-01+at+12.24.16.png" alt="" class="members mail-members">
+                                            </div>
+                                            <!--테스트 결재리스트 1 끝-->
+                                            
+                                            <!--테스트 결재리스트 1 시작-->
+                                            <div class="msg selected-bg anim-y">
+                                             <input type="checkbox" name="msg" id="mail1" class="mail-choice" checked>
+                                             <label for="mail1"></label>
+                                             <div class="msg-content">
+                                              <a href=""><div class="msg-title">결재 제목(apt)</div></a>
+                                              <!--결재 목록 기한-->
+                                              <div class="msg-date">기한:</div>
+                                              <div class="msg-startday">&nbsp;2021.08.20(arrive)&nbsp;</div>
+                                              <div class="msg-date2">~</div>
+                                              <div class="msg-endday">&nbsp;2021.09.15(depart)</div>
+                                               <!--결재 목록 기안자-->
+                                              <div class="msg-sender">기안자:</div>
+                                              <div class="msg-sender2">&nbsp;강정환</div>
+                                              <div class="msg-sender3">&nbsp;사원</div>
+                                               <!--결재 목록 결재권자--> 
+                                              <div class="msg-approve">결재권자:</div>
+                                              <div class="msg-approve2">&nbsp;아무개</div>
+                                              <div class="msg-approve3">&nbsp;사장</div>
+                                              <!--결재 목록 문서종류-->
+                                              <div class="msg-doctype">문서종류:</div>
+                                              <div class="msg-doctype2">&nbsp;기안서(apvType)</div>
+                                             </div>
+                                             <img src="https://assets.codepen.io/3364143/Screen+Shot+2020-08-01+at+12.24.16.png" alt="" class="members mail-members">
+                                            </div>
+                                            <!--테스트 결재리스트 1 끝-->
+                                            
+                                            
+                                            <!--테스트 결재리스트 1 시작-->
+                                            <div class="msg selected-bg anim-y">
+                                             <input type="checkbox" name="msg" id="mail1" class="mail-choice" checked>
+                                             <label for="mail1"></label>
+                                             <div class="msg-content">
+                                              <a href=""><div class="msg-title">결재 제목(apt)</div></a>
+                                              <!--결재 목록 기한-->
+                                              <div class="msg-date">기한:</div>
+                                              <div class="msg-startday">&nbsp;2021.08.20(arrive)&nbsp;</div>
+                                              <div class="msg-date2">~</div>
+                                              <div class="msg-endday">&nbsp;2021.09.15(depart)</div>
+                                               <!--결재 목록 기안자-->
+                                              <div class="msg-sender">기안자:</div>
+                                              <div class="msg-sender2">&nbsp;강정환</div>
+                                              <div class="msg-sender3">&nbsp;사원</div>
+                                               <!--결재 목록 결재권자--> 
+                                              <div class="msg-approve">결재권자:</div>
+                                              <div class="msg-approve2">&nbsp;아무개</div>
+                                              <div class="msg-approve3">&nbsp;사장</div>
+                                              <!--결재 목록 문서종류-->
+                                              <div class="msg-doctype">문서종류:</div>
+                                              <div class="msg-doctype2">&nbsp;기안서(apvType)</div>
+                                             </div>
+                                             <img src="https://assets.codepen.io/3364143/Screen+Shot+2020-08-01+at+12.24.16.png" alt="" class="members mail-members">
+                                            </div>
+                                            <!--테스트 결재리스트 1 끝-->
+                                            
+                                            <!--테스트 결재리스트 1 시작-->
+                                            <div class="msg selected-bg anim-y">
+                                             <input type="checkbox" name="msg" id="mail1" class="mail-choice" checked>
+                                             <label for="mail1"></label>
+                                             <div class="msg-content">
+                                              <a href=""><div class="msg-title">결재 제목(apt)</div></a>
+                                              <!--결재 목록 기한-->
+                                              <div class="msg-date">기한:</div>
+                                              <div class="msg-startday">&nbsp;2021.08.20(arrive)&nbsp;</div>
+                                              <div class="msg-date2">~</div>
+                                              <div class="msg-endday">&nbsp;2021.09.15(depart)</div>
+                                               <!--결재 목록 기안자-->
+                                              <div class="msg-sender">기안자:</div>
+                                              <div class="msg-sender2">&nbsp;강정환</div>
+                                              <div class="msg-sender3">&nbsp;사원</div>
+                                               <!--결재 목록 결재권자--> 
+                                              <div class="msg-approve">결재권자:</div>
+                                              <div class="msg-approve2">&nbsp;아무개</div>
+                                              <div class="msg-approve3">&nbsp;사장</div>
+                                              <!--결재 목록 문서종류-->
+                                              <div class="msg-doctype">문서종류:</div>
+                                              <div class="msg-doctype2">&nbsp;기안서(apvType)</div>
                                              </div>
                                              <img src="https://assets.codepen.io/3364143/Screen+Shot+2020-08-01+at+12.24.16.png" alt="" class="members mail-members">
                                             </div>
                                             <!--테스트 결재리스트 1 끝-->
 
-                                               <!--테스트 결재리스트 1 시작-->
+                                               <!--테스트 결재리스트 2 시작-->
                                                <div class="msg selected-bg anim-y">
                                                 <input type="checkbox" name="msg" id="mail1" class="mail-choice2" checked>
                                                 <label for="mail1"></label>
@@ -3108,9 +3704,9 @@ border-radius:15px;
                                                 </div>
                                                 <img src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=60" alt="" class="members mail-members">
                                                </div>
-                                               <!--테스트 결재리스트 1 끝-->
+                                               <!--테스트 결재리스트 2 끝-->
 
-                                                 <!--테스트 결재리스트 1 시작-->
+                                                 <!--테스트 결재리스트 3 시작-->
                                             <div class="msg selected-bg anim-y">
                                               <input type="checkbox" name="msg" id="mail1" class="mail-choice3" checked>
                                               <label for="mail1"></label>
@@ -3135,7 +3731,7 @@ border-radius:15px;
                                               </div>
                                               <img src="https://images.unsplash.com/photo-1541647376583-8934aaf3448a?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=934&amp;q=80" alt="" class="members mail-members">
                                              </div>
-                                             <!--테스트 결재리스트 1 끝-->
+                                             <!--테스트 결재리스트 3 끝-->
                                            </div>                                
                                           </div>
                                           <div class="mail-detail">
@@ -3177,7 +3773,8 @@ border-radius:15px;
                                             <div class="af">결재권자:</div><div></div>
                                             </div>
                                             
-                                            <div class="mail-inside">결재 내용 결재 내용 결재 내용 결재 내용 결재 내용 결재 내용결재 내용결재 내용결재 내용결재 내용결재 내용</div>
+                                            <div class="mail-inside">결재 코멘트(comment) 결재 코멘트(comment) 결재 코멘트(comment) 결재 코멘트(comment) 결재 코멘트(comment) 결재 코멘트(comment) 
+                                            결재 코멘트(comment) 결재 코멘트(comment) 결재 코멘트(comment) 결재 코멘트(comment)결재 코멘트(comment)결재 코멘트(comment)</div>
                                             
                                             <div class="mail-assign">
                                               <!--결재 대쉬보드 상세보기 진행로그 결재승인-->
@@ -3212,6 +3809,13 @@ border-radius:15px;
                                               <span class="assign-date">&nbsp;&nbsp;- 2021.06.50</span>
                                              </div>
                                              
+                                             <br>
+                                             <br>
+                                             <br>
+                                             <br>
+                                             <br>
+                                             <br>
+                                             <br>
                                              <!--결재 대쉬보드 상세보기 첨부파일 문서-->
                                              <div class="mail-doc">
                                               <div class="mail-doc-wrapper">
@@ -3232,19 +3836,7 @@ border-radius:15px;
                                              </div>
                                             </div>
                                            </div>
-                                           <div class="mail-textarea">
-                                            <input type="text" placeholder="Comment">
-                                            <div class="textarea-icons">
-                                             <div class="attach">
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-paperclip">
-                                               <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48" /></svg>
-                                             </div>
-                                             <div class="send">
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send">
-                                               <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" /></svg>
-                                             </div>
-                                            </div>
-                                           </div>
+                                           
                                           </div>
                                          </div>
                                         </div>
@@ -3310,7 +3902,7 @@ border-radius:15px;
                 })
             });
         });
-
+      
         $().ready(function () {
             $("#apv_cancle").click(function () {
                 Swal.fire({
@@ -3351,10 +3943,72 @@ fileInput.onchange = function() {
 </script>
 <!--파일첨부 스크립트 끝-->
 
+<!--파일첨부2 스크립트 시작-->
+<script>
+let fileInput2 = document.getElementById("file-upload-input2");
+let fileSelect2 = document.getElementsByClassName("file-upload-select2")[0];
+fileSelect2.onclick = function() {
+	fileInput2.click();
+}
+fileInput2.onchange = function() {
+	let filename2 = fileInput2.files[0].name;
+	let selectName2 = document.getElementsByClassName("file-select-name2")[0];
+	selectName2.innerText = filename2;
+}
+</script>
+<!--파일첨부2 스크립트 끝-->
+
+<!--파일첨부3 스크립트 시작-->
+<script>
+let fileInput3 = document.getElementById("file-upload-input3");
+let fileSelect3 = document.getElementsByClassName("file-upload-select3")[0];
+fileSelect3.onclick = function() {
+	fileInput3.click();
+}
+fileInput3.onchange = function() {
+	let filename3 = fileInput3.files[0].name;
+	let selectName3 = document.getElementsByClassName("file-select-name3")[0];
+	selectName3.innerText = filename3;
+}
+</script>
+<!--파일첨부3 스크립트 끝-->
+
+<!--파일첨부4 스크립트 시작-->
+<script>
+let fileInput4 = document.getElementById("file-upload-input4");
+let fileSelect4 = document.getElementsByClassName("file-upload-select4")[0];
+fileSelect4.onclick = function() {
+	fileInput4.click();
+}
+fileInput4.onchange = function() {
+	let filename4 = fileInput4.files[0].name;
+	let selectName4 = document.getElementsByClassName("file-select-name4")[0];
+	selectName4.innerText = filename4;
+}
+</script>
+<!--파일첨부4 스크립트 끝-->
+
+<!--파일첨부5 스크립트 시작-->
+<script>
+let fileInput5 = document.getElementById("file-upload-input5");
+let fileSelect5 = document.getElementsByClassName("file-upload-select5")[0];
+fileSelect5.onclick = function() {
+	fileInput5.click();
+}
+fileInput5.onchange = function() {
+	let filename5 = fileInput5.files[0].name;
+	let selectName5 = document.getElementsByClassName("file-select-name5")[0];
+	selectName5.innerText = filename5;
+}
+</script>
+<!--파일첨부5 스크립트 끝-->
+
+
 <!--시계 스크립트 시작-->
 <script>
   // execute function clock()
 clock();
+
 
 // execute function clock() every 1 second
 // 1000 milliseconds = 1 second
@@ -3412,6 +4066,260 @@ function clock() {
 }
   </script>
   <!--시계 스크립트 끝-->
+  
+  <!--시계2 스크립트 시작-->
+<script>
+  // execute function clock()
+clock2();
+
+
+// execute function clock() every 1 second
+// 1000 milliseconds = 1 second
+setInterval( clock2, 1000 );
+
+function clock2() {
+  
+  // a crete date object
+  var d = new Date();
+  
+  // get year
+  var year = d.getFullYear().toString().padStart(2, '0');
+  
+  // get month - from 0 to 11
+  var month = ( d.getMonth() + 1 ).toString().padStart(2, '0');
+  
+  // get day of the month - from 1 to 31
+  var day = d.getDate().toString().padStart(2, '0');
+  
+  // get day of the week - from 0 to 6
+  // get name of the weekday, 0 = Sunday, 1 = Monday, 2 = Tuesday, ...
+  switch ( d.getDay() ) {
+    case 1: 
+      var weekDay = '(월)'; break;
+    case 2: 
+      var weekDay = '(화)'; break;
+    case 3: 
+      var weekDay = '(수)'; break;
+    case 4: 
+      var weekDay = '(목)'; break;
+    case 5: 
+      var weekDay = '(금)'; break;
+    case 6: 
+      var weekDay = '(토)'; break;
+    case 0: 
+      var weekDay = '(일)'; break;
+  }
+  
+  // add leading zero
+  var hr = d.getHours().toString().padStart(2, '0');
+  var min = d.getMinutes().toString().padStart(2, '0');
+  var sec = d.getSeconds().toString().padStart(2, '0');
+  
+  // set content of date
+  document.querySelector('.date2').innerHTML = year + '-' + month + '-' + day + ' ' + weekDay;
+  
+  // set content of hour
+  document.querySelector('.hr2').innerHTML = hr + '시';
+  
+  // set content of minute
+  document.querySelector('.min2').innerHTML = min + '분';
+  
+  // set content of second
+  document.querySelector('.sec2').innerHTML = sec + '초';
+}
+  </script>
+  <!--시계2 스크립트 끝-->
+  
+    <!--시계3 스크립트 시작-->
+<script>
+  // execute function clock()
+clock3();
+
+
+// execute function clock() every 1 second
+// 1000 milliseconds = 1 second
+setInterval( clock3, 1000 );
+
+function clock3() {
+  
+  // a crete date object
+  var d = new Date();
+  
+  // get year
+  var year = d.getFullYear().toString().padStart(2, '0');
+  
+  // get month - from 0 to 11
+  var month = ( d.getMonth() + 1 ).toString().padStart(2, '0');
+  
+  // get day of the month - from 1 to 31
+  var day = d.getDate().toString().padStart(2, '0');
+  
+  // get day of the week - from 0 to 6
+  // get name of the weekday, 0 = Sunday, 1 = Monday, 2 = Tuesday, ...
+  switch ( d.getDay() ) {
+    case 1: 
+      var weekDay = '(월)'; break;
+    case 2: 
+      var weekDay = '(화)'; break;
+    case 3: 
+      var weekDay = '(수)'; break;
+    case 4: 
+      var weekDay = '(목)'; break;
+    case 5: 
+      var weekDay = '(금)'; break;
+    case 6: 
+      var weekDay = '(토)'; break;
+    case 0: 
+      var weekDay = '(일)'; break;
+  }
+  
+  // add leading zero
+  var hr = d.getHours().toString().padStart(2, '0');
+  var min = d.getMinutes().toString().padStart(2, '0');
+  var sec = d.getSeconds().toString().padStart(2, '0');
+  
+  // set content of date
+  document.querySelector('.date3').innerHTML = year + '-' + month + '-' + day + ' ' + weekDay;
+  
+  // set content of hour
+  document.querySelector('.hr3').innerHTML = hr + '시';
+  
+  // set content of minute
+  document.querySelector('.min3').innerHTML = min + '분';
+  
+  // set content of second
+  document.querySelector('.sec3').innerHTML = sec + '초';
+}
+  </script>
+  <!--시계3 스크립트 끝-->
+  
+  
+    <!--시계4 스크립트 시작-->
+<script>
+  // execute function clock()
+clock4();
+
+
+// execute function clock() every 1 second
+// 1000 milliseconds = 1 second
+setInterval( clock4, 1000 );
+
+function clock4() {
+  
+  // a crete date object
+  var d = new Date();
+  
+  // get year
+  var year = d.getFullYear().toString().padStart(2, '0');
+  
+  // get month - from 0 to 11
+  var month = ( d.getMonth() + 1 ).toString().padStart(2, '0');
+  
+  // get day of the month - from 1 to 31
+  var day = d.getDate().toString().padStart(2, '0');
+  
+  // get day of the week - from 0 to 6
+  // get name of the weekday, 0 = Sunday, 1 = Monday, 2 = Tuesday, ...
+  switch ( d.getDay() ) {
+    case 1: 
+      var weekDay = '(월)'; break;
+    case 2: 
+      var weekDay = '(화)'; break;
+    case 3: 
+      var weekDay = '(수)'; break;
+    case 4: 
+      var weekDay = '(목)'; break;
+    case 5: 
+      var weekDay = '(금)'; break;
+    case 6: 
+      var weekDay = '(토)'; break;
+    case 0: 
+      var weekDay = '(일)'; break;
+  }
+  
+  // add leading zero
+  var hr = d.getHours().toString().padStart(2, '0');
+  var min = d.getMinutes().toString().padStart(2, '0');
+  var sec = d.getSeconds().toString().padStart(2, '0');
+  
+  // set content of date
+  document.querySelector('.date4').innerHTML = year + '-' + month + '-' + day + ' ' + weekDay;
+  
+  // set content of hour
+  document.querySelector('.hr4').innerHTML = hr + '시';
+  
+  // set content of minute
+  document.querySelector('.min4').innerHTML = min + '분';
+  
+  // set content of second
+  document.querySelector('.sec4').innerHTML = sec + '초';
+}
+  </script>
+  <!--시계4 스크립트 끝-->
+
+  <!--시계5 스크립트 시작-->
+<script>
+  // execute function clock()
+clock5();
+
+
+// execute function clock() every 1 second
+// 1000 milliseconds = 1 second
+setInterval( clock5, 1000 );
+
+function clock5() {
+  
+  // a crete date object
+  var d = new Date();
+  
+  // get year
+  var year = d.getFullYear().toString().padStart(2, '0');
+  
+  // get month - from 0 to 11
+  var month = ( d.getMonth() + 1 ).toString().padStart(2, '0');
+  
+  // get day of the month - from 1 to 31
+  var day = d.getDate().toString().padStart(2, '0');
+  
+  // get day of the week - from 0 to 6
+  // get name of the weekday, 0 = Sunday, 1 = Monday, 2 = Tuesday, ...
+  switch ( d.getDay() ) {
+    case 1: 
+      var weekDay = '(월)'; break;
+    case 2: 
+      var weekDay = '(화)'; break;
+    case 3: 
+      var weekDay = '(수)'; break;
+    case 4: 
+      var weekDay = '(목)'; break;
+    case 5: 
+      var weekDay = '(금)'; break;
+    case 6: 
+      var weekDay = '(토)'; break;
+    case 0: 
+      var weekDay = '(일)'; break;
+  }
+  
+  // add leading zero
+  var hr = d.getHours().toString().padStart(2, '0');
+  var min = d.getMinutes().toString().padStart(2, '0');
+  var sec = d.getSeconds().toString().padStart(2, '0');
+  
+  // set content of date
+  document.querySelector('.date5').innerHTML = year + '-' + month + '-' + day + ' ' + weekDay;
+  
+  // set content of hour
+  document.querySelector('.hr5').innerHTML = hr + '시';
+  
+  // set content of minute
+  document.querySelector('.min5').innerHTML = min + '분';
+  
+  // set content of second
+  document.querySelector('.sec5').innerHTML = sec + '초';
+}
+  </script>
+  <!--시계5 스크립트 끝-->
+  
   <!-- 멀티 셀렉 스크립트 -->
   <script>
   $('.selectpicker').selectpicker();

@@ -135,7 +135,7 @@
 																	<tr>
 																		<td>
 																			<label><b>전화번호</b></label>
-																			<input type="tel" class="form-control mt-1 adressInput" required name="phone" value="${loginUser.phone }"/>
+																			<input type="tel" id="phone" onchange="checkPhone();" class="form-control mt-1 adressInput" required name="phone" value="${loginUser.phone }"/>
 																		</td>
 																	</tr>
 																	<tr><td>&nbsp;</td></tr>
@@ -360,21 +360,21 @@
 		
 		if(checkEmail){
 			if(pwd1.value.trim() == ""){
-				if(userPwd){
+				if(userPwd && inputPhone){
 					console.log("비밀번호 변경 x 기존 비밀번호 o");
 					return true;
 				} else {
 					console.log("비밀번호 변경 x 기존 비밀번호 x");
-					alert("비밀번호를 확인해주세요.");
+					alert("입력하신 정보를 확인해주세요.");
 					return false;
 				}
 			} else {
-				if(userPwd && userNewPwd && checkPwd){
+				if(userPwd && userNewPwd && checkPwd && inputPhone){
 					console.log("비밀번호 변경 o 기존 비밀번호 o");
 					return true;
 				} else {
 					console.log("비밀번호 변경 o 기존 비밀번호 x");
-					alert("비밀번호를 확인해주세요.");
+					alert("입력하신 정보를 확인해주세요.");
 					return false;
 				}
 			}
@@ -428,6 +428,23 @@
 			checkDiv.innerHTML = '<sub>인증번호가 일치하지 않습니다.</sub>';
 			checkDiv.style.color = 'red';
 			checkEmail = false;
+		}
+		
+	}
+	
+	inputPhone = true;
+	
+	//전화번호 정규식
+	function checkPhone(){
+		var regExp = /^\d{3}-\d{3,4}-\d{4}$/;
+		var phone = document.getElementById("phone").value;
+		
+		var check = regExp.test(phone);
+		if(!check){
+			inputPhone = false;
+			alert("전화번호 양식을 확인해주세요.");
+		} else {
+			inputPhone = true;
 		}
 		
 	}
