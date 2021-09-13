@@ -114,7 +114,7 @@ if( loginUser !=null){
 				var $span; 
 				if(data == '0'){
 					$('#msbadge').addClass('bg-c-purple');
-					$('#msLabel').addClass('label-purple').text('Empty');
+					$('#msLabel').addClass('label-gray').text('Empty');
 					$('.ti-email').css('color','gray');
 					$span=$('<span>').text("새 메세지가 없습니다.");
 				}else{
@@ -130,11 +130,11 @@ if( loginUser !=null){
 		});
 	};	
 	
-	//메신저  알람 3분 마다 업데이트 가져오기 
+	//메신저  알람 1분 마다 업데이트 가져오기 
 	setInterval(function(){
 		MSreadCount();	
 		
-	},180000);// 3min
+	},60000);// 1min
 
 }
 $(".chatting").click(function () {
@@ -166,7 +166,7 @@ $(document).ready(function(){
 			var $newLabel = '<label style="float: right;" class="label label-warning">New</label>';
 			
 			var $Emptynoti = '<h6 class="text-c-purple" style="display: inline-block;"><b>No Notifications</b></h6>';
-			var $EmptyLabel = '<label style="float: right;" class="label label-warning">Empty</label>';
+			var $EmptyLabel = '<label style="float: right;" class="label label-gray">Empty</label>';
 			
 			var $noDiv1 = '<div class="media">';
 			var $noDiv2 = '<div class="media-body">'; 

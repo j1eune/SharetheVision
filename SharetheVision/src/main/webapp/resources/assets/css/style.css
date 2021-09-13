@@ -3804,6 +3804,9 @@ scaley
 .label-purple {
 	background-color: #660099;
 }
+.label-gray {
+	background-color: gray;
+}
 
 .label-success {
 	background-color: #93BE52;
