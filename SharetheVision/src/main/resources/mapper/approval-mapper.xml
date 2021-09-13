@@ -8,6 +8,7 @@
 		<result column="M_ID" property="mId"/>
 		<result column="DEPT_NO" property="deptNo"/>
 		<result column="DEPT_NAME" property="deptName"/>
+		<result column="J_NO" property="jobNo"/>
 		<result column="J_NAME" property="jobName"/>
 	</resultMap>
 	

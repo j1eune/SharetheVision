@@ -2367,23 +2367,23 @@ border-radius:15px;
                                                           <c:forEach items="${ aplist }" var= "ap"> 
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
-																<c:if test="${ ap.deptName eq '인사'}" >
+																<c:if test="${ ap.deptName eq '인사'&& ap.jobNo>=3 }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '마케팅' }" >
+																<c:if test="${ ap.deptName eq '마케팅'&& ap.jobNo>=3 }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '생산'}" >
+																<c:if test="${ ap.deptName eq '생산'&& ap.jobNo>=3 }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '영업'}" >
+																<c:if test="${ ap.deptName eq '영업'&& ap.jobNo>=3 }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '회계'}" >
+																<c:if test="${ ap.deptName eq '회계'&& ap.jobNo>=3 }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
@@ -2428,31 +2428,31 @@ border-radius:15px;
                                                         <!--기안서 폼 결재자 선택 시작-->
                                                         <div class="apselect">
                                                           <select name="apvApp" class="selectpicker col-md-10" data-style="btn-primary" required>
-                                                             <c:forEach items="${ aplist }" var= "ap"> 
-															<c:if test="${ ap.name != loginUser.name}">  
-																<optgroup label="${ ap.deptName } 팀 ">
-																<c:if test="${ ap.deptName eq '인사'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
-																</c:if>
-																
-																<c:if test="${ ap.deptName eq '마케팅' }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
-																</c:if>
-																
-																<c:if test="${ ap.deptName eq '생산'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
-																</c:if>
-																
-																<c:if test="${ ap.deptName eq '영업'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
-																</c:if>
-																
-																<c:if test="${ ap.deptName eq '회계'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
-																</c:if>
-																</optgroup>
-														   </c:if>
-														</c:forEach>
+                                                          	 <c:forEach items="${ aplist }" var= "ap"> 
+																<c:if test="${ ap.name != loginUser.name}">  
+																	<optgroup label="${ ap.deptName } 팀 ">
+																		<c:if test="${ ap.deptName eq '인사' && ap.jobNo>=4 }" >
+																			<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																		</c:if>
+																		
+																		<c:if test="${ ap.deptName eq '마케팅' && ap.jobNo>=4  }" >
+																			<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																		</c:if>
+																		
+																		<c:if test="${ ap.deptName eq '생산' && ap.jobNo>=4 }" >
+																			<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																		</c:if>
+																		
+																		<c:if test="${ ap.deptName eq '영업' && ap.jobNo>=4 }" >
+																			<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																		</c:if>
+																		
+																		<c:if test="${ ap.deptName eq '회계' && ap.jobNo>=4 }" >
+																			<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																		</c:if>
+																	</optgroup>
+															   </c:if>
+															</c:forEach>
                                                           </select>
                                                         </div>
                                                          <!--기안서 폼 결재자 선택 끝-->
@@ -2609,23 +2609,23 @@ border-radius:15px;
                                                           <c:forEach items="${ aplist }" var= "ap"> 
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
-																<c:if test="${ ap.deptName eq '인사'}" >
+																<c:if test="${ ap.deptName eq '인사'&& ap.jobNo>=3 }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '마케팅' }" >
+																<c:if test="${ ap.deptName eq '마케팅'&& ap.jobNo>=3 }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '생산'}" >
+																<c:if test="${ ap.deptName eq '생산'&& ap.jobNo>=3 }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '영업'}" >
+																<c:if test="${ ap.deptName eq '영업'&& ap.jobNo>=3 }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '회계'}" >
+																<c:if test="${ ap.deptName eq '회계'&& ap.jobNo>=3 }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
@@ -2678,23 +2678,23 @@ border-radius:15px;
                                                             <c:forEach items="${ aplist }" var= "ap"> 
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
-																<c:if test="${ ap.deptName eq '인사'}" >
+																<c:if test="${ ap.deptName eq '인사'&& ap.jobNo>=4 }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '마케팅' }" >
+																<c:if test="${ ap.deptName eq '마케팅'&& ap.jobNo>=4  }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '생산'}" >
+																<c:if test="${ ap.deptName eq '생산'&& ap.jobNo>=4 }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '영업'}" >
+																<c:if test="${ ap.deptName eq '영업'&& ap.jobNo>=4 }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '회계'}" >
+																<c:if test="${ ap.deptName eq '회계'&& ap.jobNo>=4 }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
@@ -2857,23 +2857,23 @@ border-radius:15px;
                                                           <c:forEach items="${ aplist }" var= "ap"> 
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
-																<c:if test="${ ap.deptName eq '인사'}" >
+																<c:if test="${ ap.deptName eq '인사'&& ap.jobNo>=3 }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '마케팅' }" >
+																<c:if test="${ ap.deptName eq '마케팅'&& ap.jobNo>=3  }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '생산'}" >
+																<c:if test="${ ap.deptName eq '생산'&& ap.jobNo>=3 }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '영업'}" >
+																<c:if test="${ ap.deptName eq '영업'&& ap.jobNo>=3 }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '회계'}" >
+																<c:if test="${ ap.deptName eq '회계'&& ap.jobNo>=3 }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
@@ -2925,23 +2925,23 @@ border-radius:15px;
                                                             <c:forEach items="${ aplist }" var= "ap"> 
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
-																<c:if test="${ ap.deptName eq '인사'}" >
+																<c:if test="${ ap.deptName eq '인사'&& ap.jobNo>=4 }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '마케팅' }" >
+																<c:if test="${ ap.deptName eq '마케팅'&& ap.jobNo>=4 }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '생산'}" >
+																<c:if test="${ ap.deptName eq '생산'&& ap.jobNo>=4}" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '영업'}" >
+																<c:if test="${ ap.deptName eq '영업'&& ap.jobNo>=4}" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '회계'}" >
+																<c:if test="${ ap.deptName eq '회계'&& ap.jobNo>=4}" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
@@ -3103,23 +3103,23 @@ border-radius:15px;
                                                           <c:forEach items="${ aplist }" var= "ap"> 
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
-																<c:if test="${ ap.deptName eq '인사'}" >
+																<c:if test="${ ap.deptName eq '인사'&& ap.jobNo>=3}" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '마케팅' }" >
+																<c:if test="${ ap.deptName eq '마케팅'&& ap.jobNo>=3 }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '생산'}" >
+																<c:if test="${ ap.deptName eq '생산'&& ap.jobNo>=3}" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '영업'}" >
+																<c:if test="${ ap.deptName eq '영업'&& ap.jobNo>=3}" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '회계'}" >
+																<c:if test="${ ap.deptName eq '회계'&& ap.jobNo>=3}" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
@@ -3170,23 +3170,23 @@ border-radius:15px;
                                                             <c:forEach items="${ aplist }" var= "ap"> 
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
-																<c:if test="${ ap.deptName eq '인사'}" >
+																<c:if test="${ ap.deptName eq '인사'&& ap.jobNo>=4}" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '마케팅' }" >
+																<c:if test="${ ap.deptName eq '마케팅'&& ap.jobNo>=4 }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '생산'}" >
+																<c:if test="${ ap.deptName eq '생산'&& ap.jobNo>=4}" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '영업'}" >
+																<c:if test="${ ap.deptName eq '영업'&& ap.jobNo>=4}" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '회계'}" >
+																<c:if test="${ ap.deptName eq '회계'&& ap.jobNo>=4}" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
@@ -3347,23 +3347,23 @@ border-radius:15px;
                                                           <c:forEach items="${ aplist }" var= "ap"> 
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
-																<c:if test="${ ap.deptName eq '인사'}" >
+																<c:if test="${ ap.deptName eq '인사'&& ap.jobNo>=3}" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '마케팅' }" >
+																<c:if test="${ ap.deptName eq '마케팅'&& ap.jobNo>=3 }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '생산'}" >
+																<c:if test="${ ap.deptName eq '생산'&& ap.jobNo>=3}" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '영업'}" >
+																<c:if test="${ ap.deptName eq '영업'&& ap.jobNo>=3}" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '회계'}" >
+																<c:if test="${ ap.deptName eq '회계'&& ap.jobNo>=3}" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
@@ -3418,23 +3418,23 @@ border-radius:15px;
                                                             <c:forEach items="${ aplist }" var= "ap"> 
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
-																<c:if test="${ ap.deptName eq '인사'}" >
+																<c:if test="${ ap.deptName eq '인사'&& ap.jobNo>=4}" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '마케팅' }" >
+																<c:if test="${ ap.deptName eq '마케팅'&& ap.jobNo>=4 }" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '생산'}" >
+																<c:if test="${ ap.deptName eq '생산'&& ap.jobNo>=4}" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '영업'}" >
+																<c:if test="${ ap.deptName eq '영업'&& ap.jobNo>=4}" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
-																<c:if test="${ ap.deptName eq '회계'}" >
+																<c:if test="${ ap.deptName eq '회계'&& ap.jobNo>=4}" >
 																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
@@ -3570,170 +3570,175 @@ border-radius:15px;
                                              
                                             </div>
 
-                                            <!--테스트 결재리스트 1 시작-->
-                                            <div class="msg selected-bg anim-y">
-                                             <input type="checkbox" name="msg" id="mail1" class="mail-choice" checked>
-                                             <label for="mail1"></label>
-                                             <div class="msg-content">
-                                              <a href=""><div class="msg-title">결재 제목(apt)</div></a>
-                                              <!--결재 목록 기한-->
-                                              <div class="msg-date">기한:</div>
-                                              <div class="msg-startday">&nbsp;2021.08.20(arrive)&nbsp;</div>
-                                              <div class="msg-date2">~</div>
-                                              <div class="msg-endday">&nbsp;2021.09.15(depart)</div>
-                                               <!--결재 목록 기안자-->
-                                              <div class="msg-sender">기안자:</div>
-                                              <div class="msg-sender2">&nbsp;강정환</div>
-                                              <div class="msg-sender3">&nbsp;사원</div>
-                                               <!--결재 목록 결재권자--> 
-                                              <div class="msg-approve">결재권자:</div>
-                                              <div class="msg-approve2">&nbsp;아무개</div>
-                                              <div class="msg-approve3">&nbsp;사장</div>
-                                              <!--결재 목록 문서종류-->
-                                              <div class="msg-doctype">문서종류:</div>
-                                              <div class="msg-doctype2">&nbsp;기안서(apvType)</div>
-                                             </div>
-                                             <img src="https://assets.codepen.io/3364143/Screen+Shot+2020-08-01+at+12.24.16.png" alt="" class="members mail-members">
-                                            </div>
-                                            <!--테스트 결재리스트 1 끝-->
-                                            
-                                            <!--테스트 결재리스트 1 시작-->
-                                            <div class="msg selected-bg anim-y">
-                                             <input type="checkbox" name="msg" id="mail1" class="mail-choice" checked>
-                                             <label for="mail1"></label>
-                                             <div class="msg-content">
-                                              <a href=""><div class="msg-title">결재 제목(apt)</div></a>
-                                              <!--결재 목록 기한-->
-                                              <div class="msg-date">기한:</div>
-                                              <div class="msg-startday">&nbsp;2021.08.20(arrive)&nbsp;</div>
-                                              <div class="msg-date2">~</div>
-                                              <div class="msg-endday">&nbsp;2021.09.15(depart)</div>
-                                               <!--결재 목록 기안자-->
-                                              <div class="msg-sender">기안자:</div>
-                                              <div class="msg-sender2">&nbsp;강정환</div>
-                                              <div class="msg-sender3">&nbsp;사원</div>
-                                               <!--결재 목록 결재권자--> 
-                                              <div class="msg-approve">결재권자:</div>
-                                              <div class="msg-approve2">&nbsp;아무개</div>
-                                              <div class="msg-approve3">&nbsp;사장</div>
-                                              <!--결재 목록 문서종류-->
-                                              <div class="msg-doctype">문서종류:</div>
-                                              <div class="msg-doctype2">&nbsp;기안서(apvType)</div>
-                                             </div>
-                                             <img src="https://assets.codepen.io/3364143/Screen+Shot+2020-08-01+at+12.24.16.png" alt="" class="members mail-members">
-                                            </div>
-                                            <!--테스트 결재리스트 1 끝-->
-                                            
-                                            
-                                            <!--테스트 결재리스트 1 시작-->
-                                            <div class="msg selected-bg anim-y">
-                                             <input type="checkbox" name="msg" id="mail1" class="mail-choice" checked>
-                                             <label for="mail1"></label>
-                                             <div class="msg-content">
-                                              <a href=""><div class="msg-title">결재 제목(apt)</div></a>
-                                              <!--결재 목록 기한-->
-                                              <div class="msg-date">기한:</div>
-                                              <div class="msg-startday">&nbsp;2021.08.20(arrive)&nbsp;</div>
-                                              <div class="msg-date2">~</div>
-                                              <div class="msg-endday">&nbsp;2021.09.15(depart)</div>
-                                               <!--결재 목록 기안자-->
-                                              <div class="msg-sender">기안자:</div>
-                                              <div class="msg-sender2">&nbsp;강정환</div>
-                                              <div class="msg-sender3">&nbsp;사원</div>
-                                               <!--결재 목록 결재권자--> 
-                                              <div class="msg-approve">결재권자:</div>
-                                              <div class="msg-approve2">&nbsp;아무개</div>
-                                              <div class="msg-approve3">&nbsp;사장</div>
-                                              <!--결재 목록 문서종류-->
-                                              <div class="msg-doctype">문서종류:</div>
-                                              <div class="msg-doctype2">&nbsp;기안서(apvType)</div>
-                                             </div>
-                                             <img src="https://assets.codepen.io/3364143/Screen+Shot+2020-08-01+at+12.24.16.png" alt="" class="members mail-members">
-                                            </div>
-                                            <!--테스트 결재리스트 1 끝-->
-                                            
-                                            <!--테스트 결재리스트 1 시작-->
-                                            <div class="msg selected-bg anim-y">
-                                             <input type="checkbox" name="msg" id="mail1" class="mail-choice" checked>
-                                             <label for="mail1"></label>
-                                             <div class="msg-content">
-                                              <a href=""><div class="msg-title">결재 제목(apt)</div></a>
-                                              <!--결재 목록 기한-->
-                                              <div class="msg-date">기한:</div>
-                                              <div class="msg-startday">&nbsp;2021.08.20(arrive)&nbsp;</div>
-                                              <div class="msg-date2">~</div>
-                                              <div class="msg-endday">&nbsp;2021.09.15(depart)</div>
-                                               <!--결재 목록 기안자-->
-                                              <div class="msg-sender">기안자:</div>
-                                              <div class="msg-sender2">&nbsp;강정환</div>
-                                              <div class="msg-sender3">&nbsp;사원</div>
-                                               <!--결재 목록 결재권자--> 
-                                              <div class="msg-approve">결재권자:</div>
-                                              <div class="msg-approve2">&nbsp;아무개</div>
-                                              <div class="msg-approve3">&nbsp;사장</div>
-                                              <!--결재 목록 문서종류-->
-                                              <div class="msg-doctype">문서종류:</div>
-                                              <div class="msg-doctype2">&nbsp;기안서(apvType)</div>
-                                             </div>
-                                             <img src="https://assets.codepen.io/3364143/Screen+Shot+2020-08-01+at+12.24.16.png" alt="" class="members mail-members">
-                                            </div>
-                                            <!--테스트 결재리스트 1 끝-->
-
-                                               <!--테스트 결재리스트 2 시작-->
-                                               <div class="msg selected-bg anim-y">
-                                                <input type="checkbox" name="msg" id="mail1" class="mail-choice2" checked>
-                                                <label for="mail1"></label>
-                                                <div class="msg-content">
-                                                 <a href=""><div class="msg-title">휴가 건의 (휴가원 문서 첨부)</div></a>
-                                                 <!--결재 목록 기한-->
-                                                 <div class="msg-date">기한:</div>
-                                                 <div class="msg-startday">&nbsp;2021.08.20&nbsp;</div>
-                                                 <div class="msg-date2">~</div>
-                                                 <div class="msg-endday">&nbsp;2021.09.15</div>
-                                                  <!--결재 목록 기안자-->
-                                                 <div class="msg-sender">기안자:</div>
-                                                 <div class="msg-sender2">&nbsp;강정환</div>
-                                                 <div class="msg-sender3">&nbsp;사원</div>
-                                                  <!--결재 목록 결재권자--> 
-                                                 <div class="msg-approve">결재권자:</div>
-                                                 <div class="msg-approve2">&nbsp;아무개</div>
-                                                 <div class="msg-approve3">&nbsp;사장</div>
-                                                 <!--결재 목록 문서종류-->
-                                                 <div class="msg-doctype">문서종류:</div>
-                                                 <div class="msg-doctype2">&nbsp;세금 계산서</div>
-                                                </div>
-                                                <img src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=60" alt="" class="members mail-members">
-                                               </div>
-                                               <!--테스트 결재리스트 2 끝-->
-
-                                                 <!--테스트 결재리스트 3 시작-->
-                                            <div class="msg selected-bg anim-y">
-                                              <input type="checkbox" name="msg" id="mail1" class="mail-choice3" checked>
-                                              <label for="mail1"></label>
-                                              <div class="msg-content">
-                                               <a href=""><div class="msg-title">휴가 건의 (휴가원 문서 첨부)</div></a>
-                                               <!--결재 목록 기한-->
-                                               <div class="msg-date">기한:</div>
-                                               <div class="msg-startday">&nbsp;2021.08.20&nbsp;</div>
-                                               <div class="msg-date2">~</div>
-                                               <div class="msg-endday">&nbsp;2021.09.15</div>
-                                                <!--결재 목록 기안자-->
-                                               <div class="msg-sender">기안자:</div>
-                                               <div class="msg-sender2">&nbsp;강정환</div>
-                                               <div class="msg-sender3">&nbsp;사원</div>
-                                                <!--결재 목록 결재권자--> 
-                                               <div class="msg-approve">결재권자:</div>
-                                               <div class="msg-approve2">&nbsp;아무개</div>
-                                               <div class="msg-approve3">&nbsp;사장</div>
-                                               <!--결재 목록 문서종류-->
-                                               <div class="msg-doctype">문서종류:</div>
-                                               <div class="msg-doctype2">&nbsp;계획서</div>
-                                              </div>
-                                              <img src="https://images.unsplash.com/photo-1541647376583-8934aaf3448a?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=934&amp;q=80" alt="" class="members mail-members">
-                                             </div>
-                                             <!--테스트 결재리스트 3 끝-->
+<!--<c:if test="${ apv.mCode != loginUser.mCode || apv.apvAgr=loginUser.name|| apv.apvRef=loginUser.name|| apv.apvApp=loginUser.name  }">  -->
+										
+	                                            <!--테스트 결재리스트 1 시작-->
+	                                            <div class="msg selected-bg anim-y">
+	                                             <input type="checkbox" name="msg" id="mail1" class="mail-choice" checked>
+	                                             <label for="mail1"></label>
+	                                             <div class="msg-content">
+		                                              <a href=""><div class="msg-title">결재 제목(apt)</div></a>
+		                                              <!--결재 목록 기한-->
+		                                              <div class="msg-date">기한:</div>
+		                                              <div class="msg-startday">&nbsp;2021.08.20(arrive)&nbsp;</div>
+		                                              <div class="msg-date2">~</div>
+		                                              <div class="msg-endday">&nbsp;2021.09.15(depart)</div>
+		                                               <!--결재 목록 기안자-->
+		                                              <div class="msg-sender">기안자:</div>
+		                                              <div class="msg-sender2">&nbsp;강정환</div>
+		                                              <div class="msg-sender3">&nbsp;사원</div>
+		                                               <!--결재 목록 결재권자--> 
+		                                              <div class="msg-approve">결재권자:</div>
+		                                              <div class="msg-approve2">&nbsp;아무개</div>
+		                                              <div class="msg-approve3">&nbsp;사장</div>
+		                                              <!--결재 목록 문서종류-->
+		                                              <div class="msg-doctype">문서종류:</div>
+		                                              <div class="msg-doctype2">&nbsp;기안서(apvType)</div>
+	                                             </div>
+	                                             <img src="https://assets.codepen.io/3364143/Screen+Shot+2020-08-01+at+12.24.16.png" alt="" class="members mail-members">
+	                                            </div>
+	                                            <!--테스트 결재리스트 1 끝-->
+	                                            
+	                                            <!--테스트 결재리스트 1 시작-->
+	                                            <div class="msg selected-bg anim-y">
+	                                             <input type="checkbox" name="msg" id="mail1" class="mail-choice" checked>
+	                                             <label for="mail1"></label>
+	                                             <div class="msg-content">
+		                                              <a href=""><div class="msg-title">결재 제목(apt)</div></a>
+		                                              <!--결재 목록 기한-->
+		                                              <div class="msg-date">기한:</div>
+		                                              <div class="msg-startday">&nbsp;2021.08.20(arrive)&nbsp;</div>
+		                                              <div class="msg-date2">~</div>
+		                                              <div class="msg-endday">&nbsp;2021.09.15(depart)</div>
+		                                               <!--결재 목록 기안자-->
+		                                              <div class="msg-sender">기안자:</div>
+		                                              <div class="msg-sender2">&nbsp;강정환</div>
+		                                              <div class="msg-sender3">&nbsp;사원</div>
+		                                               <!--결재 목록 결재권자--> 
+		                                              <div class="msg-approve">결재권자:</div>
+		                                              <div class="msg-approve2">&nbsp;아무개</div>
+		                                              <div class="msg-approve3">&nbsp;사장</div>
+		                                              <!--결재 목록 문서종류-->
+		                                              <div class="msg-doctype">문서종류:</div>
+		                                              <div class="msg-doctype2">&nbsp;기안서(apvType)</div>
+	                                             </div>
+	                                             <img src="https://assets.codepen.io/3364143/Screen+Shot+2020-08-01+at+12.24.16.png" alt="" class="members mail-members">
+	                                            </div>
+	                                            <!--테스트 결재리스트 1 끝-->
+	                                            
+	                                            
+	                                            <!--테스트 결재리스트 1 시작-->
+	                                            <div class="msg selected-bg anim-y">
+	                                             <input type="checkbox" name="msg" id="mail1" class="mail-choice" checked>
+	                                             <label for="mail1"></label>
+	                                             <div class="msg-content">
+		                                              <a href=""><div class="msg-title">결재 제목(apt)</div></a>
+		                                              <!--결재 목록 기한-->
+		                                              <div class="msg-date">기한:</div>
+		                                              <div class="msg-startday">&nbsp;2021.08.20(arrive)&nbsp;</div>
+		                                              <div class="msg-date2">~</div>
+		                                              <div class="msg-endday">&nbsp;2021.09.15(depart)</div>
+		                                               <!--결재 목록 기안자-->
+		                                              <div class="msg-sender">기안자:</div>
+		                                              <div class="msg-sender2">&nbsp;강정환</div>
+		                                              <div class="msg-sender3">&nbsp;사원</div>
+		                                               <!--결재 목록 결재권자--> 
+		                                              <div class="msg-approve">결재권자:</div>
+		                                              <div class="msg-approve2">&nbsp;아무개</div>
+		                                              <div class="msg-approve3">&nbsp;사장</div>
+		                                              <!--결재 목록 문서종류-->
+		                                              <div class="msg-doctype">문서종류:</div>
+		                                              <div class="msg-doctype2">&nbsp;기안서(apvType)</div>
+	                                             </div>
+	                                             <img src="https://assets.codepen.io/3364143/Screen+Shot+2020-08-01+at+12.24.16.png" alt="" class="members mail-members">
+	                                            </div>
+	                                            <!--테스트 결재리스트 1 끝-->
+	                                            
+	                                            <!--테스트 결재리스트 1 시작-->
+	                                            <div class="msg selected-bg anim-y">
+	                                             <input type="checkbox" name="msg" id="mail1" class="mail-choice" checked>
+	                                             <label for="mail1"></label>
+	                                             <div class="msg-content">
+		                                              <a href=""><div class="msg-title">결재 제목(apt)</div></a>
+		                                              <!--결재 목록 기한-->
+		                                              <div class="msg-date">기한:</div>
+		                                              <div class="msg-startday">&nbsp;2021.08.20(arrive)&nbsp;</div>
+		                                              <div class="msg-date2">~</div>
+		                                              <div class="msg-endday">&nbsp;2021.09.15(depart)</div>
+		                                               <!--결재 목록 기안자-->
+		                                              <div class="msg-sender">기안자:</div>
+		                                              <div class="msg-sender2">&nbsp;강정환</div>
+		                                              <div class="msg-sender3">&nbsp;사원</div>
+		                                               <!--결재 목록 결재권자--> 
+		                                              <div class="msg-approve">결재권자:</div>
+		                                              <div class="msg-approve2">&nbsp;아무개</div>
+		                                              <div class="msg-approve3">&nbsp;사장</div>
+		                                              <!--결재 목록 문서종류-->
+		                                              <div class="msg-doctype">문서종류:</div>
+		                                              <div class="msg-doctype2">&nbsp;기안서(apvType)</div>
+	                                             </div>
+	                                             <img src="https://assets.codepen.io/3364143/Screen+Shot+2020-08-01+at+12.24.16.png" alt="" class="members mail-members">
+	                                            </div>
+	                                            <!--테스트 결재리스트 1 끝-->
+	
+	                                               <!--테스트 결재리스트 2 시작-->
+	                                               <div class="msg selected-bg anim-y">
+	                                                <input type="checkbox" name="msg" id="mail1" class="mail-choice2" checked>
+	                                                <label for="mail1"></label>
+	                                                <div class="msg-content">
+		                                                 <a href=""><div class="msg-title">휴가 건의 (휴가원 문서 첨부)</div></a>
+		                                                 <!--결재 목록 기한-->
+		                                                 <div class="msg-date">기한:</div>
+		                                                 <div class="msg-startday">&nbsp;2021.08.20&nbsp;</div>
+		                                                 <div class="msg-date2">~</div>
+		                                                 <div class="msg-endday">&nbsp;2021.09.15</div>
+		                                                  <!--결재 목록 기안자-->
+		                                                 <div class="msg-sender">기안자:</div>
+		                                                 <div class="msg-sender2">&nbsp;강정환</div>
+		                                                 <div class="msg-sender3">&nbsp;사원</div>
+		                                                  <!--결재 목록 결재권자--> 
+		                                                 <div class="msg-approve">결재권자:</div>
+		                                                 <div class="msg-approve2">&nbsp;아무개</div>
+		                                                 <div class="msg-approve3">&nbsp;사장</div>
+		                                                 <!--결재 목록 문서종류-->
+		                                                 <div class="msg-doctype">문서종류:</div>
+		                                                 <div class="msg-doctype2">&nbsp;세금 계산서</div>
+	                                                </div>
+	                                                <img src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=60" alt="" class="members mail-members">
+	                                               </div>
+	                                               <!--테스트 결재리스트 2 끝-->
+	
+	                                                 <!--테스트 결재리스트 3 시작-->
+	                                             <div class="msg selected-bg anim-y">
+	                                              <input type="checkbox" name="msg" id="mail1" class="mail-choice3" checked>
+	                                              <label for="mail1"></label>
+	                                              <div class="msg-content">
+		                                               <a href=""><div class="msg-title">휴가 건의 (휴가원 문서 첨부)</div></a>
+		                                               <!--결재 목록 기한-->
+		                                               <div class="msg-date">기한:</div>
+		                                               <div class="msg-startday">&nbsp;2021.08.20&nbsp;</div>
+		                                               <div class="msg-date2">~</div>
+		                                               <div class="msg-endday">&nbsp;2021.09.15</div>
+		                                                <!--결재 목록 기안자-->
+		                                               <div class="msg-sender">기안자:</div>
+		                                               <div class="msg-sender2">&nbsp;강정환</div>
+		                                               <div class="msg-sender3">&nbsp;사원</div>
+		                                                <!--결재 목록 결재권자--> 
+		                                               <div class="msg-approve">결재권자:</div>
+		                                               <div class="msg-approve2">&nbsp;아무개</div>
+		                                               <div class="msg-approve3">&nbsp;사장</div>
+		                                               <!--결재 목록 문서종류-->
+		                                               <div class="msg-doctype">문서종류:</div>
+		                                               <div class="msg-doctype2">&nbsp;계획서</div>
+	                                              </div>
+	                                              <img src="https://images.unsplash.com/photo-1541647376583-8934aaf3448a?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=934&amp;q=80" alt="" class="members mail-members">
+	                                             </div>
+	                                             <!--테스트 결재리스트 3 끝-->
+	                                        </c:if>
                                            </div>                                
                                           </div>
+                                          
+                                          
                                           <div class="mail-detail">
                                            <div class="mail-detail-header">
                                             <div class="mail-detail-profile">
