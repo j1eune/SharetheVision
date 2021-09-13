@@ -842,14 +842,6 @@ flex-direction: column;
 overflow: auto;
 background-color: var(--theme-bg-color);
 }
-@keyframes fadeInAnimation {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-     }
-}
 .mail-detail-profile {
 display: flex;
 align-items: center;
