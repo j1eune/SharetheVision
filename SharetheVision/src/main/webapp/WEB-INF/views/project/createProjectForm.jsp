@@ -123,7 +123,7 @@
                                         <div class="row align-items-end">
                                             <div class="col-lg-8">
                                                 <div class="page-header-title">
-                                                    <i class="icofont icofont icofont icofont-file-document bg-c-pink"></i>
+                                                    <i class="icofont icofont-file-document bg-c-green"></i>
                                                     <div class="d-inline">
                                                         <h4>프로젝트</h4>
                                                         <span>팀원들과 협업할 프로젝트를 관리하는 곳입니다.</span>
@@ -179,14 +179,14 @@
 															   		&nbsp;
 															   </div>
 															   <div class="form-group col-md-12" style="text-align: center;">
-															   		<button type="submit" class="btn btn-danger">생성</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+															   		<button type="submit" class="btn btn-success">생성</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 															   		<button type="button" class="btn btn-inverse btn-outline-inverse"  onclick="reloadPage();" id="cancelButton">취소</button>
 															   </div>
 															 </div>
 														 </form>
                                                     </div>
                                                     <br>
-                                                    <div style="overflow:auto; height: 350px;" class="card-block projectContent">
+                                                    <div style="overflow:auto; height: 350px; margin-bottom:25px;" class="card-block projectContent">
 	                                                   	<h5>진행중인 프로젝트</h5><br>
 															<div class="container">
 															    <div class="row">
@@ -250,7 +250,7 @@
                                                     		진행 중인 프로젝트가 없습니다.
                                                     	</c:if>
                                                     </div>
-                                                    <div style="border-bottom:1px solid black; display: inline-block; width:90%; margin:auto;"></div>
+                                                    <div style="height:10px; border-top:0.3px solid gray; width:90%; margin:auto"></div>
                                                     <div style="overflow:auto; height: 350px;" class="card-block  projectContent">
                                                     	<h5>완료된 프로젝트</h5><br>
 															<div class="container">
@@ -363,7 +363,7 @@
 											</div>
 								      </div>
 								      <div class="modal-footer">
-								        <button type="button" class="btn btn-primary" id="addMemberButton" data-dismiss="modal">추가</button>
+								        <button type="button" class="btn btn-success" id="addMemberButton" data-dismiss="modal">추가</button>
 								        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 								      </div>
 								    </div>
