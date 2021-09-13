@@ -202,38 +202,6 @@ public class ApprovalController {
 		return resultMap;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	// 결재상세 화면 ajax
 		@ResponseBody
 		@RequestMapping(value = "detailApproval.ap", produces = "application/json; charset=utf-8")
@@ -247,7 +215,12 @@ public class ApprovalController {
 			} else if(apv.getApvAgr() == null) {
 				apv.setApvAgr("");
 			}
-			
+			Attachment profile = aService.selectProfile(apv.getmCode());
+			if(profile != null) {
+				apv.setAtChange(profile.getAtChange());
+			} else {
+				apv.setAtChange("");
+			}
 			ApprovalAttachDTO at = apvService.selectAttachedFile(apvNo);
 			
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();

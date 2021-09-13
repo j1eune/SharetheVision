@@ -92,11 +92,9 @@
 	
 	<select id="selectOne" resultMap="approvalResultSet">
 		SELECT *
-		FROM (SELECT AP.*, AT.AT_CHANGE, M.M_NAME
+		FROM (SELECT AP.*,M.M_NAME
 			  FROM APPROVAL AP
-			  	LEFT JOIN ATTACHMENTS AT ON(M_CODE = AT_CATEGORY)
-			  	JOIN MEMBER M ON(M.M_CODE = AP.M_CODE)
-			  WHERE AT_LEVEL = 1)
+			  	JOIN MEMBER M ON(M.M_CODE = AP.M_CODE))
 		WHERE APV_NO = #{apvNo}
 	</select>
 

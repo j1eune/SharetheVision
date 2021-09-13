@@ -4317,7 +4317,7 @@ function clock5() {
   			data:{apvNo:apvNo},
   			success:function(data){
   				console.log(data);
-  				console.log(data.apv.atChange);
+  				console.log(data.profile);
   				
   				var $detailProfile = $("#detailProfileBox");
   				var $detailHead = $("#detailHead"); 
