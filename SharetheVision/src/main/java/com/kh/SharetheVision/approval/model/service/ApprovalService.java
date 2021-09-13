@@ -11,7 +11,7 @@ public interface ApprovalService {
 
 	List<Member> aplist();
 
-	Attachment selectAttachedFile(int apNo);
+	ApprovalAttachDTO selectAttachedFile(int apvNo);
 
 	int insertApproval(ApprovalVO apv);
 

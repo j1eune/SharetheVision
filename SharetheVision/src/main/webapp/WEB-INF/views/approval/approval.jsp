@@ -2194,6 +2194,13 @@ border-radius:15px;
  #apform1,#apform2,#apform3,#apform4,#apform5{
 
  }
+#detailProfileBox{
+		width: 45px;
+		height: 35px;
+		overflow:hidden;
+		border-radius: 65%;
+}
+ 
     </style>
 </head>
 
@@ -3734,18 +3741,13 @@ border-radius:15px;
 	                                             <!--테스트 결재리스트 3 끝-->
                                            </div>                                
                                           </div>
-                                          
-                                          
+                                          <!-- detail 영역 -->
                                           <div class="mail-detail">
                                            <div class="mail-detail-header">
-                                            <div class="mail-detail-profile">
-                                             <img src="https://images.unsplash.com/flagged/photo-1574282893982-ff1675ba4900?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80" alt="" class="members inbox-detail" />
-                                          <div class="mail-detail-name">
-                                             <div class="apc1">기안자:&nbsp;</div>
-                                             <div class="apc2">강정환&nbsp;</div>
-                                             <div class="apc3">사원</div>    
-                                          </div>
+                                            <div class="mail-detail-profile" id="detailProfileBox">
                                             </div>
+                                          <div class="mail-detail-name" id="detailHead">
+                                          </div>
                                             <div class="mail-icons">         
                                               <button class="button button--primary" value="alert"  id="apv_approve">승인</button>
                                               <button class="button button--secondary" value="alert" id="apv_refuse">거절</button>
@@ -3756,29 +3758,24 @@ border-radius:15px;
                                             <div class="mail-contents-subject">
                                              <input type="checkbox" name="msg" id="mail20" class="mail-choice" checked>
                                              <label for="mail20"></label>
-                                             <div class="mail-contents-title">결재 제목</div>
+                                             <div class="mail-contents-title" id="detailTitle"></div>
                                             </div>
                                             <div class="wrapper">
                                               
                                               <div class="mail">
-                                                <div class="mail-time">
-                                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
-                                                    <circle cx="12" cy="12" r="10" />
-                                                    <path d="M12 6v6l4 2" /></svg>
-                                              12 Mar, 2019
+                                                <div class="mail-time" id="detailTime">
                                             </div>
                                             
                                             
                                             <div class="assignee">
-                                            <div class="aprf1">참조자:</div><div></div>
-                                            <div class="af">합의자:</div><div></div>
-                                            <div class="af">결재권자:</div><div></div>
+                                            <div class="aprf1" id="detailReferrer">참조자:</div><div></div>
+                                            <div class="af" id="detailAgreeer">합의자:</div><div></div>
+                                            <div class="af" id="detailApprover">결재권자:</div><div></div>
                                             </div>
                                             
-                                            <div class="mail-inside">결재 코멘트(comment) 결재 코멘트(comment) 결재 코멘트(comment) 결재 코멘트(comment) 결재 코멘트(comment) 결재 코멘트(comment) 
-                                            결재 코멘트(comment) 결재 코멘트(comment) 결재 코멘트(comment) 결재 코멘트(comment)결재 코멘트(comment)결재 코멘트(comment)</div>
+                                            <div class="mail-inside" id="detailContent"></div>
                                             
-                                            <div class="mail-assign">
+                                            <div class="mail-assign" id="detailStatus">
                                               <!--결재 대쉬보드 상세보기 진행로그 결재승인-->
                                               <div class="assignee">
                                                 <div class="msg-apvname">&nbsp;아무개</div>
@@ -3826,8 +3823,8 @@ border-radius:15px;
                                                 <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" /></svg>
                                                 
                                                <div class="mail-doc-detail" id="apdetailfile">
-                                                <div class="mail-doc-name">강정환 사원 휴가원 제출.docx</div>
-                                                <div class="mail-doc-date">추가됨 17 May, 2020</div>
+                                                <div class="mail-doc-name" id="detailFileTitle"></div>
+                                                <div class="mail-doc-date" id="detailFileDate"></div>
                                                </div>
                                               </div>
                                               <div class="mail-doc-icons">
@@ -3853,11 +3850,6 @@ border-radius:15px;
             </div>
         </div>
     </div>
-<div class="fixed-button">
-	<a href="https://codedthemes.com/item/guru-able-admin-template/" target="_blank" class="btn btn-md btn-primary">
-	  <i class="fa fa-shopping-cart" aria-hidden="true"></i> Upgrade To Pro
-	</a>
-</div>
 
 <!--결재 처리 버튼 스크립트 시작-->
 <script>
@@ -4327,6 +4319,55 @@ function clock5() {
   $('.selectpicker').selectpicker();
   </script>
   
+  <!-- detail 출력 -->
+  <script>
+  	$("#testBtn").on("click",function(){
+  		var apvNo =  1;
+  		$.ajax({
+  			url: "detailApproval.ap",
+  			data:{apvNo:apvNo},
+  			success:function(data){
+  				console.log(data);
+  				console.log(data.apv.atChange);
+  				
+  				var $detailProfile = $("#detailProfileBox");
+  				var $detailHead = $("#detailHead"); 
+  				var $detailTitle = $("#detailTitle");
+  				var $detailContent = $("#detailContent");
+  				var $detailTime = $("#detailTime");
+  				var $detailReferrer = $("#detailReferrer");
+  				var $detailAgreeer = $("#detailAgreeer");
+  				var $detailApprover = $("#detailApprover");
+  				var $detailFileTitle = $("#detailFileTitle");
+  				var $detailFileDate = $("#detailFileDate");
+  				
+  				if(data.apv.atChange.trim() == ''){
+  					$detailProfile.html('<img src="resources/assets/images/defaultProfile.png" style="width:100%; height:100%; object-fit: fill;"/>');
+  				} else {
+  					$detailProfile.html('<img src="resources/muploadFile/'+data.apv.atChange+'" style="width:100%; height:100%; object-fit: fill;"/>');
+  				}
+  				
+  				$detailHead.html('<div class="apc1">기안자:&nbsp;</div>'+
+  								 '<div class="apc2">'+data.apv.mName+'</div>');
+  				$detailTitle.text(data.apt);  										
+  				$detailContent.text(data.comment);
+  				$detailTime.html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">'+
+                        '<circle cx="12" cy="12" r="10" />'+'<path d="M12 6v6l4 2" /></svg>'+data.apv.arrive);
+  				
+  				$detailReferrer.text('참조자 : '+data.apv.apvRef);
+  				$detailAgreeer.text('합의자 : '+data.apv.apvAgr);
+  				$detailApprover.text('결재자 : '+data.apv.apvApp);
+  				$detailFileTitle.text(data.at.aptOriginName);
+  				$detailFileDate.text('추가됨 ' + data.at.regDate);
+  				
+  				
+  			},
+  			error:function(data){
+  				console.log("디테일 실패");
+  			}
+  		})
+  	})
+  </script>
  
 <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>

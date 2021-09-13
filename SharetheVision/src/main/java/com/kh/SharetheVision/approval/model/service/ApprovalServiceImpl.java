@@ -27,8 +27,8 @@ public class ApprovalServiceImpl implements ApprovalService {
 	}
 
 	@Override
-	public Attachment selectAttachedFile(int apNo) {
-		return apvdao.selectAttachedFile(sqlSession, apNo);
+	public ApprovalAttachDTO selectAttachedFile(int apvNo) {
+		return apvdao.selectAttachedFile(sqlSession, apvNo);
 	}
 
 	@Override

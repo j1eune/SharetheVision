@@ -11,7 +11,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +25,7 @@ import com.google.gson.GsonBuilder;
 import com.kh.SharetheVision.approval.model.service.ApprovalService;
 import com.kh.SharetheVision.approval.model.vo.ApprovalAttachDTO;
 import com.kh.SharetheVision.approval.model.vo.ApprovalVO;
+import com.kh.SharetheVision.attachments.model.service.AttachmentService;
 import com.kh.SharetheVision.attachments.model.vo.Attachment;
 import com.kh.SharetheVision.member.model.vo.Member;
 
@@ -34,6 +34,9 @@ public class ApprovalController {
 
 	@Autowired
 	private ApprovalService apvService;
+	
+	@Autowired
+	private AttachmentService aService;
 
 	@RequestMapping(value = "approval.ap", method = RequestMethod.GET)
 	public String approval(HttpSession session, Model model) {
@@ -102,10 +105,9 @@ public class ApprovalController {
 		List<ApprovalVO> list = apvService.selectApproval(ap);
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-
+		
 		return gson.toJson(list);
 	}
-	
 	
 	// 결재 작성 AJAX에서 값 받은 후 DB로 데이터 집어넣기
 	
@@ -164,4 +166,61 @@ public class ApprovalController {
 		resultMap.put("result", "failed");
 		return resultMap;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 결재상세 화면 ajax
+		@ResponseBody
+		@RequestMapping(value = "detailApproval.ap", produces = "application/json; charset=utf-8")
+		public String detailApproval(@RequestParam("apvNo") int apvNo) {
+			ApprovalVO ap = new ApprovalVO();
+			ap.setApvNo(apvNo);
+			
+			ApprovalVO apv = apvService.selectOne(ap);
+			if(apv.getApvRef() == null) {
+				apv.setApvRef("");
+			} else if(apv.getApvAgr() == null) {
+				apv.setApvAgr("");
+			}
+			
+			ApprovalAttachDTO at = apvService.selectAttachedFile(apvNo);
+			
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("apv", apv);
+			map.put("at", at);
+			
+			return gson.toJson(map);
+		}
 }

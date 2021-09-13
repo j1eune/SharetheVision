@@ -17,8 +17,8 @@ public class ApprovalDAO {
 		return sqlSession.selectList("approvalMapper.apList");
 	}
 
-	public Attachment selectAttachedFile(SqlSessionTemplate sqlSession, int apNo) {
-		return sqlSession.selectOne("approvalMapper.selectAttachedFile", apNo);
+	public ApprovalAttachDTO selectAttachedFile(SqlSessionTemplate sqlSession, int apvNo) {
+		return sqlSession.selectOne("approvalMapper.selectAttachedFile", apvNo);
 	}
 
 	public int insertApproval(SqlSessionTemplate sqlSession, ApprovalVO apv) {
@@ -39,5 +39,9 @@ public class ApprovalDAO {
 
 	public int selectCurrentSeq(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("approvalMapper.selectCurrentSeq");
+	}
+
+	public ApprovalVO detailApproval(SqlSessionTemplate sqlSession, int apvNo) {
+		return sqlSession.selectOne("approvalMapper.detailApproval", apvNo);
 	}
 }

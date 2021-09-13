@@ -20,16 +20,26 @@ public class ApprovalVO {
 	private String apvStatus;
 	private int apvRefNo;
 	private MultipartFile fileObj;
+	private String atChange;
+	private String mName;
 
 	public ApprovalVO() {
+	}
+	
+	public String getmName() {
+		return mName;
+	}
+
+	public void setmName(String mName) {
+		this.mName = mName;
 	}
 
 	public int getApvNo() {
 		return apvNo;
 	}
 
-	public void setApvNo(int apNo) {
-		this.apvNo = apNo;
+	public void setApvNo(int apvNo) {
+		this.apvNo = apvNo;
 	}
 
 	public String getApvType() {
@@ -135,13 +145,22 @@ public class ApprovalVO {
 	public void setFileObj(MultipartFile fileObj) {
 		this.fileObj = fileObj;
 	}
+	
+	public String getAtChange() {
+		return atChange;
+	}
+
+	public void setAtChange(String atChange) {
+		this.atChange = atChange;
+	}
 
 	@Override
 	public String toString() {
-		return "Approval [apNo=" + apvNo + ", apvType=" + apvType + ", mCode=" + mCode + ", apvAgr=" + apvAgr
+		return "ApprovalVO [apvNo=" + apvNo + ", apvType=" + apvType + ", mCode=" + mCode + ", apvAgr=" + apvAgr
 				+ ", apvRef=" + apvRef + ", apvApp=" + apvApp + ", apt=" + apt + ", comment=" + comment + ", arrive="
 				+ arrive + ", depart=" + depart + ", apvEdate=" + apvEdate + ", apvStatus=" + apvStatus + ", apvRefNo="
-				+ apvRefNo + "]";
+				+ apvRefNo + ", fileObj=" + fileObj + ", atChange=" + atChange + ", mName=" + mName + "]";
 	}
+
 
 }
