@@ -2219,7 +2219,7 @@ border-radius:15px;
 
  }
 #detailProfileBox{
-		width: 45px;
+		width: 35px;
 		height: 35px;
 		overflow:hidden;
 		border-radius: 65%;
@@ -3619,7 +3619,7 @@ border-radius:15px;
 													</c:if>
 													<label for="mail1"></label>
 													<div class="msg-content" style="width: 300px;">
-														<div class="msg-title">${apv.apt}</div>
+														<div class="msg-title  aListTitle">${apv.apt}</div>
 														<!--결재 목록 기한-->
 														<div class="msg-date">기한:</div>
 														<div class="msg-startday">&nbsp;${apv.arrive}&nbsp;</div>
@@ -4309,8 +4309,9 @@ function clock5() {
   
   <!-- detail 출력 -->
   <script>
-  	$("#testBtn").on("click",function(){
-  		var apvNo =  1;
+  	$(".aListTitle").on("click",function(){
+  		var apvNo = $(this).parent().parent().children().val();
+  		console.log(apvNo);
   		$.ajax({
   			url: "detailApproval.ap",
   			data:{apvNo:apvNo},
@@ -4337,8 +4338,8 @@ function clock5() {
   				
   				$detailHead.html('<div class="apc1">기안자:&nbsp;</div>'+
   								 '<div class="apc2">'+data.apv.mName+'</div>');
-  				$detailTitle.text(data.apt);  										
-  				$detailContent.text(data.comment);
+  				$detailTitle.text(data.apv.apt);  										
+  				$detailContent.text(data.apv.comment);
   				$detailTime.html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">'+
                         '<circle cx="12" cy="12" r="10" />'+'<path d="M12 6v6l4 2" /></svg>'+data.apv.arrive);
   				
