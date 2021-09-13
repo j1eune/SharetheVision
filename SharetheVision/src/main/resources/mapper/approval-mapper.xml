@@ -48,12 +48,27 @@
 	-->
 	
 	<select id="selectApproval" resultMap="approvalResultSet">
-		SELECT *
-		FROM APPROVAL
-		WHERE M_CODE = #{mCode}
-		<if test="apvType != null">
-			AND APV_TYPE = #{apvType}
-		</if>
+		SELECT A.*, AT.AT_CHANGE, M.M_NAME
+		FROM APPROVAL A
+			 LEFT JOIN ATTACHMENTS AT ON (A.M_CODE = AT_CATEGORY)
+			 LEFT JOIN MEMBER M ON (M.M_CODE = A.M_CODE) 
+		<where>
+			<if test="mCode != null">
+				A.M_CODE = #{mCode}
+			</if>
+			<if test="apvType != null">
+				OR APV_TYPE = #{apvType}
+			</if>
+			<if test="apvAgr != null">
+				OR APV_AGR LIKE '%'||#{apvAgr}||'%'
+			</if>
+			<if test="apvRef != null">
+				OR APV_REF LIKE '%'||#{apvRef}||'%'
+			</if>
+			<if test="apvApp != null">
+				OR APV_APP LIKE '%'||#{apvApp}||'%'
+			</if>
+		</where>
 		ORDER BY APV_NO DESC
 	</select>
 	

@@ -3,6 +3,7 @@ package com.kh.SharetheVision.approval.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -40,13 +41,47 @@ public class ApprovalController {
 
 	@RequestMapping(value = "approval.ap", method = RequestMethod.GET)
 	public String approval(HttpSession session, Model model) {
-
-		String mId = "";
-
+		
+		Member m = ((Member)session.getAttribute("loginUser"));
+		String mCode = m.getmCode();
+		String name = m.getName();
+		
 		// 결재 selectbox 회원정보 뿌려주기
 		List<Member> aplist = apvService.aplist();
-
 		model.addAttribute("aplist", aplist);
+		
+		ApprovalVO ap = new ApprovalVO();
+		ap.setmCode(mCode);
+		ap.setApvAgr(name);
+		ap.setApvRef(name);
+		ap.setApvApp(name);
+		
+		// 기안자, 합의자, 참조자, 결재자에 로그인한 유저가 있으면 다 가져오기
+		List<ApprovalVO> listAll = apvService.selectApproval(ap);
+		System.out.println(listAll);
+		
+		ArrayList<ApprovalVO> list = new ArrayList<ApprovalVO>();
+		for(ApprovalVO apv : listAll) {
+			if(apv.getApvAgr() != null && apv.getApvAgr().equals(name)) {
+				// 로그인 유저가 합의자면 결재 상태에 상관없음
+				list.add(apv);
+			} else if(apv.getApvAgr() != null && apv.getApvApp().equals(name) && !apv.getApvStatus().equals("A")) {
+				// 합의자가 있는 상황에서 로그인 유저가 결재자고, 결재상태가 A(미결재)가 아닐 때
+				list.add(apv);
+			} else if(apv.getApvAgr() == null && apv.getApvApp().equals(name)) {
+				// 합의자가 없는 상황에서 로그인 유저가 결재자 일 때
+				list.add(apv);
+			} else if(apv.getApvRef() != null && (apv.getApvRef().equals(name) && (apv.getApvStatus().equals("C") || apv.getApvStatus().equals("D")))){
+				// 로그인 유저가 참조자고, 결재가 끝났을 때
+				list.add(apv);
+			} else if(apv.getmCode().equals(mCode)) {
+				// 로그인 유저가 기안자면 결재 상태에 상관없음
+				list.add(apv);
+			}
+		}
+		
+		model.addAttribute("list", list);
+		
 
 		return "approval";
 	}

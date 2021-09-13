@@ -137,6 +137,10 @@
 			overflow: scroll;
 		}
 		
+		.reply-area::-webkit-scrollbar-thumb {
+			background-color: lightgray;
+		}
+		
 		.reply-box {
 			display: flex;
 			align-items: center;

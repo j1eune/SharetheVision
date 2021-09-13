@@ -25,14 +25,6 @@ public class ApprovalVO {
 
 	public ApprovalVO() {
 	}
-	
-	public String getmName() {
-		return mName;
-	}
-
-	public void setmName(String mName) {
-		this.mName = mName;
-	}
 
 	public int getApvNo() {
 		return apvNo;
@@ -145,13 +137,21 @@ public class ApprovalVO {
 	public void setFileObj(MultipartFile fileObj) {
 		this.fileObj = fileObj;
 	}
-	
+
 	public String getAtChange() {
 		return atChange;
 	}
 
 	public void setAtChange(String atChange) {
 		this.atChange = atChange;
+	}
+
+	public String getmName() {
+		return mName;
+	}
+
+	public void setmName(String mName) {
+		this.mName = mName;
 	}
 
 	@Override
@@ -161,6 +161,5 @@ public class ApprovalVO {
 				+ arrive + ", depart=" + depart + ", apvEdate=" + apvEdate + ", apvStatus=" + apvStatus + ", apvRefNo="
 				+ apvRefNo + ", fileObj=" + fileObj + ", atChange=" + atChange + ", mName=" + mName + "]";
 	}
-
 
 }
