@@ -72,6 +72,7 @@ background-color: var(--body-bg-color);
 color: var(--body-color);
 font-size: 15px;
 background-color: white;
+
 }
 
 img {
@@ -111,6 +112,7 @@ z-index: 3;
 text-transform: uppercase;
 background-color: var(--theme-bg-color);
 border-bottom: 1px solid var(--border-color);
+height:82.6px;
 }
 
 .user-photo {
@@ -640,7 +642,7 @@ font-weight: bold;
 letter-spacing: 0.8px;
 background-color: var(--theme-bg-color);
 border-left: 4px solid #4d76fd;
-width:100%;
+height:82.6px;
 }
 .msg-department svg {
 width: 12px;
@@ -648,6 +650,8 @@ width: 12px;
 
 .inbox {
 overflow: auto;
+width:440px;
+
 }
 .inbox-container {
 border-right: 1px solid var(--border-color);
@@ -802,7 +806,7 @@ cursor: pointer;
 }
 
 .mail-detail {
-display: flex;
+width:720px;
 animation: slideX 0.6s both;
 flex-direction: column;
 overflow: auto;
@@ -822,8 +826,8 @@ justify-content: space-between;
 .mail-detail-name {
 font-size: 14px;
 font-weight: 600;
-margin-left: 10px;
-white-space: nowrap;
+margin-left: -50px;
+
 }
 
 @keyframes slideX {
@@ -935,7 +939,7 @@ padding: 30px 0;
 flex-shrink: 0;
 justify-content: space-between;
 margin-left:26px;
-margin-top:10px;
+margin-top:30px;
 }
 .mail-doc-name {
 color: var(--body-color);
@@ -2088,8 +2092,10 @@ border-radius:15px;
     background-color:grey; 
 }
 .user-profile-area::-webkit-scrollbar-thumb,
-.inbox::-webkit-scrollbar-thumb {
+.inbox::-webkit-scrollbar-thumb,
+.inbox::-webkit-scrollbar-track {
 	display:none;
+	overflow-x:hidden;
 }
 
 
@@ -2215,17 +2221,25 @@ border-radius:15px;
  justify-content: space-between;
 
  }
- #apform1,#apform2,#apform3,#apform4,#apform5{
-
- }
+#apv_approve{
+background-color:#46B8FF;
+}
+#apv_cancle{
+background-color:#CD1039;
+color:white;
+}
+#apv_refuse{
+background-color:#FFFA78;
+color:black;}
 #detailProfileBox{
 		width: 35px;
 		height: 35px;
 		overflow:hidden;
 		border-radius: 65%;
 }
- 
-    </style>
+</style>
+
+
 </head>
 
 <body>
@@ -3646,87 +3660,7 @@ border-radius:15px;
 												</div>
 											</c:forEach>
 
-                                            <!--테스트 결재리스트 1 시작-->
-<!-- 	                                            <div class="msg selected-bg anim-y"> -->
-<!-- 	                                             <input type="checkbox" name="msg" id="mail1" class="mail-choice" checked> -->
-<!-- 	                                             <label for="mail1"></label> -->
-<!-- 	                                             <div class="msg-content"> -->
-<!-- 		                                              <a href=""><div class="msg-title">결재 제목(apt)</div></a> -->
-<!-- 		                                              결재 목록 기한 -->
-<!-- 		                                              <div class="msg-date">기한:</div> -->
-<!-- 		                                              <div class="msg-startday">&nbsp;2021.08.20(arrive)&nbsp;</div> -->
-<!-- 		                                              <div class="msg-date2">~</div> -->
-<!-- 		                                              <div class="msg-endday">&nbsp;2021.09.15(depart)</div> -->
-<!-- 		                                               결재 목록 기안자 -->
-<!-- 		                                              <div class="msg-sender">기안자:</div> -->
-<!-- 		                                              <div class="msg-sender2">&nbsp;강정환</div> -->
-<!-- 		                                              <div class="msg-sender3">&nbsp;사원</div> -->
-<!-- 		                                               결재 목록 결재권자  -->
-<!-- 		                                              <div class="msg-approve">결재권자:</div> -->
-<!-- 		                                              <div class="msg-approve2">&nbsp;아무개</div> -->
-<!-- 		                                              <div class="msg-approve3">&nbsp;사장</div> -->
-<!-- 		                                              결재 목록 문서종류 -->
-<!-- 		                                              <div class="msg-doctype">문서종류:</div> -->
-<!-- 		                                              <div class="msg-doctype2">&nbsp;기안서(apvType)</div> -->
-<!-- 	                                             </div> -->
-<!-- 	                                             <img src="https://assets.codepen.io/3364143/Screen+Shot+2020-08-01+at+12.24.16.png" alt="" class="members mail-members"> -->
-<!-- 	                                            </div> -->
-	                                            <!--테스트 결재리스트 1 끝-->
-	                                            
-	
-	                                               <!--테스트 결재리스트 2 시작-->
-<!-- 	                                               <div class="msg selected-bg anim-y"> -->
-<!-- 	                                                <input type="checkbox" name="msg" id="mail1" class="mail-choice2" checked> -->
-<!-- 	                                                <label for="mail1"></label> -->
-<!-- 	                                                <div class="msg-content"> -->
-<!-- 		                                                 <a href=""><div class="msg-title">휴가 건의 (휴가원 문서 첨부)</div></a> -->
-<!-- 		                                                 결재 목록 기한 -->
-<!-- 		                                                 <div class="msg-date">기한:</div> -->
-<!-- 		                                                 <div class="msg-startday">&nbsp;2021.08.20&nbsp;</div> -->
-<!-- 		                                                 <div class="msg-date2">~</div> -->
-<!-- 		                                                 <div class="msg-endday">&nbsp;2021.09.15</div> -->
-<!-- 		                                                  결재 목록 기안자 -->
-<!-- 		                                                 <div class="msg-sender">기안자:</div> -->
-<!-- 		                                                 <div class="msg-sender2">&nbsp;강정환</div> -->
-<!-- 		                                                 <div class="msg-sender3">&nbsp;사원</div> -->
-<!-- 		                                                  결재 목록 결재권자  -->
-<!-- 		                                                 <div class="msg-approve">결재권자:</div> -->
-<!-- 		                                                 <div class="msg-approve2">&nbsp;아무개</div> -->
-<!-- 		                                                 <div class="msg-approve3">&nbsp;사장</div> -->
-<!-- 		                                                 결재 목록 문서종류 -->
-<!-- 		                                                 <div class="msg-doctype">문서종류:</div> -->
-<!-- 		                                                 <div class="msg-doctype2">&nbsp;세금 계산서</div> -->
-<!-- 	                                                </div> -->
-<!-- 	                                                <img src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=60" alt="" class="members mail-members"> -->
-<!-- 	                                               </div> -->
-<!-- 	                                               테스트 결재리스트 2 끝 -->
-	
-<!-- 	                                                 테스트 결재리스트 3 시작 -->
-<!-- 	                                             <div class="msg selected-bg anim-y"> -->
-<!-- 	                                              <input type="checkbox" name="msg" id="mail1" class="mail-choice3" checked> -->
-<!-- 	                                              <label for="mail1"></label> -->
-<!-- 	                                              <div class="msg-content"> -->
-<!-- 		                                               <a href=""><div class="msg-title">휴가 건의 (휴가원 문서 첨부)</div></a> -->
-<!-- 		                                               결재 목록 기한 -->
-<!-- 		                                               <div class="msg-date">기한:</div> -->
-<!-- 		                                               <div class="msg-startday">&nbsp;2021.08.20&nbsp;</div> -->
-<!-- 		                                               <div class="msg-date2">~</div> -->
-<!-- 		                                               <div class="msg-endday">&nbsp;2021.09.15</div> -->
-<!-- 		                                                결재 목록 기안자 -->
-<!-- 		                                               <div class="msg-sender">기안자:</div> -->
-<!-- 		                                               <div class="msg-sender2">&nbsp;강정환</div> -->
-<!-- 		                                               <div class="msg-sender3">&nbsp;사원</div> -->
-<!-- 		                                                결재 목록 결재권자  -->
-<!-- 		                                               <div class="msg-approve">결재권자:</div> -->
-<!-- 		                                               <div class="msg-approve2">&nbsp;아무개</div> -->
-<!-- 		                                               <div class="msg-approve3">&nbsp;사장</div> -->
-<!-- 		                                               결재 목록 문서종류 -->
-<!-- 		                                               <div class="msg-doctype">문서종류:</div> -->
-<!-- 		                                               <div class="msg-doctype2">&nbsp;계획서</div> -->
-<!-- 	                                              </div> -->
-<!-- 	                                              <img src="https://images.unsplash.com/photo-1541647376583-8934aaf3448a?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=934&amp;q=80" alt="" class="members mail-members"> -->
-<!-- 	                                             </div> -->
-	                                             <!--테스트 결재리스트 3 끝-->
+                                           
                                            </div>                                
                                           </div>
                                           <!-- detail 영역 -->
@@ -3803,6 +3737,10 @@ border-radius:15px;
                                              <br>
                                              <br>
                                              <br>
+                                             <br>
+                                             <br>
+                                             <br>
+                                             
                                              <!--결재 대쉬보드 상세보기 첨부파일 문서-->
                                              <div class="mail-doc">
                                               <div class="mail-doc-wrapper">
@@ -3847,7 +3785,7 @@ border-radius:15px;
                     title: '결재를 승인 하시겠습니까?',
                     icon: 'info',
                     showCancelButton: true,
-                    confirmButtonColor: '#13a699',
+                    confirmButtonColor: '#46B8FF',
                     cancelButtonColor: '#d33',
                     confirmButtonText: '승인',
                     cancelButtonText: '취소'
@@ -3869,7 +3807,7 @@ border-radius:15px;
                     title: '합의를 거절 하시겠습니까?',
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonColor: '#d61c1c',
+                    confirmButtonColor: '#f08b11',
                     cancelButtonColor: '#000000',
                     confirmButtonText: '거절',
                     cancelButtonText: '취소'
@@ -3891,7 +3829,7 @@ border-radius:15px;
                     title: '결재를 반려하시겠습니까?',
                     icon: 'question',
                     showCancelButton: true,
-                    confirmButtonColor: '#f08b11',
+                    confirmButtonColor: '#d61c1c',
                     cancelButtonColor: '#d33',
                     confirmButtonText: '반려',
                     cancelButtonText: '취소'
