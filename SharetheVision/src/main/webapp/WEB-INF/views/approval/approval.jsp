@@ -3570,9 +3570,7 @@ border-radius:15px;
                                              
                                             </div>
 
-<!--<c:if test="${ apv.mCode != loginUser.mCode || apv.apvAgr=loginUser.name|| apv.apvRef=loginUser.name|| apv.apvApp=loginUser.name  }">  -->
-										
-	                                            <!--테스트 결재리스트 1 시작-->
+                                            <!--테스트 결재리스트 1 시작-->
 	                                            <div class="msg selected-bg anim-y">
 	                                             <input type="checkbox" name="msg" id="mail1" class="mail-choice" checked>
 	                                             <label for="mail1"></label>
@@ -3734,7 +3732,6 @@ border-radius:15px;
 	                                              <img src="https://images.unsplash.com/photo-1541647376583-8934aaf3448a?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=934&amp;q=80" alt="" class="members mail-members">
 	                                             </div>
 	                                             <!--테스트 결재리스트 3 끝-->
-	                                        </c:if>
                                            </div>                                
                                           </div>
                                           
