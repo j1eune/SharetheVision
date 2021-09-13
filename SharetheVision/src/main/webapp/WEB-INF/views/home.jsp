@@ -55,15 +55,15 @@
                             <div class="page-body">
                                 <div class="row">
                                 <!-- card1 start -->
-                                <div class="col-md-6 col-xl-3">
+                                 <div class="col-md-6 col-xl-3">
                                     <div class="card widget-card-1">
                                         <div class="card-block-small">
-                                            <i class="icofont icofont-warning-alt bg-c-purple card1-icon"></i>
-                                            <span class="text-c-purple f-w-600">연차사용</span>
-                                            <h4>${usedTotal}/${total}</h4>
+                                            <i class="icofont icofont-ui-office bg-c-pink card1-icon"></i>
+                                            <span class="text-c-pink f-w-600">출근횟수</span>
+                                            <h4>${coCount}/${monEnd}건</h4>
                                             <div>
                                                 <span class="f-left m-t-10 text-muted">
-                                                    <i class="text-c-purple f-16 icofont icofont-tag m-r-10"></i>2021년도
+                                                    <i class="text-c-pink f-16 icofont icofont-calendar m-r-10"></i>${month}월
                                                 </span>
                                             </div>
                                         </div>
@@ -86,15 +86,15 @@
                                     </div>
                                 </div>
                                 <!-- card3 start -->
-                                <div class="col-md-6 col-xl-3">
+                               	<div class="col-md-6 col-xl-3">
                                     <div class="card widget-card-1">
                                         <div class="card-block-small">
-                                            <i class="icofont icofont-ui-home bg-c-pink card1-icon"></i>
-                                            <span class="text-c-pink f-w-600">보너스</span>
-                                            <h4>$50,000</h4>
+                                            <i class="icofont icofont-ui-home bg-c-purple card1-icon"></i>
+                                            <span class="text-c-purple f-w-600">연차사용</span>
+                                            <h4>${usedTotal}/${total}</h4>
                                             <div>
                                                 <span class="f-left m-t-10 text-muted">
-                                                    <i class="text-c-pink f-16 icofont icofont-calendar m-r-10"></i>초과근무 포상
+                                                    <i class="text-c-purple f-16 icofont icofont-tag m-r-10"></i>2021년도
                                                 </span>
                                             </div>
                                         </div>
