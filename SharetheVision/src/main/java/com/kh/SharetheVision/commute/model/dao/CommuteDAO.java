@@ -26,11 +26,11 @@ public class CommuteDAO {
 		return sqlSession.insert("commuteMapper.insertCommute", co);
 	}
 
-	public int commuteOut(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
-		return sqlSession.update("commuteMapper.outCommute", map);
+	public int commuteOut(SqlSessionTemplate sqlSession, Commute co) {
+		return sqlSession.update("commuteMapper.outCommute", co);
 	}
 
-	public int changeState(SqlSession sqlSession, Member m) {
+	public int changeState(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("commuteMapper.changeState", m);
 	}
 

@@ -15,7 +15,7 @@ public interface CommuteService {
 
 	int commuteEnter(Commute co);
 
-	int commuteOut(HashMap<String, Object> map);
+	int commuteOut(Commute co);
 
 	int changeState(Member m);
 

@@ -139,8 +139,8 @@ public class CommuteController {
 		
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
-//		String enterTime = sdf.format(date);
-		String enterTime = "2021-09-10 08:50:43";
+		String enterTime = sdf.format(date);
+//		String enterTime = "2021-09-10 08:50:43";
 		
 		// 지각 여부
 		int status = 0;
@@ -161,10 +161,6 @@ public class CommuteController {
 		co.setMemberNo(memberNo);
 		co.setCommuteStart(enterTime);
 		co.setStatus(status);
-		
-//		map.put("status", status);
-//		map.put("enterTime", enterTime);
-//		map.put("memberNo", memberNo);
 		
 		int result = coService.commuteEnter(co);
 		
@@ -188,9 +184,9 @@ public class CommuteController {
 		String memberNo = ((Member)session.getAttribute("loginUser")).getmCode();
 //		String memberNo = "MaCo2";
 
-		Commute co = coService.commuteDay(memberNo);
-//		String start = co.getCommuteStart();
-		String start = "2021-09-10 08:58:30";
+		Commute todayCo = coService.commuteDay(memberNo);
+		String start = todayCo.getCommuteStart();
+//		String start = "2021-09-10 08:58:30";
 		
 		// 퇴근 시간
 		Date date = new Date(System.currentTimeMillis());
@@ -243,15 +239,21 @@ public class CommuteController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		
+		Commute co = new Commute();
+		co.setCommuteStart(start);
+		co.setCommuteEnd(end);
+		co.setWorktime(workTime);
+		co.setMemberNo(memberNo);
 
-		HashMap<String, Object> map = new HashMap<String, Object>();
+//		HashMap<String, Object> map = new HashMap<String, Object>();
+//		
+//		map.put("enterTime", start);
+//		map.put("outTime", end);
+//		map.put("workTime", workTime);
+//		map.put("memberNo", memberNo);
 		
-		map.put("enterTime", start);
-		map.put("outTime", end);
-		map.put("workTime", workTime);
-		map.put("memberNo", memberNo);
-		
-		int result = coService.commuteOut(map);
+		int result = coService.commuteOut(co);
 		
 		if(result > 0) {
 			return "redirect: commuteMain.co";				

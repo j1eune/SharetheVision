@@ -64,8 +64,8 @@
 	
 	<update id="outCommute">
 		UPDATE COMMUTE
-		SET C_WORKTIME = #{workTime}, C_END = #{outTime}
-		WHERE M_CODE = #{memberNo} AND C_START = #{enterTime}
+		SET C_WORKTIME = #{worktime}, C_END = #{commuteEnd}
+		WHERE M_CODE = #{memberNo} AND C_START = #{commuteStart}
 	</update>
 	
 	<update id="changeState">
