@@ -53,7 +53,7 @@ public class MemberController {
 	
 	@RequestMapping("home.me")
 	public String home() {
-		return "../home"; 
+		return "redirect: main";
 	}
 	
 	@RequestMapping("login.me")

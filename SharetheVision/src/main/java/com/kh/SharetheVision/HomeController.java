@@ -99,6 +99,7 @@ public class HomeController {
 		Date date = new Date(System.currentTimeMillis());
 		cal.setTime(date);
 		
+		// 이번 주
 		cal.add(Calendar.DATE, 1 - cal.get(Calendar.DAY_OF_WEEK));	
 		String start = sdf.format(cal.getTime());
 		
@@ -130,6 +131,32 @@ public class HomeController {
 			owTotal += ow.getOverworktime();
 		}
 		model.addAttribute("owTotal", owTotal);
+		
+		// 이번 달 근로횟수
+		int year = cal.get(Calendar.YEAR);
+		int mon = cal.get(Calendar.MONTH)+1;
+		int monthStart = cal.getMinimum(Calendar.DAY_OF_MONTH);	    // 이번 달 시작 날짜
+		int monthEnd = cal.getActualMaximum(Calendar.DAY_OF_MONTH);	// 이번 달 마지막 날짜
+		
+		String monStart = year+"/"+mon+"/"+monthStart;
+		String monEnd = year+"/"+mon+"/"+monthEnd;
+		
+		HashMap<String, String> map2 = new HashMap<String, String>();
+		map2.put("start", monStart);
+		map2.put("end", monEnd);
+		map2.put("memberNo", memberNo);
+		map2.put("approval", "Y");
+		
+		ArrayList<Commute> list = coService.commuteList(map2);
+		
+		model.addAttribute("coCount", list.size());
+		
+		String[] monArr = {"31", "28", "31", "30", "31", "30", "31", "31", "30", "31", "30", "31"};
+		String mEnd = monArr[mon];
+		
+		model.addAttribute("monEnd", mEnd);
+
+		model.addAttribute("month", mon);
 		
 		return "home";
 	}

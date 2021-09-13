@@ -246,13 +246,6 @@ public class CommuteController {
 		co.setWorktime(workTime);
 		co.setMemberNo(memberNo);
 
-//		HashMap<String, Object> map = new HashMap<String, Object>();
-//		
-//		map.put("enterTime", start);
-//		map.put("outTime", end);
-//		map.put("workTime", workTime);
-//		map.put("memberNo", memberNo);
-		
 		int result = coService.commuteOut(co);
 		
 		if(result > 0) {
@@ -438,7 +431,6 @@ public class CommuteController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
 		Calendar cal = Calendar.getInstance(Locale.KOREA);
 		Date date = new Date(System.currentTimeMillis());
-		
 		cal.setTime(date);
 		
 		// 이번 주 일요일 날짜 
@@ -451,7 +443,7 @@ public class CommuteController {
 		
 		int year = cal.get(Calendar.YEAR);
 		int mon = cal.get(Calendar.MONTH)+1;
-		int monthStart = cal.getMinimum(Calendar.DAY_OF_MONTH);	// 이번 달 시작 날짜
+		int monthStart = cal.getMinimum(Calendar.DAY_OF_MONTH);	    // 이번 달 시작 날짜
 		int monthEnd = cal.getActualMaximum(Calendar.DAY_OF_MONTH);	// 이번 달 마지막 날짜
 		
 		String monStart = year+"/"+mon+"/"+monthStart;
