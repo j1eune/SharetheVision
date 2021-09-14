@@ -13,20 +13,20 @@
     <meta name="description" content="CodedThemes">
     <meta name="keywords" content=" Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
     <meta name="author" content="CodedThemes">
-    <!-- 아이콘 -->
+<!--     아이콘
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-    <!-- 구글 폰트-->
+    구글 폰트
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
-    <!-- 프레임워크 -->
+    프레임워크
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
-    <!-- 아이콘2 -->
+    아이콘2
     <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
-    <!-- 아이콘3 -->
+    아이콘3
     <link rel="stylesheet" type="text/css" href="assets/icon/icofont/css/icofont.css">
-    <!-- 공통css -->
+    공통css
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <!-- jquery-->
-    <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
+    jquery
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css"> -->
     
     <!--버튼 alert css-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -72,6 +72,7 @@ background-color: var(--body-bg-color);
 color: var(--body-color);
 font-size: 15px;
 background-color: white;
+
 }
 
 img {
@@ -85,6 +86,7 @@ max-width: 1600px;
 height: 100vh;
 overflow: hidden;
 margin: 0 auto;
+
 }
 
 .user-profile-area {
@@ -111,6 +113,7 @@ z-index: 3;
 text-transform: uppercase;
 background-color: var(--theme-bg-color);
 border-bottom: 1px solid var(--border-color);
+height:82.6px;
 }
 
 .user-photo {
@@ -257,35 +260,37 @@ justify-content: space-between;
 text-align: center;
 }
 .task-number {
-font-size: 17px;
-font-weight: 700;
-margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 900;
+    margin-bottom: 10px;
 }
 .task-condition {
-font-size: 12px;
-color: var(--main-color);
-font-weight: 700;
+    font-size: 13px;
+    color: var(--main-color);
+    font-weight: 800;
 }
 .task-tasks {
-margin-top: 4px;
-font-size: 10px;
-font-weight: 600;
-color: var(--main-light-color);
+    margin-top: 4px;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--main-light-color);
 }
 
+
+
 .project-title {
-text-transform: uppercase;
-font-weight: 700;
-margin-bottom: 18px;
+    text-transform: uppercase;
+    font-weight: 900;
+    margin-bottom: 18px;
 }
 .project-department {
-position: relative;
-vertical-align: middle;
-padding: 0 30px;
-color: var(--main-color);
-font-size: 13px;
-font-weight: 600;
-margin-top: 14px;
+    position: relative;
+    vertical-align: middle;
+    padding: 0 30px;
+    color: var(--main-color);
+    font-size: 14px;
+    font-weight: 900;
+    margin-top: 14px;
 }
 .project-department:before {
 position: absolute;
@@ -382,9 +387,34 @@ align-items: center;
 transition: 0.4s ease;
 }
 .msg-title {
-font-weight: 600;
+font-weight: 800;
 font-size: 14px;
+cursor:pointer;
 }
+
+.msg-title {
+  -webkit-transition: 0.5s ease-in-out;
+  -moz-transition: 0.5s ease-in-out;
+  -ms-transition: 0.5s ease-in-out;
+  -o-transition: 0.5s ease-in-out;
+  transition: 0.5s ease-in-out;
+  -webkit-text-shadow: 0 0 50px transparent;
+  -moz-text-shadow: 0 0 50px transparent;
+  -ms-text-shadow: 0 0 50px transparent;
+  -o-text-shadow: 0 0 50px transparent;
+  text-shadow: 0 0 50px transparent;
+  color: rgba(0, 0, 0, 0.5);
+  overflow: visible;
+}
+.msg-title:hover {
+  -webkit-text-shadow: 0 0 0px black;
+  -moz-text-shadow: 0 0 0px black;
+  -ms-text-shadow: 0 0 0px black;
+  -o-text-shadow: 0 0 0px black;
+  text-shadow: 0 0 0px black;
+}
+
+
 .msg-date {
 font-size: 11px;
 color: var(--main-light-color);
@@ -493,24 +523,24 @@ margin-top: 5px;
 color: black;
 margin-top: 5px;
 float:left;
-font-size: 13px;
-font-weight: 600;
+font-size: 14px;
+font-weight: 900;
 }
 
 .msg-apvclass{
 
-font-size: 13px;
+font-size: 14px;
 color: black;
-font-weight: 600;
+font-weight: 900;
 margin-top: 5px;
 float:left;
 }
 
 .msg-apvmsg {
 
-font-size: 13px;
+font-size: 14px;
 color: var(--main-light-color);
-font-weight: 600;
+font-weight: 900;
 margin-top: 5px;
 float:left;
 color:green;
@@ -518,16 +548,16 @@ color:green;
 
 .msg-apvmsg2 {
 
-font-size: 15px;
+font-size: 19px;
 color: var(--main-light-color);
-font-weight: bold;
+font-weight: 900;
 margin-top: 5px;
 float:left;
 color:blue;
 }
 
 .assign-date{
-font-size: 13px;
+font-size: 14px;
 color: var(--main-light-color);
 font-weight: 600;
 margin-top: 5px;
@@ -552,31 +582,31 @@ float:left;
 color: black;
 margin-top: 5px;
 float:left;
-font-size: 13px;
-font-weight: 600;
+font-size: 14px;
+font-weight: 900;
 }
 
 .msg-cancleclass{
 
-font-size: 13px;
+font-size: 14px;
 color: black;
-font-weight: 600;
+font-weight: 900;
 margin-top: 5px;
 float:left;
 }
 
 .msg-canclemsg {
 
-font-size: 13px;
+font-size: 14px;
 color: var(--main-light-color);
-font-weight: bold;
+font-weight: 900;
 margin-top: 5px;
 float:left;
 color:rgb(238, 41, 41);
 }
 
 .cancle-date{
-font-size: 13px;
+font-size: 14px;
 color: var(--main-light-color);
 font-weight: 600;
 margin-top: 5px;
@@ -590,31 +620,31 @@ float:left;
 float:left;
 color: black;
 margin-top: 5px;
-font-size: 13px;
-font-weight: 600;
+font-size: 14px;
+font-weight: 900;
 }
 
 .msg-returnclass{
 
-font-size: 13px;
+font-size: 14px;
 color: black;
-font-weight: 600;
+font-weight:900;
 margin-top: 5px;
 float:left;
 }
 
 .msg-returnmsg {
 
-font-size: 13px;
+font-size: 14px;
 color: var(--main-light-color);
-font-weight: bold;
+font-weight: 900;
 margin-top: 5px;
 float:left;
 color:rgb(139, 151, 32);
 }
 
 .return-date{
-font-size: 13px;
+font-size: 14px;
 color: var(--main-light-color);
 font-weight: 600;
 margin-top: 5px;
@@ -625,8 +655,9 @@ float:left;
 
 .selected-bg {
 background-color: var(--theme-bg-color);
-
+scroll-behavior: smooth;
 }
+
 
 .msg-department {
 display: flex;
@@ -640,7 +671,7 @@ font-weight: bold;
 letter-spacing: 0.8px;
 background-color: var(--theme-bg-color);
 border-left: 4px solid #4d76fd;
-width:100%;
+height:82.6px;
 }
 .msg-department svg {
 width: 12px;
@@ -648,6 +679,8 @@ width: 12px;
 
 .inbox {
 overflow: auto;
+width:440px;
+
 }
 .inbox-container {
 border-right: 1px solid var(--border-color);
@@ -656,6 +689,7 @@ display: flex;
 flex-direction: column;
 overflow: auto;
 flex-shrink: 0;
+scroll-behavior: smooth;
 }
 
 .main-container {
@@ -802,7 +836,7 @@ cursor: pointer;
 }
 
 .mail-detail {
-display: flex;
+width:720px;
 animation: slideX 0.6s both;
 flex-direction: column;
 overflow: auto;
@@ -820,10 +854,9 @@ align-items: center;
 justify-content: space-between;
 }
 .mail-detail-name {
-font-size: 14px;
-font-weight: 600;
-margin-left: 10px;
-white-space: nowrap;
+    font-size: 16px;
+    font-weight: 900;
+    margin-left: -270px;
 }
 
 @keyframes slideX {
@@ -858,6 +891,7 @@ margin-left: 0;
 .mail-contents {
 padding: 30px;
 }
+
 .mail-contents-subject {
 display: flex;
 align-items: center;
@@ -935,7 +969,7 @@ padding: 30px 0;
 flex-shrink: 0;
 justify-content: space-between;
 margin-left:26px;
-margin-top:10px;
+margin-top:30px;
 }
 .mail-doc-name {
 color: var(--body-color);
@@ -2088,8 +2122,10 @@ border-radius:15px;
     background-color:grey; 
 }
 .user-profile-area::-webkit-scrollbar-thumb,
-.inbox::-webkit-scrollbar-thumb {
+.inbox::-webkit-scrollbar-thumb,
+.inbox::-webkit-scrollbar-track {
 	display:none;
+	overflow-x:hidden;
 }
 
 
@@ -2215,17 +2251,26 @@ border-radius:15px;
  justify-content: space-between;
 
  }
- #apform1,#apform2,#apform3,#apform4,#apform5{
-
- }
+#apv_approve{
+background-color:#46B8FF;
+}
+#apv_cancle{
+background-color:#CD1039;
+color:white;
+}
+#apv_refuse{
+background-color:#FFFA78;
+color:black;}
 #detailProfileBox{
 		width: 35px;
 		height: 35px;
 		overflow:hidden;
 		border-radius: 65%;
 }
- 
-    </style>
+
+</style>
+
+
 </head>
 
 <body>
@@ -2289,38 +2334,47 @@ border-radius:15px;
                                           
                                           <!--결재 대쉬보드 프로필 끝-->
                                          
-                                          <div class="progress-status">7/17</div>
-                                          <div class="progress">
-                                           <div class="progress-bar"></div>
-                                          </div>
-                                          <div class="task-status">
-                                           <div class="task-stat">
-                                            <div class="task-number">5</div>
-                                            <div class="task-condition">진행</div>
-                                            <div class="task-tasks">ad</div>
-                                           </div>
-                                           <div class="task-stat">
-                                            <div class="task-number">7</div>
-                                            <div class="task-condition">완료</div>
-                                            <div class="task-tasks">com</div>
-                                           </div>
-                                           <div class="task-stat">
-                                            <div class="task-number">2</div>
-                                            <div class="task-condition">반려</div>
-                                            <div class="task-tasks">return</div>
-                                           </div>
-                                           <div class="task-stat">
-                                            <div class="task-number">3</div>
-                                            <div class="task-condition">미결재</div>
-                                            <div class="task-tasks">none</div>
-                                           </div>
-                                           <div class="task-stat">
-                                            <div class="task-number">17</div>
-                                            <div class="task-condition">전체</div>
-                                            <div class="task-tasks">all</div>
-                                           </div>
-                                          </div>
-                                         </div>
+                                          <div class="progress-status">${statusCompleteCount }/${statusTotalCount }</div>
+										<div class="progress">
+											<div class="progress-bar" style="width:${statusCompleteCount / statusTotalCount * 100}%"></div>
+										</div>
+										<div class="task-status">
+										<c:forEach var="status" items="${statusList }">
+											<div class="task-stat">
+												<div class="task-number">${status.count }</div>
+												<div class="task-condition">${status.codeDesc }</div>
+												<div class="task-tasks">${status.attr1 }</div>
+											</div>
+										</c:forEach>
+										<!-- 
+											<div class="task-stat">
+												<div class="task-number">5</div>
+												<div class="task-condition">진행</div>
+												<div class="task-tasks">ad</div>
+											</div>
+											<div class="task-stat">
+												<div class="task-number">7</div>
+												<div class="task-condition">완료</div>
+												<div class="task-tasks">com</div>
+											</div>
+											<div class="task-stat">
+												<div class="task-number">2</div>
+												<div class="task-condition">반려</div>
+												<div class="task-tasks">return</div>
+											</div>
+											<div class="task-stat">
+												<div class="task-number">3</div>
+												<div class="task-condition">미결재</div>
+												<div class="task-tasks">none</div>
+											</div>
+											-->
+											<div class="task-stat">
+												<div class="task-number"><c:out value="${statusTotalCount }" /></div>
+												<div class="task-condition">전체</div>
+												<div class="task-tasks">all</div>
+											</div>
+										</div>
+									</div>
                                          <div class="side-wrapper">
                                           <div class="project-title">진행중인 프로젝트</div>
                                           <div class="project-name">
@@ -2399,23 +2453,23 @@ border-radius:15px;
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
 																<c:if test="${ ap.deptName eq '인사'&& ap.jobNo>=3 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '마케팅'&& ap.jobNo>=3 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '생산'&& ap.jobNo>=3 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '영업'&& ap.jobNo>=3 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '회계'&& ap.jobNo>=3 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
 														   </c:if>
@@ -2431,23 +2485,23 @@ border-radius:15px;
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
 																<c:if test="${ ap.deptName eq '인사'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '마케팅' }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '생산'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '영업'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '회계'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
 														   </c:if>
@@ -2459,27 +2513,27 @@ border-radius:15px;
                                                         <!--기안서 폼 결재자 선택 시작-->
                                                         <div class="apselect">
                                                           <select name="apvApp" class="selectpicker col-md-10" data-style="btn-primary" required>
-                                                          	 <c:forEach items="${ aplist }" var= "ap"> 
+                                                          	 <c:forEach items="${ aplist }" var= "ap">
 																<c:if test="${ ap.name != loginUser.name}">  
 																	<optgroup label="${ ap.deptName } 팀 ">
 																		<c:if test="${ ap.deptName eq '인사' && ap.jobNo>=4 }" >
-																			<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																			<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																		</c:if>
 																		
 																		<c:if test="${ ap.deptName eq '마케팅' && ap.jobNo>=4  }" >
-																			<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																			<option value="${ ap.mId }">${ ap.name } ${ ap.jobName } </option>	
 																		</c:if>
 																		
 																		<c:if test="${ ap.deptName eq '생산' && ap.jobNo>=4 }" >
-																			<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																			<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																		</c:if>
 																		
 																		<c:if test="${ ap.deptName eq '영업' && ap.jobNo>=4 }" >
-																			<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																			<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																		</c:if>
 																		
 																		<c:if test="${ ap.deptName eq '회계' && ap.jobNo>=4 }" >
-																			<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																			<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																		</c:if>
 																	</optgroup>
 															   </c:if>
@@ -2550,7 +2604,10 @@ border-radius:15px;
 													$(document).on("click", "#aps1", function(e) {
 														let form = $("#apform1")[0];
 														let formData = new FormData(form);
-														formData.append("fileObj", $("#file-upload-input")[0].files[0]);
+														let fileObj = $("#file-upload-input")[0].files[0];
+														if (fileObj) {
+															formData.append("fileObj", $("#file-upload-input")[0].files[0]);
+														}
 														$.ajax({
 															url : "${contextPath}/approval.ap",
 															type : "post",
@@ -3604,7 +3661,7 @@ border-radius:15px;
                                             <!-- 결재리스트  -->
                                             <c:forEach items="${list}" var="apv" varStatus="vs">
 												<div class="msg selected-bg anim-y">
-													<input type="hidden" value="${apv.apvNo}">
+													<input type="hidden" name="apvNo" value="${apv.apvNo}">
 													<c:if test="${apv.apvStatus == 'A'}">
 														<input type="checkbox" name="msg" id="mail1" class="mail-choice" checked>
 													</c:if>
@@ -3645,89 +3702,7 @@ border-radius:15px;
 													</c:if>
 												</div>
 											</c:forEach>
-
-                                            <!--테스트 결재리스트 1 시작-->
-<!-- 	                                            <div class="msg selected-bg anim-y"> -->
-<!-- 	                                             <input type="checkbox" name="msg" id="mail1" class="mail-choice" checked> -->
-<!-- 	                                             <label for="mail1"></label> -->
-<!-- 	                                             <div class="msg-content"> -->
-<!-- 		                                              <a href=""><div class="msg-title">결재 제목(apt)</div></a> -->
-<!-- 		                                              결재 목록 기한 -->
-<!-- 		                                              <div class="msg-date">기한:</div> -->
-<!-- 		                                              <div class="msg-startday">&nbsp;2021.08.20(arrive)&nbsp;</div> -->
-<!-- 		                                              <div class="msg-date2">~</div> -->
-<!-- 		                                              <div class="msg-endday">&nbsp;2021.09.15(depart)</div> -->
-<!-- 		                                               결재 목록 기안자 -->
-<!-- 		                                              <div class="msg-sender">기안자:</div> -->
-<!-- 		                                              <div class="msg-sender2">&nbsp;강정환</div> -->
-<!-- 		                                              <div class="msg-sender3">&nbsp;사원</div> -->
-<!-- 		                                               결재 목록 결재권자  -->
-<!-- 		                                              <div class="msg-approve">결재권자:</div> -->
-<!-- 		                                              <div class="msg-approve2">&nbsp;아무개</div> -->
-<!-- 		                                              <div class="msg-approve3">&nbsp;사장</div> -->
-<!-- 		                                              결재 목록 문서종류 -->
-<!-- 		                                              <div class="msg-doctype">문서종류:</div> -->
-<!-- 		                                              <div class="msg-doctype2">&nbsp;기안서(apvType)</div> -->
-<!-- 	                                             </div> -->
-<!-- 	                                             <img src="https://assets.codepen.io/3364143/Screen+Shot+2020-08-01+at+12.24.16.png" alt="" class="members mail-members"> -->
-<!-- 	                                            </div> -->
-	                                            <!--테스트 결재리스트 1 끝-->
-	                                            
-	
-	                                               <!--테스트 결재리스트 2 시작-->
-<!-- 	                                               <div class="msg selected-bg anim-y"> -->
-<!-- 	                                                <input type="checkbox" name="msg" id="mail1" class="mail-choice2" checked> -->
-<!-- 	                                                <label for="mail1"></label> -->
-<!-- 	                                                <div class="msg-content"> -->
-<!-- 		                                                 <a href=""><div class="msg-title">휴가 건의 (휴가원 문서 첨부)</div></a> -->
-<!-- 		                                                 결재 목록 기한 -->
-<!-- 		                                                 <div class="msg-date">기한:</div> -->
-<!-- 		                                                 <div class="msg-startday">&nbsp;2021.08.20&nbsp;</div> -->
-<!-- 		                                                 <div class="msg-date2">~</div> -->
-<!-- 		                                                 <div class="msg-endday">&nbsp;2021.09.15</div> -->
-<!-- 		                                                  결재 목록 기안자 -->
-<!-- 		                                                 <div class="msg-sender">기안자:</div> -->
-<!-- 		                                                 <div class="msg-sender2">&nbsp;강정환</div> -->
-<!-- 		                                                 <div class="msg-sender3">&nbsp;사원</div> -->
-<!-- 		                                                  결재 목록 결재권자  -->
-<!-- 		                                                 <div class="msg-approve">결재권자:</div> -->
-<!-- 		                                                 <div class="msg-approve2">&nbsp;아무개</div> -->
-<!-- 		                                                 <div class="msg-approve3">&nbsp;사장</div> -->
-<!-- 		                                                 결재 목록 문서종류 -->
-<!-- 		                                                 <div class="msg-doctype">문서종류:</div> -->
-<!-- 		                                                 <div class="msg-doctype2">&nbsp;세금 계산서</div> -->
-<!-- 	                                                </div> -->
-<!-- 	                                                <img src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=60" alt="" class="members mail-members"> -->
-<!-- 	                                               </div> -->
-<!-- 	                                               테스트 결재리스트 2 끝 -->
-	
-<!-- 	                                                 테스트 결재리스트 3 시작 -->
-<!-- 	                                             <div class="msg selected-bg anim-y"> -->
-<!-- 	                                              <input type="checkbox" name="msg" id="mail1" class="mail-choice3" checked> -->
-<!-- 	                                              <label for="mail1"></label> -->
-<!-- 	                                              <div class="msg-content"> -->
-<!-- 		                                               <a href=""><div class="msg-title">휴가 건의 (휴가원 문서 첨부)</div></a> -->
-<!-- 		                                               결재 목록 기한 -->
-<!-- 		                                               <div class="msg-date">기한:</div> -->
-<!-- 		                                               <div class="msg-startday">&nbsp;2021.08.20&nbsp;</div> -->
-<!-- 		                                               <div class="msg-date2">~</div> -->
-<!-- 		                                               <div class="msg-endday">&nbsp;2021.09.15</div> -->
-<!-- 		                                                결재 목록 기안자 -->
-<!-- 		                                               <div class="msg-sender">기안자:</div> -->
-<!-- 		                                               <div class="msg-sender2">&nbsp;강정환</div> -->
-<!-- 		                                               <div class="msg-sender3">&nbsp;사원</div> -->
-<!-- 		                                                결재 목록 결재권자  -->
-<!-- 		                                               <div class="msg-approve">결재권자:</div> -->
-<!-- 		                                               <div class="msg-approve2">&nbsp;아무개</div> -->
-<!-- 		                                               <div class="msg-approve3">&nbsp;사장</div> -->
-<!-- 		                                               결재 목록 문서종류 -->
-<!-- 		                                               <div class="msg-doctype">문서종류:</div> -->
-<!-- 		                                               <div class="msg-doctype2">&nbsp;계획서</div> -->
-<!-- 	                                              </div> -->
-<!-- 	                                              <img src="https://images.unsplash.com/photo-1541647376583-8934aaf3448a?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=934&amp;q=80" alt="" class="members mail-members"> -->
-<!-- 	                                             </div> -->
-	                                             <!--테스트 결재리스트 3 끝-->
-                                           </div>                                
+                                           </div>
                                           </div>
                                           <!-- detail 영역 -->
                                           <div class="mail-detail">
@@ -3736,12 +3711,73 @@ border-radius:15px;
                                             </div>
                                           <div class="mail-detail-name" id="detailHead">
                                           </div>
-                                            <div class="mail-icons">         
-                                              <button class="button button--primary" value="alert"  id="apv_approve">승인</button>
-                                              <button class="button button--secondary" value="alert" id="apv_refuse">거절</button>
-                                              <button class="button button--cancel" value="alert" id="apv_cancle">반려</button>                                     
-                                            </div>
-                                           </div>                      
+												<div class="mail-icons">
+													<input type="hidden" id="approvalApvNo" />
+													<button class="button button--primary approvalBtn" value="alert" id="apv_approve" data-status="ACCEPT">승인</button>
+													<button class="button button--secondary approvalBtn" value="alert" id="apv_refuse" data-status="REFUSE">거절</button>
+													<button class="button button--cancel approvalBtn" value="alert" id="apv_cancle" data-status="CANCEL">반려</button>
+												</div>
+											</div>
+											<script>
+											$("button.approvalBtn").on("click", function(e) {
+												let status = $(this).data("status");
+												let apvNo = $("#approvalApvNo").val();
+
+												if (apvNo) {
+													let title = "결재를 승인하시겠습니까?";
+													let icon = "info";
+													let confirmButtonColor = '#46B8FF';
+													let cancelButtonColor = '#d33';
+													let confirmButtonText = '승인';
+													if (status == "REFUSE") {
+														title = '합의를 거절 하시겠습니까?';
+														icon = 'warning';
+														confirmButtonColor = '#f08b11';
+														cancelButtonColor = '#000000';
+														confirmButtonText = '거절';
+													} else if (status == "CANCEL") {
+														title = '결재를 반려하시겠습니까?';
+														icon = 'question';
+														confirmButtonColor = '#d61c1c';
+														cancelButtonColor = '#d33';
+														confirmButtonText = '반려';
+													}
+
+													Swal.fire({
+														title: title,
+														icon: icon,
+														showCancelButton: true,
+														confirmButtonColor: confirmButtonColor,
+														cancelButtonColor: cancelButtonColor,
+														confirmButtonText: confirmButtonText,
+														cancelButtonText: '취소'
+													}).then((result) => {
+														if (result.isConfirmed) {
+															$.ajax({
+																url : "${contextPath}/approvalAccept.ap",
+																async : true,
+																type : "post",
+																data : {apvNo : apvNo, status : status},
+																dataType : "json",
+																success : function(data) {
+																	console.log("data", data);
+																	if (data.result == "SUCCESS") {
+																		Swal.fire('결재 승인 완료되었습니다.', '', 'success');
+																	} else {
+																		if (data.message) {
+																			alert(data.message);
+																		}	
+																	}
+																},
+																error : function(xhr, status, res) {
+																	console.log(xhr.responseText, status, res);
+																}
+															});
+														}
+													});
+												}
+											});
+											</script>
                                            <div class="mail-contents">
                                             <div class="mail-contents-subject">
                                              <input type="checkbox" name="msg" id="mail20" class="mail-choice" checked>
@@ -3762,34 +3798,50 @@ border-radius:15px;
                                             </div>
                                             
                                             <div class="mail-inside" id="detailContent"></div>
-                                            
-                                            <div class="mail-assign" id="detailStatus">
-                                              <!--결재 대쉬보드 상세보기 진행로그 결재승인-->
-                                              <div class="assignee">
-                                                <div class="msg-apvname">&nbsp;아무개</div>
-                                                <div class="msg-apvclass">&nbsp;사장</div>
-                                                  <div class="msg-apvmsg">&nbsp;승인 되었습니다.</div>
-                                                    <span class="assign-date">&nbsp;&nbsp;- 2021.06.50</span>
-                                                   </div>
-                                                   <br>
-                                               <!--결재 대쉬보드 상세보기 진행로그 합의거절-->    
-                                              <div class="assignee">
-                                                <div class="msg-canclename">&nbsp;홍길동</div>
-                                                <div class="msg-cancleclass">&nbsp;부장</div>
-                                                <div class="msg-canclemsg">&nbsp;합의 거절 되었습니다.</div>
-                                                  <span class="cancle-date">&nbsp;&nbsp;- 2021.04.20</span>
-                                              </div>
-                                              <br>
-                                               <!--결재 대쉬보드 상세보기 진행로그 반려-->  
-                                             <div class="assignee">
-                                              <div class="msg-returnname">&nbsp;강정환</div>
-                                              <div class="msg-returnclass">&nbsp;팀장</div>
-                                              <div class="msg-returnmsg">&nbsp;반려 되었습니다.</div>
-                                                <span class="return-date">&nbsp;&nbsp;- 2021.01.20</span>
-                                            </div>
-                                            <br>
-                                             </div>    
-                                           </div>
+
+														<div class="mail-assign" id="detailStatus">
+															<!--결재 대쉬보드 상세보기 진행로그 결재승인 -->
+														<c:forEach var="accept" items="${acceptList }">
+															<!-- acceptType : ${accept.acceptType} -->
+															<c:set var="className" value="${accept.acceptType eq 'ACCEPT' ? 'apv' : accept.acceptType eq 'REFUSE' ? 'cancle' : 'return' }" />
+															<c:set var="dateClass" value="${accept.acceptType eq 'ACCEPT' ? 'assign' : accept.acceptType eq 'REFUSE' ? 'cancle' : 'return' }" />
+															<c:set var="text" value="${accept.acceptType eq 'ACCEPT' ? '승인' : accept.acceptType eq 'REFUSE' ? '거절' : '반려' }" />
+															<div class="assignee">
+																<div class="msg-${className }name">&nbsp;${accept.memNm }</div>
+																<div class="msg-${className }class">&nbsp;${accept.jobName }</div>
+																<div class="msg-${className }msg">&nbsp;${text } 되었습니다.</div>
+																<span class="${dateClass }-date">&nbsp;&nbsp;-${accept.acceptDate }</span>
+															</div>
+															<br />
+														</c:forEach>
+															<!--
+															<div class="assignee">
+																<div class="msg-apvname">&nbsp;아무개</div>
+																<div class="msg-apvclass">&nbsp;사장</div>
+																<div class="msg-apvmsg">&nbsp;승인 되었습니다.</div>
+																<span class="assign-date">&nbsp;&nbsp;-2021.06.50</span>
+															</div>
+															<br>
+															<!--결재 대쉬보드 상세보기 진행로그 합의거절
+															<div class="assignee">
+																<div class="msg-canclename">&nbsp;홍길동</div>
+																<div class="msg-cancleclass">&nbsp;부장</div>
+																<div class="msg-canclemsg">&nbsp;합의 거절 되었습니다.</div>
+																<span class="cancle-date">&nbsp;&nbsp;-
+																	2021.04.20</span>
+															</div>
+															<br>-->
+															<!--결재 대쉬보드 상세보기 진행로그 반려
+															<div class="assignee">
+																<div class="msg-returnname">&nbsp;강정환</div>
+																<div class="msg-returnclass">&nbsp;팀장</div>
+																<div class="msg-returnmsg">&nbsp;반려 되었습니다.</div>
+																<span class="return-date">&nbsp;&nbsp;-
+																	2021.01.20</span>
+															</div>
+															<br>-->
+														</div>
+													</div>
                                            <!--결재 대쉬보드 상세보기 결재승인 메세지-->
                                              <div class="mail-checklist">
                                               <div class="msg-apvmsg2">&nbsp;결재 완료.</div>
@@ -3803,6 +3855,10 @@ border-radius:15px;
                                              <br>
                                              <br>
                                              <br>
+                                             <br>
+                                             <br>
+                                             <br>
+                                             
                                              <!--결재 대쉬보드 상세보기 첨부파일 문서-->
                                              <div class="mail-doc">
                                               <div class="mail-doc-wrapper">
@@ -3841,13 +3897,15 @@ border-radius:15px;
 
 <!--결재 처리 버튼 스크립트 시작-->
 <script>
+/*
   $().ready(function () {
+	   
             $("#apv_approve").click(function () {
                 Swal.fire({
                     title: '결재를 승인 하시겠습니까?',
                     icon: 'info',
                     showCancelButton: true,
-                    confirmButtonColor: '#13a699',
+                    confirmButtonColor: '#46B8FF',
                     cancelButtonColor: '#d33',
                     confirmButtonText: '승인',
                     cancelButtonText: '취소'
@@ -3863,13 +3921,14 @@ border-radius:15px;
             });
         });
 
+
         $().ready(function () {
             $("#apv_refuse").click(function () {
                 Swal.fire({
                     title: '합의를 거절 하시겠습니까?',
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonColor: '#d61c1c',
+                    confirmButtonColor: '#f08b11',
                     cancelButtonColor: '#000000',
                     confirmButtonText: '거절',
                     cancelButtonText: '취소'
@@ -3891,7 +3950,7 @@ border-radius:15px;
                     title: '결재를 반려하시겠습니까?',
                     icon: 'question',
                     showCancelButton: true,
-                    confirmButtonColor: '#f08b11',
+                    confirmButtonColor: '#d61c1c',
                     cancelButtonColor: '#d33',
                     confirmButtonText: '반려',
                     cancelButtonText: '취소'
@@ -3905,7 +3964,7 @@ border-radius:15px;
                     }
                 })
             });
-        });
+        });*/
   </script>
 <!-- 결재 처리 버튼 스크립트 끝-->
 
@@ -4304,13 +4363,14 @@ function clock5() {
   
   <!-- 멀티 셀렉 스크립트 -->
   <script>
-  $('.selectpicker').selectpicker();
+  /* $('.selectpicker').selectpicker(); */
   </script>
   
   <!-- detail 출력 -->
   <script>
   	$(".aListTitle").on("click",function(){
   		var apvNo = $(this).parent().parent().children().val();
+  		$("#approvalApvNo").val(apvNo);
   		console.log(apvNo);
   		$.ajax({
   			url: "detailApproval.ap",
@@ -4357,30 +4417,33 @@ function clock5() {
   		})
   	})
   </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
  
-<script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
 <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js"></script>
-<!-- jquery slimscroll js -->
-<script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+jquery slimscroll js
+<script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script> -->
 <!--멀티 셀렉 bootstrap-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+
 <!-- modernizr js -->
-<script type="text/javascript" src="assets/js/modernizr/modernizr.js"></script>
+<!-- <script type="text/javascript" src="assets/js/modernizr/modernizr.js"></script>
 <script type="text/javascript" src="assets/js/modernizr/css-scrollbars.js"></script>
-<!-- classie js -->
+classie js
 <script type="text/javascript" src="assets/js/classie/classie.js"></script>
-<!-- Morris Chart js -->
+Morris Chart js
 <script src="assets/js/raphael/raphael.min.js"></script>
 <script src="assets/js/morris.js/morris.js"></script>
-<!-- Custom js -->
+Custom js
 <script src="assets/pages/chart/morris/morris-custom-chart.js"></script>
 <script type="text/javascript" src="assets/js/script.js"></script>
 <script src="assets/js/pcoded.min.js"></script>
 <script src="assets/js/demo-12.js"></script>
-<script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script> -->
 
 </body>
 </html>

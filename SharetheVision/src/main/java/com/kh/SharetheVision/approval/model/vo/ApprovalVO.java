@@ -22,9 +22,7 @@ public class ApprovalVO {
 	private MultipartFile fileObj;
 	private String atChange;
 	private String mName;
-
-	public ApprovalVO() {
-	}
+	private String mId;
 
 	public int getApvNo() {
 		return apvNo;
@@ -154,12 +152,12 @@ public class ApprovalVO {
 		this.mName = mName;
 	}
 
-	@Override
-	public String toString() {
-		return "ApprovalVO [apvNo=" + apvNo + ", apvType=" + apvType + ", mCode=" + mCode + ", apvAgr=" + apvAgr
-				+ ", apvRef=" + apvRef + ", apvApp=" + apvApp + ", apt=" + apt + ", comment=" + comment + ", arrive="
-				+ arrive + ", depart=" + depart + ", apvEdate=" + apvEdate + ", apvStatus=" + apvStatus + ", apvRefNo="
-				+ apvRefNo + ", fileObj=" + fileObj + ", atChange=" + atChange + ", mName=" + mName + "]";
+	public String getmId() {
+		return mId;
+	}
+
+	public void setmId(String mId) {
+		this.mId = mId;
 	}
 
 }

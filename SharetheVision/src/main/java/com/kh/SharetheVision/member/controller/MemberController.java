@@ -61,9 +61,13 @@ public class MemberController {
 					  Model model, HttpServletResponse response) throws MemberException {
 
 		Member member = mService.loginMember(mId);
-		Attachment attachment = aService.selectProfile(member.getmCode());
+		Attachment attachment = null;
+		boolean check = false;
+		if(member!= null) {
+			attachment = aService.selectProfile(member.getmCode());
+			check = bcrypt.matches(pwd, member.getPwd());
+		}
 		
-		boolean check = bcrypt.matches(pwd, member.getPwd());
 		
 		try {
 			if(check) {
