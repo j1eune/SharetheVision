@@ -68,5 +68,10 @@ public class MemberServiceImpl implements MemberService {
 	public ArrayList<Member> selectMemberList(Member m) {
 		return mDao.selectMemberList(sqlSession, m);
 	}
+
+	@Override
+	public ArrayList<Member> pSearchMember(HashMap<String, Object> map) {
+		return mDao.pSearchMember(sqlSession, map);
+	}
 	
 }
