@@ -246,6 +246,7 @@
 		FROM REPLY R
 		LEFT JOIN ATTACHMENTS A ON (R.M_CODE = A.AT_CATEGORY)
 		WHERE R.B_NO = #{bId} AND R.R_STATUS = 'Y'
+		ORDER BY R_NO
 	</select>
 	
 	<update id="deleteReply">

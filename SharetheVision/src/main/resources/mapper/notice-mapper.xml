@@ -20,6 +20,7 @@
 		SELECT *
 		FROM NOTICE
 		WHERE M_CODE = #{value} AND N_STATE = 'N'
+		ORDER BY N_NO DESC
 	</select>
 	
 	<update id="readNotice">
