@@ -236,36 +236,38 @@
 				console.log('commute 리스트 성공');
 				console.log(data);
 				
-				var $tbody = $('#coRequestTable').find('tbody');
-				$tbody.html('');
-				
-				for(var i = 0; i < data.length; i++){
-					if(i == 5){
-						break;
+				if(!data){
+					var $tbody = $('#coRequestTable').find('tbody');
+					$tbody.html('');
+					
+					for(var i = 0; i < data.length; i++){
+						if(i == 5){
+							break;
+						}
+						
+						$tr = $('<tr>');
+						
+						var arr = data[i].comment.split("\r\n");
+						
+						$type = $('<td>').text(afterSubstring(arr[0]));
+						$date = $('<td>').text(afterSubstring(arr[1]));
+						
+						$approval = $('<td>');
+						var approvalStr = data[i].apvStatus;
+						if(approvalStr == 'D'){
+							$approvalDiv = $('<div>').text('반려').css({'background-color':'rgba(226, 54, 54, 0.1)', 'color':'#E23636', 'border-radius':'10px', 'width':'40px', 'margin':'auto'});
+						} else if(approvalStr == 'C'){
+							$approvalDiv = $('<div>').text('승인').css({'background-color':'rgba(13, 110, 253, 0.1)', 'color':'#0D6EFD', 'border-radius':'10px', 'width':'40px', 'margin':'auto'});
+						} else if(approvalStr == 'A'){
+							$approvalDiv = $('<div>').text('대기').css({'background-color':'rgba(0, 177, 89, 0.1)', 'color':'#00b159', 'border-radius':'10px', 'width':'40px', 'margin':'auto'});
+						}
+						
+						$approval.append($approvalDiv);
+						$tr.append($type);
+						$tr.append($date);
+						$tr.append($approval);
+						$tbody.append($tr);
 					}
-					
-					$tr = $('<tr>');
-					
-					var arr = data[i].comment.split("\r\n");
-					
-					$type = $('<td>').text(afterSubstring(arr[0]));
-					$date = $('<td>').text(afterSubstring(arr[1]));
-					
-					$approval = $('<td>');
-					var approvalStr = data[i].apvStatus;
-					if(approvalStr == 'D'){
-						$approvalDiv = $('<div>').text('반려').css({'background-color':'rgba(226, 54, 54, 0.1)', 'color':'#E23636', 'border-radius':'10px', 'width':'40px', 'margin':'auto'});
-					} else if(approvalStr == 'C'){
-						$approvalDiv = $('<div>').text('승인').css({'background-color':'rgba(13, 110, 253, 0.1)', 'color':'#0D6EFD', 'border-radius':'10px', 'width':'40px', 'margin':'auto'});
-					} else if(approvalStr == 'A'){
-						$approvalDiv = $('<div>').text('대기').css({'background-color':'rgba(0, 177, 89, 0.1)', 'color':'#00b159', 'border-radius':'10px', 'width':'40px', 'margin':'auto'});
-					}
-					
-					$approval.append($approvalDiv);
-					$tr.append($type);
-					$tr.append($date);
-					$tr.append($approval);
-					$tbody.append($tr);
 				}
 			},
 			error: function(data){
@@ -275,7 +277,7 @@
 	}
 	
 	function afterSubstring(str){
-		var index = str.indexOf(":");
+		var index = str.toString().indexOf(":");
 		var resultStr = str.substring(index+2);
 		
 		return resultStr;

@@ -184,52 +184,55 @@
 				console.log('휴가 요청 성공');
 				console.log(data);
 				
-				var $tbody = $('#leaveTable').find('tbody');
-				$tbody.html('');
-				
-				var length = data.list.length-1;
-				
-				for(var i = length; i > length-5; i--){
-					$tr = $('<tr>');
+				if(data != null){
+					var $tbody = $('#leaveTable').find('tbody');
+					$tbody.html('');
 					
-					var typeStr = data.list[i].type;
-					var $type;
-					if(typeStr == 1){
-						$type = $('<td>').text('연차');
-					} else if(typeStr == 2){
-						$type = $('<td>').text('반차');
-					} else if(typeStr == 3){
-						$type = $('<td>').text('경조사');
-					} else if(typeStr == 4){
-						$type = $('<td>').text('공가');
-					} else if(typeStr == 5){
-						$type = $('<td>').text('병가');
-					} else if(typeStr == 6){
-						$type = $('<td>').text('특별휴가');
-					} else if(typeStr == 7){
-						$type = $('<td>').text('오전반차');
-					} else if(typeStr == 8){
-						$type = $('<td>').text('오후반차');
+					var length = data.list.length-1;
+					
+					for(var i = length; i > length-5; i--){
+						$tr = $('<tr>');
+						
+						var typeStr = data.list[i].type;
+						var $type;
+						if(typeStr == 1){
+							$type = $('<td>').text('연차');
+						} else if(typeStr == 2){
+							$type = $('<td>').text('반차');
+						} else if(typeStr == 3){
+							$type = $('<td>').text('경조사');
+						} else if(typeStr == 4){
+							$type = $('<td>').text('공가');
+						} else if(typeStr == 5){
+							$type = $('<td>').text('병가');
+						} else if(typeStr == 6){
+							$type = $('<td>').text('특별휴가');
+						} else if(typeStr == 7){
+							$type = $('<td>').text('오전반차');
+						} else if(typeStr == 8){
+							$type = $('<td>').text('오후반차');
+						}
+						
+						$date = $('<td>').text(data.list[i].startDate + '~' + data.list[i].endDate);
+						
+						$approval = $('<td>');
+						var approvalStr = data.list[i].approval;
+						if(approvalStr == 'N'){
+							$approvalDiv = $('<div>').text('반려').css({'background-color':'rgba(226, 54, 54, 0.1)', 'color':'#E23636', 'border-radius':'10px', 'width':'40px'});
+						} else if(approvalStr == 'Y'){
+							$approvalDiv = $('<div>').text('승인').css({'background-color':'rgba(13, 110, 253, 0.1)', 'color':'#0D6EFD', 'border-radius':'10px', 'width':'40px'});
+						} else if(approvalStr == 'W'){
+							$approvalDiv = $('<div>').text('대기').css({'background-color':'rgba(0, 177, 89, 0.1)', 'color':'#00b159', 'border-radius':'10px', 'width':'40px'});
+						}
+						
+						$approval.append($approvalDiv);
+						$tr.append($type);
+						$tr.append($date);
+						$tr.append($approval);
+						$tbody.append($tr);
 					}
-					
-					$date = $('<td>').text(data.list[i].startDate + '~' + data.list[i].endDate);
-					
-					$approval = $('<td>');
-					var approvalStr = data.list[i].approval;
-					if(approvalStr == 'N'){
-						$approvalDiv = $('<div>').text('반려').css({'background-color':'rgba(226, 54, 54, 0.1)', 'color':'#E23636', 'border-radius':'10px', 'width':'40px'});
-					} else if(approvalStr == 'Y'){
-						$approvalDiv = $('<div>').text('승인').css({'background-color':'rgba(13, 110, 253, 0.1)', 'color':'#0D6EFD', 'border-radius':'10px', 'width':'40px'});
-					} else if(approvalStr == 'W'){
-						$approvalDiv = $('<div>').text('대기').css({'background-color':'rgba(0, 177, 89, 0.1)', 'color':'#00b159', 'border-radius':'10px', 'width':'40px'});
-					}
-					
-					$approval.append($approvalDiv);
-					$tr.append($type);
-					$tr.append($date);
-					$tr.append($approval);
-					$tbody.append($tr);
 				}
+				
 			},
 			error: function(data){
 				console.log('실패');

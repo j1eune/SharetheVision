@@ -112,10 +112,6 @@ public class CommuteController {
 		// 상태 변경
 		model.addAttribute("state", state);
 		
-		//!!!!!!!!!update 테스트!!!!!!!!!!!!!!!!!!
-//		String result = update(memberNo);
-//		System.out.println(result + " : 성공이니?");
-		
 		return "commuteMainView";
 	}
 	
@@ -125,7 +121,6 @@ public class CommuteController {
 		String memberNo = ((Member)session.getAttribute("loginUser")).getmCode();
 		
 		if(mCode != null && !mCode.equals(memberNo)) {
-//			System.out.println("로그인 회원이 아님");
 			throw new CommuteException("로그인된 회원이 아닙니다.");
 		}
 		
@@ -135,12 +130,9 @@ public class CommuteController {
 			return "commuteAlert";
 		}
 			
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 		String enterTime = sdf.format(date);
-//		String enterTime = "2021-09-10 08:50:43";
 		
 		// 지각 여부
 		int status = 0;
@@ -186,13 +178,13 @@ public class CommuteController {
 
 		Commute todayCo = coService.commuteDay(memberNo);
 		String start = todayCo.getCommuteStart();
-//		String start = "2021-09-10 08:58:30";
+//		String start = "2021-09-12 08:54:38";
 		
 		// 퇴근 시간
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
-//		String end = sdf.format(date);
-		String end = "2021-09-10 17:30:30";
+		String end = sdf.format(date);
+//		String end = "2021-09-12 12:30:16";
 		
 		// 18시 이후 여부
 		Double workTime = 0.00;
@@ -223,10 +215,10 @@ public class CommuteController {
 			int dayNum = cal.get(Calendar.DAY_OF_WEEK);
 			
 			// worktime 계산
-//			if(dayNum == 1 || dayNum == 7) {
+			if(dayNum == 1 || dayNum == 7) {
 				// 일요일이거나 토요일이면 (overwork에 들어감)
-//				workTime = 0.00;
-//			} else {
+				workTime = 0.00;
+			} else {
 				long diffSec = (endDate.getTime() - startDate.getTime()) / 1000;
 				long hour = diffSec/3600;
 				long min = diffSec%3600/60;
@@ -235,7 +227,7 @@ public class CommuteController {
 				String fTime = (hour - 1 + "." + mins);
 				
 				workTime = Double.parseDouble(fTime);
-//			}
+			}
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

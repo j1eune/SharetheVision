@@ -140,9 +140,8 @@ public class LeaveController {
 		
 		try {
 			file.transferTo(new File(savePath));
-//			CSVReader csvReader = new CSVReader(new FileReader(savePath));
 			CSVReader csvReader = new CSVReader(new InputStreamReader(new FileInputStream(savePath), "euc-kr"));
-			 
+			
 			List<String[]> data = new ArrayList<String[]>();
             
             data = csvReader.readAll();
@@ -160,27 +159,28 @@ public class LeaveController {
         		
             	for(int j = 0; j < line.length; j++) {
             		if(j == 0) {
+            			// 사원 아이디
             			Member member = mService.loginMember(line[j].toString());
             			
             			la.setMemberId(line[j]);
             			la.setMemberNo(member.getmCode());
-            			
-//            			System.out.println("사원아이디 : " + line[j]);
             		} else if(j == 1) {
+            			// 입사일
+            			
             			la.setBaseDate(line[j]);
             			la.setStartDate(year + line[j].substring(5));
             			la.setEndDate((year+1) + line[j].substring(5));
-            			
-//            			System.out.println("입사일 : " + line[j]);
             		} else if(j == 2) {
+            			// 총 연차 개수
+            			
             			la.setTotal(Integer.parseInt(line[j]));
-            			
-//            			System.out.println("총 연차 개수 : " + line[j]);
             		} else if(j == 3) {
-            			la.setContent(line[j]);
+            			// 내용
             			
-//            			System.out.println("내용 : " + line[j]);
+            			la.setContent(line[j]);
             		} else if(j == 4) {
+            			// 연차 종류
+            			
             			if(line[j].equals("발생연차")) {
             				la.setType(0);
             			} else if(line[j].equals("조정연차")) {
@@ -188,18 +188,13 @@ public class LeaveController {
             			} else {
             				throw new LeaveException("연차 입력에 실패하였습니다. 주의사항을 확인해주세요.");
             			}
-            			
-//            			System.out.println("연차 종류 : " + line[j]);
             		}
             	}
             	list.add(la);
             }
-//        	System.out.println(list);
         	
         	size = list.size();
         	result = leService.insertAnnual(list);
-        	
-//        	System.out.println(result + " : 인서트 결과");
         	
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

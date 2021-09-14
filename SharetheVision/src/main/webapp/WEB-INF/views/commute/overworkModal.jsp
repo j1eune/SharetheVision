@@ -259,31 +259,34 @@
 				console.log('성공');
 				console.log(data);
 				
-				var $tbody = $('#overworkTable').find('tbody');
-				$tbody.html('');
-				
-				var length = data.list.length-1;
-				
-				for(var i = length; i > length-5; i--){
-					$tr = $('<tr>');
-					$date = $('<td>').text(data.list[i].overworkDate);
-					$time = $('<td>').text(data.list[i].overworkStart + ' ~ ' + data.list[i].overworkEnd);
-					$approval = $('<td>');
+				if(data != null){
+					var $tbody = $('#overworkTable').find('tbody');
+					$tbody.html('');
 					
-					var approvalStr = data.list[i].approval;
-					if(approvalStr == 'N'){
-						$approvalDiv = $('<div>').text('반려').css({'background-color':'rgba(226, 54, 54, 0.1)', 'color':'#E23636', 'border-radius':'10px', 'width':'40px'});
-					} else if(approvalStr == 'Y'){
-						$approvalDiv = $('<div>').text('승인').css({'background-color':'rgba(13, 110, 253, 0.1)', 'color':'#0D6EFD', 'border-radius':'10px', 'width':'40px'});
-					} else if(approvalStr == 'W'){
-						$approvalDiv = $('<div>').text('대기').css({'background-color':'rgba(0, 177, 89, 0.1)', 'color':'#00b159', 'border-radius':'10px', 'width':'40px'});
+					var length = data.list.length-1;
+					
+					for(var i = length; i > length-5; i--){
+						$tr = $('<tr>');
+						$date = $('<td>').text(data.list[i].overworkDate);
+						$time = $('<td>').text(data.list[i].overworkStart + ' ~ ' + data.list[i].overworkEnd);
+						$approval = $('<td>');
+						
+						var approvalStr = data.list[i].approval;
+						if(approvalStr == 'N'){
+							$approvalDiv = $('<div>').text('반려').css({'background-color':'rgba(226, 54, 54, 0.1)', 'color':'#E23636', 'border-radius':'10px', 'width':'40px'});
+						} else if(approvalStr == 'Y'){
+							$approvalDiv = $('<div>').text('승인').css({'background-color':'rgba(13, 110, 253, 0.1)', 'color':'#0D6EFD', 'border-radius':'10px', 'width':'40px'});
+						} else if(approvalStr == 'W'){
+							$approvalDiv = $('<div>').text('대기').css({'background-color':'rgba(0, 177, 89, 0.1)', 'color':'#00b159', 'border-radius':'10px', 'width':'40px'});
+						}
+						
+						$approval.append($approvalDiv);
+						$tr.append($date);
+						$tr.append($time);
+						$tr.append($approval);
+						$tbody.append($tr);
+					
 					}
-					
-					$approval.append($approvalDiv);
-					$tr.append($date);
-					$tr.append($time);
-					$tr.append($approval);
-					$tbody.append($tr);
 				}
 			},
 			error: function(data){

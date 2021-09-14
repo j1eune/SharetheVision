@@ -153,14 +153,10 @@
 				// QR코드 인식에 성공한 경우
 				if (code) {
 					// 인식한 QR코드의 영역을 감싸는 사용자에게 보여지는 테두리 생성
-					drawLine(code.location.topLeftCorner,
-							code.location.topRightCorner, "#FF0000");
-					drawLine(code.location.topRightCorner,
-							code.location.bottomRightCorner, "#FF0000");
-					drawLine(code.location.bottomRightCorner,
-							code.location.bottomLeftCorner, "#FF0000");
-					drawLine(code.location.bottomLeftCorner,
-							code.location.topLeftCorner, "#FF0000");
+					drawLine(code.location.topLeftCorner, code.location.topRightCorner, "#FF0000");
+					drawLine(code.location.topRightCorner, code.location.bottomRightCorner, "#FF0000");
+					drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, "#FF0000");
+					drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF0000");
 
 					outputMessage.hidden = true;
 					outputData.parentElement.hidden = false;
@@ -169,7 +165,6 @@
 					outputData.innerHTML = code.data;
 
 					if(confirm('출근하시겠습니까?') == true){ //확인
-// 						window.close();
 
 						var mCode = '<c:out value="${loginUser.mCode}"/>';
 						

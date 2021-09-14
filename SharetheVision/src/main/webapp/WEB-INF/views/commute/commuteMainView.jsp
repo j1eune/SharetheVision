@@ -531,8 +531,19 @@
 							});
 							$('#overProgress').text(Math.round(diff) + "%");
 						}
+						
+						// 퇴근 후 worktime
+						if(data.worktime > 0){
+							var check = data.worktime.toString().indexOf('.');
+							var hour = data.worktime.toString().substring(0, check);
+							var min = data.worktime.toString().substring(check+1);
+							
+							hour = hour < 10 ? "0"+hour : hour;
+
+							$('#workingTime').text(hour+":"+min+":00");												
+						}
 					} else {
-						$('#workingTime').text("00:00:00");
+						$('#workingTime').text("00:00:00");						
 					}
 				},
 				error : function(data) {
@@ -553,8 +564,7 @@
 
 				// 				우리 집 위도 : 37.494555 / 우리 집 경도 : 126.958055
 				// 				회사 위도 : 37.499146193359344  /  회사 경도 : 127.03289826885084
-				// 				if((latitude > '37.4945' && latitude < '37.4946') && (longitude > '126.9580' && longitude < '126.9581')){
-				// 				if((latitude > '37.49' && latitude < '37.50') && (longitude > '126.94' && longitude < '126.95')){
+// 								if((latitude > '37.49' && latitude < '37.50') && (longitude > '126.94' && longitude < '126.95')){
 				if (true) {
 					location.href = "commuteEnter.co";
 				} else {
@@ -588,8 +598,8 @@
 	});
 	
 	function popupOpen(url){
-		var popupX = (window.screen.width / 2)-(510 / 2);
-		var popupY= (window.screen.height /2)-(700 / 2);
+		var popupX = (window.screen.width / 2) - (510 / 2);
+		var popupY= (window.screen.height /2) - (700 / 2);
 		
 	  	var name="qrstart";
 	    var specs = 'width=510, height=700, menubar=no,status=no,toolbar=no, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY;
