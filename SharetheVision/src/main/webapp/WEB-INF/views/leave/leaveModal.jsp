@@ -70,24 +70,24 @@
                     <div class="form-row mb-3">
                         <div class="form-group col-md-6">
                             <label for="leaveType">결재자</label>
-                            <select class="form-control" id="approval">
+                            <select class="form-control" id="leaveApproval">
                                 <option>선택해주세요.</option>
 								<c:forEach items="${mlist}" var="m">
 									<optgroup label="${m.deptName} 팀 ">
 										<c:if test="${m.deptName eq '인사'}" >
-											<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+											<option value="${m.mId}">${m.name} ${m.jobName}</option>	
 										</c:if>
 										<c:if test="${ m.deptName eq '마케팅' }" >
-											<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+											<option value="${m.mId}">${m.name} ${m.jobName}</option>	
 										</c:if>
 										<c:if test="${ m.deptName eq '생산'}" >
-											<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+											<option value="${m.mId}">${m.name} ${m.jobName}</option>	
 										</c:if>
 										<c:if test="${ m.deptName eq '영업'}" >
-											<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+											<option value="${m.mId}">${m.name} ${m.jobName}</option>	
 										</c:if>
 										<c:if test="${ m.deptName eq '회계'}" >
-											<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+											<option value="${m.mId}">${m.name} ${m.jobName}</option>	
 										</c:if>
 									</optgroup>
 								</c:forEach>
@@ -149,7 +149,7 @@
 			btDay = 0.5;
 		}
 		
-		var approval = $('#approval option:selected').val();
+		var approval = $('#leaveApproval option:selected').val();
 		
 		var leave = {"type":type, "startDate":startStr, "endDate":endStr, "days":btDay, "content":content, "approval":approval};
 		

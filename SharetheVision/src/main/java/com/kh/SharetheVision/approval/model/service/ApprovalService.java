@@ -35,4 +35,6 @@ public interface ApprovalService {
 	List<ApprovalAcceptDTO> selectApprovalAceeptList();
 	
 	List<ApprovalStatusDTO> selectApprovalStatusList();
+
+	List<ApprovalVO> selectTypeApproval(ApprovalVO ap);
 }

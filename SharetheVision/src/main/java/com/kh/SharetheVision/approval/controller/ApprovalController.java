@@ -47,7 +47,7 @@ public class ApprovalController {
 		Member m = ((Member)session.getAttribute("loginUser"));
 		String mCode = m.getmCode();
 		String name = m.getName();
-		System.out.println(mCode);
+//		System.out.println(mCode);
 		
 		// 결재 selectbox 회원정보 뿌려주기
 		List<Member> aplist = apvService.aplist();
@@ -55,14 +55,11 @@ public class ApprovalController {
 		
 		ApprovalVO ap = new ApprovalVO();
 		ap.setmCode(mCode);
-		ap.setApvAgr(name);
-		ap.setApvRef(name);
-		ap.setApvApp(name);
 		ap.setmId(m.getmId());
 		
 		// 기안자, 합의자, 참조자, 결재자에 로그인한 유저가 있으면 다 가져오기
 		List<ApprovalVO> listAll = apvService.selectApproval(ap);
-		System.out.println(listAll);
+//		System.out.println(listAll);
 		
 		List<ApprovalAcceptDTO> acceptList = apvService.selectApprovalAceeptList();
 		List<ApprovalStatusDTO> statusList = apvService.selectApprovalStatusList();
@@ -155,7 +152,7 @@ public class ApprovalController {
 		ap.setmCode(mCode);
 		ap.setApvType(type);
 
-		List<ApprovalVO> list = apvService.selectApproval(ap);
+		List<ApprovalVO> list = apvService.selectTypeApproval(ap);
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		
@@ -241,6 +238,7 @@ public class ApprovalController {
 		ap.setApvNo(apvNo);
 
 		ApprovalVO apv = apvService.selectOne(ap);
+		System.out.println(apv);
 		if (apv.getApvRef() == null) {
 			apv.setApvRef("");
 		} else if (apv.getApvAgr() == null) {

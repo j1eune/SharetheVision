@@ -166,19 +166,19 @@
 								<c:forEach items="${mlist}" var="m">
 									<optgroup label="${m.deptName} 팀 ">
 										<c:if test="${m.deptName eq '인사'}" >
-											<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+											<option value="${m.mId}">${m.name} ${m.jobName}</option>	
 										</c:if>
 										<c:if test="${ m.deptName eq '마케팅' }" >
-											<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+											<option value="${m.mId}">${m.name} ${m.jobName}</option>	
 										</c:if>
 										<c:if test="${ m.deptName eq '생산'}" >
-											<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+											<option value="${m.mId}">${m.name} ${m.jobName}</option>	
 										</c:if>
 										<c:if test="${ m.deptName eq '영업'}" >
-											<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+											<option value="${m.mId}">${m.name} ${m.jobName}</option>	
 										</c:if>
 										<c:if test="${ m.deptName eq '회계'}" >
-											<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+											<option value="${m.mId}">${m.name} ${m.jobName}</option>	
 										</c:if>
 									</optgroup>
 								</c:forEach>
@@ -231,12 +231,12 @@
 	function getCommuteList(){
 		$.ajax({
 			url: 'selectApproval.ap',
-			data: {type: 8},
+			data: {type: "근태변경"},
 			success: function(data){
 				console.log('commute 리스트 성공');
 				console.log(data);
 				
-				if(!data){
+				if(data != null){
 					var $tbody = $('#coRequestTable').find('tbody');
 					$tbody.html('');
 					
@@ -251,7 +251,7 @@
 						
 						$type = $('<td>').text(afterSubstring(arr[0]));
 						$date = $('<td>').text(afterSubstring(arr[1]));
-						
+												
 						$approval = $('<td>');
 						var approvalStr = data[i].apvStatus;
 						if(approvalStr == 'D'){
@@ -279,7 +279,6 @@
 	function afterSubstring(str){
 		var index = str.toString().indexOf(":");
 		var resultStr = str.substring(index+2);
-		
 		return resultStr;
 	}
 	

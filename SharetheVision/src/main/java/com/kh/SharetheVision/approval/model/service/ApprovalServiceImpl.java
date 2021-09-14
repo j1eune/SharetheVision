@@ -88,4 +88,9 @@ public class ApprovalServiceImpl implements ApprovalService {
 	public List<ApprovalStatusDTO> selectApprovalStatusList() {
 		return apvdao.selectApprovalStatusList(sqlSession);
 	}
+
+	@Override
+	public List<ApprovalVO> selectTypeApproval(ApprovalVO ap) {
+		return apvdao.selectTypeApproval(sqlSession, ap);
+	}
 }

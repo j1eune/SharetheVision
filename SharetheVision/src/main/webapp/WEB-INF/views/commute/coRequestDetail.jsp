@@ -144,7 +144,7 @@
 	$(function(){
 		$.ajax({
 			url:'selectApproval.ap',
-			data:{type : 8},
+			data:{type : "근태변경"},
 			success: function(data){
 				var $tbody = $('#coRequestDetailTable').find('tbody');
 				$tbody.html('');

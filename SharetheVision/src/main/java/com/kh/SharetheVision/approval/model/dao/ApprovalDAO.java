@@ -73,4 +73,8 @@ public class ApprovalDAO {
 	public List<ApprovalStatusDTO> selectApprovalStatusList(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectList("approvalMapper.selectApprovalStatusList");
 	}
+
+	public List<ApprovalVO> selectTypeApproval(SqlSessionTemplate sqlSession, ApprovalVO ap) {
+		return sqlSession.selectList("approvalMapper.selectTypeApproval", ap);
+	}
 }

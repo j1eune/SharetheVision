@@ -134,6 +134,9 @@
 							, "COMMENT"
 							, ARRIVE
 							, DEPART
+							<if test="apvRefNo != null">
+							, APV_REF_NO
+							</if>
 							 ) VALUES (
 							  SEQ_APV.NEXTVAL
 							, #{apvType}
@@ -145,6 +148,9 @@
 							, #{comment}
 							, #{arrive}
 							, #{depart}
+							<if test="apvRefNo != null">
+							, #{apvRefNo}
+							</if>
 							 )
 		<selectKey keyProperty="apvNo" resultType="int" order="AFTER">
 			SELECT SEQ_APV.CURRVAL FROM DUAL
@@ -225,5 +231,11 @@
 	     , (SELECT COUNT(*) FROM APPROVAL WHERE APV_STATUS = C.SUB_CODE) COUNT
 	     , C.ATTR1
 	  FROM CODE_INFO C
+	</select>
+	
+	<select id="selectTypeApproval" resultType="com.kh.SharetheVision.approval.model.vo.ApprovalVO" resultMap="approvalResultSet">
+		SELECT *
+		FROM APPROVAL
+		WHERE M_CODE = #{mCode} AND APV_TYPE = #{apvType}
 	</select>
 </mapper>

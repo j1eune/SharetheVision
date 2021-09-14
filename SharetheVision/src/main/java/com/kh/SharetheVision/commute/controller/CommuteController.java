@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kh.SharetheVision.approval.model.service.ApprovalService;
+import com.kh.SharetheVision.approval.model.vo.ApprovalAcceptDTO;
+import com.kh.SharetheVision.approval.model.vo.ApprovalAttachDTO;
 import com.kh.SharetheVision.approval.model.vo.ApprovalVO;
 import com.kh.SharetheVision.commute.model.exception.CommuteException;
 import com.kh.SharetheVision.commute.model.service.CommuteService;
@@ -470,7 +472,6 @@ public class CommuteController {
 	public String overworkRequest(@ModelAttribute Overwork ow, @RequestParam("approval") String approval, HttpSession session) throws CommuteException {
 		Member loginUser = ((Member)session.getAttribute("loginUser"));
 		String memberNo = loginUser.getmCode();
-		String memberName = loginUser.getName();
 //		String memberNo = "MaCo2";
 		
 		ow.setMemberNo(memberNo);
@@ -480,13 +481,14 @@ public class CommuteController {
 //		System.out.println(no + " : 시퀀스");
 		
 		int apvResult = 0;
+		int acceptResult = 0;
 		if(result > 0) {
 			ApprovalVO apv = new ApprovalVO();
 			
-			apv.setApvType(Integer.toString(7));
+			apv.setApvType("연장근무");
 			apv.setmCode(memberNo);
 			apv.setApvApp(approval);			
-			apv.setApt("["+memberName+"] 연장 근무 신청서");
+			apv.setApt("연장 근무 신청서");
 			String type = null;
 			if(ow.getType() == 1) {
 				type = "연장근무";
@@ -509,12 +511,19 @@ public class CommuteController {
 			apv.setArrive(arrive);
 			Date depart = ow.getOverworkDate();
 			apv.setDepart(depart);
-			
-					
+		
+			System.out.println(apv);
 			apvResult = apvService.insertApproval(apv);
+			
+			if(apvResult > 0) {
+				String[] appArr = apv.getApvApp().split(",");
+				for (String app : appArr) {
+					acceptResult = apvService.insertApprovalAccept(new ApprovalAcceptDTO(apv.getApvNo(), app, "APP"));
+				}
+			}
 		}
 		
-		if(apvResult > 0) {
+		if(acceptResult > 0) {
 			return "success";
 		} else {
 			throw new CommuteException("연장 근무 신청에 실패하였습니다.");
@@ -571,15 +580,14 @@ public class CommuteController {
 	public String commuteRequest(@ModelAttribute Commute co, @RequestParam("approval") String approval, @RequestParam("commuteContent") String content, HttpSession session) throws CommuteException {
 		Member loginUser = ((Member)session.getAttribute("loginUser"));
 		String memberNo = loginUser.getmCode();
-		String memberName = loginUser.getName();
 //		String memberNo = "MaCo2";
 		
 		ApprovalVO apv = new ApprovalVO();
 		
-		apv.setApvType(Integer.toString(8));
+		apv.setApvType("근태변경");
 		apv.setmCode(memberNo);
 		apv.setApvApp(approval);
-		apv.setApt("["+memberName+"] 근태 변경 신청서");
+		apv.setApt("근태 변경 신청서");
 		String type = null;
 		if(co.getStatus() == 1) {
 			type = "지각";
@@ -604,7 +612,15 @@ public class CommuteController {
 		
 		int result = apvService.insertApproval(apv);
 		
+		int acceptResult = 0;
 		if(result > 0) {
+			String[] appArr = apv.getApvApp().split(",");
+			for (String app : appArr) {
+				acceptResult = apvService.insertApprovalAccept(new ApprovalAcceptDTO(apv.getApvNo(), app, "APP"));
+			}
+		}
+		
+		if(acceptResult > 0) {
 			return "success";
 		} else {
 			throw new CommuteException("근태 변경 신청에 실패하였습니다.");

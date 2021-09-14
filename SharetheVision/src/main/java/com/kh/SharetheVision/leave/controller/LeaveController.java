@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kh.SharetheVision.approval.model.service.ApprovalService;
+import com.kh.SharetheVision.approval.model.vo.ApprovalAcceptDTO;
 import com.kh.SharetheVision.approval.model.vo.ApprovalVO;
 import com.kh.SharetheVision.leave.model.exception.LeaveException;
 import com.kh.SharetheVision.leave.model.service.LeaveService;
@@ -57,10 +58,6 @@ public class LeaveController {
 		String name = loginUser.getName();
 		String jobName = loginUser.getJobName();
 		String deptName = loginUser.getDeptName();
-//		String name = "임지은";
-//		String jobName = "팀장";
-//		String deptName = "인사팀";
-//		String memberNo = "MaCo2";
 		
 		model.addAttribute("name", name);
 		model.addAttribute("jobName", jobName);
@@ -214,7 +211,6 @@ public class LeaveController {
 	public String leaveRequest(@ModelAttribute LeaveUsed lu, @RequestParam("approval") String approval, HttpSession session) throws LeaveException {
 		Member loginUser = ((Member)session.getAttribute("loginUser"));
 		String memberNo = loginUser.getmCode();
-		String memberName = loginUser.getName();
 //		String memberNo = "MaCo2";
 		
 		lu.setMemberNo(memberNo);
@@ -224,12 +220,13 @@ public class LeaveController {
 //		System.out.println(no + " : 시퀀스 번호");
 		
 		int apvResult = 0;
+		int acceptResult = 0;
 		if(result > 0) {
 			ApprovalVO apv = new ApprovalVO();
-			apv.setApvType(Integer.toString(1));
+			apv.setApvType("휴가");
 			apv.setmCode(memberNo);
 			apv.setApvApp(approval);
-			apv.setApt("["+memberName+"] 휴가 신청서");
+			apv.setApt("휴가 신청서");
 			
 			String type = null;
 			if(lu.getType() == 1) {
@@ -261,9 +258,16 @@ public class LeaveController {
 			apv.setDepart(depart);
 
 			apvResult = apvService.insertApproval(apv);
+			
+			if(apvResult > 0) {
+				String[] appArr = apv.getApvApp().split(",");
+				for (String app : appArr) {
+					acceptResult = apvService.insertApprovalAccept(new ApprovalAcceptDTO(apv.getApvNo(), app, "APP"));
+				}
+			}
 		}
 		
-		if(apvResult > 0) {
+		if(acceptResult > 0) {
 			return "success";
 		} else {
 			throw new LeaveException("휴가 신청에 실패하였습니다.");

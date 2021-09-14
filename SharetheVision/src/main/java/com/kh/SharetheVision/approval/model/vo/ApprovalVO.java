@@ -160,4 +160,14 @@ public class ApprovalVO {
 		this.mId = mId;
 	}
 
+	@Override
+	public String toString() {
+		return "ApprovalVO [apvNo=" + apvNo + ", apvType=" + apvType + ", mCode=" + mCode + ", apvAgr=" + apvAgr
+				+ ", apvRef=" + apvRef + ", apvApp=" + apvApp + ", apt=" + apt + ", comment=" + comment + ", arrive="
+				+ arrive + ", depart=" + depart + ", apvEdate=" + apvEdate + ", apvStatus=" + apvStatus + ", apvRefNo="
+				+ apvRefNo + ", fileObj=" + fileObj + ", atChange=" + atChange + ", mName=" + mName + ", mId=" + mId
+				+ "]";
+	}
+	
+
 }

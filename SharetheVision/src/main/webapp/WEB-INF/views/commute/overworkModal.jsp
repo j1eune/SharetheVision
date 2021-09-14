@@ -138,25 +138,28 @@
 	                            <select class="form-control" id="approval">
 	                                <option>선택해주세요.</option>
 									<c:forEach items="${mlist}" var="m">
+										<c:if test="${m.mCode != loginUser.mCode}">
+										
 										<optgroup label="${m.deptName} 팀 ">
 											<c:if test="${m.deptName eq '인사'}" >
-												<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+												<option value="${m.mId}">${m.name} ${m.jobName}</option>	
 											</c:if>
 											<c:if test="${ m.deptName eq '마케팅' }" >
-												<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+												<option value="${m.mId}">${m.name} ${m.jobName}</option>	
 											</c:if>
 											<c:if test="${ m.deptName eq '생산'}" >
-												<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+												<option value="${m.mId}">${m.name} ${m.jobName}</option>	
 											</c:if>
 											<c:if test="${ m.deptName eq '영업'}" >
-												<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+												<option value="${m.mId}">${m.name} ${m.jobName}</option>	
 											</c:if>
 											<c:if test="${ m.deptName eq '회계'}" >
-												<option value="${m.mCode}">${m.name} ${m.jobName}</option>	
+												<option value="${m.mId}">${m.name} ${m.jobName}</option>	
 											</c:if>
 										</optgroup>
+										</c:if>
 									</c:forEach>
-                            </select>
+                            	</select>
 	                        </div>
 	                    </div> 
 	                    <div class="mb-4 text-center">
