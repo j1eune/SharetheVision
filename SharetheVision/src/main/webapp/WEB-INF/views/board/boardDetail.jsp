@@ -252,6 +252,11 @@
 			font-size: 14px;
 		}
 		
+		.boardContent {
+			height: 300px;
+			overflow: scroll;
+		}
+		
     </style>
 
 </head>
@@ -376,7 +381,7 @@
                                             <div class="tab-content tabs card-block boardDetail-content-box">
                                                 <div class="tab-pane boardDetail-content active" id="home1"
                                                     role="tabpanel">
-                                                    <p class="m-0">${ board.boardContent }</p>
+                                                    <p class="m-0 boardContent">${ board.boardContent }</p>
                                                     <div class="boardDetail-btn-box">
                                                     	<c:url var="addScrap" value="addScrap.bo">
                                                     		<c:param name="mCode" value="${ loginUser.mCode }"/>
