@@ -2334,38 +2334,47 @@ color:black;}
                                           
                                           <!--결재 대쉬보드 프로필 끝-->
                                          
-                                          <div class="progress-status">7/17</div>
-                                          <div class="progress">
-                                           <div class="progress-bar"></div>
-                                          </div>
-                                          <div class="task-status">
-                                           <div class="task-stat">
-                                            <div class="task-number">5</div>
-                                            <div class="task-condition">진행</div>
-                                            <div class="task-tasks">ad</div>
-                                           </div>
-                                           <div class="task-stat">
-                                            <div class="task-number">7</div>
-                                            <div class="task-condition">완료</div>
-                                            <div class="task-tasks">com</div>
-                                           </div>
-                                           <div class="task-stat">
-                                            <div class="task-number">2</div>
-                                            <div class="task-condition">반려</div>
-                                            <div class="task-tasks">return</div>
-                                           </div>
-                                           <div class="task-stat">
-                                            <div class="task-number">3</div>
-                                            <div class="task-condition">미결재</div>
-                                            <div class="task-tasks">none</div>
-                                           </div>
-                                           <div class="task-stat">
-                                            <div class="task-number">17</div>
-                                            <div class="task-condition">전체</div>
-                                            <div class="task-tasks">all</div>
-                                           </div>
-                                          </div>
-                                         </div>
+                                          <div class="progress-status">${statusCompleteCount }/${statusTotalCount }</div>
+										<div class="progress">
+											<div class="progress-bar" style="width:${statusCompleteCount / statusTotalCount * 100}%"></div>
+										</div>
+										<div class="task-status">
+										<c:forEach var="status" items="${statusList }">
+											<div class="task-stat">
+												<div class="task-number">${status.count }</div>
+												<div class="task-condition">${status.codeDesc }</div>
+												<div class="task-tasks">${status.attr1 }</div>
+											</div>
+										</c:forEach>
+										<!-- 
+											<div class="task-stat">
+												<div class="task-number">5</div>
+												<div class="task-condition">진행</div>
+												<div class="task-tasks">ad</div>
+											</div>
+											<div class="task-stat">
+												<div class="task-number">7</div>
+												<div class="task-condition">완료</div>
+												<div class="task-tasks">com</div>
+											</div>
+											<div class="task-stat">
+												<div class="task-number">2</div>
+												<div class="task-condition">반려</div>
+												<div class="task-tasks">return</div>
+											</div>
+											<div class="task-stat">
+												<div class="task-number">3</div>
+												<div class="task-condition">미결재</div>
+												<div class="task-tasks">none</div>
+											</div>
+											-->
+											<div class="task-stat">
+												<div class="task-number"><c:out value="${statusTotalCount }" /></div>
+												<div class="task-condition">전체</div>
+												<div class="task-tasks">all</div>
+											</div>
+										</div>
+									</div>
                                          <div class="side-wrapper">
                                           <div class="project-title">진행중인 프로젝트</div>
                                           <div class="project-name">
@@ -2444,23 +2453,23 @@ color:black;}
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
 																<c:if test="${ ap.deptName eq '인사'&& ap.jobNo>=3 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '마케팅'&& ap.jobNo>=3 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '생산'&& ap.jobNo>=3 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '영업'&& ap.jobNo>=3 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '회계'&& ap.jobNo>=3 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
 														   </c:if>
@@ -2476,23 +2485,23 @@ color:black;}
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
 																<c:if test="${ ap.deptName eq '인사'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '마케팅' }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '생산'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '영업'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '회계'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
 														   </c:if>
@@ -2504,27 +2513,27 @@ color:black;}
                                                         <!--기안서 폼 결재자 선택 시작-->
                                                         <div class="apselect">
                                                           <select name="apvApp" class="selectpicker col-md-10" data-style="btn-primary" required>
-                                                          	 <c:forEach items="${ aplist }" var= "ap"> 
+                                                          	 <c:forEach items="${ aplist }" var= "ap">
 																<c:if test="${ ap.name != loginUser.name}">  
 																	<optgroup label="${ ap.deptName } 팀 ">
 																		<c:if test="${ ap.deptName eq '인사' && ap.jobNo>=4 }" >
-																			<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																			<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																		</c:if>
 																		
 																		<c:if test="${ ap.deptName eq '마케팅' && ap.jobNo>=4  }" >
-																			<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																			<option value="${ ap.mId }">${ ap.name } ${ ap.jobName } </option>	
 																		</c:if>
 																		
 																		<c:if test="${ ap.deptName eq '생산' && ap.jobNo>=4 }" >
-																			<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																			<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																		</c:if>
 																		
 																		<c:if test="${ ap.deptName eq '영업' && ap.jobNo>=4 }" >
-																			<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																			<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																		</c:if>
 																		
 																		<c:if test="${ ap.deptName eq '회계' && ap.jobNo>=4 }" >
-																			<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																			<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																		</c:if>
 																	</optgroup>
 															   </c:if>
@@ -2595,7 +2604,10 @@ color:black;}
 													$(document).on("click", "#aps1", function(e) {
 														let form = $("#apform1")[0];
 														let formData = new FormData(form);
-														formData.append("fileObj", $("#file-upload-input")[0].files[0]);
+														let fileObj = $("#file-upload-input")[0].files[0];
+														if (fileObj) {
+															formData.append("fileObj", $("#file-upload-input")[0].files[0]);
+														}
 														$.ajax({
 															url : "${contextPath}/approval.ap",
 															type : "post",
@@ -3649,7 +3661,7 @@ color:black;}
                                             <!-- 결재리스트  -->
                                             <c:forEach items="${list}" var="apv" varStatus="vs">
 												<div class="msg selected-bg anim-y">
-													<input type="hidden" value="${apv.apvNo}">
+													<input type="hidden" name="apvNo" value="${apv.apvNo}">
 													<c:if test="${apv.apvStatus == 'A'}">
 														<input type="checkbox" name="msg" id="mail1" class="mail-choice" checked>
 													</c:if>
@@ -3690,9 +3702,7 @@ color:black;}
 													</c:if>
 												</div>
 											</c:forEach>
-
-                                           
-                                           </div>                                
+                                           </div>
                                           </div>
                                           <!-- detail 영역 -->
                                           <div class="mail-detail">
@@ -3701,12 +3711,73 @@ color:black;}
                                             </div>
                                           <div class="mail-detail-name" id="detailHead">
                                           </div>
-                                            <div class="mail-icons">         
-                                              <button class="button button--primary" value="alert"  id="apv_approve">승인</button>
-                                              <button class="button button--secondary" value="alert" id="apv_refuse">거절</button>
-                                              <button class="button button--cancel" value="alert" id="apv_cancle">반려</button>                                     
-                                            </div>
-                                           </div>                      
+												<div class="mail-icons">
+													<input type="hidden" id="approvalApvNo" />
+													<button class="button button--primary approvalBtn" value="alert" id="apv_approve" data-status="ACCEPT">승인</button>
+													<button class="button button--secondary approvalBtn" value="alert" id="apv_refuse" data-status="REFUSE">거절</button>
+													<button class="button button--cancel approvalBtn" value="alert" id="apv_cancle" data-status="CANCEL">반려</button>
+												</div>
+											</div>
+											<script>
+											$("button.approvalBtn").on("click", function(e) {
+												let status = $(this).data("status");
+												let apvNo = $("#approvalApvNo").val();
+
+												if (apvNo) {
+													let title = "결재를 승인하시겠습니까?";
+													let icon = "info";
+													let confirmButtonColor = '#46B8FF';
+													let cancelButtonColor = '#d33';
+													let confirmButtonText = '승인';
+													if (status == "REFUSE") {
+														title = '합의를 거절 하시겠습니까?';
+														icon = 'warning';
+														confirmButtonColor = '#f08b11';
+														cancelButtonColor = '#000000';
+														confirmButtonText = '거절';
+													} else if (status == "CANCEL") {
+														title = '결재를 반려하시겠습니까?';
+														icon = 'question';
+														confirmButtonColor = '#d61c1c';
+														cancelButtonColor = '#d33';
+														confirmButtonText = '반려';
+													}
+
+													Swal.fire({
+														title: title,
+														icon: icon,
+														showCancelButton: true,
+														confirmButtonColor: confirmButtonColor,
+														cancelButtonColor: cancelButtonColor,
+														confirmButtonText: confirmButtonText,
+														cancelButtonText: '취소'
+													}).then((result) => {
+														if (result.isConfirmed) {
+															$.ajax({
+																url : "${contextPath}/approvalAccept.ap",
+																async : true,
+																type : "post",
+																data : {apvNo : apvNo, status : status},
+																dataType : "json",
+																success : function(data) {
+																	console.log("data", data);
+																	if (data.result == "SUCCESS") {
+																		Swal.fire('결재 승인 완료되었습니다.', '', 'success');
+																	} else {
+																		if (data.message) {
+																			alert(data.message);
+																		}	
+																	}
+																},
+																error : function(xhr, status, res) {
+																	console.log(xhr.responseText, status, res);
+																}
+															});
+														}
+													});
+												}
+											});
+											</script>
                                            <div class="mail-contents">
                                             <div class="mail-contents-subject">
                                              <input type="checkbox" name="msg" id="mail20" class="mail-choice" checked>
@@ -3727,34 +3798,50 @@ color:black;}
                                             </div>
                                             
                                             <div class="mail-inside" id="detailContent"></div>
-                                            
-                                            <div class="mail-assign" id="detailStatus">
-                                              <!--결재 대쉬보드 상세보기 진행로그 결재승인-->
-                                              <div class="assignee">
-                                                <div class="msg-apvname">&nbsp;아무개</div>
-                                                <div class="msg-apvclass">&nbsp;사장</div>
-                                                  <div class="msg-apvmsg">&nbsp;승인 되었습니다.</div>
-                                                    <span class="assign-date">&nbsp;&nbsp;- 2021.06.50</span>
-                                                   </div>
-                                                   <br>
-                                               <!--결재 대쉬보드 상세보기 진행로그 합의거절-->    
-                                              <div class="assignee">
-                                                <div class="msg-canclename">&nbsp;홍길동</div>
-                                                <div class="msg-cancleclass">&nbsp;부장</div>
-                                                <div class="msg-canclemsg">&nbsp;합의 거절 되었습니다.</div>
-                                                  <span class="cancle-date">&nbsp;&nbsp;- 2021.04.20</span>
-                                              </div>
-                                              <br>
-                                               <!--결재 대쉬보드 상세보기 진행로그 반려-->  
-                                             <div class="assignee">
-                                              <div class="msg-returnname">&nbsp;강정환</div>
-                                              <div class="msg-returnclass">&nbsp;팀장</div>
-                                              <div class="msg-returnmsg">&nbsp;반려 되었습니다.</div>
-                                                <span class="return-date">&nbsp;&nbsp;- 2021.01.20</span>
-                                            </div>
-                                            <br>
-                                             </div>    
-                                           </div>
+
+														<div class="mail-assign" id="detailStatus">
+															<!--결재 대쉬보드 상세보기 진행로그 결재승인 -->
+														<c:forEach var="accept" items="${acceptList }">
+															<!-- acceptType : ${accept.acceptType} -->
+															<c:set var="className" value="${accept.acceptType eq 'ACCEPT' ? 'apv' : accept.acceptType eq 'REFUSE' ? 'cancle' : 'return' }" />
+															<c:set var="dateClass" value="${accept.acceptType eq 'ACCEPT' ? 'assign' : accept.acceptType eq 'REFUSE' ? 'cancle' : 'return' }" />
+															<c:set var="text" value="${accept.acceptType eq 'ACCEPT' ? '승인' : accept.acceptType eq 'REFUSE' ? '거절' : '반려' }" />
+															<div class="assignee">
+																<div class="msg-${className }name">&nbsp;${accept.memNm }</div>
+																<div class="msg-${className }class">&nbsp;${accept.jobName }</div>
+																<div class="msg-${className }msg">&nbsp;${text } 되었습니다.</div>
+																<span class="${dateClass }-date">&nbsp;&nbsp;-${accept.acceptDate }</span>
+															</div>
+															<br />
+														</c:forEach>
+															<!--
+															<div class="assignee">
+																<div class="msg-apvname">&nbsp;아무개</div>
+																<div class="msg-apvclass">&nbsp;사장</div>
+																<div class="msg-apvmsg">&nbsp;승인 되었습니다.</div>
+																<span class="assign-date">&nbsp;&nbsp;-2021.06.50</span>
+															</div>
+															<br>
+															<!--결재 대쉬보드 상세보기 진행로그 합의거절
+															<div class="assignee">
+																<div class="msg-canclename">&nbsp;홍길동</div>
+																<div class="msg-cancleclass">&nbsp;부장</div>
+																<div class="msg-canclemsg">&nbsp;합의 거절 되었습니다.</div>
+																<span class="cancle-date">&nbsp;&nbsp;-
+																	2021.04.20</span>
+															</div>
+															<br>-->
+															<!--결재 대쉬보드 상세보기 진행로그 반려
+															<div class="assignee">
+																<div class="msg-returnname">&nbsp;강정환</div>
+																<div class="msg-returnclass">&nbsp;팀장</div>
+																<div class="msg-returnmsg">&nbsp;반려 되었습니다.</div>
+																<span class="return-date">&nbsp;&nbsp;-
+																	2021.01.20</span>
+															</div>
+															<br>-->
+														</div>
+													</div>
                                            <!--결재 대쉬보드 상세보기 결재승인 메세지-->
                                              <div class="mail-checklist">
                                               <div class="msg-apvmsg2">&nbsp;결재 완료.</div>
@@ -3810,7 +3897,9 @@ color:black;}
 
 <!--결재 처리 버튼 스크립트 시작-->
 <script>
+/*
   $().ready(function () {
+	   
             $("#apv_approve").click(function () {
                 Swal.fire({
                     title: '결재를 승인 하시겠습니까?',
@@ -3831,6 +3920,7 @@ color:black;}
                 })
             });
         });
+
 
         $().ready(function () {
             $("#apv_refuse").click(function () {
@@ -3874,7 +3964,7 @@ color:black;}
                     }
                 })
             });
-        });
+        });*/
   </script>
 <!-- 결재 처리 버튼 스크립트 끝-->
 
@@ -4280,6 +4370,7 @@ function clock5() {
   <script>
   	$(".aListTitle").on("click",function(){
   		var apvNo = $(this).parent().parent().children().val();
+  		$("#approvalApvNo").val(apvNo);
   		console.log(apvNo);
   		$.ajax({
   			url: "detailApproval.ap",
