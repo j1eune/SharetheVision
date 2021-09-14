@@ -2,6 +2,7 @@ package com.kh.SharetheVision.approval.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,6 +31,9 @@ import com.kh.SharetheVision.approval.model.vo.ApprovalStatusDTO;
 import com.kh.SharetheVision.approval.model.vo.ApprovalVO;
 import com.kh.SharetheVision.attachments.model.service.AttachmentService;
 import com.kh.SharetheVision.attachments.model.vo.Attachment;
+import com.kh.SharetheVision.commute.model.service.CommuteService;
+import com.kh.SharetheVision.commute.model.vo.Commute;
+import com.kh.SharetheVision.leave.model.service.LeaveService;
 import com.kh.SharetheVision.member.model.service.MemberService;
 import com.kh.SharetheVision.member.model.vo.Member;
 
@@ -44,6 +48,12 @@ public class ApprovalController {
 	
 	@Autowired
 	private MemberService mService;
+	
+	@Autowired
+	private CommuteService coService;
+	
+	@Autowired
+	private LeaveService leService;
 
 	@RequestMapping(value = "approval.ap", method = RequestMethod.GET)
 	public String approval(HttpSession session, Model model) {
@@ -80,7 +90,7 @@ public class ApprovalController {
 		ArrayList<Attachment> apProfile = aService.selectProjectMember(mCodeArr);
 		model.addAttribute("apProfile",apProfile);
 		model.addAttribute("nameList", nameList);
-		System.out.println(listAll);
+//		System.out.println(listAll);
 		
 		List<ApprovalAcceptDTO> acceptList = apvService.selectApprovalAceeptList();
 		List<ApprovalStatusDTO> statusList = apvService.selectApprovalStatusList();
@@ -335,7 +345,78 @@ public class ApprovalController {
 				apvService.updateApprovalAccept(dto);
 			}
 		}
-		resultMap.put("list", apvService.selectApprovalAceeptList());
+		
+		// 휴가
+		ApprovalVO apv = new ApprovalVO();
+		apv.setApvNo(dto.getApvNo());
+		ApprovalVO ap = apvService.selectOne(apv);
+		String result = update(ap);
+		
+		if(result.equals("success")) {
+			resultMap.put("list", apvService.selectApprovalAceeptList());			
+		}
+		
 		return resultMap;
+	}
+	
+	public String update(ApprovalVO ap) {
+		// 업데이트 하는 쿼리
+		// 마지막 C또는 D가 끝나면
+//		int apvRefNo = 18;
+		
+		String type = ap.getApvType();
+		int no = ap.getApvRefNo();
+		
+		int result = 0;
+		if(ap.getApvStatus().equals("C") || ap.getApvStatus().equals("D")) {
+			System.out.println("결재끝");
+			if(type.equals("휴가")) {
+				// 휴가신청 update
+				System.out.println("휴가신청 입장");
+				result = leService.leaveUpdate(no);
+			} else if(type.equals("연장근무")) {
+				// 연장근무 update
+				System.out.println("연장근무 입장");
+				result = coService.overworkUpdate(no);
+			} else if(type.equals("근태변경")) {
+				System.out.println("근태변경 입장");
+				
+				String[] comArr = ap.getComment().split("\r\n");
+				String date = comArr[1].substring(5);
+				String start = comArr[2].substring(7);
+				String end = comArr[3].substring(7);
+				
+				Commute co = new Commute();
+				co.setCommuteStart(date + " " + start + ":00");
+				co.setCommuteEnd(date + " " + end + ":00");
+				co.setStatus(0);
+				
+				try {
+					SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
+					java.util.Date startDate = sdf2.parse(start);
+					java.util.Date endDate = sdf2.parse(end);
+					
+					long diffSec = (endDate.getTime() - startDate.getTime()) / 1000;
+					long hour = diffSec/3600;
+					long min = diffSec%3600/60;
+					
+					String mins = (min < 10) ? "0"+min : Long.toString(min);
+					String fTime = (hour - 1 + "." + mins);
+					
+					double workTime = Double.parseDouble(fTime);
+					
+					co.setWorktime(workTime);
+					
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				
+				co.setCommuteNo(no);
+				result = coService.updateCommute(co);
+			}
+			
+		}
+		
+		return "success";
 	}
 }
