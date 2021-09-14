@@ -48,7 +48,7 @@
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM BOARD
-		WHERE B_STATUS = 'Y' AND DEPT_NO = #{deptNo}
+		WHERE B_STATUS = 'Y' AND DEPT_NO = #{deptNo} AND B_TYPE = 2
 	</select>
 	
 	<select id="selectBoardList" resultMap="boardResultSet">
