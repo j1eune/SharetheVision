@@ -50,4 +50,5 @@ public class AttachmentServiceImple implements AttachmentService{
 		return aDao.insertProfile(sqlSession, attachment);
 	}
 
+
 }

@@ -69,4 +69,12 @@ public class MemberDAO {
 		return (ArrayList)sqlSession.selectList("memberMapper.pSearchMember", map, rowBounds);
 	}
 
+	public ArrayList<Member> selectTeamMember(SqlSession sqlSession, int deptNo) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectTeamMember",deptNo);
+	}
+
+	public Member selectMemberName(SqlSession sqlSession, String string) {
+		return sqlSession.selectOne("memberMapper.selectMemberName",string);
+	}
+
 }

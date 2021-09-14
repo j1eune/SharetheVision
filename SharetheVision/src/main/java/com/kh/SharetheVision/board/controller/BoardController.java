@@ -624,7 +624,8 @@ public class BoardController {
 		String currentList = "noticeList";
 
 		int deptNo = ((Member) session.getAttribute("loginUser")).getDeptNo();
-		String mCode = ((Member) session.getAttribute("loginUser")).getmCode();
+		int adminNo = ((Member) session.getAttribute("loginUser")).getAdminNo();
+		
 		int currentPage = 1;
 
 		if (page != null) {
@@ -642,7 +643,7 @@ public class BoardController {
 			model.addAttribute("pi", pi);
 			model.addAttribute("currentPage", currentPage);
 			model.addAttribute("currentList", currentList);
-			model.addAttribute("mCode", mCode);
+			model.addAttribute("adminNo", adminNo);
 			return "noticeList";
 		} else {
 			return "home";

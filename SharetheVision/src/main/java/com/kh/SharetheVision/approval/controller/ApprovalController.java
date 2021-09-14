@@ -30,6 +30,7 @@ import com.kh.SharetheVision.approval.model.vo.ApprovalStatusDTO;
 import com.kh.SharetheVision.approval.model.vo.ApprovalVO;
 import com.kh.SharetheVision.attachments.model.service.AttachmentService;
 import com.kh.SharetheVision.attachments.model.vo.Attachment;
+import com.kh.SharetheVision.member.model.service.MemberService;
 import com.kh.SharetheVision.member.model.vo.Member;
 
 @Controller
@@ -40,6 +41,9 @@ public class ApprovalController {
 	
 	@Autowired
 	private AttachmentService aService;
+	
+	@Autowired
+	private MemberService mService;
 
 	@RequestMapping(value = "approval.ap", method = RequestMethod.GET)
 	public String approval(HttpSession session, Model model) {
@@ -47,7 +51,11 @@ public class ApprovalController {
 		Member m = ((Member)session.getAttribute("loginUser"));
 		String mCode = m.getmCode();
 		String name = m.getName();
-//		System.out.println(mCode);
+		int deptNo = m.getDeptNo();
+		
+		//TEAM 프로필 가져오기
+		ArrayList<Member> profileList = mService.selectTeamMember(deptNo);
+		model.addAttribute("profileList",profileList);
 		
 		// 결재 selectbox 회원정보 뿌려주기
 		List<Member> aplist = apvService.aplist();
@@ -60,6 +68,19 @@ public class ApprovalController {
 		// 기안자, 합의자, 참조자, 결재자에 로그인한 유저가 있으면 다 가져오기
 		List<ApprovalVO> listAll = apvService.selectApproval(ap);
 //		System.out.println(listAll);
+		String[] mCodeArr = new String[listAll.size()];
+		ArrayList<Member> nameList = new ArrayList<Member>();
+		Member nameMember = null;
+		for(int i = 0; i < listAll.size(); i++) {
+			mCodeArr[i] = listAll.get(i).getmCode();
+			nameMember = new Member();
+			nameMember = mService.selectMemberName(mCodeArr[i]);
+			nameList.add(nameMember);
+		}
+		ArrayList<Attachment> apProfile = aService.selectProjectMember(mCodeArr);
+		model.addAttribute("apProfile",apProfile);
+		model.addAttribute("nameList", nameList);
+		System.out.println(listAll);
 		
 		List<ApprovalAcceptDTO> acceptList = apvService.selectApprovalAceeptList();
 		List<ApprovalStatusDTO> statusList = apvService.selectApprovalStatusList();

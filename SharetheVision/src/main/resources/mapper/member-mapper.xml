@@ -145,4 +145,25 @@
 		ORDER BY DEPT_NO, J_NO
 	</select>
 
+	<resultMap type="Attachment" id="profileListResult">
+		<result column="AT_LEVEL" property="atLevel"/>
+		<result column="AT_CHANGE" property="atChange"/>
+	</resultMap>	
+	
+	<select id="selectTeamMember" resultMap="profileListResult" parameterType="_int">
+		SELECT A.AT_LEVEL, A.AT_CHANGE
+		FROM MEMBER M 
+			LEFT JOIN ATTACHMENTS A ON(A.AT_CATEGORY = M.M_CODE)
+		WHERE M_STATUS='Y' AND DEPT_NO = #{value}
+	</select>
+
+	<select id="selectMemberName" resultMap="selectMemberResult" parameterType="string">
+		SELECT *
+		FROM MEMBER
+			LEFT JOIN JOB USING(J_NO)
+			LEFT JOIN ADMIN USING(ADMIN_NO)
+			LEFT JOIN DEPARTMENT USING(DEPT_NO)
+		WHERE M_STATUS='Y' AND M_CODE=#{value}
+	</select>
+
 </mapper>

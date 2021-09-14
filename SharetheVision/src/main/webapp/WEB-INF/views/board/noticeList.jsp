@@ -350,7 +350,7 @@
                                     </div>
                                     
                                     <div class="boardList-btn-box">
-                                        <c:if test="${ mCode.contains('Di') }">
+                                        <c:if test="${ adminNo == 5 }">
                                     	<c:url var="noticeInsertForm" value="noticeInsertForm.bo">
                                         	<c:param name="deptNo" value="${ loginUser.deptNo }"/>
                                         </c:url>

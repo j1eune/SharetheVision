@@ -265,6 +265,11 @@
 			flex-direction: row-reverse;
 		}
 		
+		.boardContent {
+			height: 300px;
+			overflow: scroll;
+		}
+		
     </style>
 
 </head>
@@ -381,7 +386,7 @@
                                             <div class="tab-content tabs card-block boardDetail-content-box">
                                                 <div class="tab-pane boardDetail-content active" id="home1"
                                                     role="tabpanel">
-                                                    <p class="m-0">${ notice.boardContent }</p>
+                                                    <p class="m-0 boardContent">${ notice.boardContent }</p>
                                                     <div class="boardDetail-btn-box">
                                                     	
                                                     	<c:if test="${ loginUser.mCode == notice.memberCode }">
