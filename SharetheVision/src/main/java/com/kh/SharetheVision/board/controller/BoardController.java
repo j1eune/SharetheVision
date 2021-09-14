@@ -240,6 +240,10 @@ public class BoardController {
 			HttpServletRequest request) throws BoardException {
 
 		boolean fileUpload = false;
+		
+		String content = b.getBoardContent().replace("\n", "<br>");
+		
+		b.setBoardContent(content);
 
 		int boardResult = service.insertBoard(b);
 		int noticeResult = 0;
@@ -649,9 +653,11 @@ public class BoardController {
 	public String noticeInsert(@ModelAttribute Board b, @RequestParam(value = "uploadFile") MultipartFile uploadFile,
 							   HttpServletRequest request) throws BoardException {
 
-		int noticeResult = service.insertNotice(b);
+		String content = b.getBoardContent().replace("\n", "<br>");
 		
-		System.out.println(noticeResult);
+		b.setBoardContent(content);
+		
+		int noticeResult = service.insertNotice(b);
 
 		Board lastBoard = service.selectLastBoard();
 		int lastBoardNo = lastBoard.getBoardNo();
