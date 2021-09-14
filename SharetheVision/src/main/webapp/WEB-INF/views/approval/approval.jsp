@@ -2397,10 +2397,10 @@ color:black;}
                                           			<img src="resources/assets/images/defaultProfile.png" class="members mail-members" style="width: 35px; height: 35px;"/>
                                            		</c:if>
                                            		<c:if test="${profile != null }">
-                                           			<c:if test="${profile.atChange == 1}">
+                                           			<c:if test="${profile.atLevel eq 1}">
                                            				<img src="resources/muploadFile/${profile.atChange }" class="members mail-members" style="width: 35px; height: 35px;"/>
                                            			</c:if>
-                                           			<c:if test="${profile.atChange != 1}">
+                                           			<c:if test="${profile.atLevel ne 1}">
                                            				<img src="resources/assets/images/defaultProfile.png" class="members mail-members" style="width: 35px; height: 35px;"/>
                                            			</c:if>
                                            		</c:if>
