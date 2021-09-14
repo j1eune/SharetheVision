@@ -82,13 +82,11 @@ pageEncoding="UTF-8"%>
                                 <i class="ti-email"></i> My Messages
                             </a>
                         </li> -->
-                        <c:if test="${loginUser.adminNo > 4}">
-	                        <li>
-	                            <a href="meetingForm.pr">
-	                                <i class="ti-video-camera"></i> Get Meeting
-	                            </a>
-	                        </li>
-                        </c:if>
+                        <li>
+                            <a href="meetingForm.pr">
+                                <i class="ti-video-camera"></i> Get Meeting
+                            </a>
+                        </li>
                         <li>
                             <a href="#" onclick="logout()">
                                 <i class="ti-layout-sidebar-left"></i> Logout
