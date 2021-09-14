@@ -310,6 +310,9 @@ public class BoardController {
 	@RequestMapping("updateBoardForm.bo")
 	public String updateBoard(@ModelAttribute Board b, Model model) {
 
+		String content = b.getBoardContent().replace("<br>", "\n");
+		b.setBoardContent(content);
+		
 		int bId = b.getBoardNo();
 		int deptNo = b.getDeptNo();
 		
@@ -329,6 +332,9 @@ public class BoardController {
 	public String updateBoard(@ModelAttribute Board b, @RequestParam(value = "uploadFile") MultipartFile uploadFile,
 			HttpServletRequest request) throws BoardException {
 
+		String content = b.getBoardContent().replace("\n", "<br>");
+		b.setBoardContent(content);
+		
 		int bId = b.getBoardNo();
 		
 		String strbId = bId+"";
@@ -694,6 +700,9 @@ public class BoardController {
 	@RequestMapping("updateNoticeForm.bo")
 	public String updateNotice(@ModelAttribute Board b, Model model) {
 
+		String content = b.getBoardContent().replace("<br>", "\n");
+		b.setBoardContent(content);
+		
 		int bId = b.getBoardNo();
 		String strbId = bId+"";
 
@@ -708,6 +717,10 @@ public class BoardController {
 	public String updateNotice(@ModelAttribute Board b, @RequestParam(value = "uploadFile") MultipartFile uploadFile,
 							   HttpServletRequest request) throws BoardException {
 
+
+		String content = b.getBoardContent().replace("\n", "<br>");
+		b.setBoardContent(content);
+		
 		int bId = b.getBoardNo();
 		String strbId = bId+"";
 		

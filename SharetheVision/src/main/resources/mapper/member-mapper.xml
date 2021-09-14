@@ -117,7 +117,23 @@
 		<if test="search == null">
 		WHERE M_STATUS = 'Y'
 		</if>
-		ORDER BY J_NO
+		ORDER BY J_NO DESC
+	</select>
+	
+	<select id="pSearchMember" resultMap="selectMemberResult">
+		SELECT *
+		FROM MEMBER
+			LEFT JOIN JOB USING(J_NO)
+			LEFT JOIN ADMIN USING(ADMIN_NO)
+			LEFT JOIN DEPARTMENT USING(DEPT_NO)
+		WHERE M_CODE != #{mCode}
+		<if test="search != null">
+		AND M_STATUS = 'Y' AND (M_NAME = #{search} OR J_NAME = #{search} OR DEPT_NAME = #{search})
+		</if>
+		<if test="search == null">
+		AND M_STATUS = 'Y'
+		</if>
+		ORDER BY J_NO DESC
 	</select>
 	
 	<select id="selectMemberList" resultMap="selectMemberResult">

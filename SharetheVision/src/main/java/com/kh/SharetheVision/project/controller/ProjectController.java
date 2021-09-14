@@ -165,7 +165,9 @@ public class ProjectController {
 	@ResponseBody
 	public HashMap<String,Object> projectMember(@RequestParam(value="search", required=false) String search,
 							  @RequestParam(value="page", required=false) Integer page,
-							  HttpServletResponse response, Model model) {
+							  HttpServletResponse response, Model model, HttpSession session) {
+		
+		String mCode = ((Member)session.getAttribute("loginUser")).getmCode();
 		
 		HashMap<String,Object> map = new HashMap<String, Object>();
 		if(!search.trim().equals("")) {
@@ -183,8 +185,9 @@ public class ProjectController {
 		
 		PageInfo pi = MemberPagination.getPageInfo(currentPage, listCount);
 		map.put("page", pi);
+		map.put("mCode", mCode);
 		
-		ArrayList<Member> list = mService.searchMember(map);
+		ArrayList<Member> list = mService.pSearchMember(map);
 
 		HashMap<String,Object> jMap = new HashMap<String, Object>();
 		JSONArray jArr = new JSONArray();

@@ -27,4 +27,6 @@ public interface MemberService {
 
 	ArrayList<Member> selectMemberList(Member m);
 
+	ArrayList<Member> pSearchMember(HashMap<String, Object> map);
+
 }

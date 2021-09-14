@@ -61,4 +61,12 @@ public class MemberDAO {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectMemberList", m);
 	}
 
+	public ArrayList<Member> pSearchMember(SqlSession sqlSession, HashMap<String, Object> map) {
+		PageInfo pi = (PageInfo)map.get("page");
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.pSearchMember", map, rowBounds);
+	}
+
 }

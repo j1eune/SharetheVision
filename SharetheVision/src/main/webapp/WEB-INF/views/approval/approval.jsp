@@ -290,7 +290,11 @@ text-align: center;
     color: var(--main-color);
     font-size: 14px;
     font-weight: 900;
-    margin-top: 14px;
+    margin-top: 16px;
+}
+
+.project-department-name{
+margin-bottom:10px;
 }
 .project-department:before {
 position: absolute;
@@ -302,7 +306,7 @@ top: 10;
 left: 0;
 }
 .project-department:nth-child(1):before {
-border: 3px solid #b36dfb;
+border: 3px solid #228B22;
 }
 .project-department:nth-child(2):before {
 border: 3px solid #625be8;
@@ -897,9 +901,10 @@ display: flex;
 align-items: center;
 }
 .mail-contents-title {
-font-weight: 700;
-font-size: 17px;
-margin-left: 5px;
+    font-weight: 700;
+    font-size: 17px;
+    margin-left: 50px;
+    margin-bottom: 25px;
 }
 
 .mail {
@@ -2376,12 +2381,12 @@ color:black;}
 										</div>
 									</div>
                                          <div class="side-wrapper">
-                                          <div class="project-title">진행중인 프로젝트</div>
+                                          <div class="project-title">결재 상태</div>
                                           <div class="project-name">
-                                           <div class="project-department">프로젝트 목록1</div>
-                                           <div class="project-department">프로젝트 목록2</div>
-                                           <div class="project-department">프로젝트 목록3</div>
-                                           <div class="project-department">프로젝트 목록4</div>
+                                           <div class="project-department"><div class="project-department-name">미진행</div></div>
+                                           <div class="project-department"><div class="project-department-name">완료</div></div>
+                                           <div class="project-department"><div class="project-department-name">진행중</div></div>
+                                           <div class="project-department"><div class="project-department-name">반려</div></div>
                                           </div>
                                          </div>
                                          <div class="side-wrapper">
@@ -2698,23 +2703,23 @@ color:black;}
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
 																<c:if test="${ ap.deptName eq '인사'&& ap.jobNo>=3 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '마케팅'&& ap.jobNo>=3 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '생산'&& ap.jobNo>=3 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '영업'&& ap.jobNo>=3 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '회계'&& ap.jobNo>=3 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
 														   </c:if>
@@ -2732,23 +2737,23 @@ color:black;}
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
 																<c:if test="${ ap.deptName eq '인사'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '마케팅' }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '생산'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '영업'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '회계'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
 														   </c:if>
@@ -2767,23 +2772,23 @@ color:black;}
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
 																<c:if test="${ ap.deptName eq '인사'&& ap.jobNo>=4 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '마케팅'&& ap.jobNo>=4  }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '생산'&& ap.jobNo>=4 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '영업'&& ap.jobNo>=4 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '회계'&& ap.jobNo>=4 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
 														   </c:if>
@@ -2946,23 +2951,23 @@ color:black;}
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
 																<c:if test="${ ap.deptName eq '인사'&& ap.jobNo>=3 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '마케팅'&& ap.jobNo>=3  }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '생산'&& ap.jobNo>=3 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '영업'&& ap.jobNo>=3 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '회계'&& ap.jobNo>=3 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
 														   </c:if>
@@ -2980,23 +2985,23 @@ color:black;}
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
 																<c:if test="${ ap.deptName eq '인사'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '마케팅' }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '생산'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '영업'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '회계'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
 														   </c:if>
@@ -3014,23 +3019,23 @@ color:black;}
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
 																<c:if test="${ ap.deptName eq '인사'&& ap.jobNo>=4 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '마케팅'&& ap.jobNo>=4 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '생산'&& ap.jobNo>=4}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '영업'&& ap.jobNo>=4}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '회계'&& ap.jobNo>=4}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
 														   </c:if>
@@ -3192,23 +3197,23 @@ color:black;}
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
 																<c:if test="${ ap.deptName eq '인사'&& ap.jobNo>=3}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '마케팅'&& ap.jobNo>=3 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '생산'&& ap.jobNo>=3}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '영업'&& ap.jobNo>=3}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '회계'&& ap.jobNo>=3}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
 														   </c:if>
@@ -3227,23 +3232,23 @@ color:black;}
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
 																<c:if test="${ ap.deptName eq '인사'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '마케팅' }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '생산'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '영업'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '회계'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
 														   </c:if>
@@ -3259,23 +3264,23 @@ color:black;}
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
 																<c:if test="${ ap.deptName eq '인사'&& ap.jobNo>=4}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '마케팅'&& ap.jobNo>=4 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '생산'&& ap.jobNo>=4}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '영업'&& ap.jobNo>=4}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '회계'&& ap.jobNo>=4}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
 														   </c:if>
@@ -3436,23 +3441,23 @@ color:black;}
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
 																<c:if test="${ ap.deptName eq '인사'&& ap.jobNo>=3}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '마케팅'&& ap.jobNo>=3 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '생산'&& ap.jobNo>=3}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '영업'&& ap.jobNo>=3}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '회계'&& ap.jobNo>=3}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
 														   </c:if>
@@ -3471,23 +3476,23 @@ color:black;}
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
 																<c:if test="${ ap.deptName eq '인사'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '마케팅' }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '생산'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '영업'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '회계'}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
 														   </c:if>
@@ -3507,23 +3512,23 @@ color:black;}
 															<c:if test="${ ap.name != loginUser.name}">  
 																<optgroup label="${ ap.deptName } 팀 ">
 																<c:if test="${ ap.deptName eq '인사'&& ap.jobNo>=4}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '마케팅'&& ap.jobNo>=4 }" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName } </option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName } </option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '생산'&& ap.jobNo>=4}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '영업'&& ap.jobNo>=4}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																
 																<c:if test="${ ap.deptName eq '회계'&& ap.jobNo>=4}" >
-																	<option value="${ ap.name }">${ ap.name } ${ ap.jobName }</option>	
+																	<option value="${ ap.mId }">${ ap.name } ${ ap.jobName }</option>	
 																</c:if>
 																</optgroup>
 														   </c:if>
@@ -3781,7 +3786,7 @@ color:black;}
                                            <div class="mail-contents">
                                             <div class="mail-contents-subject">
                                              <input type="checkbox" name="msg" id="mail20" class="mail-choice" checked>
-                                             <label for="mail20"></label>
+                                             
                                              <div class="mail-contents-title" id="detailTitle"></div>
                                             </div>
                                             <div class="wrapper">
