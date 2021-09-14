@@ -24,7 +24,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kh.SharetheVision.approval.model.service.ApprovalService;
+import com.kh.SharetheVision.approval.model.vo.ApprovalAcceptDTO;
 import com.kh.SharetheVision.approval.model.vo.ApprovalAttachDTO;
+import com.kh.SharetheVision.approval.model.vo.ApprovalStatusDTO;
 import com.kh.SharetheVision.approval.model.vo.ApprovalVO;
 import com.kh.SharetheVision.attachments.model.service.AttachmentService;
 import com.kh.SharetheVision.attachments.model.vo.Attachment;
@@ -45,6 +47,7 @@ public class ApprovalController {
 		Member m = ((Member)session.getAttribute("loginUser"));
 		String mCode = m.getmCode();
 		String name = m.getName();
+		System.out.println(mCode);
 		
 		// 결재 selectbox 회원정보 뿌려주기
 		List<Member> aplist = apvService.aplist();
@@ -55,11 +58,26 @@ public class ApprovalController {
 		ap.setApvAgr(name);
 		ap.setApvRef(name);
 		ap.setApvApp(name);
+		ap.setmId(m.getmId());
 		
 		// 기안자, 합의자, 참조자, 결재자에 로그인한 유저가 있으면 다 가져오기
 		List<ApprovalVO> listAll = apvService.selectApproval(ap);
 		System.out.println(listAll);
 		
+		List<ApprovalAcceptDTO> acceptList = apvService.selectApprovalAceeptList();
+		List<ApprovalStatusDTO> statusList = apvService.selectApprovalStatusList();
+		int statusCompleteCount = 0;
+		int statusTotalCount = 0;
+		for (ApprovalStatusDTO dto : statusList) {
+			if (dto.getSubCode().equals("C")) {
+				statusCompleteCount += dto.getCount();
+			}
+			statusTotalCount += dto.getCount();
+		}
+		model.addAttribute("statusCompleteCount", statusCompleteCount);
+		model.addAttribute("statusTotalCount", statusTotalCount);
+		model.addAttribute("acceptList", acceptList);
+		model.addAttribute("statusList", statusList);
 		ArrayList<ApprovalVO> list = new ArrayList<ApprovalVO>();
 		for(ApprovalVO apv : listAll) {
 			if(apv.getApvAgr() != null && apv.getApvAgr().equals(name)) {
@@ -156,46 +174,59 @@ public class ApprovalController {
 		System.out.println("APV_NO = " + vo.getApvNo());
 		Map<String, String> resultMap = new HashMap<String, String>();
 		if (apvNo > 0) {
-			MultipartFile file = vo.getFileObj();
-			System.out.println("file = " + file);
-			System.out.println("name = " + file.getName());
-			String upload = request.getSession().getServletContext().getRealPath("/upload");
-			String orgFileName = file.getOriginalFilename();
-			File path = new File(upload);
-			File dest = new File(String.format("%s/%s", upload, orgFileName));
-			try {
-				if (!path.exists()) {
-					path.mkdirs();
-				}
-				file.transferTo(dest);
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmsss");
-				String today = sdf.format(new Date());
-				String ext = orgFileName.substring(orgFileName.lastIndexOf(".") + 1);
-				String saveName = String.format("approvalAttach_%s.%s", today, ext);
-				File saveFile = new File(String.format("%s/%s", upload, saveName));
-				System.out.println("dest = " + dest.getAbsolutePath());
-				System.out.println("saveFile = " + saveFile.getAbsolutePath());
-				boolean success = dest.renameTo(saveFile);
-				System.out.println("success = " + success);
-				if (success) {
-					ApprovalAttachDTO dto = new ApprovalAttachDTO();
-					dto.setApvNo(vo.getApvNo());
-					dto.setAptOriginName(orgFileName);
-					dto.setAptSaveName(saveName);
-					dto.setAptPath(dest.getAbsolutePath());
-					dto.setAptFileSize((int) file.getSize());
-					int result = apvService.insertApprovalAttach(dto);
-					if (result > 0) {
-						resultMap.put("result", "success");
-						return resultMap;
+			String[] avgArr = vo.getApvAgr().split(",");
+			String[] refArr = vo.getApvRef().split(",");
+			String[] appArr = vo.getApvApp().split(",");
+			for (String avg : avgArr) {
+				apvService.insertApprovalAccept(new ApprovalAcceptDTO(vo.getApvNo(), avg, "AGR"));
+			}
+			for (String ref : refArr) {
+				apvService.insertApprovalAccept(new ApprovalAcceptDTO(vo.getApvNo(), ref, "REF"));
+			}
+			for (String app : appArr) {
+				apvService.insertApprovalAccept(new ApprovalAcceptDTO(vo.getApvNo(), app, "APP"));
+			}
+			resultMap.put("result", "SUCCESS");
+			if (vo.getFileObj() != null && !vo.getFileObj().isEmpty()) {
+				MultipartFile file = vo.getFileObj();
+				String upload = request.getSession().getServletContext().getRealPath("/upload");
+				String orgFileName = file.getOriginalFilename();
+				File path = new File(upload);
+				File dest = new File(String.format("%s/%s", upload, orgFileName));
+				try {
+					if (!path.exists()) {
+						path.mkdirs();
 					}
-				} else {
-					resultMap.put("result", "fileRenameFailed");
+					file.transferTo(dest);
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmsss");
+					String today = sdf.format(new Date());
+					String ext = orgFileName.substring(orgFileName.lastIndexOf(".") + 1);
+					String saveName = String.format("approvalAttach_%s.%s", today, ext);
+					File saveFile = new File(String.format("%s/%s", upload, saveName));
+					System.out.println("dest = " + dest.getAbsolutePath());
+					System.out.println("saveFile = " + saveFile.getAbsolutePath());
+					boolean success = dest.renameTo(saveFile);
+					System.out.println("success = " + success);
+					if (success) {
+						ApprovalAttachDTO dto = new ApprovalAttachDTO();
+						dto.setApvNo(vo.getApvNo());
+						dto.setAptOriginName(orgFileName);
+						dto.setAptSaveName(saveName);
+						dto.setAptPath(dest.getAbsolutePath());
+						dto.setAptFileSize((int) file.getSize());
+						int result = apvService.insertApprovalAttach(dto);
+						if (result > 0) {
+							resultMap.put("result", "success");
+							return resultMap;
+						}
+					} else {
+						resultMap.put("result", "fileRenameFailed");
+					}
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		}
 		resultMap.put("result", "failed");
@@ -203,32 +234,89 @@ public class ApprovalController {
 	}
 	
 	// 결재상세 화면 ajax
-		@ResponseBody
-		@RequestMapping(value = "detailApproval.ap", produces = "application/json; charset=utf-8")
-		public String detailApproval(@RequestParam("apvNo") int apvNo) {
-			ApprovalVO ap = new ApprovalVO();
-			ap.setApvNo(apvNo);
-			
-			ApprovalVO apv = apvService.selectOne(ap);
-			if(apv.getApvRef() == null) {
-				apv.setApvRef("");
-			} else if(apv.getApvAgr() == null) {
-				apv.setApvAgr("");
-			}
-			Attachment profile = aService.selectProfile(apv.getmCode());
-			if(profile != null) {
-				apv.setAtChange(profile.getAtChange());
-			} else {
-				apv.setAtChange("");
-			}
-			ApprovalAttachDTO at = apvService.selectAttachedFile(apvNo);
-			
-			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-			
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("apv", apv);
-			map.put("at", at);
-			
-			return gson.toJson(map);
+	@ResponseBody
+	@RequestMapping(value = "detailApproval.ap", produces = "application/json; charset=utf-8")
+	public String detailApproval(@RequestParam("apvNo") int apvNo) {
+		ApprovalVO ap = new ApprovalVO();
+		ap.setApvNo(apvNo);
+
+		ApprovalVO apv = apvService.selectOne(ap);
+		if (apv.getApvRef() == null) {
+			apv.setApvRef("");
+		} else if (apv.getApvAgr() == null) {
+			apv.setApvAgr("");
 		}
+		Attachment profile = aService.selectProfile(apv.getmCode());
+		if (profile != null) {
+			apv.setAtChange(profile.getAtChange());
+		} else {
+			apv.setAtChange("");
+		}
+		ApprovalAttachDTO at = apvService.selectAttachedFile(apvNo);
+
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("apv", apv);
+		map.put("at", at);
+
+		return gson.toJson(map);
+	}
+
+	@ResponseBody
+	@RequestMapping("approvalAccept.ap")
+	public Map<String, Object> approvalAccept(ApprovalAcceptDTO dto, @RequestParam("status") String status, HttpSession session) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		dto.setMemId(loginUser.getmId());
+		dto.setAcceptType(status);
+		Map<String, Object> resultMap = new HashMap<>();
+		String approvalType = apvService.selectLoginUserType(dto);
+		int count = apvService.selectNotAcceptCount(dto);
+
+		if (approvalType.equals("APP") && count != 0) {
+			resultMap.put("message", "아직 합의자가 승인을 완료하지 않았습니다.");
+			return resultMap;
+		}
+
+		if (status.equals("ACCEPT")) {
+			dto.setAcceptYn("Y");
+			int updateCount = apvService.updateApprovalAccept(dto);
+			if (approvalType.equals("AGR")) {
+				if (updateCount > 0) {
+					resultMap.put("result", "SUCCESS");
+					count = apvService.selectNotAcceptCount(dto);
+					if (count == 0) {
+						dto.setApprovalStatus("B");
+						if (apvService.updateApprovalStatus(dto) == 0) {
+							resultMap.put("result", "FAILED");
+						}
+					}
+				} else {
+					resultMap.put("result", "FAILED");
+				}
+			} else if (approvalType.equals("APP")) { 
+				if (updateCount > 0) {
+					resultMap.put("result", "SUCCESS");
+					dto.setApprovalStatus("C");
+					if (apvService.updateApprovalStatus(dto) == 0) {
+						resultMap.put("result", "FAILED");
+					}
+				}
+			}
+		} else if (status.equals("REFUSE")) {
+			dto.setAcceptYn("D");
+			dto.setApprovalStatus("D");
+			if (apvService.updateApprovalAccept(dto) > 0) {
+				apvService.updateApprovalStatus(dto);
+			}
+		} else if (status.equals("CANCEL")) {
+			dto.setAcceptYn("A");
+			dto.setApprovalStatus("A");
+			if (apvService.updateApprovalAccept(dto) > 0) {
+				apvService.updateApprovalAccept(dto);
+			}
+		}
+		resultMap.put("list", apvService.selectApprovalAceeptList());
+		return resultMap;
+	}
 }

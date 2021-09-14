@@ -240,6 +240,10 @@ public class BoardController {
 			HttpServletRequest request) throws BoardException {
 
 		boolean fileUpload = false;
+		
+		String content = b.getBoardContent().replace("\n", "<br>");
+		
+		b.setBoardContent(content);
 
 		int boardResult = service.insertBoard(b);
 		int noticeResult = 0;
@@ -306,6 +310,9 @@ public class BoardController {
 	@RequestMapping("updateBoardForm.bo")
 	public String updateBoard(@ModelAttribute Board b, Model model) {
 
+		String content = b.getBoardContent().replace("<br>", "\n");
+		b.setBoardContent(content);
+		
 		int bId = b.getBoardNo();
 		int deptNo = b.getDeptNo();
 		
@@ -325,6 +332,9 @@ public class BoardController {
 	public String updateBoard(@ModelAttribute Board b, @RequestParam(value = "uploadFile") MultipartFile uploadFile,
 			HttpServletRequest request) throws BoardException {
 
+		String content = b.getBoardContent().replace("\n", "<br>");
+		b.setBoardContent(content);
+		
 		int bId = b.getBoardNo();
 		
 		String strbId = bId+"";
@@ -649,9 +659,11 @@ public class BoardController {
 	public String noticeInsert(@ModelAttribute Board b, @RequestParam(value = "uploadFile") MultipartFile uploadFile,
 							   HttpServletRequest request) throws BoardException {
 
-		int noticeResult = service.insertNotice(b);
+		String content = b.getBoardContent().replace("\n", "<br>");
 		
-		System.out.println(noticeResult);
+		b.setBoardContent(content);
+		
+		int noticeResult = service.insertNotice(b);
 
 		Board lastBoard = service.selectLastBoard();
 		int lastBoardNo = lastBoard.getBoardNo();
@@ -688,6 +700,9 @@ public class BoardController {
 	@RequestMapping("updateNoticeForm.bo")
 	public String updateNotice(@ModelAttribute Board b, Model model) {
 
+		String content = b.getBoardContent().replace("<br>", "\n");
+		b.setBoardContent(content);
+		
 		int bId = b.getBoardNo();
 		String strbId = bId+"";
 
@@ -702,6 +717,10 @@ public class BoardController {
 	public String updateNotice(@ModelAttribute Board b, @RequestParam(value = "uploadFile") MultipartFile uploadFile,
 							   HttpServletRequest request) throws BoardException {
 
+
+		String content = b.getBoardContent().replace("\n", "<br>");
+		b.setBoardContent(content);
+		
 		int bId = b.getBoardNo();
 		String strbId = bId+"";
 		
