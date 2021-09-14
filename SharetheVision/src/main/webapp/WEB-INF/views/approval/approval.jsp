@@ -3697,9 +3697,11 @@ color:black;}
 														<div class="msg-endday">&nbsp;${apv.depart}</div>
 														<!--결재 목록 기안자-->
 														<div class="msg-sender">기안자:</div>
+														<c:set var="check" value="true"/>
 														<c:forEach var="nameList" items="${nameList }">
-															<c:if test="${nameList.mCode == apv.mCode }">
+															<c:if test="${check && (nameList.mCode == apv.mCode)}">
 																<div class="msg-sender2">&nbsp;${nameList.name}</div><br>
+																<c:set var="check" value="false"/>
 															</c:if>
 														</c:forEach>
 <!-- 														<div class="msg-sender3">&nbsp;사원</div> -->
@@ -3711,12 +3713,15 @@ color:black;}
 														<div class="msg-doctype">문서종류:</div>
 														<div class="msg-doctype2">&nbsp;${apv.apvType}</div><br>
 													</div>
+													<c:set var="pCheck" value="true"/>
 													<c:forEach var="listProfile" items="${apProfile }">
-														<c:if test="${listProfile.atCategory == apv.mCode }">
+														<c:if test="${pCheck && (listProfile.atCategory == apv.mCode) }">
 															<img src="resources/muploadFile/${listProfile.atChange }" class="members mail-members" />
+															<c:set var="pCheck" value="false"/>
 														</c:if>
-														<c:if test="${listProfile.atCategory != apv.mCode }">
+														<c:if test="${pCheck && (listProfile.atCategory != apv.mCode) }">
 															<img src="resources/assets/images/defaultProfile.png" class="members mail-members" />
+															<c:set var="pCheck" value="false"/>
 														</c:if>
 													</c:forEach>
 												</div>
