@@ -2392,11 +2392,19 @@ color:black;}
                                          <div class="side-wrapper">
                                           <div class="project-title">TEAM</div>
                                           <div class="team-member">
-                                           <img src="https://images.unsplash.com/flagged/photo-1574282893982-ff1675ba4900?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80" alt="" class="members">
-                                           <img src="https://assets.codepen.io/3364143/Screen+Shot+2020-08-01+at+12.24.16.png" alt="" class="members">
-                                           <img src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" alt="" class="members">
-                                           <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=998&q=80" alt="" class="members">
-                                           <img src="https://images.unsplash.com/photo-1541647376583-8934aaf3448a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80" alt="" class="members">
+                                           <c:forEach var="profile" items="${profileList}">
+                                           		<c:if test="${profile == null }">
+                                          			<img src="resources/assets/images/defaultProfile.png" class="members mail-members" style="width: 35px; height: 35px;"/>
+                                           		</c:if>
+                                           		<c:if test="${profile != null }">
+                                           			<c:if test="${profile.atChange == 1}">
+                                           				<img src="resources/muploadFile/${profile.atChange }" class="members mail-members" style="width: 35px; height: 35px;"/>
+                                           			</c:if>
+                                           			<c:if test="${profile.atChange != 1}">
+                                           				<img src="resources/assets/images/defaultProfile.png" class="members mail-members" style="width: 35px; height: 35px;"/>
+                                           			</c:if>
+                                           		</c:if>
+                                           </c:forEach>
                                            </div>
                                           <br>
 
@@ -3689,7 +3697,11 @@ color:black;}
 														<div class="msg-endday">&nbsp;${apv.depart}</div>
 														<!--결재 목록 기안자-->
 														<div class="msg-sender">기안자:</div>
-														<div class="msg-sender2">&nbsp;${apv.mName}</div><br>
+														<c:forEach var="nameList" items="${nameList }">
+															<c:if test="${nameList.mCode == apv.mCode }">
+																<div class="msg-sender2">&nbsp;${nameList.name}</div><br>
+															</c:if>
+														</c:forEach>
 <!-- 														<div class="msg-sender3">&nbsp;사원</div> -->
 														<!--결재 목록 결재권자-->
 														<div class="msg-approve">결재권자:</div>
@@ -3699,12 +3711,14 @@ color:black;}
 														<div class="msg-doctype">문서종류:</div>
 														<div class="msg-doctype2">&nbsp;${apv.apvType}</div><br>
 													</div>
-													<c:if test="${apv.atChange != null}">
-														<img src="resources/muploadFile/${apv.atChange}" class="members mail-members">
-													</c:if>
-													<c:if test="${apv.atChange == null}">
-														<img src="https://assets.codepen.io/3364143/Screen+Shot+2020-08-01+at+12.24.16.png" alt="" class="members mail-members">
-													</c:if>
+													<c:forEach var="listProfile" items="${apProfile }">
+														<c:if test="${listProfile.atCategory == apv.mCode }">
+															<img src="resources/muploadFile/${listProfile.atChange }" class="members mail-members" />
+														</c:if>
+														<c:if test="${listProfile.atCategory != apv.mCode }">
+															<img src="resources/assets/images/defaultProfile.png" class="members mail-members" />
+														</c:if>
+													</c:forEach>
 												</div>
 											</c:forEach>
                                            </div>
@@ -3714,7 +3728,7 @@ color:black;}
                                            <div class="mail-detail-header">
                                             <div class="mail-detail-profile" id="detailProfileBox">
                                             </div>
-                                          <div class="mail-detail-name" id="detailHead">
+                                          <div id="detailHead">
                                           </div>
 												<div class="mail-icons">
 													<input type="hidden" id="approvalApvNo" />
@@ -4375,6 +4389,7 @@ function clock5() {
   <script>
   	$(".aListTitle").on("click",function(){
   		var apvNo = $(this).parent().parent().children().val();
+  		var apvName = $(this).next().next().next().next().next().next().text();
   		$("#approvalApvNo").val(apvNo);
   		console.log(apvNo);
   		$.ajax({
@@ -4401,8 +4416,8 @@ function clock5() {
   					$detailProfile.html('<img src="resources/muploadFile/'+data.apv.atChange+'" style="width:100%; height:100%; object-fit: fill;"/>');
   				}
   				
-  				$detailHead.html('<div class="apc1">기안자:&nbsp;</div>'+
-  								 '<div class="apc2">'+data.apv.mName+'</div>');
+  				$detailHead.html('<div class="apc1"><font color="gray">기안자:</font>&nbsp;</div>'+
+  								 '<div class="apc2"><font color="gray">'+apvName+'</font></div>');
   				$detailTitle.text(data.apv.apt);  										
   				$detailContent.text(data.apv.comment);
   				$detailTime.html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">'+
