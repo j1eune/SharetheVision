@@ -47,7 +47,7 @@
 	</insert>
 	-->
 	
-	<select id="selectApproval" parameterType="com.kh.SharetheVision.approval.model.vo.ApprovalVO" resultMap="approvalResultSet">
+	<select id="selectApproval" parameterType="com.kh.SharetheVision.approval.model.vo.ApprovalVO" resultType="com.kh.SharetheVision.approval.model.vo.ApprovalVO">
 		SELECT A.APV_NO
 		     , A.APV_TYPE
 		     , A.M_CODE
@@ -66,21 +66,24 @@
 		             , MAX(DECODE(AC.APPROVAL_TYPE, 'AGR', AC.APV_NAMES)) AS APV_AGR
 		             , MAX(DECODE(AC.APPROVAL_TYPE, 'REF', AC.APV_NAMES)) AS APV_REF
 		             , MAX(DECODE(AC.APPROVAL_TYPE, 'APP', AC.APV_NAMES)) AS APV_APP
+		             , MAX(DECODE(AC.APPROVAL_TYPE, 'AGR', AC.APV_MEMIDS))
+		               ||','||MAX(DECODE(AC.APPROVAL_TYPE, 'REF', AC.APV_MEMIDS))
+		               ||','||MAX(DECODE(AC.APPROVAL_TYPE, 'APP', AC.APV_MEMIDS)) AS APV_IDS
 		          FROM APPROVAL A
 		             , (SELECT APV_NO
-                             , MEM_ID
-		                     , APPROVAL_TYPE, LISTAGG(M.M_NAME, ', ')
-		                       WITHIN GROUP(ORDER BY APV_NO) AS APV_NAMES
+		                     , APPROVAL_TYPE
+		                     , LISTAGG(M.M_NAME, ', ') WITHIN GROUP(ORDER BY APV_NO) AS APV_NAMES
+		                     , LISTAGG(A.MEM_ID, ', ') WITHIN GROUP(ORDER BY APV_NO) AS APV_MEMIDS
 		                  FROM APPROVAL_ACCEPT A
 		                     , MEMBER M
 		                 WHERE A.MEM_ID = M.M_ID
-		                GROUP BY APV_NO, APPROVAL_TYPE, MEM_ID
+		                GROUP BY APV_NO, APPROVAL_TYPE
 		             ) AC
 		         WHERE A.APV_NO = AC.APV_NO
-                   AND (A.M_CODE = #{mCode} OR AC.MEM_ID = #{mId})
 		        GROUP BY A.APV_NO
 		       ) B
 		 WHERE A.APV_NO = B.APV_NO
+           AND (A.M_CODE = #{mCode} OR INSTR(B.APV_IDS, #{mId}) > 0)
 	</select>
 	
 	<resultMap type="Approval" id="approvalResultSet">
@@ -102,25 +105,42 @@
 	</resultMap>
 	
 	<select id="selectOne" resultMap="approvalResultSet">
-		SELECT A.APV_NO, A.APV_TYPE, A.M_CODE, B.APV_AGR, B.APV_REF, B.APV_APP, A.APT, A."COMMENT", A.ARRIVE, A.DEPART, A.APV_EDATE, A.APV_STATUS, A.APV_REF_NO
-      FROM APPROVAL A,
-          (SELECT A.APV_NO, MAX(DECODE(AC.APPROVAL_TYPE, 'AGR', AC.APV_NAMES)) AS APV_AGR,
-                            MAX(DECODE(AC.APPROVAL_TYPE, 'REF', AC.APV_NAMES)) AS APV_REF,
-                            MAX(DECODE(AC.APPROVAL_TYPE, 'APP', AC.APV_NAMES)) AS APV_APP
-            FROM APPROVAL A,
-                  (SELECT APV_NO, MEM_ID, APPROVAL_TYPE, LISTAGG(M.M_NAME, ', ')
-                         WITHIN GROUP(ORDER BY APV_NO) AS APV_NAMES
-                    FROM APPROVAL_ACCEPT A, MEMBER M
-                    WHERE A.MEM_ID = M.M_ID
-                    GROUP BY APV_NO, APPROVAL_TYPE, MEM_ID
-                  ) AC
-           WHERE A.APV_NO = AC.APV_NO
-          
-           AND A.APV_NO = #{apvNo}
-          
-          GROUP BY A.APV_NO
-         ) B
-      WHERE A.APV_NO = B.APV_NO
+		SELECT A.APV_NO
+		     , A.APV_TYPE
+		     , A.M_CODE
+		     , B.APV_AGR
+		     , B.APV_REF
+		     , B.APV_APP
+		     , A.APT
+		     , A."COMMENT"
+		     , A.ARRIVE
+		     , A.DEPART
+		     , A.APV_EDATE
+		     , A.APV_STATUS
+		     , A.APV_REF_NO
+		  FROM APPROVAL A
+		     , (SELECT A.APV_NO
+		             , MAX(DECODE(AC.APPROVAL_TYPE, 'AGR', AC.APV_NAMES)) AS APV_AGR
+		             , MAX(DECODE(AC.APPROVAL_TYPE, 'REF', AC.APV_NAMES)) AS APV_REF
+		             , MAX(DECODE(AC.APPROVAL_TYPE, 'APP', AC.APV_NAMES)) AS APV_APP
+		             , MAX(DECODE(AC.APPROVAL_TYPE, 'AGR', AC.APV_MEMIDS))
+		               ||','||MAX(DECODE(AC.APPROVAL_TYPE, 'REF', AC.APV_MEMIDS))
+		               ||','||MAX(DECODE(AC.APPROVAL_TYPE, 'APP', AC.APV_MEMIDS)) AS APV_IDS
+		          FROM APPROVAL A
+		             , (SELECT APV_NO
+		                     , APPROVAL_TYPE
+		                     , LISTAGG(M.M_NAME, ', ') WITHIN GROUP(ORDER BY APV_NO) AS APV_NAMES
+		                     , LISTAGG(A.MEM_ID, ', ') WITHIN GROUP(ORDER BY APV_NO) AS APV_MEMIDS
+		                  FROM APPROVAL_ACCEPT A
+		                     , MEMBER M
+		                 WHERE A.MEM_ID = M.M_ID
+		                GROUP BY APV_NO, APPROVAL_TYPE
+		             ) AC
+		         WHERE A.APV_NO = AC.APV_NO
+		        GROUP BY A.APV_NO
+		       ) B
+		 WHERE A.APV_NO = B.APV_NO
+		   AND A.APV_NO = #{apvNo}
 	</select>
 
 	<insert id="insertApproval" parameterType="com.kh.SharetheVision.approval.model.vo.ApprovalVO">
@@ -231,6 +251,7 @@
 	     , (SELECT COUNT(*) FROM APPROVAL WHERE APV_STATUS = C.SUB_CODE) COUNT
 	     , C.ATTR1
 	  FROM CODE_INFO C
+	ORDER BY ORDER_NO ASC
 	</select>
 	
 	<select id="selectTypeApproval" resultType="com.kh.SharetheVision.approval.model.vo.ApprovalVO" resultMap="approvalResultSet">

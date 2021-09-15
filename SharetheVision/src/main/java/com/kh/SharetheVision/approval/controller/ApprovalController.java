@@ -74,10 +74,17 @@ public class ApprovalController {
 		ApprovalVO ap = new ApprovalVO();
 		ap.setmCode(mCode);
 		ap.setmId(m.getmId());
-		
-		// 기안자, 합의자, 참조자, 결재자에 로그인한 유저가 있으면 다 가져오기
-		List<ApprovalVO> listAll = apvService.selectApproval(ap);
-//		System.out.println(listAll);
+		System.out.println("mId = " + m.getmId());
+		System.out.println("mCode = " + m.getmCode());
+
+		List<ApprovalVO> listAll = null;
+		try {
+			// 기안자, 합의자, 참조자, 결재자에 로그인한 유저가 있으면 다 가져오기
+			listAll = apvService.selectApproval(ap);
+			System.out.println(listAll);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		String[] mCodeArr = new String[listAll.size()];
 		ArrayList<Member> nameList = new ArrayList<Member>();
 		Member nameMember = null;
@@ -108,16 +115,16 @@ public class ApprovalController {
 		model.addAttribute("statusList", statusList);
 		ArrayList<ApprovalVO> list = new ArrayList<ApprovalVO>();
 		for(ApprovalVO apv : listAll) {
-			if(apv.getApvAgr() != null && apv.getApvAgr().equals(name)) {
+			if(apv.getApvAgr() != null && apv.getApvAgr().indexOf(name) > -1) {
 				// 로그인 유저가 합의자면 결재 상태에 상관없음
 				list.add(apv);
-			} else if(apv.getApvAgr() != null && apv.getApvApp().equals(name) && !apv.getApvStatus().equals("A")) {
+			} else if(apv.getApvAgr() != null && apv.getApvApp().indexOf(name) > -1 && !apv.getApvStatus().equals("A")) {
 				// 합의자가 있는 상황에서 로그인 유저가 결재자고, 결재상태가 A(미결재)가 아닐 때
 				list.add(apv);
-			} else if(apv.getApvAgr() == null && apv.getApvApp().equals(name)) {
+			} else if(apv.getApvAgr() == null && apv.getApvApp().indexOf(name) > -1) {
 				// 합의자가 없는 상황에서 로그인 유저가 결재자 일 때
 				list.add(apv);
-			} else if(apv.getApvRef() != null && (apv.getApvRef().equals(name) && (apv.getApvStatus().equals("C") || apv.getApvStatus().equals("D")))){
+			} else if(apv.getApvRef() != null && (apv.getApvRef().indexOf(name) > -1 && (apv.getApvStatus().equals("C") || apv.getApvStatus().equals("D")))){
 				// 로그인 유저가 참조자고, 결재가 끝났을 때
 				list.add(apv);
 			} else if(apv.getmCode().equals(mCode)) {

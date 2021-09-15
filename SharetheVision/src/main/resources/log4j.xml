@@ -35,10 +35,11 @@
 	<!-- Query Logger -->	
 	<logger name="jdbc.sqlonly" additivity="false">
 		<level value="INFO" />
+		<appender-ref ref="console" />
 	</logger>
 	
 	<logger name="jdbc.resultsettable" additivity="false">
-		<lavel value="INFO" />
+		<level value="INFO" />
 		<appender-ref ref="console" />
 	</logger>
 
