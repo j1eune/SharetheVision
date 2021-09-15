@@ -168,7 +168,6 @@
 	
 	function openMeeting(){
 		var url = document.getElementById("startUrl").value;
-// 		console.log("url : " + url);
 		window.open(url);
 	}
 	
