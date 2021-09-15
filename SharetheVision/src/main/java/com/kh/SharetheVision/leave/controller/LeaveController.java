@@ -137,7 +137,7 @@ public class LeaveController {
 		
 		try {
 			file.transferTo(new File(savePath));
-			CSVReader csvReader = new CSVReader(new InputStreamReader(new FileInputStream(savePath), "euc-kr"));
+			CSVReader csvReader = new CSVReader(new InputStreamReader(new FileInputStream(savePath), "utf-8"));
 			
 			List<String[]> data = new ArrayList<String[]>();
             
@@ -158,18 +158,21 @@ public class LeaveController {
             		if(j == 0) {
             			// 사원 아이디
             			Member member = mService.loginMember(line[j].toString());
-            			
+            			System.out.println(line[j]);
             			la.setMemberId(line[j]);
             			la.setMemberNo(member.getmCode());
             		} else if(j == 1) {
             			// 입사일
             			
-            			la.setBaseDate(line[j]);
-            			la.setStartDate(year + line[j].substring(5));
-            			la.setEndDate((year+1) + line[j].substring(5));
+            			System.out.println(line[j]);
+            			String base = line[j].trim();
+            			la.setBaseDate(base);
+            			la.setStartDate(year + base.substring(5));
+            			la.setEndDate((year+1) + base.substring(5));
             		} else if(j == 2) {
             			// 총 연차 개수
             			
+            			System.out.println(line[j]);
             			la.setTotal(Integer.parseInt(line[j]));
             		} else if(j == 3) {
             			// 내용
@@ -177,19 +180,20 @@ public class LeaveController {
             			la.setContent(line[j]);
             		} else if(j == 4) {
             			// 연차 종류
-            			
-            			if(line[j].equals("발생연차")) {
+            			System.out.println(line[j]);
+            			if(line[j].trim().equals("발생연차")) {
             				la.setType(0);
-            			} else if(line[j].equals("조정연차")) {
+            			} else if(line[j].trim().equals("조정연차")) {
             				la.setType(1);
             			} else {
             				throw new LeaveException("연차 입력에 실패하였습니다. 주의사항을 확인해주세요.");
             			}
             		}
             	}
+//            	System.out.println(la);
             	list.add(la);
             }
-        	
+//        	System.out.println(list);
         	size = list.size();
         	result = leService.insertAnnual(list);
         	
@@ -200,7 +204,7 @@ public class LeaveController {
 		}
 		
 		if(result >= size) {
-			return "leaveDetailView";
+			return "redirect: leaveDetail.le";
 		} else {
 			throw new LeaveException("연차 초기 설정에 실패하였습니다.");
 		}

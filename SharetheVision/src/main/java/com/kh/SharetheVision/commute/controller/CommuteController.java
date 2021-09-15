@@ -135,6 +135,7 @@ public class CommuteController {
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 		String enterTime = sdf.format(date);
+//		String enterTime = "2021-09-15 08:43:54";
 		
 		// 지각 여부
 		int status = 0;
