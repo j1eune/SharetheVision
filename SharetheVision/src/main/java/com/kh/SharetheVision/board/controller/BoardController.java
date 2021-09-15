@@ -56,7 +56,7 @@ public class BoardController {
 		
 		ArrayList<Board> list = service.newBoard(deptNo);
 		ArrayList<Scrap> list2 = service.scrapList(mCode);
-//		System.out.println(list2);
+
 		model.addAttribute("board", list);
 		model.addAttribute("scrap", list2);
 		model.addAttribute("currentList", currentList);
@@ -86,11 +86,6 @@ public class BoardController {
 		ArrayList<Reply> reply = service.selectReplyList(bId);
 		Attachment userProfile = service.selectUserProfileImage(writermCode);
 
-//		System.out.println(attachedFile);
-//		System.out.println(reply);
-//		System.out.println(userProfile);
-//		System.out.println("boardDetail.bo : " + currentPage);
-		
 		model.addAttribute("scrapState", scrapState);
 		model.addAttribute("board", board);
 		model.addAttribute("attachedFile", attachedFile);
@@ -130,9 +125,6 @@ public class BoardController {
 	@RequestMapping("returnList.bo")
 	public String returnList(@RequestParam(value="currentPage", required=false) Integer currentPage,
 							 @RequestParam(value="currentList") String currentList) throws BoardException {
-		
-//		System.out.println("returnList / currentPage : " + currentPage);
-//		System.out.println("returnList / currentList : " + currentList);
 		
 		if (currentPage == null) {
 			if (currentList.equals("notice")) {
@@ -179,7 +171,6 @@ public class BoardController {
 
 		ArrayList<Board> list = service.selectBoardList(pi, deptNo);
 
-//		System.out.println("baordList.bo : " + currentPage);
 		if (list != null) {
 			mv.addObject("board", list).addObject("pi", pi).addObject("boardListTitle", boardListTitle).addObject("currentPage", currentPage).addObject("currentList", currentList);
 			mv.setViewName("boardList");
@@ -229,7 +220,6 @@ public class BoardController {
 
 		ArrayList<Project> list = service.selectProjectList(deptNo);
 
-//		System.out.println(list);
 		model.addAttribute("project", list);
 
 		return "boardInsert";
@@ -238,11 +228,8 @@ public class BoardController {
 	@RequestMapping("boardInsert.bo")
 	public String boardInsert(@ModelAttribute Board b, @RequestParam(value = "uploadFile") MultipartFile uploadFile,
 			HttpServletRequest request) throws BoardException {
-
-		boolean fileUpload = false;
 		
 		String content = b.getBoardContent().replace("\n", "<br>");
-		
 		b.setBoardContent(content);
 
 		int boardResult = service.insertBoard(b);
@@ -273,17 +260,12 @@ public class BoardController {
 
 		if (uploadFile != null && !uploadFile.isEmpty()) {
 			Attachment attachFile = saveFile(uploadFile, request, lastBoardNo);
-//			System.out.println(attachFile);
 
 			int uploadResult = service.insertAttachFile(attachFile);
-
-			if (uploadResult > 0) {
-				fileUpload = true;
-			}
 		}
 
 		if (boardResult > 0 && noticeResult > 0) {
-			return "redirect:boardList.bo";
+			return "redirect:boardDetail.bo?bId="+lastBoardNo+"&currentList=boardList&currentPage=1";
 		} else {
 			throw new BoardException("게시글 작성에 실패했습니다.");
 		}
@@ -293,7 +275,6 @@ public class BoardController {
 	@RequestMapping("deleteBoard.bo")
 	public String boardDelete(@RequestParam(value = "bId") int bId) throws BoardException {
 
-//		System.out.println(bId);
 		String strbId = bId+"";
 
 		int result = service.deleteBoard(bId);
@@ -320,8 +301,6 @@ public class BoardController {
 
 		Attachment attachFile = service.selectAttachedFile(strbId);
 		ArrayList<Project> list = service.selectProjectList(deptNo);
-
-//		System.out.println(attachFile);
 
 		model.addAttribute("board", b).addAttribute("attachFile", attachFile).addAttribute("project", list);
 
@@ -389,8 +368,6 @@ public class BoardController {
 
 		String strBoardNo = Integer.toString(boardNo); // int -> String 형변환
 
-//		System.out.println(strBoardNo);
-
 		Attachment att = new Attachment();
 		att.setAtLevel(3);
 		att.setAtCategory(strBoardNo);
@@ -456,8 +433,6 @@ public class BoardController {
 		s.setBoardNo(bId);
 		s.setmCode(mCode);
 
-//		System.out.println(current);
-
 		int result = service.deleteScrap(s);
 
 		if (result > 0) {
@@ -485,8 +460,6 @@ public class BoardController {
 		map.put("word", word);
 		map.put("deptNo", deptNo);
 
-//		System.out.println(map);
-
 		int currentPage = 1;
 
 		if (page != null) {
@@ -495,13 +468,9 @@ public class BoardController {
 
 		int searchListCount = service.selectSearchListCount(map);
 
-//		System.out.println(searchListCount);
-
 		PageInfo pi = Pagination.getPageInfo(currentPage, searchListCount);
 
 		ArrayList<Board> list = service.selectSearchBoard(pi, map);
-
-//		System.out.println(list);
 
 		if (list != null) {
 			mv.addObject("board", list).addObject("pi", pi).addObject("category", category).addObject("word", word);
@@ -566,9 +535,6 @@ public class BoardController {
 		
 		int result = service.deleteReply(rId);
 		
-//		System.out.println("rId : " + rId);
-//		System.out.println(result);
-		
 		String referer = request.getHeader("referer");
 		if(result > 0) {
 			return "redirect:" + referer;
@@ -620,7 +586,6 @@ public class BoardController {
 							 HttpSession session, HttpServletResponse response) {
 		
 		response.setCharacterEncoding("UTF-8");
-
 		String currentList = "noticeList";
 
 		int deptNo = ((Member) session.getAttribute("loginUser")).getDeptNo();
@@ -675,7 +640,7 @@ public class BoardController {
 		}
 
 		if (noticeResult > 0) {
-			return "redirect:noticeList.bo";
+			return "redirect:noticeDetail.bo?bId="+lastBoardNo+"&currentList=noticeList&currentPage=1";
 		} else {
 			throw new BoardException("공지사항 작성에 실패했습니다.");
 		}

@@ -237,5 +237,6 @@
 		SELECT *
 		FROM APPROVAL
 		WHERE M_CODE = #{mCode} AND APV_TYPE = #{apvType}
+		ORDER BY APV_NO DESC
 	</select>
 </mapper>

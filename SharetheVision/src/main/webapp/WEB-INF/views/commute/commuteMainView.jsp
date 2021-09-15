@@ -348,9 +348,9 @@
 		                                                    <div class="card-header-right">
 		                                                        <ul class="list-unstyled card-option">
 		                                                            <li><i class="icofont icofont-simple-left"></i></li>
-		                                                            <li id="leaveFull"><i class="icofont icofont-maximize full-card"></i></li>
+		                                                            <li id="leaveFull"><i class="icofont icofont-maximize"></i></li>
 		                                                            <li><i class="icofont icofont-minus minimize-card"></i></li>
-		                                                            <li id="leaveReload"><i class="icofont icofont-refresh reload-card"></i></li>
+		                                                            <li id="leaveReload"><i class="icofont icofont-refresh"></i></li>
 		                                                            <li><i class="icofont icofont-ui-edit leave-card"></i></li>
 		                                                        </ul>
 		                                                    </div>
@@ -382,9 +382,9 @@
 		                                                    <div class="card-header-right">
 		                                                        <ul class="list-unstyled card-option">
 		                                                            <li><i class="icofont icofont-simple-left"></i></li>
-		                                                            <li id="coRequestFull"><i class="icofont icofont-maximize full-card"></i></li>
+		                                                            <li id="coRequestFull"><i class="icofont icofont-maximize"></i></li>
 		                                                            <li><i class="icofont icofont-minus minimize-card"></i></li>
-		                                                            <li id="coRequestReload"><i class="icofont icofont-refresh reload-card"></i></li>
+		                                                            <li id="coRequestReload"><i class="icofont icofont-refresh"></i></li>
 		                                                            <li><i class="icofont icofont-ui-edit commute-card"></i></li>
 		                                                        </ul>
 		                                                    </div>
@@ -602,7 +602,7 @@
 		var popupY= (window.screen.height /2) - (700 / 2);
 		
 	  	var name="qrstart";
-	    var specs = 'width=510, height=700, menubar=no,status=no,toolbar=no, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY;
+	    var specs = 'width=510, height=700, menubar=no,status=no,toolbar=no,left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY;
 	    var newWindow = window.open(url,name,specs);
 	    newWindow.focus();
 	}
