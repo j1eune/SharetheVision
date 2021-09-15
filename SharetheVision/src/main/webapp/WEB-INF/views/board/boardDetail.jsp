@@ -390,11 +390,13 @@
                                                     		<c:param name="boardTitle" value="${ board.boardTitle }"/>
                                                     		<c:param name="boardWriter" value="${ board.boardWriter }"/>
                                                     		<c:param name="currentList" value="${ currentList }"/>
+                                                    		<c:param name="currentPage" value="${ currentPage }"/>
                                                     	</c:url>
                                                     	<c:url var="deleteScrap" value="deleteScrap.bo">
                                                     		<c:param name="mCode" value="${ loginUser.mCode }"/>
                                                     		<c:param name="bId" value="${ board.boardNo }"/>
                                                     		<c:param name="currentList" value="${ currentList }"/>
+                                                    		<c:param name="currentPage" value="${ currentPage }"/>
                                                     	</c:url>
                                                     	
                                                     	

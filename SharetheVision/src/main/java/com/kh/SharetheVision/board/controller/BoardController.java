@@ -389,32 +389,42 @@ public class BoardController {
 	}
 
 	@RequestMapping("addScrap.bo")
-	public String addScrap(@ModelAttribute Scrap s,@RequestParam(value="currentList") String currentList) throws BoardException {
+	public String addScrap(@ModelAttribute Scrap s,@RequestParam(value="currentList") String currentList,
+						   @RequestParam(value="currentPage", required=false) Integer currentPage) throws BoardException {
 
 		int bId = s.getBoardNo();
 		
 		int result = service.insertScrap(s);
 
 		if (result > 0) {
-			return "redirect:boardDetail.bo?bId=" + bId + "&currentList=" + currentList;
+			if (currentPage == null) {
+				return "redirect:boardDetail.bo?bId=" + bId + "&currentList=" + currentList;
+			} else {
+				return "redirect:boardDetail.bo?bId=" + bId + "&currentPage="+ currentPage +"&currentList=" + currentList;
+			}
 		} else {
 			throw new BoardException("게시물 스크랩에 실패했습니다.");
 		}
 	}
 
 	@RequestMapping("deleteScrap.bo")
-	public String deleteScrap(@RequestParam(value = "bId") int bId, HttpSession session, @RequestParam(value="currentList") String currentList) throws BoardException {
+	public String deleteScrap(@RequestParam(value = "bId") int bId, HttpSession session, @RequestParam(value="currentList") String currentList,
+							  @RequestParam(value="currentPage", required=false) Integer currentPage) throws BoardException {
 
 		String mCode = ((Member) session.getAttribute("loginUser")).getmCode();
 
 		Scrap s = new Scrap();
 		s.setBoardNo(bId);
 		s.setmCode(mCode);
-
+		
 		int result = service.deleteScrap(s);
 
 		if (result > 0) {
-			return "redirect:boardDetail.bo?bId=" + bId + "&currentList=" + currentList;
+			if (currentPage == null) {
+				return "redirect:boardDetail.bo?bId=" + bId + "&currentList=" + currentList;
+			} else {
+				return "redirect:boardDetail.bo?bId=" + bId + "&currentPage="+ currentPage +"&currentList=" + currentList;
+			}
 		} else {
 			throw new BoardException("스크랩 취소에 실패했습니다.");
 		}
