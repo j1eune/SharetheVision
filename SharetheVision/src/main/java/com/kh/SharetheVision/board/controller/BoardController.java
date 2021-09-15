@@ -640,7 +640,7 @@ public class BoardController {
 		}
 
 		if (noticeResult > 0) {
-			return "redirect:noticeList.bo";
+			return "redirect:noticeDetail.bo?bId="+lastBoardNo+"&currentList=noticeList&currentPage=1";
 		} else {
 			throw new BoardException("공지사항 작성에 실패했습니다.");
 		}
