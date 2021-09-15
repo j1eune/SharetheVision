@@ -158,13 +158,13 @@ public class LeaveController {
             		if(j == 0) {
             			// 사원 아이디
             			Member member = mService.loginMember(line[j].toString());
-            			System.out.println(line[j]);
+//            			System.out.println(line[j]);
             			la.setMemberId(line[j]);
             			la.setMemberNo(member.getmCode());
             		} else if(j == 1) {
             			// 입사일
             			
-            			System.out.println(line[j]);
+//            			System.out.println(line[j]);
             			String base = line[j].trim();
             			la.setBaseDate(base);
             			la.setStartDate(year + base.substring(5));
@@ -172,7 +172,7 @@ public class LeaveController {
             		} else if(j == 2) {
             			// 총 연차 개수
             			
-            			System.out.println(line[j]);
+//            			System.out.println(line[j]);
             			la.setTotal(Integer.parseInt(line[j]));
             		} else if(j == 3) {
             			// 내용
@@ -180,7 +180,7 @@ public class LeaveController {
             			la.setContent(line[j]);
             		} else if(j == 4) {
             			// 연차 종류
-            			System.out.println(line[j]);
+//            			System.out.println(line[j]);
             			if(line[j].trim().equals("발생연차")) {
             				la.setType(0);
             			} else if(line[j].trim().equals("조정연차")) {
