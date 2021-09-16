@@ -246,8 +246,7 @@
 						}
 						
 						$tr = $('<tr>');
-						
-						var arr = data[i].comment.split("\r\n");
+						var arr = data[i].comment.split("\n");
 						
 						$type = $('<td>').text(afterSubstring(arr[0]));
 						$date = $('<td>').text(afterSubstring(arr[1]));
@@ -277,7 +276,7 @@
 	}
 	
 	function afterSubstring(str){
-		var index = str.toString().indexOf(":");
+		var index = str.indexOf(":");
 		var resultStr = str.substring(index+2);
 		return resultStr;
 	}
