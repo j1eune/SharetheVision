@@ -3665,13 +3665,10 @@ color:black;}
                                            <div class="inbox">
                                             <div class="msg msg-department anim-y">
                          					결재 리스트
-                                             
-                                             
-                                             
-                                             
                                             </div>
                                             
                                             <!-- 결재리스트  -->
+                                            <!-- ${list} -->
                                             <c:forEach items="${list}" var="apv" varStatus="vs">
 												<div class="msg selected-bg anim-y">
 													<input type="hidden" name="apvNo" value="${apv.apvNo}">
@@ -3867,10 +3864,7 @@ color:black;}
 														</div>
 													</div>
                                            <!--결재 대쉬보드 상세보기 결재승인 메세지-->
-                                             <div class="mail-checklist">
-                                              <div class="msg-apvmsg2">&nbsp;결재 완료.</div>
-                                              <span class="assign-date">&nbsp;&nbsp;- 2021.06.50</span>
-                                             </div>
+                                          
                                              
                                              <br>
                                              <br>
