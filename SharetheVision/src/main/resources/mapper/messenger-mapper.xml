@@ -49,7 +49,6 @@
 	   SELECT *
 		 FROM MS
 	    WHERE RNO=#{roomId}
-	   	ORDER BY MS_NO
 	</select>
 	
 	<select id="existRoom" resultMap="RoomResultMap">
