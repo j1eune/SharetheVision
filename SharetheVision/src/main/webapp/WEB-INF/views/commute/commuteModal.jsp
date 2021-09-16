@@ -247,7 +247,7 @@
 						
 						$tr = $('<tr>');
 						
-						var arr = data[i].comment.split("\r\n");
+						var arr = data[i].comment.split("\n");
 						
 						$type = $('<td>').text(afterSubstring(arr[0]));
 						$date = $('<td>').text(afterSubstring(arr[1]));
