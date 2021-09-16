@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="projectMapper">
+	<insert id="insertProject" parameterType="Project">
+		INSERT INTO PROJECT
+		VALUES(SEQ_PRO.NEXTVAL, #{pName}, #{pIntro}, DEFAULT, DEFAULT, #{deptNo})
+		<selectKey keyProperty="pNo" resultType="_int" order="AFTER">
+			SELECT SEQ_PRO.CURRVAL FROM DUAL
+		</selectKey>
+	</insert>
+	
+	<insert id="insertProjectMember">
+		INSERT INTO M_PROJECT
+		VALUES(#{mCode}, SEQ_PRO.CURRVAL)
+	</insert>
+	
+	<resultMap type="Project" id="selectProjectMap">
+		<id column="P_NO" property="pNo"/>
+		<result column="M_CODE" property="mCode"/>
+		<result column="P_NAME" property="pName"/>
+		<result column="P_INTRO" property="pIntro"/>
+		<result column="P_STATUS" property="pStatus"/>
+		<result column="P_END" property="pEnd"/>
+		<result column="DEPT_NO" property="deptNo"/>
+	</resultMap>
+	
+	<select id="selectProject" resultMap="selectProjectMap">
+		SELECT *
+		FROM PROJECT
+			JOIN M_PROJECT USING(P_NO)
+		WHERE P_STATUS = 'Y' AND M_CODE=#{mCode}
+		ORDER BY P_END, P_NO DESC
+	</select>
+	
+	<select id="selectProjectMember" resultMap="selectProjectMemberResult" parameterType="list">
+		SELECT *
+		FROM M_PROJECT
+			LEFT JOIN ATTACHMENTS ON (M_CODE = AT_CATEGORY)
+		WHERE P_NO IN
+		<foreach collection="list" item="item" open="(" separator="," close=")">
+			#{item.pNo}
+		</foreach>
+	</select>
+	
+	<resultMap type="Project" id="selectProjectMemberResult">
+		<id column="P_NO" property="pNo"/>
+		<result column="M_CODE" property="mCode"/>
+		<result column="M_CODE" property="mCode"/>
+		<result column="AT_CHANGE" property="pName"/>
+	</resultMap>
+	
+	<update id="changeProject">
+		UPDATE PROJECT
+		<choose>
+			<when test="condition == 1">
+				SET P_END = 'Y'
+			</when>
+			<when test="condition == 2">
+				SET P_END = 'N'
+			</when>
+			<when test="condition == 3">
+				SET P_STATUS = 'N'
+			</when>
+		</choose>
+		WHERE P_NO = #{pNo}
+	</update>
+	
+	
+</mapper>

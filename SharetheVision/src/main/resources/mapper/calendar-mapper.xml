@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="calendarMapper">
+
+	<resultMap type="calendar" id="CalResultMap">
+		<id column="SC_CODE" property="code"/>
+		<result column="DSC_NO" property="no"/>
+		<result column="SC_TITLE" property="title"/>
+		<result column="SC_SDATE" property="sDate"/>
+		<result column="SC_EDATE" property="eDate"/>
+		<result column="SC_STATUS" property="status"/>
+		<result column="M_CODE" property="mCode"/>
+	</resultMap>
+	
+	<resultMap type="Todo" id="TodoResultMap">
+		<id column="CH_NO" property="chNo"/>
+		<result column="DCH_NO" property="dchNo"/>
+		<result column="CH_NAME" property="chName"/>
+		<result column="C_STATUS" property="chStatus"/>
+		<result column="M_CODE" property="mCode"/>
+	</resultMap>
+	
+	<insert id="addCal">
+		INSERT INTO SCHEDULE
+		VALUES(#{code}, SEQ_DSC.NEXTVAL, #{title}, TO_DATE(#{sDate}), TO_DATE(#{eDate}), DEFAULT, #{mCode} )
+	</insert>
+
+	<!-- 부서일정은 같은 부서만, 개인일정은 내일정만 선택해서 가져오기 -->
+	<select id="listCal" resultMap="CalResultMap">
+  		SELECT SC.SC_CODE, SC.DSC_NO, SC.SC_TITLE, SC.SC_SDATE, SC.SC_EDATE, SC.SC_STATUS, M.M_CODE, M.M_NAME
+		  FROM SCHEDULE SC, MEMBER M 
+		 WHERE SC.M_CODE= M.M_CODE
+           AND SC.SC_STATUS='N'
+  		   AND M.DEPT_NO= TO_NUMBER(#{deptNo})
+		   AND SC.SC_CODE='1'
+      
+      	 UNION ALL        
+      	 
+        SELECT SC.SC_CODE, SC.DSC_NO, SC.SC_TITLE, SC.SC_SDATE, SC.SC_EDATE, SC.SC_STATUS, M.M_CODE, M.M_NAME
+    	  FROM SCHEDULE SC, MEMBER M 
+		 WHERE SC.M_CODE= M.M_CODE
+           AND SC.SC_STATUS='N'
+       	   AND SC.M_CODE=#{mcode}  
+           AND SC.SC_CODE='2' 
+	</select>
+	
+	<update id="updateCal">
+	   UPDATE SCHEDULE
+		  SET SC_CODE=#{code}, SC_TITLE=#{title}, SC_SDATE=TO_DATE(#{sDate}), SC_EDATE=TO_DATE(#{eDate})
+		WHERE DSC_NO=#{no} AND M_CODE= #{mCode} 
+	</update>
+
+	<update id="deleteCal">
+		UPDATE SCHEDULE
+		   SET SC_STATUS='Y'
+		 WHERE DSC_NO=#{no} AND M_CODE= #{mCode} 
+	</update>
+	
+	<select id="listTodo" resultMap="TodoResultMap">
+		SELECT *
+		  FROM CHECKLIST
+		 WHERE M_CODE=#{mcode} AND C_STATUS='N'
+	  ORDER BY CH_NO DESC, DCH_NO DESC
+	</select>
+	
+	<insert id="insertTodo">
+		INSERT INTO CHECKLIST
+		VALUES (DEFAULT, SEQ_DCH.NEXTVAL, #{chName}, DEFAULT, #{mCode})
+	</insert>
+	
+	<update id="updateTodo">
+		UPDATE CHECKLIST
+		   SET CH_NO = 1
+		 WHERE DCH_NO=#{dchNo}  
+	</update>
+	
+	<update id="deleteTodo">
+		UPDATE CHECKLIST
+		   SET C_STATUS='Y'
+		 WHERE DCH_NO=#{dchNo}
+	</update>
+	
+</mapper>

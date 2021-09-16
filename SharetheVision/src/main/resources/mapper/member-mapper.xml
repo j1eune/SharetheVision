@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="memberMapper">
+	<insert id="insertMember">
+		INSERT INTO MEMBER
+		VALUES(#{mCode}||SEQ_MCODE.NEXTVAL, #{name}, #{pwd}, #{phone}, #{address}, #{email}, SYSDATE, SYSDATE, 1, DEFAULT, #{adminNo} , #{deptNo}, #{jobNo}, #{mId})
+	</insert>
+
+	<select id="selectMember" resultMap="selectMemberResult">
+		SELECT *
+		FROM (SELECT * 
+			  FROM MEMBER
+			  	LEFT JOIN JOB USING(J_NO)
+				LEFT JOIN ADMIN USING(ADMIN_NO)
+				LEFT JOIN DEPARTMENT USING(DEPT_NO)
+			  WHERE M_STATUS = 'Y'
+			  ORDER BY M_CODE) 
+		<if test="condition == 'refresh'"></if>
+		<if test="condition == 'attendence'">
+		WHERE M_STATE = 2
+		</if>
+		<if test="condition == 'outside'">
+		WHERE M_STATE = 3
+		</if>
+		<if test="condition == 'leave'">
+		WHERE M_STATE = 4
+		</if>
+		ORDER BY J_NO DESC
+	</select>
+	
+	<resultMap type="Member" id="selectMemberResult">
+		<id column="M_CODE" property="mCode"/>
+		<result column="M_NAME" property="name"/>
+		<result column="M_PWD" property="pwd"/>
+		<result column="M_PHONE" property="phone"/>
+		<result column="M_ADDRESS" property="address"/>
+		<result column="M_EMAIL" property="email"/>
+		<result column="M_STATE" property="mState"/>
+		<result column="ADMIN_NAME" property="adminName"/>
+		<result column="ADMIN_NO" property="adminNo"/>
+		<result column="DEPT_NAME" property="deptName"/>
+		<result column="J_NAME" property="jobName"/>
+		<result column="DEPT_NO" property="deptNo"/>
+		<result column="M_ID" property="mId"/>
+	</resultMap>
+
+	<select id="checkEmail" resultMap="selectMemberResult">
+		SELECT *
+		FROM MEMBER
+		WHERE M_STATUS = 'Y' AND M_NAME = #{ name } AND M_ID = #{ mId }
+	</select>
+
+	<select id="loginMember" resultMap="selectMemberResult">
+		SELECT *
+		FROM MEMBER
+			LEFT JOIN JOB USING(J_NO)
+			LEFT JOIN ADMIN USING(ADMIN_NO)
+			LEFT JOIN DEPARTMENT USING(DEPT_NO)
+		WHERE M_STATUS='Y' AND M_ID=#{mId}
+	</select>
+	
+	<update id="updateMember">
+		UPDATE MEMBER
+		SET M_PWD = #{pwd},
+			M_PHONE = #{phone},
+			M_ADDRESS = #{address},
+			M_DATE = SYSDATE,
+			M_EMAIL = #{email}
+		WHERE M_CODE = #{mCode}
+	</update>
+
+	<update id="updatePwd">
+		UPDATE MEMBER
+		SET M_PWD = #{pwd}
+		WHERE M_ID = #{mId}
+	</update>
+
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE M_STATUS = 'Y'
+		<if test="condition == 'refresh'"></if>
+		<if test="condition == 'attendence'">
+		AND M_STATE = 2
+		</if>
+		<if test="condition == 'outside'">
+		AND M_STATE = 3
+		</if>
+		<if test="condition == 'leave'">
+		AND M_STATE = 4
+		</if>
+	</select>
+	
+	<select id="searchListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+			LEFT JOIN JOB USING(J_NO)
+			LEFT JOIN ADMIN USING(ADMIN_NO)
+			LEFT JOIN DEPARTMENT USING(DEPT_NO)
+		<if test="value != null">
+		WHERE M_STATUS = 'Y' AND (M_NAME = #{value} OR J_NAME = #{value} OR DEPT_NAME = #{value})
+		</if>
+		<if test="value == null">
+		WHERE M_STATUS = 'Y'
+		</if>
+	</select>
+
+	<select id="searchMember" resultMap="selectMemberResult">
+		SELECT *
+		FROM MEMBER
+			LEFT JOIN JOB USING(J_NO)
+			LEFT JOIN ADMIN USING(ADMIN_NO)
+			LEFT JOIN DEPARTMENT USING(DEPT_NO)
+		<if test="search != null">
+		WHERE M_STATUS = 'Y' AND (M_NAME = #{search} OR J_NAME = #{search} OR DEPT_NAME = #{search})
+		</if>
+		<if test="search == null">
+		WHERE M_STATUS = 'Y'
+		</if>
+		ORDER BY J_NO DESC
+	</select>
+	
+	<select id="pSearchMember" resultMap="selectMemberResult">
+		SELECT *
+		FROM MEMBER
+			LEFT JOIN JOB USING(J_NO)
+			LEFT JOIN ADMIN USING(ADMIN_NO)
+			LEFT JOIN DEPARTMENT USING(DEPT_NO)
+		WHERE M_CODE != #{mCode}
+		<if test="search != null">
+		AND M_STATUS = 'Y' AND (M_NAME = #{search} OR J_NAME = #{search} OR DEPT_NAME = #{search})
+		</if>
+		<if test="search == null">
+		AND M_STATUS = 'Y'
+		</if>
+		ORDER BY J_NO DESC
+	</select>
+	
+	<select id="selectMemberList" resultMap="selectMemberResult">
+		SELECT M_CODE, M_NAME, M_ID, DEPT_NO, DEPT_NAME, J_NO, J_NAME
+		FROM MEMBER
+			 JOIN DEPARTMENT USING (DEPT_NO)
+			 JOIN JOB USING (J_NO)
+		WHERE M_STATUS = 'Y'
+		ORDER BY DEPT_NO, J_NO
+	</select>
+
+	<resultMap type="Attachment" id="profileListResult">
+		<result column="AT_LEVEL" property="atLevel"/>
+		<result column="AT_CHANGE" property="atChange"/>
+	</resultMap>	
+	
+	<select id="selectTeamMember" resultMap="profileListResult" parameterType="_int">
+		SELECT A.AT_LEVEL, A.AT_CHANGE
+		FROM MEMBER M 
+			LEFT JOIN ATTACHMENTS A ON(A.AT_CATEGORY = M.M_CODE)
+		WHERE M_STATUS='Y' AND DEPT_NO = #{value}
+	</select>
+
+	<select id="selectMemberName" resultMap="selectMemberResult" parameterType="string">
+		SELECT *
+		FROM MEMBER
+			LEFT JOIN JOB USING(J_NO)
+			LEFT JOIN ADMIN USING(ADMIN_NO)
+			LEFT JOIN DEPARTMENT USING(DEPT_NO)
+		WHERE M_STATUS='Y' AND M_CODE=#{value}
+	</select>
+
+</mapper>

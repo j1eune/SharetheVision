@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="approvalMapper">
+
+	<resultMap type="Member" id="MemberResultMap">
+		<id column="M_CODE" property="mCode"/>
+		<result column="M_NAME" property="name"/>
+		<result column="M_ID" property="mId"/>
+		<result column="DEPT_NO" property="deptNo"/>
+		<result column="DEPT_NAME" property="deptName"/>
+		<result column="J_NO" property="jobNo"/>
+		<result column="J_NAME" property="jobName"/>
+	</resultMap>
+	
+	<select id="apList" resultMap="MemberResultMap">
+		SELECT M_CODE, M_NAME, M_ID, DEPT_NO, DEPT_NAME, J_NAME, J_NO
+		FROM MEMBER
+			JOIN DEPARTMENT USING(DEPT_NO)
+			JOIN JOB USING(J_NO)
+		WHERE M_STATUS='Y'
+		ORDER BY DEPT_NO ASC, J_NO DESC
+	</select>
+	
+	
+	<resultMap type="ApprovalAttachDTO" id="attachmentResultSet">
+		<id column="ATTACH_NO" property="attachNo"/>
+		<result column="APV_NO" property="apvNo"/>
+		<result column="APT_ORIGIN_NAME" property="aptOriginName"/>
+		<result column="APT_SAVE_NAME" property="aptSaveName"/>
+		<result column="APT_PATH" property="aptPath"/>
+		<result column="APT_FILE_SIZE" property="aptFileSize"/>
+		<result column="DEL_YN" property="delYn"/>
+		<result column="REG_DATE" property="regDate"/>
+		<result column="UPD_DATE" property="updDate"/>
+	</resultMap>
+	
+	<select id="selectAttachedFile" resultMap="attachmentResultSet">
+		SELECT *
+		FROM APPROVAL_ATTACH
+		WHERE APV_NO = #{apvNo}
+	</select>
+	
+	<!-- 
+	<insert id="insertApproval">
+		INSERT INTO APPROVAL VALUES(SEQ_APV.NEXTVAL, #{apvType}, #{mCode}, #{apvAgr}, #{apvRef}, #{apvApp},
+						   			#{apvTitle}, #{apvCom}, SYSDATE, SYSDATE + 10, #{apvDdate}, 'A', #{apvRefNo})
+	</insert>
+	-->
+	
+	<select id="selectApproval" parameterType="com.kh.SharetheVision.approval.model.vo.ApprovalVO" resultType="com.kh.SharetheVision.approval.model.vo.ApprovalVO">
+		SELECT A.APV_NO
+		     , A.APV_TYPE
+		     , A.M_CODE
+		     , B.APV_AGR
+		     , B.APV_REF
+		     , B.APV_APP
+		     , A.APT
+		     , A."COMMENT"
+		     , A.ARRIVE
+		     , A.DEPART
+		     , A.APV_EDATE
+		     , A.APV_STATUS
+		     , A.APV_REF_NO
+		  FROM APPROVAL A
+		     , (SELECT A.APV_NO
+		             , MAX(DECODE(AC.APPROVAL_TYPE, 'AGR', AC.APV_NAMES)) AS APV_AGR
+		             , MAX(DECODE(AC.APPROVAL_TYPE, 'REF', AC.APV_NAMES)) AS APV_REF
+		             , MAX(DECODE(AC.APPROVAL_TYPE, 'APP', AC.APV_NAMES)) AS APV_APP
+		             , MAX(DECODE(AC.APPROVAL_TYPE, 'AGR', AC.APV_MEMIDS))
+		               ||','||MAX(DECODE(AC.APPROVAL_TYPE, 'REF', AC.APV_MEMIDS))
+		               ||','||MAX(DECODE(AC.APPROVAL_TYPE, 'APP', AC.APV_MEMIDS)) AS APV_IDS
+		          FROM APPROVAL A
+		             , (SELECT APV_NO
+		                     , APPROVAL_TYPE
+		                     , LISTAGG(M.M_NAME, ', ') WITHIN GROUP(ORDER BY APV_NO) AS APV_NAMES
+		                     , LISTAGG(A.MEM_ID, ', ') WITHIN GROUP(ORDER BY APV_NO) AS APV_MEMIDS
+		                  FROM APPROVAL_ACCEPT A
+		                     , MEMBER M
+		                 WHERE A.MEM_ID = M.M_ID
+		                GROUP BY APV_NO, APPROVAL_TYPE
+		             ) AC
+		         WHERE A.APV_NO = AC.APV_NO
+		        GROUP BY A.APV_NO
+		       ) B
+		 WHERE A.APV_NO = B.APV_NO
+           AND (A.M_CODE = #{mCode} OR INSTR(B.APV_IDS, #{mId}) > 0)
+	</select>
+	
+	<resultMap type="Approval" id="approvalResultSet">
+		<id column="APV_NO" property="apvNo"/>
+		<result column="APV_TYPE" property="apvType"/>
+		<result column="APV_AGR" property="apvAgr"/>
+		<result column="APV_REF" property="apvRef"/>
+		<result column="APV_APP" property="apvApp"/>
+		<result column="APT" property="apt"/>
+		<result column="COMMENT" property="comment"/>
+		<result column="ARRIVE" property="arrive"/>
+		<result column="DEPART" property="depart"/>
+		<result column="APV_EDATE" property="apvEdate"/>
+		<result column="APV_STATUS" property="apvStatus"/>
+		<result column="APV_REF_NO" property="apvRefNo"/>
+		<result column="M_CODE" property="mCode"/>
+		<result column="AT_CHANGE" property="atChange"/>
+		<result column="M_NAME" property="mName"/>
+	</resultMap>
+	
+	<select id="selectOne" resultMap="approvalResultSet">
+		SELECT A.APV_NO
+		     , A.APV_TYPE
+		     , A.M_CODE
+		     , B.APV_AGR
+		     , B.APV_REF
+		     , B.APV_APP
+		     , A.APT
+		     , A."COMMENT"
+		     , A.ARRIVE
+		     , A.DEPART
+		     , A.APV_EDATE
+		     , A.APV_STATUS
+		     , A.APV_REF_NO
+		  FROM APPROVAL A
+		     , (SELECT A.APV_NO
+		             , MAX(DECODE(AC.APPROVAL_TYPE, 'AGR', AC.APV_NAMES)) AS APV_AGR
+		             , MAX(DECODE(AC.APPROVAL_TYPE, 'REF', AC.APV_NAMES)) AS APV_REF
+		             , MAX(DECODE(AC.APPROVAL_TYPE, 'APP', AC.APV_NAMES)) AS APV_APP
+		             , MAX(DECODE(AC.APPROVAL_TYPE, 'AGR', AC.APV_MEMIDS))
+		               ||','||MAX(DECODE(AC.APPROVAL_TYPE, 'REF', AC.APV_MEMIDS))
+		               ||','||MAX(DECODE(AC.APPROVAL_TYPE, 'APP', AC.APV_MEMIDS)) AS APV_IDS
+		          FROM APPROVAL A
+		             , (SELECT APV_NO
+		                     , APPROVAL_TYPE
+		                     , LISTAGG(M.M_NAME, ', ') WITHIN GROUP(ORDER BY APV_NO) AS APV_NAMES
+		                     , LISTAGG(A.MEM_ID, ', ') WITHIN GROUP(ORDER BY APV_NO) AS APV_MEMIDS
+		                  FROM APPROVAL_ACCEPT A
+		                     , MEMBER M
+		                 WHERE A.MEM_ID = M.M_ID
+		                GROUP BY APV_NO, APPROVAL_TYPE
+		             ) AC
+		         WHERE A.APV_NO = AC.APV_NO
+		        GROUP BY A.APV_NO
+		       ) B
+		 WHERE A.APV_NO = B.APV_NO
+		   AND A.APV_NO = #{apvNo}
+	</select>
+
+	<insert id="insertApproval" parameterType="com.kh.SharetheVision.approval.model.vo.ApprovalVO">
+		INSERT INTO APPROVAL (APV_NO
+							, APV_TYPE
+							, M_CODE
+							, APV_AGR
+							, APV_REF
+							, APV_APP
+							, APT
+							, "COMMENT"
+							, ARRIVE
+							, DEPART
+							<if test="apvRefNo != null">
+							, APV_REF_NO
+							</if>
+							 ) VALUES (
+							  SEQ_APV.NEXTVAL
+							, #{apvType}
+							, #{mCode}
+							, #{apvAgr}
+							, #{apvRef}
+							, #{apvApp}
+							, #{apt}
+							, #{comment}
+							, #{arrive}
+							, #{depart}
+							<if test="apvRefNo != null">
+							, #{apvRefNo}
+							</if>
+							 )
+		<selectKey keyProperty="apvNo" resultType="int" order="AFTER">
+			SELECT SEQ_APV.CURRVAL FROM DUAL
+		</selectKey>
+	</insert>
+	<insert id="insertApprovalAttach" parameterType="com.kh.SharetheVision.approval.model.vo.ApprovalAttachDTO">
+		INSERT INTO APPROVAL_ATTACH (ATTACH_NO
+								  , APV_NO
+								  , APT_ORIGIN_NAME
+								  , APT_SAVE_NAME
+								  , APT_PATH
+								  , APT_FILE_SIZE
+								  , DEL_YN
+								  , REG_DATE
+								   ) VALUES (
+								    SEQ_APV_ATTACH.NEXTVAL
+								  , #{apvNo}
+								  , #{aptOriginName}
+								  , #{aptSaveName}
+								  , #{aptPath}
+								  , #{aptFileSize}
+								  , 'N'
+								  , SYSDATE
+								   )
+	</insert>
+	<insert id="insertApprovalAccept" parameterType="com.kh.SharetheVision.approval.model.vo.ApprovalAcceptDTO">
+		INSERT INTO APPROVAL_ACCEPT (ACCEPT_NO, APV_NO, APPROVAL_TYPE, MEM_ID)
+		VALUES (SEQ_APV_ACCEPT.NEXTVAL, #{apvNo }, #{approvalType}, #{memId})
+	</insert>
+
+	<select id="selectLoginUserType" parameterType="com.kh.SharetheVision.approval.model.vo.ApprovalAcceptDTO" resultType="string">
+		SELECT APPROVAL_TYPE FROM APPROVAL_ACCEPT WHERE APPROVAL_TYPE != 'REF' AND APV_NO = #{apvNo} AND MEM_ID = #{memId}
+	</select>
+
+	<select id="selectNotAcceptCount" parameterType="com.kh.SharetheVision.approval.model.vo.ApprovalAcceptDTO" resultType="int">
+		SELECT COUNT(*) FROM APPROVAL_ACCEPT WHERE APPROVAL_TYPE = 'AGR' AND ACCEPT_YN = 'N' AND APV_NO = #{apvNo}
+	</select>
+
+	<update id="updateApprovalAccept" parameterType="com.kh.SharetheVision.approval.model.vo.ApprovalAcceptDTO">
+		UPDATE APPROVAL_ACCEPT
+		   SET ACCEPT_YN = #{acceptYn}
+		     , ACCEPT_TYPE = #{acceptType}
+		     , ACCEPT_DATE = SYSDATE
+		 WHERE APV_NO = #{apvNo}
+		   AND MEM_ID = #{memId}
+	</update>
+
+	<update id="updateApprovalStatus" parameterType="com.kh.SharetheVision.approval.model.vo.ApprovalAcceptDTO">
+		UPDATE APPROVAL
+		   SET APV_STATUS = #{approvalStatus}
+		 WHERE APV_NO = #{apvNo}
+	</update>
+	
+	<select id="selectApprovalAcceptList" resultType="com.kh.SharetheVision.approval.model.vo.ApprovalAcceptDTO">
+		SELECT ACCEPT_TYPE
+		     , MEM_ID
+		     , MEM_NM
+		     , ACCEPT_DATE
+		     , JOB_NAME
+		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY A.ACCEPT_DATE DESC) RNUM
+		             , A.ACCEPT_TYPE
+		             , A.MEM_ID
+		             , M.M_NAME AS MEM_NM
+		             , TO_CHAR(A.ACCEPT_DATE, 'YYYY.MM.DD') ACCEPT_DATE
+		             , J.J_NAME AS JOB_NAME
+		          FROM APPROVAL_ACCEPT A
+		             , MEMBER M
+		             , JOB J
+		         WHERE A.MEM_ID = M.M_ID
+		           AND M.J_NO = J.J_NO
+		           AND A.ACCEPT_TYPE IS NOT NULL)
+		 WHERE RNUM BETWEEN 1 AND 3
+	</select>
+
+	<select id="selectApprovalStatusList" resultType="com.kh.SharetheVision.approval.model.vo.ApprovalStatusDTO">
+	SELECT C.SUB_CODE
+	     , C.CODE_DESC
+	     , (SELECT COUNT(*) FROM APPROVAL WHERE APV_STATUS = C.SUB_CODE) COUNT
+	     , C.ATTR1
+	  FROM CODE_INFO C
+	ORDER BY ORDER_NO ASC
+	</select>
+	
+	<select id="selectTypeApproval" resultType="com.kh.SharetheVision.approval.model.vo.ApprovalVO" resultMap="approvalResultSet">
+		SELECT *
+		FROM APPROVAL
+		WHERE M_CODE = #{mCode} AND APV_TYPE = #{apvType}
+		ORDER BY APV_NO DESC
+	</select>
+</mapper>

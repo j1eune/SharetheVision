@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+	
+	<typeAliases>
+		<typeAlias alias="calendar" type="com.kh.SharetheVision.firstmain.model.vo.Calendar"/>
+		<typeAlias alias="Board" type="com.kh.SharetheVision.board.model.vo.Board"/>
+		<typeAlias alias="Commute" type="com.kh.SharetheVision.commute.model.vo.Commute"/>
+		<typeAlias alias="Overwork" type="com.kh.SharetheVision.commute.model.vo.Overwork"/>
+		<typeAlias alias="Member" type="com.kh.SharetheVision.member.model.vo.Member"/>
+		<typeAlias alias="Project" type="com.kh.SharetheVision.project.model.vo.Project"/>
+		<typeAlias alias="Attachment" type="com.kh.SharetheVision.attachments.model.vo.Attachment"/>
+		<typeAlias alias="Messenger" type="com.kh.SharetheVision.ms.model.vo.Messenger"/>
+		<typeAlias alias="Room" type="com.kh.SharetheVision.ms.model.vo.Room"/>
+		<typeAlias alias="LeaveAnnual" type="com.kh.SharetheVision.leave.model.vo.LeaveAnnual"/>
+		<typeAlias alias="LeaveUsed" type="com.kh.SharetheVision.leave.model.vo.LeaveUsed"/>
+		<typeAlias alias="Scrap" type="com.kh.SharetheVision.board.model.vo.Scrap"/>
+		<typeAlias alias="Todo" type="com.kh.SharetheVision.firstmain.model.vo.Todo"/>
+		<typeAlias alias="Approval" type="com.kh.SharetheVision.approval.model.vo.ApprovalVO"/>
+		<typeAlias alias="Reply" type="com.kh.SharetheVision.board.model.vo.Reply"/>
+		<typeAlias alias="Notice" type="com.kh.SharetheVision.notice.model.vo.Notice"/>
+		<typeAlias alias="MemberProject" type="com.kh.SharetheVision.board.model.vo.MemberProject"/>
+		<typeAlias alias="ApprovalAttachDTO" type="com.kh.SharetheVision.approval.model.vo.ApprovalAttachDTO"/>
+	</typeAliases>
+	
+	
+	<mappers>
+		<mapper resource="mapper/calendar-mapper.xml"/>
+		<mapper resource="mapper/board-mapper.xml"/>
+		<mapper resource="mapper/commute-mapper.xml"/>
+		<mapper resource="mapper/member-mapper.xml"/>
+		<mapper resource="mapper/project-mapper.xml"/>
+		<mapper resource="mapper/attachment-mapper.xml"/>
+		<mapper resource="mapper/messenger-mapper.xml"/>
+		<mapper resource="mapper/leave-mapper.xml"/>
+		<mapper resource="mapper/approval-mapper.xml"/>
+		<mapper resource="mapper/notice-mapper.xml"/>
+	</mappers>
+
+
+
+</configuration>

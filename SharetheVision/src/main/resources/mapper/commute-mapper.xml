@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="commuteMapper">
+
+	<select id="selectCommute" resultMap="commuteResultMap">
+		SELECT *
+		FROM COMMUTE
+		WHERE M_CODE = #{memberNo}
+			  <if test="start != null and end != null">
+				  AND C_DATE BETWEEN TO_CHAR(TO_DATE(#{start}, 'YY/MM/DD'), 'YY/MM/DD') AND TO_CHAR(TO_DATE(#{end}, 'YY/MM/DD'), 'YY/MM/DD')
+			  </if>
+		ORDER BY C_DATE
+<!-- 		WHERE M_CODE=#{memberNo} AND (C_DATE BETWEEN TO_DATE('21/08/09') AND TO_DATE('21/08/18')) -->
+	</select>
+	
+	<resultMap type="Commute" id="commuteResultMap">
+		<id column="CMT_NO" property="commuteNo"/>
+		<result column="C_DATE" property="enrollDate"/>
+		<result column="C_START" property="commuteStart"/>
+		<result column="C_END" property="commuteEnd"/>
+		<result column="C_WORKTIME" property="worktime"/>
+		<result column="M_CODE" property="memberNo"/>
+		<result column="C_STATUS" property="status" />
+	</resultMap>
+	
+	<select id="selectOverwork" resultMap="overworkResultMap">
+		SELECT *
+		FROM OVERWORK
+		WHERE M_CODE = #{memberNo}
+			  <if test="start != null and end != null">
+			  	  AND O_APPLYDATE BETWEEN TO_CHAR(TO_DATE(#{start}, 'YY/MM/DD'), 'YY/MM/DD') AND TO_CHAR(TO_DATE(#{end}, 'YY/MM/DD'), 'YY/MM/DD')
+			  </if>
+			  <if test="approval != null">
+				  AND O_APPROVAL = #{approval}
+			  </if>
+		ORDER BY O_NO
+<!-- 		WHERE M_CODE=#{memberNo} AND (O_DATE BETWEEN TRUNC(SYSDATE, 'w') AND SYSDATE+1) -->
+	</select>
+	
+	<resultMap type="Overwork" id="overworkResultMap">
+		<id column="O_NO" property="overworkNo"/>
+		<result column="O_APPLYDATE" property="overworkDate"/>
+		<result column="O_START" property="overworkStart"/>
+		<result column="O_END" property="overworkEnd"/>
+		<result column="O_TIME" property="overworktime"/>
+		<result column="O_TYPE" property="type"/>
+		<result column="O_DATE" property="enrollDate"/>
+		<result column="O_APPROVAL" property="approval"/>
+		<result column="O_MEMO" property="overworkContent"/>
+		<result column="M_CODE" property="memberNo"/>
+	</resultMap>
+	
+	<insert id="insertCommute">
+		INSERT INTO COMMUTE VALUES(SEQ_CO.NEXTVAL, SYSDATE, TO_CHAR(TO_DATE(#{commuteStart}, 'yyyy-mm-dd hh24:mi:ss'), 'yyyy-mm-dd hh24:mi:ss'), NULL, 0, #{memberNo}, #{status})
+	</insert>
+	
+<!-- 	<update id="updateCommute"> -->
+<!-- 		UPDATE COMMUTE -->
+<!-- 		SET C_WORKTIME = TRUNC((TO_DATE(#{outTime}, 'yyyy-mm-dd hh24:mi:ss') - TO_DATE(C_START, 'yyyy-mm-dd hh24:mi:ss'))*24 -1) -->
+<!-- 		                    || '.' || TRUNC(MOD((TO_DATE(#{outTime}, 'yyyy-mm-dd hh24:mi:ss') - TO_DATE(C_START, 'yyyy-mm-dd hh24:mi:ss'))*24*60, 60)), -->
+<!-- 		    C_END = TO_CHAR(TO_DATE(#{outTime}, 'yyyy-mm-dd hh24:mi:ss'), 'yyyy-mm-dd hh24:mi:ss') -->
+<!-- 		WHERE M_CODE = #{memberNo} AND (TO_CHAR(C_DATE, 'yyyy-mm-dd') = TO_CHAR(SYSDATE, 'yyyy-mm-dd')) -->
+<!-- 	</update> -->
+	
+	<update id="outCommute">
+		UPDATE COMMUTE
+		SET C_WORKTIME = #{worktime}, C_END = #{commuteEnd}
+		WHERE M_CODE = #{memberNo} AND C_START = #{commuteStart}
+	</update>
+	
+	<update id="changeState">
+		UPDATE MEMBER
+		SET M_STATE = #{mState}
+		WHERE M_CODE = #{mCode}
+	</update>
+	
+	<select id="dailyCommute" resultMap="commuteResultMap">
+		SELECT *
+		FROM COMMUTE
+		WHERE M_CODE = #{memberNo} AND TO_CHAR(SYSDATE, 'YY/MM/DD') = TO_CHAR(C_DATE)
+<!-- 		WHERE M_CODE = #{memberNo} AND TO_CHAR(TO_DATE('2021-08-18', 'YY/MM/DD')) = TO_CHAR(C_DATE) -->
+	</select>
+	
+	<insert id="insertOverwork" parameterType="Overwork">
+		INSERT INTO OVERWORK VALUES(SEQ_OW.NEXTVAL, TO_DATE(#{overworkDate}, 'YY/MM/DD'), #{overworkStart}, #{overworkEnd},
+									#{overworktime}, #{type}, SYSDATE, DEFAULT, #{overworkContent}, #{memberNo})
+		
+		<selectKey keyProperty="overworkNo" resultType="_int" order="AFTER">
+			SELECT SEQ_OW.CURRVAL FROM DUAL
+		</selectKey>
+	</insert>
+	
+	<update id="updateOverwork">
+		UPDATE OVERWORK
+		SET O_APPROVAL = 'Y'
+		WHERE O_NO = #{no}
+	</update>
+	
+	<select id="selectCommuteOne" resultMap="commuteResultMap">
+		SELECT *
+		FROM COMMUTE
+		WHERE TO_CHAR(C_DATE, 'YY/MM/DD') = TO_CHAR(TO_DATE(#{enrollDate}, 'YY/MM/DD'), 'YY/MM/DD')
+	</select>
+	
+	<update id="updateCommute">
+		UPDATE COMMUTE
+		SET C_START = TO_CHAR(TO_DATE(#{commuteStart}, 'yyyy-mm-dd hh24:mi:ss'), 'yyyy-mm-dd hh24:mi:ss'),
+			C_END = TO_CHAR(TO_DATE(#{commuteEnd}, 'yyyy-mm-dd hh24:mi:ss'), 'yyyy-mm-dd hh24:mi:ss'),
+			C_WORKTIME = #{worktime},
+			C_STATUS = #{status}
+		WHERE CMT_NO = #{commuteNo}
+	</update>
+	
+</mapper>

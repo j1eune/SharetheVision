@@ -6,7 +6,10 @@
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+		<param-value>
+			classpath:root-context.xml
+			/WEB-INF/spring/spring-security.xml
+		</param-value>
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
@@ -30,4 +33,128 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
+	<!-- 인코딩 필터 -->
+    <filter>
+       <filter-name>encodingFilter</filter-name>            
+          <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+       <init-param>
+          <param-name>encoding</param-name>
+          <param-value>UTF-8</param-value>
+       </init-param>
+    </filter>
+    <filter-mapping>
+       <filter-name>encodingFilter</filter-name>
+       <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <!-- 공용 에러페이지 등록 -->
+    <error-page>
+       <exception-type>java.lang.Exception</exception-type>
+       <location>/WEB-INF/views/common/errorPage.jsp</location>
+    </error-page>
+    
+    <!-- 멤버 관련 -->
+	<servlet>
+		<servlet-name>memberServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/member-context.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>memberServlet</servlet-name>
+		<url-pattern>*.me</url-pattern>
+	</servlet-mapping>
+
+	<!-- 게시판 관련 -->
+	<servlet>
+		<servlet-name>boardServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/board-context.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>boardServlet</servlet-name>
+		<url-pattern>*.bo</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 근태 관련  -->
+	<servlet>
+		<servlet-name>commuteServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/commute-context.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>commuteServlet</servlet-name>
+		<url-pattern>*.co</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 휴가 관련 -->
+	<servlet>
+		<servlet-name>leaveServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/leave-context.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>leaveServlet</servlet-name>
+		<url-pattern>*.le</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 프로젝트 관련 -->
+	<servlet>
+		<servlet-name>projectServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/project-context.xml
+			</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>projectServlet</servlet-name>
+		<url-pattern>*.pr</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	<!-- 전자 결재 관련 -->
+	<servlet>
+		<servlet-name>approvalServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/approval-context.xml
+			</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>approvalServlet</servlet-name>
+		<url-pattern>*.ap</url-pattern>
+	</servlet-mapping>
+
+	<!-- 알림 관련 -->
+	<servlet>
+		<servlet-name>noticeServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/notice-context.xml
+			</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>noticeServlet</servlet-name>
+		<url-pattern>*.no</url-pattern>
+	</servlet-mapping>
+	
+	
 </web-app>

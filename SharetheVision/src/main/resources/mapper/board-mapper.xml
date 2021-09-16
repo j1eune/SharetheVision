@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="boardMapper">
+
+	<resultMap type="Board" id="boardResultSet">
+		<id column="B_NO" property="boardNo"/>
+		<result column="B_TYPE" property="boardType"/>
+		<result column="B_TITLE" property="boardTitle"/>
+		<result column="B_CONTENT" property="boardContent"/>
+		<result column="B_CREATEDATE" property="boardCreateDate"/>
+		<result column="B_STATE" property="boardState"/>
+		<result column="B_STATUS" property="boardStatus"/>
+		<result column="M_CODE" property="memberCode"/>
+		<result column="DEPT_NO" property="deptNo"/>
+		<result column="B_WRITER" property="boardWriter"/>
+		<result column="PROJECT" property="project"/>
+		<result column="NOTICE_TYPE" property="noticeType"/>
+	</resultMap>
+	
+	<resultMap type="Attachment" id="attachmentResultSet">
+		<id column="AT_NO" property="atNo"/>
+		<result column="AT_LEVEL" property="atLevel"/>
+		<result column="AT_CATEGORY" property="atCategory"/>
+		<result column="AT_PATH" property="atPath"/>
+		<result column="AT_ORIGIN" property="atOrigin"/>
+		<result column="AT_CHANGE" property="atChange"/>
+		<result column="AT_EXTENTION" property="atExtention"/>
+		<result column="AT_STATUS" property="atStatus"/>
+	</resultMap>
+	
+	<resultMap type="Reply" id="replyResultSet">
+		<id column="R_NO" property="replyNo"/>
+		<result column="R_WRITER" property="replyWriter"/>
+		<result column="R_CONTENT" property="replyContent"/>
+		<result column="R_CREATEDATE" property="replyCreateDate"/>
+		<result column="J_NAME" property="jobName"/>
+		<result column="D_NAME" property="deptName"/>
+		<result column="R_STATUS" property="replyStatus"/>
+		<result column="M_CODE" property="memberCode"/>
+		<result column="B_NO" property="boardNo"/>
+		<result column="AT_CHANGE" property="replyWriterImage"/>
+	</resultMap>
+	<resultMap type="MemberProject" id="mProjectResultSet">
+		<id column="M_CODE" property="mCode"/>
+		<result column="P_NO" property="pNo"/>
+	</resultMap>	
+
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE B_STATUS = 'Y' AND DEPT_NO = #{deptNo} AND B_TYPE = 2
+	</select>
+	
+	<select id="selectBoardList" resultMap="boardResultSet">
+		<!-- v -->
+		SELECT *
+		FROM BOARD
+		WHERE B_TYPE=2 AND B_STATUS = 'Y' AND DEPT_NO = #{deptNo}
+		ORDER BY B_NO DESC
+	</select>
+
+	<select id="selectNewBoard" resultMap="boardResultSet">
+		<!-- v -->
+		<![CDATA[
+			SELECT *
+			FROM (SELECT *
+				  FROM BOARD
+				  WHERE B_TYPE=2 AND DEPT_NO=#{deptNo} AND B_STATUS='Y'
+				  ORDER BY B_NO DESC)
+			WHERE ROWNUM <= 3
+		]]>
+	</select>
+	
+	<select id="selectBoardDetail" resultMap="boardResultSet">
+		<!-- v -->
+		SELECT *
+		FROM BOARD
+		WHERE B_STATUS='Y' AND B_NO=#{bId}
+	</select>
+	
+	<select id="selectProjectList" resultMap="projectResultSet">
+		SELECT P_NAME
+		FROM PROJECT
+		WHERE DEPT_NO = #{deptNo} AND P_STATUS='Y' AND P_END='N'
+	</select>
+	
+	<resultMap type="Project" id="projectResultSet">
+		<id column="P_NO" property="pNo"/>
+		<result column="M_CODE" property="mCode"/>
+		<result column="P_NAME" property="pName"/>
+		<result column="P_INTRO" property="pIntro"/>
+		<result column="P_STATUS" property="pStatus"/>
+		<result column="P_END" property="pEnd"/>
+		<result column="DEPT_NO" property="deptNo"/>
+	</resultMap>
+	
+	<insert id="insertBoard">
+		INSERT INTO
+		BOARD VALUES(SEQ_BNO.NEXTVAL, 2, #{boardTitle}, #{boardContent}, default, default, default, #{memberCode}, #{deptNo}, #{boardWriter}, #{project}, null)
+	</insert>
+
+	<select id="selectLastBoard" resultMap="boardResultSet">
+		SELECT *
+		FROM (SELECT *
+			  FROM BOARD
+			  ORDER BY B_NO DESC)
+	  	WHERE ROWNUM = 1
+	</select>
+	
+	<insert id="insertAttachFile">
+		INSERT INTO
+		ATTACHMENTS VALUES(SEQ_AT.NEXTVAL, #{atLevel}, #{atCategory}, #{atPath}, #{atOrigin}, #{atChange}, null, default)
+	</insert>
+	
+	<insert id="insertScrap">
+		INSERT INTO
+		SCRAP VALUES(#{mCode}, #{boardNo}, #{project}, #{boardTitle}, #{boardWriter}, SEQ_SCRAP.NEXTVAL)
+	</insert>
+
+	<select id="scrapState" resultMap="scrapResultSet">
+		SELECT *
+		FROM SCRAP WHERE B_NO = #{boardNo} AND M_CODE = #{mCode}
+	</select>
+
+	<resultMap type="Scrap" id="scrapResultSet">
+		<id column="M_CODE" property="mCode"/>
+		<id column="B_NO" property="boardNo"/>
+		<result column="PROJECT" property="project"/>
+		<result column="B_TITLE" property="boardTitle"/>
+		<result column="B_WRITER" property="boardWriter"/>
+		<result column="S_NO" property="scrapNo"/>
+		<result column="B_STATE" property="boardState"/>
+	</resultMap>
+	
+	<delete id="deleteScrap">
+		DELETE
+		FROM SCRAP
+		WHERE B_NO = #{boardNo} AND M_CODE = #{mCode}
+	</delete>
+	
+	<select id="scrapList" resultMap="scrapResultSet">
+	<![CDATA[
+		SELECT *
+		FROM (SELECT *
+			  FROM V_SCRAP
+			  WHERE M_CODE = #{mCode}
+			  ORDER BY S_NO DESC)
+	  	WHERE ROWNUM <= 3
+		]]>
+	</select>
+	
+	<select id="selectScrapListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM SCRAP
+		WHERE M_CODE = #{mCode}
+	</select>
+	
+	<select id="selectScrapBoardList" resultMap="scrapResultSet">
+		SELECT *
+		FROM V_SCRAP
+		WHERE M_CODE = #{mCode}
+		ORDER BY S_NO DESC
+	</select>
+	
+	<select id="selectBoardStatus" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD
+		WHERE B_STATUS='N' AND B_NO=#{bId}
+	</select>
+	
+	<select id="selectSearchBoard" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD
+		<if test="category == 'title'">
+		WHERE B_TITLE LIKE '%'||#{word}||'%'
+		</if>
+		<if test="category == 'project'">
+		WHERE PROJECT LIKE '%'||#{word}||'%'
+		</if>
+		<if test="category == 'writer'">
+		WHERE B_WRITER LIKE '%'||#{word}||'%'
+		</if>
+		AND DEPT_NO = #{deptNo} AND B_STATUS = 'Y'
+		ORDER BY B_NO DESC
+	</select>
+	
+	<select id="selectSearchListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD
+		<if test="category == 'title'">
+		WHERE B_TITLE LIKE '%'||#{word}||'%'
+		</if>
+		<if test="category == 'project'">
+		WHERE PROJECT LIKE '%'||#{word}||'%'
+		</if>
+		<if test="category == 'writer'">
+		WHERE B_WRITER LIKE '%'||#{word}||'%'
+		</if>
+		AND DEPT_NO = #{deptNo} AND B_STATUS = 'Y'
+	</select>
+	
+	<select id="selectAttechedFile" resultMap="attachmentResultSet">
+		SELECT *
+		FROM ATTACHMENTS
+		WHERE AT_LEVEL = 3 AND AT_CATEGORY = #{bId} AND AT_STATUS='Y'
+	</select>
+	
+	<update id="deleteBoard">
+		UPDATE BOARD SET B_STATUS = 'N' WHERE B_NO = #{bId}
+	</update>
+	
+	<update id="deleteBoardAttachFile">
+		UPDATE ATTACHMENTS SET AT_STATUS = 'N' WHERE AT_LEVEL = 3 AND AT_CATEGORY = #{bId}
+	</update>
+	
+	<update id="changeBoard">
+		UPDATE BOARD
+		<if test="condition == 1">
+		SET B_STATE = 2
+		</if>
+		<if test="condition == 2">
+		SET B_STATE = 1
+		</if>
+		<if test="condition == 3">
+		SET B_STATUS = 'N'
+		</if>
+		WHERE PROJECT = #{projectName}
+	</update>
+	
+	<delete id="deleteProjectScrap">
+		DELETE
+		FROM SCRAP
+		WHERE PROJECT = #{projectName} AND M_CODE = #{mCode}
+	</delete>
+
+	<update id="updateBoard">
+		UPDATE BOARD SET B_TITLE = #{boardTitle}, B_CONTENT = #{boardContent}, PROJECT = #{project} WHERE B_NO = #{boardNo}
+	</update>
+	
+	<insert id="insertReply">
+		INSERT INTO REPLY VALUES(SEQ_REPLY.NEXTVAL, #{replyWriter}, #{replyContent}, default, #{jobName}, #{deptName}, default, #{memberCode}, #{boardNo})
+	</insert>
+	
+	<select id="selectReplyList" resultMap="replyResultSet">
+		SELECT R.R_NO, R.R_WRITER, R.R_CONTENT, R.R_CREATEDATE, R.J_NAME, R.D_NAME, R.R_STATUS, R.M_CODE, R.B_NO, A.AT_CHANGE
+		FROM REPLY R
+		LEFT JOIN ATTACHMENTS A ON (R.M_CODE = A.AT_CATEGORY)
+		WHERE R.B_NO = #{bId} AND R.R_STATUS = 'Y'
+		ORDER BY R_NO
+	</select>
+	
+	<update id="deleteReply">
+		UPDATE REPLY
+		SET R_STATUS = 'N'
+		WHERE R_NO = #{replyNo}
+	</update>
+	
+	<select id="selectUserProfileImage" resultMap="attachmentResultSet">
+		SELECT *
+		FROM ATTACHMENTS
+		WHERE AT_LEVEL = 1 AND AT_STATUS = 'Y' AND AT_CATEGORY = #{writermCode}
+	</select>
+	
+	<select id="findPno" resultMap="projectResultSet">
+		SELECT *
+		FROM PROJECT
+		WHERE P_NAME = #{project}
+	</select>
+	
+	<select id="getmCodeList" resultMap="mProjectResultSet">
+		SELECT *
+		FROM M_PROJECT
+		WHERE P_NO = #{pNo}
+	</select>
+	
+	<select id="selectNewNotice" resultMap="boardResultSet">
+		<![CDATA[
+			SELECT *
+			FROM (
+				SELECT B_NO, B_TITLE, B_CONTENT, B_CREATEDATE, M_CODE, DEPT_NO, B_WRITER, NOTICE_TYPE FROM BOARD WHERE B_TYPE=1 AND NOTICE_TYPE=2 AND DEPT_NO=#{deptNo} AND B_STATUS = 'Y'
+				UNION
+				SELECT B_NO, B_TITLE, B_CONTENT, B_CREATEDATE, M_CODE, DEPT_NO, B_WRITER, NOTICE_TYPE FROM BOARD WHERE B_TYPE=1 AND NOTICE_TYPE=1 AND B_STATUS = 'Y'
+				ORDER BY B_NO DESC
+			) WHERE ROWNUM <= 5
+		]]>
+	</select>
+	
+	<select id="selectNoticeListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM (
+			SELECT B_NO, B_TITLE, B_CONTENT, B_CREATEDATE, M_CODE, DEPT_NO, B_WRITER, NOTICE_TYPE FROM BOARD WHERE B_TYPE=1 AND NOTICE_TYPE=2 AND DEPT_NO=#{deptNo} AND B_STATUS='Y'
+			UNION
+			SELECT B_NO, B_TITLE, B_CONTENT, B_CREATEDATE, M_CODE, DEPT_NO, B_WRITER, NOTICE_TYPE FROM BOARD WHERE B_TYPE=1 AND NOTICE_TYPE=1 AND B_STATUS='Y'
+		)
+	</select>
+	
+	<select id="selectNoticeList" resultMap="boardResultSet">
+		SELECT B_NO, B_TITLE, B_CONTENT, B_CREATEDATE, M_CODE, DEPT_NO, B_WRITER, NOTICE_TYPE FROM BOARD WHERE B_TYPE=1 AND NOTICE_TYPE=2 AND DEPT_NO=#{deptNo} AND B_STATUS = 'Y'
+		UNION
+		SELECT B_NO, B_TITLE, B_CONTENT, B_CREATEDATE, M_CODE, DEPT_NO, B_WRITER, NOTICE_TYPE FROM BOARD WHERE B_TYPE=1 AND NOTICE_TYPE=1 AND B_STATUS = 'Y'
+		ORDER BY B_NO DESC
+	</select>
+	
+	<insert id="insertNotice">
+		INSERT INTO
+		BOARD VALUES(SEQ_BNO.NEXTVAL, 1, #{boardTitle}, #{boardContent}, DEFAULT, NULL, DEFAULT, #{memberCode}, #{deptNo}, #{boardWriter}, NULL, #{noticeType})
+	</insert>
+				
+</mapper>

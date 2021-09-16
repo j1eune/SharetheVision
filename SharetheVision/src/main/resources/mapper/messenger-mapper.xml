@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="msMapper">
+
+	<resultMap type="Member" id="MemberResultMap">
+		<id column="M_CODE" property="mCode"/>
+		<result column="M_NAME" property="name"/>
+		<result column="M_ID" property="mId"/>
+		<result column="DEPT_NO" property="deptNo"/>
+		<result column="DEPT_NAME" property="deptName"/>
+		<result column="J_NAME" property="jobName"/>
+	</resultMap>
+	
+ 	<resultMap type="Room" id="RoomResultMap">
+	   <id column="RNO" property="rno"/>
+	   <result column="FID" property="fid"/>
+	   <result column="TID" property="tid"/>
+	   <result column="RSTA" property="rsta"/>
+	</resultMap> 
+	
+	<resultMap type="Messenger" id="MsResultMap">
+	   <id column="MS_NO" property="ms_no"/>
+	   <result column="MS_CONTENT" property="ms_content"/>
+	   <result column="MS_TIME" property="ms_time"/>
+	   <result column="RNO" property="rno"/>
+	   <result column="READCOUNT" property="readcount"/>
+	   <result column="M_CODE" property="m_code"/>
+	   <result column="M_CODE2" property="m_code2"/>
+	</resultMap>
+	
+	<select id="toList" resultMap="MemberResultMap">
+	   SELECT M_CODE, M_NAME, M_ID, DEPT_NO, DEPT_NAME, J_NAME, J_NO
+	     FROM MEMBER
+	     JOIN DEPARTMENT USING(DEPT_NO)
+	     JOIN JOB USING(J_NO)
+		WHERE M_STATUS='Y'
+	 ORDER BY DEPT_NO ASC, J_NO DESC
+	</select>
+
+	<select id="RoomList" resultMap="RoomResultMap">
+		SELECT *
+		  FROM ROOM
+		 WHERE (FID = #{userName} OR TID = #{userName} )
+		   AND RSTA ='Y' OR RSTA = #{deptno}
+		 ORDER BY RNO DESC
+	</select>
+	
+	<select id="selectList" resultMap="MsResultMap">
+	   SELECT *
+		 FROM MS
+	    WHERE RNO=#{roomId}
+	</select>
+	
+	<select id="existRoom" resultMap="RoomResultMap">
+		SELECT *
+		  FROM ROOM
+		 WHERE FID IN (#{fid},#{tid}) 
+		   AND TID IN (#{tid},#{fid})
+		   AND RSTA='Y'
+	</select>
+	
+	<insert id="insertRoom">
+		INSERT INTO ROOM
+		VALUES (SEQ_RNO.NEXTVAL, #{fid}, #{tid}, DEFAULT)
+	</insert>
+	
+	<insert id="insertMs">
+		INSERT INTO MS
+		VALUES (SEQ_MS.NEXTVAL, #{message}, TO_CHAR(SYSDATE,'YY-MM-DD AMHH:MI:SS'), #{roomId}, #{count}, #{userName}, #{toId})
+	</insert>
+	
+	<select id="readCount" resultType="_int">
+		SELECT COUNT(*) 
+		  FROM MS
+         WHERE READCOUNT=1 
+		   AND RNO=#{roomId} 
+		   AND M_CODE=#{toId}
+	</select>
+	
+	<update id="updateCount">
+		UPDATE MS 
+		   SET READCOUNT = 0
+		 WHERE RNO=#{roomId}
+	</update>
+	
+	<select id="hasNotRead" resultType="_int">
+		SELECT COUNT(*) 
+		  FROM MS
+	     WHERE READCOUNT=1 
+		   AND M_CODE2=#{mId}
+	</select>
+	
+	<update id="deleteRoom">
+		UPDATE ROOM 
+		   SET RSTA='N'
+		 WHERE RNO=#{rno}
+	</update>
+	
+	
+</mapper>
